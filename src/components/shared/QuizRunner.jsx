@@ -8,6 +8,8 @@ import { awardXP, XP_REWARDS } from "@/lib/xp";
 import SpeakButton from "@/components/shared/SpeakButton";
 
 export default function QuizRunner({ questions, quizType, sourceId, sourceTitle, onComplete, previousResult }) {
+  const [questionPool, setQuestionPool] = useState(questions);
+  const [wrongIndices, setWrongIndices] = useState([]);
   const [currentQ, setCurrentQ] = useState(0);
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
@@ -24,7 +26,7 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
     );
   }
 
-  const question = questions[currentQ];
+  const question = questionPool[currentQ];
   const isCorrect = selected === question.correct_index;
 
   const handleSelect = async (index) => {
@@ -32,14 +34,18 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
     setSelected(index);
     setAnswered(true);
     const correct = index === question.correct_index;
-    if (correct) setScore(score + 1);
+    if (correct) {
+      setScore(s => s + 1);
+    } else {
+      setWrongIndices(prev => [...prev, currentQ]);
+    }
     await awardXP(base44, correct ? XP_REWARDS.quiz_correct : 0);
   };
 
   const handleNext = async () => {
-    if (currentQ + 1 >= questions.length) {
+    if (currentQ + 1 >= questionPool.length) {
       const finalScore = score;
-      const percentage = Math.round((finalScore / questions.length) * 100);
+      const percentage = Math.round((finalScore / questionPool.length) * 100);
       const isAuth = await base44.auth.isAuthenticated();
       if (isAuth) {
         await base44.entities.QuizResult.create({
@@ -47,12 +53,12 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
           source_id: sourceId,
           source_title: sourceTitle,
           score: finalScore,
-          total: questions.length,
+          total: questionPool.length,
           percentage,
         });
       }
       setFinished(true);
-      if (onComplete) onComplete(finalScore, questions.length);
+      if (onComplete) onComplete(finalScore, questionPool.length);
     } else {
       setCurrentQ(currentQ + 1);
       setSelected(null);
@@ -61,6 +67,11 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
   };
 
   const handleRestart = () => {
+    const retryPool = wrongIndices.length > 0
+      ? wrongIndices.map(i => questionPool[i])
+      : questions;
+    setQuestionPool(retryPool);
+    setWrongIndices([]);
     setCurrentQ(0);
     setSelected(null);
     setAnswered(false);
@@ -68,8 +79,11 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
     setFinished(false);
   };
 
+  const wrongCount = wrongIndices.length;
+
   if (finished) {
-    const percentage = Math.round((score / questions.length) * 100);
+    const percentage = Math.round((score / questionPool.length) * 100);
+    const retryCount = wrongCount > 0 ? wrongCount : (previousResult ? questionPool.length : 0);
     return (
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
         <Card className="border-border/50">
@@ -82,11 +96,14 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
             </h3>
             <p className="text-4xl font-bold text-primary mb-2">{percentage}%</p>
             <p className="text-muted-foreground mb-6">
-              You got {score} out of {questions.length} correct
+              You got {score} out of {questionPool.length} correct
             </p>
-            <Button onClick={handleRestart} variant="outline" className="gap-2">
-              <RotateCcw className="w-4 h-4" /> Try Again
-            </Button>
+            {retryCount > 0 && (
+              <Button onClick={handleRestart} variant="outline" className="gap-2">
+                <RotateCcw className="w-4 h-4" />
+                {wrongCount > 0 ? `Retry ${wrongCount} wrong answer${wrongCount !== 1 ? "s" : ""}` : "Try Again"}
+              </Button>
+            )}
           </CardContent>
         </Card>
       </motion.div>
@@ -98,7 +115,7 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm font-medium text-muted-foreground">
-            Question {currentQ + 1} of {questions.length}
+            Question {currentQ + 1} of {questionPool.length}
           </CardTitle>
           <span className="text-sm text-muted-foreground">Score: {score}</span>
         </div>
@@ -106,7 +123,7 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
         <div className="w-full h-1.5 bg-muted rounded-full mt-2">
           <div
             className="h-full bg-primary rounded-full transition-all duration-500"
-            style={{ width: `${((currentQ + 1) / questions.length) * 100}%` }}
+            style={{ width: `${((currentQ + 1) / questionPool.length) * 100}%` }}
           />
         </div>
       </CardHeader>
@@ -216,7 +233,7 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
 
             <div className="flex justify-end">
               <Button onClick={handleNext} className="gap-2 h-11 md:h-10">
-                {currentQ + 1 >= questions.length ? "See Results" : "Next Question"}
+                {currentQ + 1 >= questionPool.length ? "See Results" : "Next Question"}
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
