@@ -274,51 +274,6 @@ export default function Dashboard() {
       {/* Weak area recommendations — shows after ≥3 quizzes in any skill */}
       <WeakAreaCard results={results} userSfiLevel={user.sfi_level} />
 
-      {/* Quick paths */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Link to="/language" className="group">
-          <Card className="border-border/50 hover:border-primary/40 hover:shadow-md transition-all duration-200 h-full">
-            <CardContent className="p-5">
-              <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center mb-3">
-                <BookOpen className="w-5 h-5 text-blue-600" />
-              </div>
-              <h3 className="font-semibold text-foreground">Svenska</h3>
-              <p className="text-sm text-muted-foreground mt-1">Språklektioner per SFI-nivå</p>
-              <p className="text-xs text-muted-foreground/60 italic">Language lessons by SFI level</p>
-              <span className="text-xs text-primary font-medium mt-3 inline-block group-hover:underline">Fortsätt →</span>
-            </CardContent>
-          </Card>
-        </Link>
-
-        <Link to="/civic" className="group">
-          <Card className="border-border/50 hover:border-primary/40 hover:shadow-md transition-all duration-200 h-full">
-            <CardContent className="p-5">
-              <div className="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center mb-3">
-                <Landmark className="w-5 h-5 text-violet-600" />
-              </div>
-              <h3 className="font-semibold text-foreground">Samhälle</h3>
-              <p className="text-sm text-muted-foreground mt-1">Samhällskunskap & medborgarprov</p>
-              <p className="text-xs text-muted-foreground/60 italic">Civic knowledge & citizenship test</p>
-              <span className="text-xs text-primary font-medium mt-3 inline-block group-hover:underline">Fortsätt →</span>
-            </CardContent>
-          </Card>
-        </Link>
-
-        <Link to="/language-test" className="group">
-          <Card className="border-border/50 hover:border-primary/40 hover:shadow-md transition-all duration-200 h-full">
-            <CardContent className="p-5">
-              <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center mb-3">
-                <FlaskConical className="w-5 h-5 text-amber-600" />
-              </div>
-              <h3 className="font-semibold text-foreground">Prov</h3>
-              <p className="text-sm text-muted-foreground mt-1">Testa dig på alla nivåer</p>
-              <p className="text-xs text-muted-foreground/60 italic">Quiz yourself across all levels</p>
-              <span className="text-xs text-primary font-medium mt-3 inline-block group-hover:underline">Börja →</span>
-            </CardContent>
-          </Card>
-        </Link>
-      </div>
-
       {/* Gym card */}
       <Link to="/gym" className="group">
         <Card className="border-border/50 hover:border-violet-400 hover:shadow-md transition-all duration-200">
