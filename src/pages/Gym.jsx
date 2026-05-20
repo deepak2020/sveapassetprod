@@ -46,8 +46,8 @@ export default function Gym() {
 
   const today = new Date().toISOString().split("T")[0];
   const dueCount = srsCards.filter(c => c.due_date <= today && c.status !== "mastered").length;
-  const masteredCount = srsCards.filter(c => c.mastery_percentage === 100).length;
-  const masteryPct = srsCards.length > 0 ? Math.round((masteredCount / srsCards.length) * 100) : 0;
+  const srsMasteredCount = srsCards.filter(c => c.mastery_percentage === 100).length;
+  const srsMasteryPct = srsCards.length > 0 ? Math.round((srsMasteredCount / srsCards.length) * 100) : 0;
 
   const handleImportTatoeba = async (sfiLevel) => {
     setImporting(true);
@@ -142,8 +142,8 @@ export default function Gym() {
             </Card>
             <Card className="border-border/50">
               <CardContent className="p-4 text-center">
-                <p className="text-2xl font-bold text-emerald-500">{masteryPct}%</p>
-                <p className="text-xs text-muted-foreground mt-1">Mastry ({masteredCount})</p>
+                <p className="text-2xl font-bold text-emerald-500">{srsMasteryPct}%</p>
+                <p className="text-xs text-muted-foreground mt-1">Mastry ({srsMasteredCount})</p>
               </CardContent>
             </Card>
           </>
