@@ -7,12 +7,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import SpeakButton from "@/components/shared/SpeakButton";
 
-export default function QuizRunner({ questions, quizType, sourceId, sourceTitle, onComplete }) {
+export default function QuizRunner({ questions, quizType, sourceId, sourceTitle, onComplete, previousResult }) {
   const [currentQ, setCurrentQ] = useState(0);
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
-  const [score, setScore] = useState(0);
-  const [finished, setFinished] = useState(false);
+  const [score, setScore] = useState(() => previousResult?.score ?? 0);
+  const [finished, setFinished] = useState(() => !!previousResult);
 
   if (!questions || questions.length === 0) {
     return (

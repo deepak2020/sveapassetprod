@@ -277,6 +277,7 @@ export default function LessonDetail() {
             <FillInBlanks
               exercises={lesson.fill_in_blanks}
               onComplete={(score, total) => markComplete("practice", { score, total })}
+              previousResult={scores["practice"]}
             />
           </TabsContent>
         )}
@@ -358,6 +359,7 @@ export default function LessonDetail() {
               sourceId={lesson.id}
               sourceTitle={`${lesson.title} — Review`}
               onComplete={(score, total) => markComplete("review", { score, total })}
+              previousResult={scores["review"]}
             />
           </TabsContent>
         )}
@@ -375,6 +377,7 @@ export default function LessonDetail() {
               sourceId={lesson.id}
               sourceTitle={lesson.title}
               onComplete={(score, total) => markComplete("quiz", { score, total })}
+              previousResult={scores["quiz"]}
             />
           </TabsContent>
         )}

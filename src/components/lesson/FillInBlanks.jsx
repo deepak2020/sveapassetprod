@@ -6,12 +6,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 
-export default function FillInBlanks({ exercises, onComplete }) {
+export default function FillInBlanks({ exercises, onComplete, previousResult }) {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
-  const [score, setScore] = useState(0);
-  const [finished, setFinished] = useState(false);
+  const [score, setScore] = useState(() => previousResult?.score ?? 0);
+  const [finished, setFinished] = useState(() => !!previousResult);
 
   if (!exercises || exercises.length === 0) {
     return <p className="text-muted-foreground text-sm">No fill-in-the-blank exercises available.</p>;
