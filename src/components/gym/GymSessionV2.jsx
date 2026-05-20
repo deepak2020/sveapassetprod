@@ -10,6 +10,14 @@ function shuffle(arr) {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
+function normalize(str) {
+  return str
+    .toLowerCase()
+    .replace(/[\.\,\!\?\:\;'"\(\)\[\]\{\}\–\-]/g, '') // remove punctuation
+    .split(/\s+/)
+    .filter(Boolean);
+}
+
 const playAudio = async (text, lang = "sv-SE", speed = 1) => {
   const synth = window.speechSynthesis;
   const utterance = new SpeechSynthesisUtterance(text);
@@ -51,9 +59,9 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
 
   const handleAnswer = async (answer) => {
     if (answered) return;
-    const expected = sentence.answer.trim().toLowerCase();
-    const given = answer.trim().toLowerCase();
-    const isCorrect = given === expected;
+    const expectedWords = normalize(sentence.answer);
+    const givenWords = normalize(answer);
+    const isCorrect = expectedWords.length === givenWords.length && expectedWords.every((w, i) => w === givenWords[i]);
     setSelected(answer);
     setAnswered(true);
     setCorrect(isCorrect);
@@ -229,7 +237,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                       });
                       playAudio(fullSentence, "sv-SE", 1);
                     }}
-                    className="w-full p-4 rounded-xl border-2 border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors flex items-center justify-center gap-2 font-semibold text-primary mb-3"
+                    className="w-full p-4 rounded-xl border-2 border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors flex items-center justify-center gap-2 font-semibold text-primary"
                   >
                     <Volume2 className="w-5 h-5" /> Listen to complete sentence
                   </button>
