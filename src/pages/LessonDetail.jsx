@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 // analytics: lesson tab clicks tracked via base44.analytics.track
 import confetti from "canvas-confetti";
-import { ArrowLeft, BookOpen, Pen, Mic, Trophy } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Pen, Mic, Trophy } from "lucide-react";
 import { useLessonCompletion, setLastLesson } from "@/hooks/useLessonProgress";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -20,11 +20,25 @@ import ListeningExercise from "../components/lesson/ListeningExercise";
 import LessonBottomNav from "../components/lesson/LessonBottomNav";
 import ReactMarkdown from "react-markdown";
 
+const TAB_LABELS = {
+  content: "Lesson",
+  learn: "🃏 Vocabulary",
+  practice: "🧩 Practice",
+  match: "🔗 Match",
+  writing: "✍️ Writing",
+  speaking: "🗣️ Speaking",
+  listening: "👂 Listening",
+  translate: "✍️ Translate",
+  review: "🔁 Review",
+  quiz: "🎯 Quiz",
+};
+
 export default function LessonDetail() {
   const pathParts = window.location.pathname.split("/");
   const lessonId = pathParts[pathParts.length - 1];
   const { completed, scores, markComplete } = useLessonCompletion(lessonId);
   const confettiFired = useRef(false);
+  const tabsRef = useRef(null);
 
   const { data: lesson, isLoading } = useQuery({
     queryKey: ["lesson", lessonId],
@@ -117,6 +131,21 @@ export default function LessonDetail() {
   const doneCount = availableKeys.filter((k) => completed.includes(k)).length;
   const pct = availableKeys.length ? Math.round((doneCount / availableKeys.length) * 100) : 0;
 
+  const allTabs = ["content", ...availableKeys];
+  const defaultTab = hasVocab ? "learn" : hasBlanks ? "practice" : "content";
+  const [activeTab, setActiveTab] = useState(defaultTab);
+
+  const goToTab = (key) => {
+    setActiveTab(key);
+    tabsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    base44.analytics.track({
+      eventName: "lesson_tab_clicked",
+      properties: { tab: key, lesson_id: lesson.id, lesson_title: lesson.title, sfi_course: lesson.sfi_course || null, topic: lesson.topic || null },
+    });
+  };
+
+  const nextTabKey = allTabs[allTabs.indexOf(activeTab) + 1] ?? null;
+
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-28">
       {/* Back */}
@@ -169,20 +198,10 @@ export default function LessonDetail() {
       )}
 
       {/* Tabs */}
+      <div ref={tabsRef}>
       <Tabs
-        defaultValue={hasVocab ? "learn" : hasBlanks ? "practice" : "content"}
-        onValueChange={(tab) => {
-          base44.analytics.track({
-            eventName: "lesson_tab_clicked",
-            properties: {
-              tab,
-              lesson_id: lesson.id,
-              lesson_title: lesson.title,
-              sfi_course: lesson.sfi_course || null,
-              topic: lesson.topic || null,
-            },
-          });
-        }}
+        value={activeTab}
+        onValueChange={goToTab}
         className="space-y-6"
       >
         <TabsList className="flex w-full max-w-full overflow-x-auto sm:flex-wrap h-auto gap-1 justify-start sm:justify-center scrollbar-none bg-muted/50 p-1 rounded-xl">
@@ -382,6 +401,15 @@ export default function LessonDetail() {
           </TabsContent>
         )}
       </Tabs>
+      </div>
+
+      {nextTabKey && (
+        <div className="mt-6 flex justify-end">
+          <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
+            Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
+          </Button>
+        </div>
+      )}
 
       <LessonBottomNav prevLesson={prevLesson} nextLesson={nextLesson} />
     </div>
