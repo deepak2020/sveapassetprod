@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import confetti from "canvas-confetti";
 import { ArrowLeft, ArrowRight, BookOpen, Pen, Mic, Trophy } from "lucide-react";
 import { useLessonCompletion, setLastLesson } from "@/hooks/useLessonProgress";
+import { addVocabSRSCards } from "@/hooks/useVocabSRS";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -290,7 +291,10 @@ export default function LessonDetail() {
             </div>
             <FlashcardDeck
               wordPairs={lesson.word_pairs}
-              onComplete={(score, total) => markComplete("learn", { score, total })}
+              onComplete={(score, total) => {
+                markComplete("learn", { score, total });
+                addVocabSRSCards(lesson.word_pairs, lesson.id, lesson.title);
+              }}
               lessonId={lesson.id}
               lessonTitle={lesson.title}
             />

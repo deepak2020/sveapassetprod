@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import EmptyState from "../components/shared/EmptyState";
 import SkillBreakdown from "../components/dashboard/SkillBreakdown";
+import WeakAreaCard from "../components/dashboard/WeakAreaCard";
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -265,6 +266,9 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       )}
+
+      {/* Weak area recommendations — shows after ≥3 quizzes in any skill */}
+      <WeakAreaCard results={results} userSfiLevel={user.sfi_level} />
 
       {/* Quick paths */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
