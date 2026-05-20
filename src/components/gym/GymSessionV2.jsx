@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
+import { playAudio } from "@/lib/speech";
 
 function shuffle(arr) {
   return [...arr].sort(() => Math.random() - 0.5);
@@ -18,13 +19,6 @@ function normalize(str) {
     .filter(Boolean);
 }
 
-const playAudio = async (text, lang = "sv-SE", speed = 1) => {
-  const synth = window.speechSynthesis;
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = lang;
-  utterance.rate = speed;
-  synth.speak(utterance);
-};
 
 export default function GymSessionV2({ sentences, mode = "listen", level = "intermediate", srsCards, onFinish }) {
   const [current, setCurrent] = useState(0);

@@ -3,14 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, CheckCircle2, XCircle, Mic } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
-const playAudio = async (text, lang = "sv-SE", speed = 1) => {
-  const synth = window.speechSynthesis;
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = lang;
-  utterance.rate = speed;
-  synth.speak(utterance);
-};
+import { playAudio } from "@/lib/speech";
 
 export default function ListeningExercise({ phrases, onComplete }) {
   const [current, setCurrent] = useState(0);
