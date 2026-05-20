@@ -268,6 +268,13 @@ export default function LessonDetail() {
               {hasVocab && <p className="text-sm mt-1">Head to the <strong>Learn</strong> tab to start with flashcards!</p>}
             </div>
           )}
+          {nextTabKey && (
+            <div className="mt-4 flex justify-end">
+              <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
+                Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
+              </Button>
+            </div>
+          )}
         </TabsContent>
 
         {/* Babbel-style flashcards */}
@@ -283,6 +290,13 @@ export default function LessonDetail() {
               lessonId={lesson.id}
               lessonTitle={lesson.title}
             />
+            {nextTabKey && (
+              <div className="mt-4 flex justify-end">
+                <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
+                  Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
           </TabsContent>
         )}
 
@@ -298,6 +312,13 @@ export default function LessonDetail() {
               onComplete={(score, total) => markComplete("practice", { score, total })}
               previousResult={scores["practice"]}
             />
+            {nextTabKey && (
+              <div className="mt-4 flex justify-end">
+                <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
+                  Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
           </TabsContent>
         )}
 
@@ -312,6 +333,13 @@ export default function LessonDetail() {
               pairs={lesson.match_pairs}
               onComplete={(score, total) => markComplete("match", { score, total })}
             />
+            {nextTabKey && (
+              <div className="mt-4 flex justify-end">
+                <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
+                  Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
           </TabsContent>
         )}
 
@@ -323,6 +351,13 @@ export default function LessonDetail() {
               <p className="text-sm text-muted-foreground">Short writing exercises to reinforce your learning.</p>
             </div>
             <WritingExercise prompts={lesson.writing_prompts} />
+            {nextTabKey && (
+              <div className="mt-4 flex justify-end">
+                <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
+                  Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
           </TabsContent>
         )}
 
@@ -334,6 +369,13 @@ export default function LessonDetail() {
               <p className="text-sm text-muted-foreground">Read these phrases aloud to practice your pronunciation.</p>
             </div>
             <SpeakingPractice phrases={lesson.speaking_phrases} />
+            {nextTabKey && (
+              <div className="mt-4 flex justify-end">
+                <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
+                  Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
           </TabsContent>
         )}
 
@@ -348,6 +390,13 @@ export default function LessonDetail() {
               phrases={lesson.listening_phrases}
               onComplete={(score, total) => markComplete("listening", { score, total })}
             />
+            {nextTabKey && (
+              <div className="mt-4 flex justify-end">
+                <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
+                  Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
           </TabsContent>
         )}
 
@@ -362,6 +411,13 @@ export default function LessonDetail() {
               wordPairs={lesson.word_pairs}
               onComplete={(score, total) => markComplete("translate", { score, total })}
             />
+            {nextTabKey && (
+              <div className="mt-4 flex justify-end">
+                <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
+                  Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
           </TabsContent>
         )}
 
@@ -380,6 +436,13 @@ export default function LessonDetail() {
               onComplete={(score, total) => markComplete("review", { score, total })}
               previousResult={scores["review"]}
             />
+            {nextTabKey && (
+              <div className="mt-4 flex justify-end">
+                <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
+                  Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
           </TabsContent>
         )}
 
@@ -398,18 +461,11 @@ export default function LessonDetail() {
               onComplete={(score, total) => markComplete("quiz", { score, total })}
               previousResult={scores["quiz"]}
             />
+            {/* No nextTabKey on last tab — lesson complete banner handles it */}
           </TabsContent>
         )}
       </Tabs>
       </div>
-
-      {nextTabKey && (
-        <div className="mt-6 flex justify-end">
-          <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
-            Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
-          </Button>
-        </div>
-      )}
 
       <LessonBottomNav prevLesson={prevLesson} nextLesson={nextLesson} />
     </div>
