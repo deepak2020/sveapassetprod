@@ -48,10 +48,10 @@ const QUESTION_POOL = [
 ];
 
 const TIME_SLOTS = [
-  { key: "morning",   emoji: "🌅", label: "Morgon",      sublabel: "Morning",   color: "amber" },
-  { key: "afternoon", emoji: "☀️",  label: "Eftermiddag", sublabel: "Afternoon", color: "sky"   },
-  { key: "evening",   emoji: "🌆", label: "Kväll",       sublabel: "Evening",   color: "violet" },
-  { key: "night",     emoji: "🌙", label: "Natt",        sublabel: "Night",     color: "indigo" },
+  { key: "morning",   emoji: "🌅", label: "Morgon",      sublabel: "Morning",   color: "amber",  unlocksAt: 6  },
+  { key: "afternoon", emoji: "☀️",  label: "Eftermiddag", sublabel: "Afternoon", color: "sky",    unlocksAt: 12 },
+  { key: "evening",   emoji: "🌆", label: "Kväll",       sublabel: "Evening",   color: "violet", unlocksAt: 18 },
+  { key: "night",     emoji: "🌙", label: "Natt",        sublabel: "Night",     color: "indigo", unlocksAt: 22 },
 ];
 
 const SLOT_COLORS = {
@@ -107,6 +107,31 @@ function getActiveSlotKey() {
 // answer entry: null | { choice: string, correct: boolean }
 function isSlotDone(answers) {
   return answers.every((a) => a !== null);
+}
+
+function NextSlotHint({ currentSlot, allSlotsDone }) {
+  const currentIndex = TIME_SLOTS.findIndex((s) => s.key === currentSlot.key);
+  const nextSlot = TIME_SLOTS[currentIndex + 1] ?? null;
+  const now = new Date().getHours();
+
+  if (allSlotsDone) {
+    return (
+      <p className="text-xs text-muted-foreground italic text-center pt-0.5">
+        🎉 Alla utmaningar klara! · All done! New challenges at midnight.
+      </p>
+    );
+  }
+
+  if (!nextSlot) return null;
+
+  const alreadyUnlocked = now >= nextSlot.unlocksAt;
+  const msg = alreadyUnlocked
+    ? `${nextSlot.emoji} ${nextSlot.label} · ${nextSlot.sublabel} is ready now!`
+    : `${nextSlot.emoji} Kom tillbaka kl ${nextSlot.unlocksAt}:00 för ${nextSlot.label} · Come back at ${nextSlot.unlocksAt}:00 for ${nextSlot.sublabel}`;
+
+  return (
+    <p className="text-xs text-muted-foreground italic text-center pt-0.5">{msg}</p>
+  );
 }
 
 export default function DailyChallenge() {
@@ -329,7 +354,7 @@ export default function DailyChallenge() {
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            className="pt-2 border-t border-border/40"
+            className="pt-2 border-t border-border/40 space-y-2"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
@@ -340,12 +365,13 @@ export default function DailyChallenge() {
               </div>
               <span className="text-xs font-bold">{correctCount}/{QUESTIONS_PER_SLOT}</span>
             </div>
-            <div className="mt-1.5 h-1.5 w-full bg-muted rounded-full overflow-hidden">
+            <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full ${correctCount === QUESTIONS_PER_SLOT ? "bg-emerald-500" : correctCount >= 3 ? "bg-amber-400" : "bg-destructive"}`}
                 style={{ width: `${(correctCount / QUESTIONS_PER_SLOT) * 100}%` }}
               />
             </div>
+            <NextSlotHint currentSlot={slot} allSlotsDone={TIME_SLOTS.every((s) => isSlotDone(slotStates[s.key].answers))} />
           </motion.div>
         )}
       </CardContent>
