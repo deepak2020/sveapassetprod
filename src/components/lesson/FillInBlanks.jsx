@@ -6,18 +6,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 
-export default function FillInBlanks({ exercises, onComplete }) {
+export default function FillInBlanks({ exercises, onComplete, previousResult }) {
+  const [exercisePool, setExercisePool] = useState(exercises);
+  const [wrongIndices, setWrongIndices] = useState([]);
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
-  const [score, setScore] = useState(0);
-  const [finished, setFinished] = useState(false);
+  const [score, setScore] = useState(() => previousResult?.score ?? 0);
+  const [finished, setFinished] = useState(() => !!previousResult);
 
   if (!exercises || exercises.length === 0) {
     return <p className="text-muted-foreground text-sm">No fill-in-the-blank exercises available.</p>;
   }
 
-  const ex = exercises[current];
+  const ex = exercisePool[current];
   const isCorrect = selected === ex.answer;
 
   const handleSelect = async (option) => {
@@ -25,14 +27,18 @@ export default function FillInBlanks({ exercises, onComplete }) {
     setSelected(option);
     setAnswered(true);
     const correct = option === ex.answer;
-    if (correct) setScore(s => s + 1);
+    if (correct) {
+      setScore(s => s + 1);
+    } else {
+      setWrongIndices(prev => [...prev, current]);
+    }
     await awardXP(base44, correct ? XP_REWARDS.cloze_correct : XP_REWARDS.cloze_wrong);
   };
 
   const handleNext = () => {
-    if (current + 1 >= exercises.length) {
+    if (current + 1 >= exercisePool.length) {
       setFinished(true);
-      onComplete?.(score, exercises.length);
+      onComplete?.(score, exercisePool.length);
     } else {
       setCurrent(c => c + 1);
       setSelected(null);
@@ -40,12 +46,20 @@ export default function FillInBlanks({ exercises, onComplete }) {
     }
   };
 
+  const wrongCount = wrongIndices.length;
+
   const restart = () => {
+    const retryPool = wrongCount > 0
+      ? wrongIndices.map(i => exercisePool[i])
+      : exercises;
+    setExercisePool(retryPool);
+    setWrongIndices([]);
     setCurrent(0); setSelected(null); setAnswered(false); setScore(0); setFinished(false);
   };
 
   if (finished) {
-    const pct = Math.round((score / exercises.length) * 100);
+    const pct = Math.round((score / exercisePool.length) * 100);
+    const retryCount = wrongCount > 0 ? wrongCount : (previousResult ? exercisePool.length : 0);
     return (
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
         <Card className="border-border/50">
@@ -55,8 +69,13 @@ export default function FillInBlanks({ exercises, onComplete }) {
             </div>
             <h3 className="font-display text-2xl font-bold mb-1">{pct >= 80 ? "Excellent! 🎉" : pct >= 60 ? "Good job! 👍" : "Keep going! 💪"}</h3>
             <p className="text-4xl font-bold text-primary my-2">{pct}%</p>
-            <p className="text-muted-foreground mb-6">{score} / {exercises.length} correct</p>
-            <Button onClick={restart} variant="outline" className="gap-2 h-11 md:h-10"><RotateCcw className="w-4 h-4" /> Try Again</Button>
+            <p className="text-muted-foreground mb-6">{score} / {exercisePool.length} correct</p>
+            {retryCount > 0 && (
+              <Button onClick={restart} variant="outline" className="gap-2 h-11 md:h-10">
+                <RotateCcw className="w-4 h-4" />
+                {wrongCount > 0 ? `Retry ${wrongCount} wrong answer${wrongCount !== 1 ? "s" : ""}` : "Try Again"}
+              </Button>
+            )}
           </CardContent>
         </Card>
       </motion.div>
@@ -71,13 +90,13 @@ export default function FillInBlanks({ exercises, onComplete }) {
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm font-medium text-muted-foreground">
-            Fill in the blank — {current + 1} / {exercises.length}
+            Fill in the blank — {current + 1} / {exercisePool.length}
           </CardTitle>
           <span className="text-sm text-muted-foreground">Score: {score}</span>
         </div>
         <div className="w-full h-1.5 bg-muted rounded-full mt-2">
           <div className="h-full bg-amber-400 rounded-full transition-all duration-500"
-            style={{ width: `${((current + 1) / exercises.length) * 100}%` }} />
+            style={{ width: `${((current + 1) / exercisePool.length) * 100}%` }} />
         </div>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -138,7 +157,7 @@ export default function FillInBlanks({ exercises, onComplete }) {
         {answered && (
            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex justify-end">
              <Button onClick={handleNext} className="gap-2 h-11 md:h-10">
-               {current + 1 >= exercises.length ? "See Results" : "Next"}
+               {current + 1 >= exercisePool.length ? "See Results" : "Next"}
              </Button>
            </motion.div>
          )}
