@@ -22,26 +22,31 @@ function getAvailableKeys(lessons) {
   ].filter(Boolean);
 }
 
-function readCompleted(topicKey) {
-  try {
-    const raw = localStorage.getItem(`svenska:lesson_progress:${topicKey}`);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
+function readCompletedForLessons(lessons) {
+  const union = new Set();
+  for (const lesson of lessons) {
+    try {
+      const raw = localStorage.getItem(`svenska:lesson_progress:${lesson.id}`);
+      const keys = raw ? JSON.parse(raw) : [];
+      keys.forEach((k) => union.add(k));
+    } catch {
+      // ignore
+    }
   }
+  return [...union];
 }
 
 export default function TopicCard({ topic, lessons, course, index }) {
-  const topicKey = `topic:${course}:${topic}`;
+  const lessonIds = lessons.map((l) => l.id).join(",");
   const [completed, setCompleted] = useState([]);
 
   useEffect(() => {
-    setCompleted(readCompleted(topicKey));
+    setCompleted(readCompletedForLessons(lessons));
     // Re-read when user returns to the page (e.g. after finishing activities)
-    const onFocus = () => setCompleted(readCompleted(topicKey));
+    const onFocus = () => setCompleted(readCompletedForLessons(lessons));
     window.addEventListener("focus", onFocus);
     return () => window.removeEventListener("focus", onFocus);
-  }, [topicKey]);
+  }, [lessonIds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const availableKeys = getAvailableKeys(lessons);
   const doneCount = availableKeys.filter((k) => completed.includes(k)).length;
