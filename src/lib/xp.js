@@ -37,8 +37,16 @@ export function getNextLevel(xp) {
   return LEVELS[idx + 1] || null;
 }
 
+const STREAK_MILESTONES = [7, 30, 100];
+
+function dispatchXP(amount, label) {
+  if (amount > 0) {
+    window.dispatchEvent(new CustomEvent("xp-awarded", { detail: { amount, label } }));
+  }
+}
+
 // Call this after any activity to award XP and update streak
-export async function awardXP(base44, xpAmount) {
+export async function awardXP(base44, xpAmount, label) {
   const user = await base44.auth.me();
   if (!user) return;
 
@@ -47,6 +55,7 @@ export async function awardXP(base44, xpAmount) {
 
   let newStreak = user.streak_days || 0;
   let bonusXP = 0;
+  let milestoneReached = null;
 
   if (lastActive !== today) {
     const yesterday = new Date();
@@ -56,11 +65,12 @@ export async function awardXP(base44, xpAmount) {
     if (lastActive === yesterdayStr) {
       newStreak += 1;
     } else if (lastActive !== today) {
-      newStreak = 1; // reset streak
+      newStreak = 1;
     }
 
-    if (newStreak > 0 && newStreak % 7 === 0) {
+    if (STREAK_MILESTONES.includes(newStreak)) {
       bonusXP += XP_REWARDS.streak_7days;
+      milestoneReached = newStreak;
     }
   }
 
@@ -72,5 +82,16 @@ export async function awardXP(base44, xpAmount) {
     last_active_date: today,
   });
 
-  return { newXP, newStreak, bonusXP };
+  // Dispatch XP toast events after DB update
+  if (xpAmount > 0) dispatchXP(xpAmount, label);
+  if (bonusXP > 0) {
+    setTimeout(() => dispatchXP(bonusXP, `🔥 ${milestoneReached}-day streak!`), 600);
+  }
+  if (milestoneReached) {
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("streak-milestone", { detail: { streak: milestoneReached, bonusXP } }));
+    }, 800);
+  }
+
+  return { newXP, newStreak, bonusXP, milestoneReached };
 }
