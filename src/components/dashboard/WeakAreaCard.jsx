@@ -41,10 +41,10 @@ export default function WeakAreaCard({ results = [], userSfiLevel }) {
   if (weakSkills.length === 0) return null;
 
   return (
-    <Card className="border-amber-200/60 bg-amber-50/40">
+    <Card className="border-amber-300/50 dark:border-amber-700/40 bg-amber-50/40 dark:bg-amber-950/20">
       <CardHeader className="pb-3">
         <CardTitle className="text-base flex items-center gap-2">
-          <TrendingDown className="w-4 h-4 text-amber-600" />
+          <TrendingDown className="w-4 h-4 text-amber-600 dark:text-amber-400" />
           Förbättringsområden
           <span className="text-xs font-normal text-muted-foreground/60 italic">· Weak areas</span>
         </CardTitle>
@@ -54,11 +54,11 @@ export default function WeakAreaCard({ results = [], userSfiLevel }) {
           <div key={s.key}>
             <div className="flex items-center justify-between mb-1">
               <span className="text-sm font-medium">{s.emoji} {s.label}</span>
-              <span className={`text-sm font-bold ${s.avg < 60 ? "text-destructive" : "text-amber-600"}`}>
+              <span className={`text-sm font-bold ${s.avg < 60 ? "text-destructive" : "text-amber-600 dark:text-amber-400"}`}>
                 {s.avg}%
               </span>
             </div>
-            <div className="w-full h-1.5 bg-background rounded-full overflow-hidden">
+            <div className="w-full h-1.5 bg-muted rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full ${s.avg < 60 ? "bg-destructive" : "bg-amber-400"}`}
                 style={{ width: `${s.avg}%` }}
@@ -69,7 +69,7 @@ export default function WeakAreaCard({ results = [], userSfiLevel }) {
         ))}
 
         {recommendedLessons.length > 0 && (
-          <div className="pt-3 border-t border-amber-200/60">
+          <div className="pt-3 border-t border-amber-200/60 dark:border-amber-700/30">
             <p className="text-xs font-medium text-muted-foreground mb-2">
               Rekommenderade lektioner ·{" "}
               <span className="italic">Recommended for {weakSkills[0].label.toLowerCase()}</span>
@@ -79,7 +79,7 @@ export default function WeakAreaCard({ results = [], userSfiLevel }) {
                 <Link
                   key={l.id}
                   to={`/language/${l.id}`}
-                  className="flex items-center justify-between p-2.5 rounded-lg bg-background border border-border/50 hover:border-amber-300 hover:bg-amber-50/50 transition-all"
+                  className="flex items-center justify-between p-2.5 rounded-lg bg-card border border-border/50 hover:border-amber-400/60 hover:bg-muted/50 transition-all"
                 >
                   <div className="min-w-0">
                     <p className="text-sm font-medium truncate">{l.title}</p>
