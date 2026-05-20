@@ -66,6 +66,12 @@ export default function LessonDetail() {
     if (lesson) setLastLesson(lesson);
   }, [lesson]);
 
+  // Controlled tab state — default to "learn" if available, else "practice", else "content"
+  const defaultTab = lesson
+    ? (lesson.word_pairs?.length > 0 ? "learn" : lesson.fill_in_blanks?.length > 0 ? "practice" : "content")
+    : "content";
+  const [activeTab, setActiveTab] = useState(defaultTab);
+
   if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -132,8 +138,6 @@ export default function LessonDetail() {
   const pct = availableKeys.length ? Math.round((doneCount / availableKeys.length) * 100) : 0;
 
   const allTabs = ["content", ...availableKeys];
-  const defaultTab = hasVocab ? "learn" : hasBlanks ? "practice" : "content";
-  const [activeTab, setActiveTab] = useState(defaultTab);
 
   const goToTab = (key) => {
     setActiveTab(key);
