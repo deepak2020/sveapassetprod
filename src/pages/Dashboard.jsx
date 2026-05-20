@@ -25,6 +25,7 @@ import {
 import EmptyState from "../components/shared/EmptyState";
 import SkillBreakdown from "../components/dashboard/SkillBreakdown";
 import WeakAreaCard from "../components/dashboard/WeakAreaCard";
+import DailyChallenge from "../components/dashboard/DailyChallenge";
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -266,6 +267,9 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       )}
+
+      {/* Daily challenge */}
+      <DailyChallenge />
 
       {/* Weak area recommendations — shows after ≥3 quizzes in any skill */}
       <WeakAreaCard results={results} userSfiLevel={user.sfi_level} />

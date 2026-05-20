@@ -21,6 +21,8 @@ import Privacy from './pages/Privacy';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import ThemeSync from './components/ThemeSync';
+import XPToast from './components/shared/XPToast';
+import StreakMilestoneModal from './components/shared/StreakMilestoneModal';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -77,6 +79,8 @@ function App() {
           <AuthenticatedApp />
         </Router>
         <Toaster />
+        <XPToast />
+        <StreakMilestoneModal />
       </QueryClientProvider>
     </AuthProvider>
   )
