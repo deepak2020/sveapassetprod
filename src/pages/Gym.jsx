@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { Play, BookOpen, Upload } from "lucide-react";
+import { Play, BookOpen, Upload, Brain } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import GymSessionV2 from "@/components/gym/GymSessionV2";
+import VocabReviewSession from "@/components/gym/VocabReviewSession";
 import LoginGate from "@/components/shared/LoginGate";
+import { useVocabSRS } from "@/hooks/useVocabSRS";
 
 const SFI_LEVELS = ["A", "B", "C", "D"];
 const SENTENCE_COUNTS = [10, 25, 50];
@@ -18,8 +20,10 @@ const SKILLS = [
 
 export default function Gym() {
   const [session, setSession] = useState(null);
+  const [vocabSession, setVocabSession] = useState(false);
   const [showImport, setShowImport] = useState(false);
   const [importing, setImporting] = useState(false);
+  const { dueCards, masteredCount, totalCount, refresh } = useVocabSRS();
 
   const { data: sentences = [] } = useQuery({
     queryKey: ["cloze-sentences"],
@@ -58,6 +62,15 @@ export default function Gym() {
       setShowImport(false);
     }
   };
+
+  if (vocabSession) {
+    return (
+      <VocabReviewSession
+        cards={dueCards}
+        onFinish={() => { setVocabSession(false); refresh(); }}
+      />
+    );
+  }
 
   if (session) {
     return (
@@ -136,6 +149,47 @@ export default function Gym() {
           </>
         )}
       </div>
+
+      {/* Vocab Review deck (lesson word pairs) */}
+      {totalCount > 0 && (
+        <Card className={`border-2 transition-all ${dueCards.length > 0 ? "border-violet-300 bg-violet-50/40" : "border-border/50"}`}>
+          <CardContent className="p-5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center shrink-0">
+                  <Brain className="w-5 h-5 text-violet-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Ordförrådsgranskning</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Vocabulary SRS · {totalCount} cards, {masteredCount} mastered
+                  </p>
+                </div>
+              </div>
+              <div className="text-right shrink-0 ml-3">
+                {dueCards.length > 0 ? (
+                  <Button size="sm" onClick={() => setVocabSession(true)} className="gap-1.5 bg-violet-600 hover:bg-violet-700">
+                    <Play className="w-3.5 h-3.5" /> Review {dueCards.length}
+                  </Button>
+                ) : (
+                  <span className="text-xs text-emerald-600 font-medium">✓ All caught up</span>
+                )}
+              </div>
+            </div>
+            {totalCount > 0 && (
+              <div className="mt-3">
+                <div className="w-full h-1.5 bg-background rounded-full overflow-hidden">
+                  <div className="h-full bg-violet-500 rounded-full transition-all"
+                    style={{ width: `${Math.round((masteredCount / totalCount) * 100)}%` }} />
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {Math.round((masteredCount / totalCount) * 100)}% mastered
+                </p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {sentences.length === 0 ? (
         <Card className="border-border/50">
