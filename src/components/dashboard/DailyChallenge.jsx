@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CalendarCheck, CheckCircle2, ChevronLeft, ChevronRight, RefreshCw } from "lucide-react";
+import { CalendarCheck, CheckCircle2, ChevronLeft, ChevronRight, RefreshCw, Lock } from "lucide-react";
 
 const QUESTION_POOL = [
   { q: "Vilket år antog Sverige sin nuvarande grundlag?", a: "1974", choices: ["1809", "1974", "1921", "1953"], en: "What year did Sweden adopt its current constitution?" },
@@ -102,6 +102,13 @@ function getActiveSlotKey() {
   if (h >= 12 && h < 18) return "afternoon";
   if (h >= 18 && h < 22) return "evening";
   return "night";
+}
+
+function isSlotUnlocked(slot) {
+  const h = new Date().getHours();
+  // night wraps midnight: unlocks at 22, available until 6am
+  if (slot.key === "night") return h >= 22 || h < 6;
+  return h >= slot.unlocksAt;
 }
 
 // answer entry: null | { choice: string, correct: boolean }
@@ -213,6 +220,7 @@ export default function DailyChallenge() {
     setPendingChoice(null);
   };
 
+  const slotUnlocked = isSlotUnlocked(slot);
   const q = questions[currentQ];
   const showResult = isAnswered || pendingChoice !== null;
   const activeChoice = isAnswered ? currentAnswer.choice : pendingChoice;
@@ -239,23 +247,29 @@ export default function DailyChallenge() {
           {TIME_SLOTS.map((s) => {
             const status = getSlotStatus(s.key);
             const isActive = s.key === activeSlot;
+            const unlocked = isSlotUnlocked(s);
             const c = SLOT_COLORS[s.color];
             return (
               <button
                 key={s.key}
                 onClick={() => changeSlot(s.key)}
                 className={`relative flex flex-col items-center gap-0.5 py-1.5 px-1 rounded-lg text-xs font-medium transition-all border-2 ${
-                  isActive ? `${c.tab} border-current` : "border-transparent text-muted-foreground hover:bg-muted/50"
-                }`}
+                  isActive
+                    ? unlocked ? `${c.tab} border-current` : "bg-muted/60 border-border/50 text-muted-foreground"
+                    : "border-transparent text-muted-foreground hover:bg-muted/50"
+                } ${!unlocked ? "opacity-50" : ""}`}
               >
-                <span className="text-base leading-none">{s.emoji}</span>
+                <span className={`text-base leading-none ${!unlocked ? "grayscale" : ""}`}>{s.emoji}</span>
                 <span className="hidden sm:block">{s.label}</span>
-                {/* Status indicator */}
-                {status === "done" && (
+                {/* Status indicators */}
+                {unlocked && status === "done" && (
                   <CheckCircle2 className="absolute -top-1 -right-1 w-3.5 h-3.5 text-emerald-500 bg-card rounded-full" />
                 )}
-                {status === "partial" && (
+                {unlocked && status === "partial" && (
                   <span className="absolute -top-1 -right-1 w-3 h-3 bg-amber-400 rounded-full border border-card" />
+                )}
+                {!unlocked && (
+                  <Lock className="absolute -top-1 -right-1 w-3 h-3 text-muted-foreground" />
                 )}
               </button>
             );
@@ -264,25 +278,52 @@ export default function DailyChallenge() {
       </CardHeader>
 
       <CardContent className="space-y-3">
-        {/* Progress dots */}
-        <div className="flex items-center gap-1.5">
-          {answers.map((a, i) => (
-            <button
-              key={i}
-              onClick={() => { setCurrentQ(i); setPendingChoice(null); }}
-              className={`h-1.5 rounded-full transition-all ${
-                i === currentQ ? "w-6 bg-foreground" :
-                a?.correct ? "w-3 bg-emerald-500" :
-                a && !a.correct ? "w-3 bg-destructive" :
-                "w-3 bg-muted-foreground/30"
-              }`}
-            />
-          ))}
-          <span className="text-xs text-muted-foreground ml-auto">{currentQ + 1} / {QUESTIONS_PER_SLOT}</span>
-        </div>
+        {/* Lock screen for future slots */}
+        {!slotUnlocked && (
+          <motion.div
+            key={`locked-${activeSlot}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex flex-col items-center justify-center py-6 gap-3 text-center"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center">
+              <Lock className="w-6 h-6 text-muted-foreground" />
+            </div>
+            <div>
+              <p className="font-medium text-sm">{slot.emoji} {slot.label} · {slot.sublabel}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Låses upp kl {slot.unlocksAt}:00 · Unlocks at {slot.unlocksAt}:00
+              </p>
+            </div>
+            <div className="flex gap-1">
+              {Array(QUESTIONS_PER_SLOT).fill(null).map((_, i) => (
+                <span key={i} className="w-3 h-1.5 rounded-full bg-muted-foreground/20" />
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Progress dots — only for unlocked slots */}
+        {slotUnlocked && (
+          <div className="flex items-center gap-1.5">
+            {answers.map((a, i) => (
+              <button
+                key={i}
+                onClick={() => { setCurrentQ(i); setPendingChoice(null); }}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === currentQ ? "w-6 bg-foreground" :
+                  a?.correct ? "w-3 bg-emerald-500" :
+                  a && !a.correct ? "w-3 bg-destructive" :
+                  "w-3 bg-muted-foreground/30"
+                }`}
+              />
+            ))}
+            <span className="text-xs text-muted-foreground ml-auto">{currentQ + 1} / {QUESTIONS_PER_SLOT}</span>
+          </div>
+        )}
 
         {/* Question area */}
-        <AnimatePresence mode="wait">
+        {slotUnlocked && <AnimatePresence mode="wait">
           <motion.div
             key={`${activeSlot}-${currentQ}`}
             initial={{ opacity: 0, x: 16 }}
@@ -347,10 +388,10 @@ export default function DailyChallenge() {
               </div>
             )}
           </motion.div>
-        </AnimatePresence>
+        </AnimatePresence>}
 
         {/* Slot completion summary */}
-        {slotDone && (
+        {slotUnlocked && slotDone && (
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
