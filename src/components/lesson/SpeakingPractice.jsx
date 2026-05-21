@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, Mic, CheckCircle2, XCircle, RotateCcw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -43,10 +43,17 @@ const playSound = (isCorrect) => {
   }
 };
 
-export default function SpeakingPractice({ phrases }) {
+export default function SpeakingPractice({ phrases, onComplete }) {
   const [expanded, setExpanded] = useState(null);
   const [listening, setListening] = useState(null);
   const [feedback, setFeedback] = useState({});
+
+  useEffect(() => {
+    if (!phrases || phrases.length === 0) return;
+    if (Object.keys(feedback).length === phrases.length) {
+      onComplete?.();
+    }
+  }, [feedback, phrases, onComplete]);
 
   if (!phrases || phrases.length === 0) {
     return <p className="text-muted-foreground text-sm">No speaking phrases available.</p>;
