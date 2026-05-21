@@ -17,14 +17,16 @@ ${exampleAnswer ? `Example answer: ${exampleAnswer}` : ""}
 
 Student's answer: "${userAnswer}"
 
-Evaluate the student's answer. Be encouraging and supportive — they are learning Swedish.
+Evaluate the student's answer thoroughly. Be encouraging and supportive — they are learning Swedish.
+
+IMPORTANT for grammar_issues: Find and list EVERY grammar, spelling, word order, and vocabulary mistake in the student's answer — not just one. Each issue must include the exact wrong text as it appears in the student's answer, the corrected Swedish form, and a brief explanation in English. If a word is a proper noun or name, do NOT flag it as a spelling error.
 
 Return JSON with exactly these fields:
 - relevant: boolean — does the answer actually address the writing prompt?
-- relevance_feedback: string — one sentence explaining if they answered the question or went off-topic (in English)
-- grammar_issues: array of objects, each with: wrong (the exact phrase from the student's text), correct (suggested fix in Swedish), explanation (why in English). Empty array if no issues.
-- suggestion: string — one practical tip to improve the answer (in English, keep it brief)
-- score: one of "great" | "good" | "needs_work"
+- relevance_feedback: string — one sentence on whether they answered the question or went off-topic (in English)
+- grammar_issues: array — INCLUDE ALL mistakes found, not just the first one. Each item: wrong (exact phrase from student text), correct (fixed Swedish), explanation (why, in English). Empty array only if there are truly no issues.
+- suggestion: string — one practical tip to expand or improve the answer (in English, brief)
+- score: "great" | "good" | "needs_work"
 - overall: string — one encouraging sentence summarising their effort (in English)`,
     response_json_schema: {
       type: "object",
