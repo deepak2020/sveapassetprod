@@ -194,7 +194,7 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
             </Button>
           ) : (
             <Button onClick={handleNext} className="ml-auto">
-              {current + 1 >= exercises.length ? "See Results" : "Next →"}
+              {current + 1 >= exercisePool.length ? "See Results" : "Next →"}
             </Button>
           )}
         </div>
