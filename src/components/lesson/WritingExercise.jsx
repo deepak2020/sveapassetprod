@@ -17,28 +17,31 @@ ${exampleAnswer ? `Model answer: ${exampleAnswer}` : ""}
 Student wrote: "${userAnswer}"
 
 Step 1 — Read the student's text word by word.
-Step 2 — In a single pass, collect EVERY error you see across ALL of these categories at the same time:
+Step 2 — In a single pass, fix EVERY error across ALL categories at once:
   a) Spelling mistakes (skip proper nouns and names)
   b) Wrong verb form or tense
   c) Wrong article (en/ett)
   d) Wrong word order
   e) Wrong or unnatural vocabulary choice
 
-Step 3 — Put ALL errors from step 2 into the grammar_issues array in one go. Do not save some for later. Do not group by category. List every single one now.
+Step 3 — Write corrected_text: the student's FULL answer with ALL corrections applied. Keep names, punctuation, and correct words exactly as written. Only fix the errors.
 
-Step 4 — Decide if the answer addresses the question (relevant).
-Step 5 — Write one tip and one overall sentence.
+Step 4 — List every change you made in grammar_issues.
+
+Step 5 — Decide if the answer addresses the question, write one tip, one overall sentence.
 
 Return JSON:
+- corrected_text: string — the student's full answer with every error fixed
 - relevant: boolean
 - relevance_feedback: string (English, one sentence)
-- grammar_issues: array of ALL errors found in step 2, each with: wrong (exact text from student), correct (Swedish fix), explanation (English, max 10 words). Must be complete — do not omit any error.
+- grammar_issues: array of every change made, each: wrong (original word/phrase), correct (fixed form), explanation (English, max 10 words)
 - suggestion: string (English, one practical tip)
 - score: "great" | "good" | "needs_work"
 - overall: string (English, one encouraging sentence)`,
     response_json_schema: {
       type: "object",
       properties: {
+        corrected_text: { type: "string" },
         relevant: { type: "boolean" },
         relevance_feedback: { type: "string" },
         grammar_issues: {
@@ -61,41 +64,63 @@ Return JSON:
   return result;
 }
 
-function AnnotatedText({ text, grammarIssues }) {
-  if (!grammarIssues || grammarIssues.length === 0) {
-    return <span className="text-sm text-foreground leading-relaxed">{text}</span>;
+// Split text into tokens: words and the whitespace/punctuation between them
+function tokenize(text) {
+  return text.split(/(\s+)/);
+}
+
+// Word-by-word diff between original and corrected text.
+// Returns array of segments: { type: "same"|"changed", orig, corr }
+function wordDiff(original, corrected) {
+  if (!corrected || original === corrected) return [{ type: "same", orig: original }];
+
+  const origTokens = tokenize(original);
+  const corrTokens = tokenize(corrected);
+
+  // Fast path: same token count — compare slot by slot
+  if (origTokens.length === corrTokens.length) {
+    return origTokens.map((tok, i) => {
+      const same = tok.toLowerCase().replace(/[^a-zåäöA-ZÅÄÖ]/g, "") ===
+                   corrTokens[i].toLowerCase().replace(/[^a-zåäöA-ZÅÄÖ]/g, "");
+      return same
+        ? { type: "same", orig: tok }
+        : { type: "changed", orig: tok, corr: corrTokens[i] };
+    });
   }
 
-  // Build segments: split text around each matched error phrase
-  let segments = [{ t: text, error: false }];
-  grammarIssues.forEach((issue) => {
-    if (!issue.wrong) return;
-    const next = [];
-    segments.forEach((seg) => {
-      if (seg.error) { next.push(seg); return; }
-      const idx = seg.t.toLowerCase().indexOf(issue.wrong.toLowerCase());
-      if (idx === -1) { next.push(seg); return; }
-      if (idx > 0) next.push({ t: seg.t.slice(0, idx), error: false });
-      next.push({ t: seg.t.slice(idx, idx + issue.wrong.length), error: true, issue });
-      if (idx + issue.wrong.length < seg.t.length) {
-        next.push({ t: seg.t.slice(idx + issue.wrong.length), error: false });
-      }
-    });
-    segments = next;
-  });
+  // Fallback: show original word-by-word then corrected version
+  return [
+    { type: "same", orig: original + " " },
+    { type: "corrected_block", corr: corrected },
+  ];
+}
+
+function AnnotatedText({ original, correctedText }) {
+  if (!correctedText || original === correctedText) {
+    return <span className="text-sm text-foreground leading-relaxed">{original}</span>;
+  }
+
+  const segments = wordDiff(original, correctedText);
 
   return (
     <span className="text-sm leading-relaxed">
-      {segments.map((seg, i) =>
-        seg.error ? (
-          <span key={i} className="inline-flex items-baseline gap-1 flex-wrap">
-            <s className="text-red-500 dark:text-red-400">{seg.t}</s>
-            <span className="font-medium text-green-700 dark:text-green-400">{seg.issue.correct}</span>
+      {segments.map((seg, i) => {
+        if (seg.type === "same") return <span key={i} className="text-foreground">{seg.orig}</span>;
+        if (seg.type === "changed") return (
+          <span key={i} className="inline-flex items-baseline gap-0.5">
+            <s className="text-red-500 dark:text-red-400">{seg.orig}</s>
+            {" "}
+            <span className="font-semibold text-green-700 dark:text-green-400">{seg.corr}</span>
           </span>
-        ) : (
-          <span key={i} className="text-foreground">{seg.t}</span>
-        )
-      )}
+        );
+        // fallback block
+        return (
+          <span key={i}>
+            <s className="text-red-400">{seg.orig}</s>
+            <span className="font-semibold text-green-700 dark:text-green-400 ml-1">{seg.corr}</span>
+          </span>
+        );
+      })}
     </span>
   );
 }
@@ -214,19 +239,10 @@ function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer,
             </>
           ) : (
             <div className="space-y-3">
-              {/* Answer with inline corrections */}
+              {/* Answer with inline word-diff corrections */}
               <div className="bg-violet-50 dark:bg-violet-950/30 rounded-xl p-3 border border-violet-200/60 dark:border-violet-800/40">
-                <div className="flex items-center justify-between mb-1.5">
-                  <p className="text-sm font-medium text-violet-700 dark:text-violet-300">Your answer:</p>
-                  {feedback?.grammar_issues?.length > 0 && (
-                    <span className="text-xs text-muted-foreground">
-                      <s className="text-red-400">wrong</s>
-                      {" "}
-                      <span className="text-green-600 font-medium">correct</span>
-                    </span>
-                  )}
-                </div>
-                <AnnotatedText text={savedAnswer} grammarIssues={feedback?.grammar_issues} />
+                <p className="text-sm font-medium text-violet-700 dark:text-violet-300 mb-1.5">Your answer:</p>
+                <AnnotatedText original={savedAnswer} correctedText={feedback?.corrected_text} />
               </div>
 
               {/* AI feedback */}
