@@ -107,11 +107,16 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
           <CardTitle className="text-sm font-medium text-muted-foreground">
             Translate to Swedish — {current + 1} / {exercisePool.length}
           </CardTitle>
-          <span className="text-sm text-muted-foreground">Score: {score}</span>
+          <span className="text-sm text-muted-foreground" aria-label={`Score: ${score} out of ${exercisePool.length}`}>Score: {score}</span>
         </div>
         <div className="w-full h-1.5 bg-muted rounded-full mt-2">
           <div
             className="h-full bg-primary rounded-full transition-all duration-500"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(((current + 1) / exercisePool.length) * 100)}
+            aria-label="Translation exercise progress"
             style={{ width: `${((current + 1) / exercisePool.length) * 100}%` }}
           />
         </div>
@@ -140,6 +145,7 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
                 disabled={submitted}
                 placeholder="Type the Swedish translation..."
                 rows={2}
+                aria-label="Type the Swedish translation"
                 onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); if (!submitted) handleSubmit(); } }}
                 className="w-full rounded-xl border-2 border-border/50 bg-background px-4 py-3 text-sm resize-none focus:outline-none focus:border-primary/60 disabled:opacity-60 transition-colors"
               />
@@ -149,6 +155,8 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
             {!submitted && (
               <button
                 onClick={() => setShowHint(v => !v)}
+                aria-expanded={showHint}
+                aria-controls="hint-text"
                 className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Lightbulb className="w-3.5 h-3.5" />
@@ -157,6 +165,9 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
             )}
             {showHint && !submitted && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                id="hint-text"
+                role="region"
+                aria-label="Translation hint"
                 className="text-xs text-muted-foreground bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
                 Hint: starts with "<span className="font-semibold text-amber-700">{ex.example_sv.split(" ")[0]}</span>"
               </motion.div>
@@ -167,6 +178,7 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
+                aria-live="polite"
                 className={`rounded-xl p-4 border-2 ${isCorrect ? "bg-green-50 border-green-300" : "bg-red-50 border-red-300"}`}
               >
                 <div className="flex items-center gap-2 mb-1">

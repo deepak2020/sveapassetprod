@@ -33,17 +33,25 @@ export default function LessonProgress({ completed = [], scores = {}, availableK
         <span className="font-medium">
           Aktiviteter klara · <span className="italic">Activities complete</span>
         </span>
-        <span className="font-semibold">
+        <span className="font-semibold" aria-live="polite">
           {doneCount}/{steps.length}
         </span>
       </div>
-      <div className="flex items-center gap-2 flex-wrap">
+      <div
+        className="flex items-center gap-2 flex-wrap"
+        role="progressbar"
+        aria-valuenow={doneCount}
+        aria-valuemin={0}
+        aria-valuemax={steps.length}
+        aria-label={`${doneCount} of ${steps.length} activities complete`}
+      >
         {steps.map((step) => {
           const done = completed.includes(step.key);
           const result = scores[step.key];
           return (
             <div
               key={step.key}
+              aria-label={`${step.label}${done ? (result ? ` — completed, score ${result.score}/${result.total} (${result.percentage}%)` : " — completed") : " — not yet completed"}`}
               className={`flex items-center gap-1.5 pl-2.5 pr-2 py-1 rounded-full text-xs font-medium border transition-colors ${
                 done
                   ? "bg-green-50 border-green-200 text-green-700"

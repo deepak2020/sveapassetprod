@@ -205,51 +205,51 @@ export default function LessonDetail() {
         className="space-y-6"
       >
         <TabsList className="flex w-full max-w-full overflow-x-auto sm:flex-wrap h-auto gap-1 justify-start sm:justify-center scrollbar-none bg-muted/50 p-1 rounded-xl">
-          <TabsTrigger value="content" className="shrink-0 gap-1.5 text-sm data-[state=active]:bg-background">
+          <TabsTrigger value="content" aria-label="Lesson" className="shrink-0 gap-1.5 text-sm data-[state=active]:bg-background">
             <BookOpen className="w-3.5 h-3.5" /> Lesson
           </TabsTrigger>
           {hasVocab && (
-            <TabsTrigger value="learn" className="shrink-0 text-sm data-[state=active]:bg-background">
+            <TabsTrigger value="learn" aria-label={`Learn vocabulary${completed.includes("learn") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
               🃏 Learn {completed.includes("learn") && "✓"}
             </TabsTrigger>
           )}
           {hasBlanks && (
-            <TabsTrigger value="practice" className="shrink-0 text-sm data-[state=active]:bg-background">
+            <TabsTrigger value="practice" aria-label={`Practice${completed.includes("practice") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
               🧩 Practice {completed.includes("practice") && "✓"}
             </TabsTrigger>
           )}
           {hasMatch && (
-            <TabsTrigger value="match" className="shrink-0 text-sm data-[state=active]:bg-background">
+            <TabsTrigger value="match" aria-label={`Match${completed.includes("match") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
               🔗 Match {completed.includes("match") && "✓"}
             </TabsTrigger>
           )}
           {hasWriting && (
-            <TabsTrigger value="writing" className="shrink-0 gap-1.5 text-sm data-[state=active]:bg-background">
+            <TabsTrigger value="writing" aria-label="Writing" className="shrink-0 gap-1.5 text-sm data-[state=active]:bg-background">
               <Pen className="w-3.5 h-3.5" /> Writing
             </TabsTrigger>
           )}
           {hasSpeaking && (
-            <TabsTrigger value="speaking" className="shrink-0 text-sm data-[state=active]:bg-background">
+            <TabsTrigger value="speaking" aria-label={`Speaking${completed.includes("speaking") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
               🗣️ Speaking {completed.includes("speaking") && "✓"}
             </TabsTrigger>
           )}
           {hasListening && (
-            <TabsTrigger value="listening" className="shrink-0 text-sm data-[state=active]:bg-background">
+            <TabsTrigger value="listening" aria-label={`Listening${completed.includes("listening") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
               👂 Listening {completed.includes("listening") && "✓"}
             </TabsTrigger>
           )}
           {hasTranslate && (
-            <TabsTrigger value="translate" className="shrink-0 text-sm data-[state=active]:bg-background">
+            <TabsTrigger value="translate" aria-label={`Translate${completed.includes("translate") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
               ✍️ Translate {completed.includes("translate") && "✓"}
             </TabsTrigger>
           )}
           {hasReview && (
-            <TabsTrigger value="review" className="shrink-0 text-sm data-[state=active]:bg-background">
+            <TabsTrigger value="review" aria-label={`Review${completed.includes("review") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
               🔁 Review {completed.includes("review") && "✓"}
             </TabsTrigger>
           )}
           {hasQuiz && (
-            <TabsTrigger value="quiz" className="shrink-0 text-sm data-[state=active]:bg-background">
+            <TabsTrigger value="quiz" aria-label={`Quiz${completed.includes("quiz") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
               🎯 Quiz {completed.includes("quiz") && "✓"}
             </TabsTrigger>
           )}

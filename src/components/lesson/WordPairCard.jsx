@@ -9,7 +9,10 @@ export default function WordPairCard({ pair, index }) {
   return (
     <Card
       className="group cursor-pointer border-border/50 hover:border-primary/20 transition-all duration-300"
+      role="button"
+      tabIndex={0}
       onClick={() => setRevealed(!revealed)}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setRevealed(!revealed); } }}
     >
       <CardContent className="p-5">
         <div className="flex items-start justify-between">
@@ -25,7 +28,7 @@ export default function WordPairCard({ pair, index }) {
               )}
             </div>
           </div>
-          <Button variant="ghost" size="icon" className="shrink-0 text-muted-foreground">
+          <Button variant="ghost" size="icon" aria-label={revealed ? "Hide translation" : "Show translation"} className="shrink-0 text-muted-foreground">
             {revealed ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
           </Button>
         </div>

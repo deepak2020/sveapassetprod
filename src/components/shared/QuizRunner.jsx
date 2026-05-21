@@ -117,11 +117,20 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
           <CardTitle className="text-sm font-medium text-muted-foreground">
             Question {currentQ + 1} of {questionPool.length}
           </CardTitle>
-          <span className="text-sm text-muted-foreground">Score: {score}</span>
+          <span
+            className="text-sm text-muted-foreground"
+            aria-label={`Score: ${score} out of ${questionPool.length}`}
+          >
+            Score: {score}
+          </span>
         </div>
         {/* Progress bar */}
         <div className="w-full h-1.5 bg-muted rounded-full mt-2">
           <div
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(((currentQ + 1) / questionPool.length) * 100)}
             className="h-full bg-primary rounded-full transition-all duration-500"
             style={{ width: `${((currentQ + 1) / questionPool.length) * 100}%` }}
           />
@@ -197,6 +206,7 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
+            aria-live="polite"
             className="space-y-3 pt-2"
           >
             {/* Explanation panel */}

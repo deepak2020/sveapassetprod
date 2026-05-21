@@ -74,7 +74,7 @@ export default function MatchingExercise({ pairs, onComplete }) {
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-muted-foreground" aria-live="polite">
         Tap an item on the left, then its match on the right. {matched.length}/{pairs.length} matched.
       </p>
       <div className="grid grid-cols-2 gap-3">
@@ -89,6 +89,9 @@ export default function MatchingExercise({ pairs, onComplete }) {
                 key={pair.left}
                 onClick={() => handleLeft(pair.left)}
                 disabled={isMatched}
+                aria-label={`Match: ${pair.left}${isMatched ? ' — matched' : isSelected ? ' — selected' : ''}`}
+                aria-pressed={isSelected}
+                aria-disabled={isMatched}
                 className={cn(
                   "w-full text-left px-4 py-3 rounded-xl border-2 text-sm font-medium transition-all",
                   isMatched && "bg-green-50 border-green-300 text-green-700 opacity-60 cursor-default",
@@ -116,6 +119,9 @@ export default function MatchingExercise({ pairs, onComplete }) {
                 key={right}
                 onClick={() => handleRight(right)}
                 disabled={isMatched}
+                aria-label={`Match: ${right}${isMatched ? ' — matched' : isSelected ? ' — selected' : ''}`}
+                aria-pressed={isSelected}
+                aria-disabled={isMatched}
                 className={cn(
                   "w-full text-left px-4 py-3 rounded-xl border-2 text-sm font-medium transition-all",
                   isMatched && "bg-green-50 border-green-300 text-green-700 opacity-60 cursor-default",

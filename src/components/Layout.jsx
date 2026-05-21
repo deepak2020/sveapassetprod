@@ -238,6 +238,8 @@ export default function Layout() {
               return (
                 <button
                   key={item.path}
+                  aria-label={item.label}
+                  aria-current={isActive ? "page" : undefined}
                   onClick={() => {
                     if (isActive) {
                       // Already on this tab — reset to root
@@ -246,7 +248,7 @@ export default function Layout() {
                       navigate(item.path);
                     }
                   }}
-                  className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-all no-select ${isActive ? "text-primary" : "text-muted-foreground"}`}
+                  className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-all no-select min-h-[44px] min-w-[44px] ${isActive ? "text-primary" : "text-muted-foreground"}`}
                 >
                   <Icon className="w-5 h-5" />
                   <span className="text-[10px] font-medium">{item.label}</span>

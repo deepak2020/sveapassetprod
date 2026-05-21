@@ -96,6 +96,8 @@ export default function WhatsNewModal() {
 
           {/* Sheet */}
           <motion.div
+            role="dialog"
+            aria-labelledby="whats-new-title"
             className="relative w-full sm:max-w-md bg-card rounded-t-2xl sm:rounded-2xl shadow-2xl border border-border/50 overflow-hidden flex flex-col max-h-[90vh]"
             initial={{ y: 60, opacity: 0 }}
             animate={{ y: 0, opacity: 1, transition: { type: "spring", bounce: 0.25 } }}
@@ -109,13 +111,14 @@ export default function WhatsNewModal() {
                     <Sparkles className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h2 className="font-display text-lg font-bold leading-tight">Nyheter · What's new</h2>
+                    <h2 id="whats-new-title" className="font-display text-lg font-bold leading-tight">Nyheter · What's new</h2>
                     <p className="text-xs text-muted-foreground">Version {CURRENT_VERSION}</p>
                   </div>
                 </div>
                 <button
                   onClick={dismiss}
-                  className="p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground"
+                  aria-label="Close"
+                  className="flex items-center justify-center min-w-[44px] min-h-[44px] p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground"
                 >
                   <X className="w-4 h-4" />
                 </button>

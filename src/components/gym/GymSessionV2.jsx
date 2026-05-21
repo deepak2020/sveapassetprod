@@ -145,7 +145,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
           <ArrowLeft className="w-4 h-4" /> Exit
         </button>
         <span className="text-sm text-muted-foreground">{current + 1} / {sentences.length}</span>
-        <span className="text-sm font-semibold text-primary">Score: {score}</span>
+        <span className="text-sm font-semibold text-primary" aria-live="polite">Score: {score}</span>
       </div>
 
       {/* Progress bar */}
@@ -242,6 +242,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                     onKeyDown={e => { if (e.key === "Enter" && !answered) handleAnswer(typed); }}
                     disabled={answered}
                     placeholder="Type what you hear..."
+                    aria-label="Type your answer in Swedish"
                     className="w-full border-2 border-border/50 rounded-xl px-4 py-3 text-sm text-foreground bg-transparent focus:outline-none focus:border-primary transition-colors"
                   />
                   <div className="flex gap-2 text-sm text-muted-foreground">
@@ -252,11 +253,11 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                   </div>
                   {!answered && (
                     <div className="flex gap-2">
-                      <Button onClick={handleListening} disabled={listening} className="flex-1 gap-2">
+                      <Button onClick={handleListening} disabled={listening} className="flex-1 gap-2 min-h-[44px]">
                         <Mic className={`w-4 h-4 ${listening ? "animate-pulse" : ""}`} />
                         {listening ? "Listening..." : "Tap to record"}
                       </Button>
-                      <Button onClick={() => handleAnswer(typed)} className="flex-1">Check</Button>
+                      <Button onClick={() => handleAnswer(typed)} className="flex-1 min-h-[44px]">Check</Button>
                     </div>
                   )}
                 </div>
@@ -267,6 +268,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                     onChange={e => setTyped(e.target.value)}
                     disabled={answered}
                     placeholder="Write the complete Swedish sentence..."
+                    aria-label="Type your answer in Swedish"
                     className="w-full border-2 border-border/50 rounded-xl px-4 py-3 text-sm text-foreground bg-transparent focus:outline-none focus:border-primary transition-colors min-h-24 resize-none"
                   />
                   <div className="flex gap-2 text-sm text-muted-foreground">
@@ -275,7 +277,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                         className="px-2.5 py-1 border rounded-lg hover:bg-muted transition-colors font-medium">{c}</button>
                     ))}
                   </div>
-                  {!answered && <Button onClick={() => handleAnswer(typed)} className="w-full">Check</Button>}
+                  {!answered && <Button onClick={() => handleAnswer(typed)} className="w-full min-h-[44px]">Check</Button>}
                 </div>
               ) : (
                 <div>
@@ -288,6 +290,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                         onKeyDown={e => { if (e.key === "Enter" && !answered) handleAnswer(typed); }}
                         disabled={answered}
                         placeholder={`Type the missing word${blanksCount > 1 ? "s" : ""}...`}
+                        aria-label="Type your answer in Swedish"
                         className="w-full border-2 border-border/50 rounded-xl px-4 py-3 text-sm text-foreground bg-transparent focus:outline-none focus:border-primary transition-colors"
                       />
                       <div className="flex gap-2 text-sm text-muted-foreground">
@@ -296,7 +299,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                             className="px-2.5 py-1 border rounded-lg hover:bg-muted transition-colors font-medium">{c}</button>
                         ))}
                       </div>
-                      {!answered && <Button onClick={() => handleAnswer(typed)} className="w-full">Check</Button>}
+                      {!answered && <Button onClick={() => handleAnswer(typed)} className="w-full min-h-[44px]">Check</Button>}
                     </div>
                   ) : (
                     <div className="grid grid-cols-2 gap-3">
@@ -324,7 +327,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
               {/* Result */}
               {answered && (
                 <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
-                  <div className={`p-3 rounded-lg ${correct ? "bg-green-50 border border-green-200" : "bg-red-50 border border-red-200"}`}>
+                  <div aria-live="assertive" className={`p-3 rounded-lg ${correct ? "bg-green-50 border border-green-200" : "bg-red-50 border border-red-200"}`}>
                     <p className={`text-sm font-semibold ${correct ? "text-green-700" : "text-red-700"}`}>
                       {correct ? "✓ Correct!" : `✗ Answer: ${sentence.answer}`}
                     </p>

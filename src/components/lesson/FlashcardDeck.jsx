@@ -86,8 +86,10 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
           <Trophy className="w-10 h-10 text-amber-500" />
         </div>
         <h3 className="font-display text-2xl font-bold mb-1">Round complete!</h3>
-        <p className="text-4xl font-bold text-primary my-3">{pct}%</p>
-        <p className="text-muted-foreground mb-4">{known.length} known · {learning.length} still learning</p>
+        <div aria-live="polite">
+          <p className="text-4xl font-bold text-primary my-3">{pct}%</p>
+          <p className="text-muted-foreground mb-4">{known.length} known · {learning.length} still learning</p>
+        </div>
         <div className="flex flex-col gap-2 max-w-xs mx-auto">
           {learning.length > 0 && (
             <Button onClick={() => restart(true)} className="gap-2">
@@ -112,7 +114,14 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
           <span className="flex items-center gap-1 text-orange-500"><XCircle className="w-3.5 h-3.5" />{learning.length}</span>
         </div>
       </div>
-      <div className="w-full h-1.5 bg-muted rounded-full">
+      <div
+        className="w-full h-1.5 bg-muted rounded-full"
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round((index / total) * 100)}
+        aria-label="Flashcard progress"
+      >
         <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${(index / total) * 100}%` }} />
       </div>
 
@@ -124,7 +133,11 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -40 }}
           className="cursor-pointer"
+          role="button"
+          tabIndex={0}
+          aria-label={flipped ? "Card showing English — click to flip back" : "Card showing Swedish — click to reveal translation"}
           onClick={() => setFlipped(f => !f)}
+          onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setFlipped(f => !f); } }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
@@ -137,6 +150,7 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
               text={flipped ? card.english : card.swedish}
               lang={flipped ? "en-US" : "sv-SE"}
               className="absolute top-3 right-3"
+              ariaLabel={flipped ? "Play English pronunciation" : "Play Swedish pronunciation"}
             />
 
             <p className="text-3xl font-bold text-foreground mb-3">
@@ -168,13 +182,15 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
           <div className="grid grid-cols-2 gap-3">
             <button
               onClick={handleLearning}
-              className="flex items-center justify-center gap-2 p-5 min-h-12 rounded-xl border-2 border-orange-200 bg-orange-50 text-orange-700 font-semibold hover:bg-orange-100 transition-colors"
+              aria-label="Mark as still learning"
+              className="flex items-center justify-center gap-2 p-5 min-h-[44px] rounded-xl border-2 border-orange-200 bg-orange-50 text-orange-700 font-semibold hover:bg-orange-100 transition-colors"
             >
               <XCircle className="w-5 h-5" /> Still learning
             </button>
             <button
               onClick={handleKnow}
-              className="flex items-center justify-center gap-2 p-5 min-h-12 rounded-xl border-2 border-green-200 bg-green-50 text-green-700 font-semibold hover:bg-green-100 transition-colors"
+              aria-label="Mark as known"
+              className="flex items-center justify-center gap-2 p-5 min-h-[44px] rounded-xl border-2 border-green-200 bg-green-50 text-green-700 font-semibold hover:bg-green-100 transition-colors"
             >
               <CheckCircle2 className="w-5 h-5" /> Got it!
             </button>
