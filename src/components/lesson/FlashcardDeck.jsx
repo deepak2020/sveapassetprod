@@ -9,6 +9,7 @@ import SpeakButton from "@/components/shared/SpeakButton";
 import AddToVocabButton from "@/components/shared/AddToVocabButton";
 
 export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonTitle }) {
+  const [cardPool, setCardPool] = useState(wordPairs || []);
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [known, setKnown] = useState([]);
@@ -19,7 +20,7 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
 
   // Auto-play Swedish pronunciation when a new card appears or when flipping back to Swedish side
   useEffect(() => {
-    const w = wordPairs?.[index];
+    const w = cardPool[index];
     if (!w || finished) return;
     if (!flipped && w.swedish) {
       const t = setTimeout(() => speak(w.swedish, "sv-SE"), 250);
@@ -31,18 +32,18 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
     return <p className="text-muted-foreground text-sm">No vocabulary available for this lesson.</p>;
   }
 
-  const card = wordPairs[index];
-  const total = wordPairs.length;
+  const card = cardPool[index];
+  const total = cardPool.length;
 
   const handleKnow = async () => {
     setKnown(k => [...k, card]);
-    await awardXP(base44, XP_REWARDS.flashcard_good);
+    awardXP(base44, XP_REWARDS.flashcard_good);
     advance(true);
   };
 
   const handleLearning = async () => {
     setLearning(l => [...l, card]);
-    await awardXP(base44, XP_REWARDS.flashcard_hard);
+    awardXP(base44, XP_REWARDS.flashcard_hard);
     advance(false);
   };
 
@@ -50,7 +51,6 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
     setFlipped(false);
     if (index + 1 >= total) {
       setFinished(true);
-      // Final known count = known so far + 1 if user just marked the last card as known
       const finalKnown = known.length + (knewThisCard ? 1 : 0);
       onComplete?.(finalKnown, total);
     } else {
@@ -58,7 +58,8 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
     }
   };
 
-  const restart = () => {
+  const restart = (retryLearning = false) => {
+    setCardPool(retryLearning ? learning : (wordPairs || []));
     setIndex(0); setFlipped(false); setKnown([]); setLearning([]); setFinished(false);
   };
 
@@ -86,13 +87,17 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
         </div>
         <h3 className="font-display text-2xl font-bold mb-1">Round complete!</h3>
         <p className="text-4xl font-bold text-primary my-3">{pct}%</p>
-        <p className="text-muted-foreground mb-2">{known.length} known · {learning.length} still learning</p>
-        {learning.length > 0 && (
-          <p className="text-sm text-muted-foreground mb-6">Keep practicing the words you're still learning!</p>
-        )}
-        <Button onClick={restart} variant="outline" className="gap-2">
-          <RotateCcw className="w-4 h-4" /> Review again
-        </Button>
+        <p className="text-muted-foreground mb-4">{known.length} known · {learning.length} still learning</p>
+        <div className="flex flex-col gap-2 max-w-xs mx-auto">
+          {learning.length > 0 && (
+            <Button onClick={() => restart(true)} className="gap-2">
+              <RotateCcw className="w-4 h-4" /> Retry {learning.length} still learning
+            </Button>
+          )}
+          <Button onClick={() => restart(false)} variant="outline" className="gap-2">
+            <RotateCcw className="w-4 h-4" /> {learning.length > 0 ? "Review all cards" : "Review again"}
+          </Button>
+        </div>
       </motion.div>
     );
   }
