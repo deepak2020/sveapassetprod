@@ -106,6 +106,18 @@ export default function LessonDetail() {
   const hasTranslate = lesson.word_pairs?.some(wp => wp.example_en && wp.example_sv);
   const hasMatch = lesson.match_pairs?.length > 0;
 
+  const availableKeys = [
+    hasVocab && "learn",
+    hasBlanks && "practice",
+    hasMatch && "match",
+    hasWriting && "writing",
+    hasSpeaking && "speaking",
+    hasListening && "listening",
+    hasTranslate && "translate",
+    hasReview && "review",
+    hasQuiz && "quiz",
+  ].filter(Boolean);
+  const doneCount = availableKeys.filter((k) => completed.includes(k)).length;
   const allDone = availableKeys.length > 0 && doneCount === availableKeys.length;
 
   // Fire confetti once when lesson is completed
@@ -119,19 +131,6 @@ export default function LessonDetail() {
       });
     }, 200);
   }
-
-  const availableKeys = [
-    hasVocab && "learn",
-    hasBlanks && "practice",
-    hasMatch && "match",
-    hasWriting && "writing",
-    hasSpeaking && "speaking",
-    hasListening && "listening",
-    hasTranslate && "translate",
-    hasReview && "review",
-    hasQuiz && "quiz",
-  ].filter(Boolean);
-  const doneCount = availableKeys.filter((k) => completed.includes(k)).length;
   const pct = availableKeys.length ? Math.round((doneCount / availableKeys.length) * 100) : 0;
 
   const allTabs = ["content", ...availableKeys];

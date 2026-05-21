@@ -205,13 +205,13 @@ export default function Gym() {
           </CardContent>
         </Card>
       ) : (
-        <GymDashboard sentences={sentences} srsCards={srsCards} onStartSession={setSession} />
+        <GymDashboard sentences={sentences} srsCards={srsCards} onStartSession={setSession} sessionRef={sessionRef} />
       )}
     </div>
   );
 }
 
-function GymDashboard({ sentences, srsCards, onStartSession }) {
+function GymDashboard({ sentences, srsCards, onStartSession, sessionRef }) {
   const [selectedLevel, setSelectedLevel] = useState("A");
   const [selectedSkill, setSelectedSkill] = useState(null);
   const [selectedMode, setSelectedMode] = useState("listen");
