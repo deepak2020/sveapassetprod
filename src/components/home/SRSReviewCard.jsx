@@ -28,6 +28,7 @@ export default function SRSReviewCard() {
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
         <Link
           to="/gym"
+          aria-label={`Go to Gym to review ${dueCount} card${dueCount === 1 ? "" : "s"} due today`}
           className="block rounded-2xl border border-orange-200 dark:border-orange-900/40 bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/20 p-5 sm:p-6 hover:shadow-md transition-all group"
         >
           <div className="flex items-center gap-4">
