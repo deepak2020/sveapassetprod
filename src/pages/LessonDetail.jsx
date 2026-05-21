@@ -229,8 +229,8 @@ export default function LessonDetail() {
             </TabsTrigger>
           )}
           {hasSpeaking && (
-            <TabsTrigger value="speaking" className="shrink-0 gap-1.5 text-sm data-[state=active]:bg-background">
-              <Mic className="w-3.5 h-3.5" /> Speaking
+            <TabsTrigger value="speaking" className="shrink-0 text-sm data-[state=active]:bg-background">
+              🗣️ Speaking {completed.includes("speaking") && "✓"}
             </TabsTrigger>
           )}
           {hasListening && (
