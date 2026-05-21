@@ -24,10 +24,7 @@ import ThemeSync from './components/ThemeSync';
 import XPToast from './components/shared/XPToast';
 import StreakMilestoneModal from './components/shared/StreakMilestoneModal';
 import WhatsNewModal from './components/shared/WhatsNewModal';
-import Welcome from './pages/Welcome';
-
-// Routes accessible without an account
-const PUBLIC_PATHS = ["/privacy", "/about", "/contact"];
+import SignupNudge from './components/shared/SignupNudge';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, authChecked } = useAuth();
@@ -48,18 +45,10 @@ const AuthenticatedApp = () => {
     }
   }
 
-  // Gate: prompt returning users (who have visited before) to sign in
-  const isPublicPath = PUBLIC_PATHS.some(p => window.location.pathname.startsWith(p));
-  const isReturningUser = !!localStorage.getItem("svenska:visited") || !!localStorage.getItem("svenska:last_lesson");
-  if (authChecked && !isAuthenticated && !isPublicPath && isReturningUser) {
-    return <Welcome />;
-  }
-
-  // First-time visitors pass through freely — mark them as visited
+  // Mark first-time visitors as visited so we can identify returning users later
   if (authChecked && !isAuthenticated) {
     localStorage.setItem("svenska:visited", "1");
   }
-
   // Render the main app
   return (
     <Routes>
