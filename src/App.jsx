@@ -24,12 +24,16 @@ import ThemeSync from './components/ThemeSync';
 import XPToast from './components/shared/XPToast';
 import StreakMilestoneModal from './components/shared/StreakMilestoneModal';
 import WhatsNewModal from './components/shared/WhatsNewModal';
+import Welcome from './pages/Welcome';
+
+// Routes accessible without an account
+const PUBLIC_PATHS = ["/privacy", "/about", "/contact"];
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, authChecked } = useAuth();
 
   // Show loading spinner while checking app public settings or auth
-  if (isLoadingPublicSettings) {
+  if (isLoadingPublicSettings || isLoadingAuth) {
     return (
       <div className="fixed inset-0 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
@@ -42,6 +46,12 @@ const AuthenticatedApp = () => {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     }
+  }
+
+  // Gate: show welcome screen to unauthenticated users (except public pages)
+  const isPublicPath = PUBLIC_PATHS.some(p => window.location.pathname.startsWith(p));
+  if (authChecked && !isAuthenticated && !isPublicPath) {
+    return <Welcome />;
   }
 
   // Render the main app
