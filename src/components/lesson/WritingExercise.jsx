@@ -95,30 +95,29 @@ function wordDiff(original, corrected) {
   ];
 }
 
+// Shows the corrected text with changed words highlighted in bold green
+// (original is shown separately above, so no need for strikethrough here)
 function AnnotatedText({ original, correctedText }) {
-  if (!correctedText || original === correctedText) {
-    return <span className="text-sm text-foreground leading-relaxed">{original}</span>;
-  }
+  if (!correctedText || original === correctedText) return null;
 
   const segments = wordDiff(original, correctedText);
 
   return (
     <span className="text-sm leading-relaxed">
       {segments.map((seg, i) => {
-        if (seg.type === "same") return <span key={i} className="text-foreground">{seg.orig}</span>;
-        if (seg.type === "changed") return (
-          <span key={i} className="inline-flex items-baseline gap-0.5">
-            <s className="text-red-500 dark:text-red-400">{seg.orig}</s>
-            {" "}
-            <span className="font-semibold text-green-700 dark:text-green-400">{seg.corr}</span>
-          </span>
-        );
-        // fallback block
+        if (seg.type === "same") {
+          return <span key={i} className="text-foreground">{seg.orig}</span>;
+        }
+        if (seg.type === "changed") {
+          return (
+            <span key={i} className="font-semibold text-green-700 dark:text-green-400 underline decoration-green-400/60">
+              {seg.corr}
+            </span>
+          );
+        }
+        // fallback: show corrected block
         return (
-          <span key={i}>
-            <s className="text-red-400">{seg.orig}</s>
-            <span className="font-semibold text-green-700 dark:text-green-400 ml-1">{seg.corr}</span>
-          </span>
+          <span key={i} className="font-semibold text-green-700 dark:text-green-400">{seg.corr}</span>
         );
       })}
     </span>
@@ -239,11 +238,23 @@ function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer,
             </>
           ) : (
             <div className="space-y-3">
-              {/* Answer with inline word-diff corrections */}
+              {/* Original answer — unchanged */}
               <div className="bg-violet-50 dark:bg-violet-950/30 rounded-xl p-3 border border-violet-200/60 dark:border-violet-800/40">
                 <p className="text-sm font-medium text-violet-700 dark:text-violet-300 mb-1.5">Your answer:</p>
-                <AnnotatedText original={savedAnswer} correctedText={feedback?.corrected_text} />
+                <p className="text-sm text-foreground leading-relaxed">{savedAnswer}</p>
               </div>
+
+              {/* Corrected version — separate box below */}
+              {!checking && feedback?.corrected_text && feedback.corrected_text !== savedAnswer && (
+                <motion.div
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="rounded-xl p-3 border border-green-200 dark:border-green-800/40 bg-green-50 dark:bg-green-950/30"
+                >
+                  <p className="text-sm font-medium text-green-700 dark:text-green-400 mb-1.5">Corrected version:</p>
+                  <AnnotatedText original={savedAnswer} correctedText={feedback.corrected_text} />
+                </motion.div>
+              )}
 
               {/* AI feedback */}
               {checking && (
