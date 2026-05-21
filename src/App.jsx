@@ -24,12 +24,13 @@ import ThemeSync from './components/ThemeSync';
 import XPToast from './components/shared/XPToast';
 import StreakMilestoneModal from './components/shared/StreakMilestoneModal';
 import WhatsNewModal from './components/shared/WhatsNewModal';
+import SignupNudge from './components/shared/SignupNudge';
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, authChecked } = useAuth();
 
   // Show loading spinner while checking app public settings or auth
-  if (isLoadingPublicSettings) {
+  if (isLoadingPublicSettings || isLoadingAuth) {
     return (
       <div className="fixed inset-0 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
@@ -44,6 +45,10 @@ const AuthenticatedApp = () => {
     }
   }
 
+  // Mark first-time visitors as visited so we can identify returning users later
+  if (authChecked && !isAuthenticated) {
+    localStorage.setItem("svenska:visited", "1");
+  }
   // Render the main app
   return (
     <Routes>

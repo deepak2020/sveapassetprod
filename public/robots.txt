@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Block private/auth pages from indexing
+Disallow: /onboarding
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /gym
+
+Sitemap: https://www.sveapasset.com/sitemap.xml
