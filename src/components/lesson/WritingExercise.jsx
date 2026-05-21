@@ -5,10 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 
-function PromptCard({ prompt, index }) {
-  const [answer, setAnswer] = useState("");
+function PromptCard({ prompt, index, onSubmit, isSubmitted, savedAnswer }) {
+  const [answer, setAnswer] = useState(savedAnswer || "");
   const [showExample, setShowExample] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = () => {
+    onSubmit(index, answer);
+  };
 
   return (
     <motion.div
@@ -20,7 +23,7 @@ function PromptCard({ prompt, index }) {
         <CardContent className="p-5 space-y-4">
           <div className="flex items-start gap-3">
             <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center text-sm font-bold text-violet-700 shrink-0">
-              {index + 1}
+              {isSubmitted ? <CheckCircle2 className="w-4 h-4 text-green-600" /> : index + 1}
             </div>
             <div>
               <p className="font-medium text-foreground">{prompt.prompt}</p>
@@ -32,7 +35,7 @@ function PromptCard({ prompt, index }) {
             </div>
           </div>
 
-          {!submitted ? (
+          {!isSubmitted ? (
             <>
               <Textarea
                 placeholder="Skriv ditt svar här... (Write your answer here)"
@@ -48,7 +51,7 @@ function PromptCard({ prompt, index }) {
                   {showExample ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                   {showExample ? "Hide example" : "Show example answer"}
                 </button>
-                <Button size="sm" onClick={() => setSubmitted(true)} disabled={!answer.trim()} className="gap-1.5">
+                <Button size="sm" onClick={handleSubmit} disabled={!answer.trim()} className="gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5" /> Done
                 </Button>
               </div>
@@ -57,9 +60,11 @@ function PromptCard({ prompt, index }) {
             <div className="space-y-3">
               <div className="bg-violet-50 rounded-xl p-3 border border-violet-200/60">
                 <p className="text-sm font-medium text-violet-700 mb-1">Your answer:</p>
-                <p className="text-sm text-foreground">{answer}</p>
+                <p className="text-sm text-foreground">{savedAnswer}</p>
               </div>
-              <button onClick={() => setSubmitted(false)} className="text-xs text-muted-foreground hover:text-foreground transition-colors">Edit answer</button>
+              <button onClick={() => setShowExample(!showExample)} className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+                {showExample ? "Hide example" : "Compare with example"}
+              </button>
             </div>
           )}
 
@@ -79,16 +84,41 @@ function PromptCard({ prompt, index }) {
   );
 }
 
-export default function WritingExercise({ prompts }) {
+export default function WritingExercise({ prompts, onComplete }) {
+  const [answers, setAnswers] = useState({});
+
   if (!prompts || prompts.length === 0) {
     return <p className="text-muted-foreground text-sm">No writing exercises available.</p>;
   }
 
+  const handleSubmit = (index, answer) => {
+    const updated = { ...answers, [index]: answer };
+    setAnswers(updated);
+    const submittedCount = Object.keys(updated).length;
+    if (submittedCount === prompts.length && onComplete) {
+      onComplete();
+    }
+  };
+
+  const doneCount = Object.keys(answers).length;
+
   return (
     <div className="space-y-4">
-      <p className="text-sm text-muted-foreground mb-4">Write your answers in Swedish. Use the hint if you need help, and check the example when you're done.</p>
+      <p className="text-sm text-muted-foreground mb-4">
+        Write your answers in Swedish. Use the hint if you need help, and check the example when you're done.
+        {doneCount > 0 && doneCount < prompts.length && (
+          <span className="ml-2 font-medium text-foreground">{doneCount}/{prompts.length} completed</span>
+        )}
+      </p>
       {prompts.map((prompt, i) => (
-        <PromptCard key={i} prompt={prompt} index={i} />
+        <PromptCard
+          key={i}
+          prompt={prompt}
+          index={i}
+          onSubmit={handleSubmit}
+          isSubmitted={i in answers}
+          savedAnswer={answers[i]}
+        />
       ))}
     </div>
   );

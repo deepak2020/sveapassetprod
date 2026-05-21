@@ -15,7 +15,7 @@ export default function LessonBottomNav({ prevLesson, nextLesson }) {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-t border-border/60">
+    <div className="fixed bottom-14 md:bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-t border-border/60">
       <div className="max-w-4xl mx-auto px-3 sm:px-6 py-2 sm:py-3 flex items-center gap-2 sm:gap-3">
         {prevLesson ? (
           <Link

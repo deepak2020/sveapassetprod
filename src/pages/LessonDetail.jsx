@@ -147,7 +147,7 @@ export default function LessonDetail() {
   const nextTabKey = allTabs[allTabs.indexOf(activeTab) + 1] ?? null;
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-28">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-40 md:pb-28">
       {/* Back */}
       <Link to={lesson.topic ? `/language/topic/${lesson.sfi_course}/${encodeURIComponent(lesson.topic)}` : "/language"} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6">
         <ArrowLeft className="w-4 h-4" /> {lesson.topic ? `Back to ${lesson.topic}` : "Back to lessons"}
@@ -224,8 +224,8 @@ export default function LessonDetail() {
             </TabsTrigger>
           )}
           {hasWriting && (
-            <TabsTrigger value="writing" aria-label="Writing" className="shrink-0 gap-1.5 text-sm data-[state=active]:bg-background">
-              <Pen className="w-3.5 h-3.5" /> Writing
+            <TabsTrigger value="writing" aria-label={`Writing${completed.includes("writing") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
+              ✍️ Writing {completed.includes("writing") && "✓"}
             </TabsTrigger>
           )}
           {hasSpeaking && (
@@ -353,7 +353,7 @@ export default function LessonDetail() {
               <h2 className="font-semibold text-lg">✍️ Writing Practice</h2>
               <p className="text-sm text-muted-foreground">Short writing exercises to reinforce your learning.</p>
             </div>
-            <WritingExercise prompts={lesson.writing_prompts} />
+            <WritingExercise prompts={lesson.writing_prompts} onComplete={() => markComplete("writing")} />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
                 <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
