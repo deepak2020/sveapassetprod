@@ -66,7 +66,7 @@ function AnnotatedText({ text, grammarIssues }) {
     return <span className="text-sm text-foreground leading-relaxed">{text}</span>;
   }
 
-  // Find and highlight wrong phrases in the text
+  // Build segments: split text around each matched error phrase
   let segments = [{ t: text, error: false }];
   grammarIssues.forEach((issue) => {
     if (!issue.wrong) return;
@@ -85,18 +85,15 @@ function AnnotatedText({ text, grammarIssues }) {
   });
 
   return (
-    <span className="text-sm text-foreground leading-relaxed">
+    <span className="text-sm leading-relaxed">
       {segments.map((seg, i) =>
         seg.error ? (
-          <mark
-            key={i}
-            title={`${seg.issue.explanation} → ${seg.issue.correct}`}
-            className="bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300 border-b-2 border-red-400 rounded-sm px-0.5 cursor-help"
-          >
-            {seg.t}
-          </mark>
+          <span key={i} className="inline-flex items-baseline gap-1 flex-wrap">
+            <s className="text-red-500 dark:text-red-400">{seg.t}</s>
+            <span className="font-medium text-green-700 dark:text-green-400">{seg.issue.correct}</span>
+          </span>
         ) : (
-          <span key={i}>{seg.t}</span>
+          <span key={i} className="text-foreground">{seg.t}</span>
         )
       )}
     </span>
@@ -120,7 +117,7 @@ function WritingFeedback({ feedback }) {
         <p className={`text-xs font-medium leading-relaxed ${style.text}`}>{feedback.overall}</p>
       </div>
 
-      {/* Relevance — only show if off-topic */}
+      {/* Off-topic warning */}
       {!feedback.relevant && (
         <div className="flex items-start gap-2 bg-orange-50 dark:bg-orange-950/30 border border-orange-200/60 dark:border-orange-800/40 rounded-xl px-3 py-2.5">
           <AlertCircle className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
@@ -128,24 +125,6 @@ function WritingFeedback({ feedback }) {
             <p className="text-xs font-semibold text-orange-800 dark:text-orange-300 mb-0.5">Off-topic</p>
             <p className="text-xs text-orange-700 dark:text-orange-400">{feedback.relevance_feedback}</p>
           </div>
-        </div>
-      )}
-
-      {/* Grammar issues */}
-      {feedback.grammar_issues?.length > 0 && (
-        <div className="space-y-1.5">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-            {feedback.grammar_issues.length} grammar issue{feedback.grammar_issues.length > 1 ? "s" : ""}
-          </p>
-          {feedback.grammar_issues.map((issue, i) => (
-            <div key={i} className="bg-red-50 dark:bg-red-950/30 border border-red-200/60 dark:border-red-800/40 rounded-xl px-3 py-2.5 space-y-1">
-              <p className="text-xs text-red-800 dark:text-red-300">{issue.explanation}</p>
-              <p className="text-xs text-muted-foreground">
-                <span className="line-through text-red-500 mr-1">{issue.wrong}</span>
-                → <span className="font-medium text-green-700 dark:text-green-400">{issue.correct}</span>
-              </p>
-            </div>
-          ))}
         </div>
       )}
 
@@ -235,9 +214,18 @@ function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer,
             </>
           ) : (
             <div className="space-y-3">
-              {/* Answer with inline error highlights */}
+              {/* Answer with inline corrections */}
               <div className="bg-violet-50 dark:bg-violet-950/30 rounded-xl p-3 border border-violet-200/60 dark:border-violet-800/40">
-                <p className="text-sm font-medium text-violet-700 dark:text-violet-300 mb-1.5">Your answer:</p>
+                <div className="flex items-center justify-between mb-1.5">
+                  <p className="text-sm font-medium text-violet-700 dark:text-violet-300">Your answer:</p>
+                  {feedback?.grammar_issues?.length > 0 && (
+                    <span className="text-xs text-muted-foreground">
+                      <s className="text-red-400">wrong</s>
+                      {" "}
+                      <span className="text-green-600 font-medium">correct</span>
+                    </span>
+                  )}
+                </div>
                 <AnnotatedText text={savedAnswer} grammarIssues={feedback?.grammar_issues} />
               </div>
 
