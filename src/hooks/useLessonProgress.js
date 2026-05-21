@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { base44 } from "@/api/base44Client";
 
 const KEY_LAST = "svenska:last_lesson";
 const KEY_PROGRESS_PREFIX = "svenska:lesson_progress:";
@@ -36,22 +37,52 @@ export function useLastLesson() {
   return last;
 }
 
-// Save and restore the list of completed activity keys + per-skill last scores
+// Save and restore the list of completed activity keys + per-skill last scores.
+// Persists to both localStorage (fast, offline) and backend via QuizResult
+// (quiz_type="lesson_tab") so progress survives across devices and logins.
 export function useLessonCompletion(lessonId) {
   const [completed, setCompleted] = useState([]);
-  const [scores, setScores] = useState({}); // { [activityKey]: { score, total, percentage, at } }
+  const [scores, setScores] = useState({});
 
   useEffect(() => {
     if (!lessonId) return;
+
+    // Load from localStorage immediately (no latency)
+    let localKeys = [];
     try {
       const raw = localStorage.getItem(KEY_PROGRESS_PREFIX + lessonId);
-      if (raw) setCompleted(JSON.parse(raw));
+      if (raw) {
+        localKeys = JSON.parse(raw);
+        setCompleted(localKeys);
+      }
       const rawScores = localStorage.getItem(KEY_SCORES_PREFIX + lessonId);
       if (rawScores) setScores(JSON.parse(rawScores));
     } catch (_) {}
+
+    // Then load from backend and merge (handles cross-device progress)
+    base44.entities.QuizResult.filter(
+      { quiz_type: "lesson_tab", source_id: lessonId },
+      null,
+      200
+    )
+      .then((results) => {
+        if (!results?.length) return;
+        const backendKeys = [...new Set(results.map((r) => r.skill).filter(Boolean))];
+        setCompleted((prev) => {
+          const merged = [...new Set([...prev, ...backendKeys])];
+          if (merged.length !== prev.length) {
+            try {
+              localStorage.setItem(KEY_PROGRESS_PREFIX + lessonId, JSON.stringify(merged));
+            } catch (_) {}
+          }
+          return merged;
+        });
+      })
+      .catch(() => {});
   }, [lessonId]);
 
   const markComplete = (key, scoreInfo) => {
+    // Update local state + localStorage immediately
     setCompleted((prev) => {
       if (prev.includes(key)) return prev;
       const next = [...prev, key];
@@ -61,20 +92,26 @@ export function useLessonCompletion(lessonId) {
       return next;
     });
 
-    // Always overwrite the latest score for this skill (even if already completed)
+    // Persist to backend (fire-and-forget — localStorage already updated above)
+    base44.entities.QuizResult.create({
+      quiz_type: "lesson_tab",
+      source_id: lessonId,
+      skill: key,
+      score: scoreInfo?.score ?? 1,
+      total: scoreInfo?.total ?? 1,
+      percentage:
+        scoreInfo?.total > 0
+          ? Math.round((scoreInfo.score / scoreInfo.total) * 100)
+          : 100,
+    }).catch(() => {});
+
     if (scoreInfo && typeof scoreInfo.score === "number" && typeof scoreInfo.total === "number") {
       setScores((prev) => {
-        const percentage = scoreInfo.total > 0
-          ? Math.round((scoreInfo.score / scoreInfo.total) * 100)
-          : 0;
+        const percentage =
+          scoreInfo.total > 0 ? Math.round((scoreInfo.score / scoreInfo.total) * 100) : 0;
         const next = {
           ...prev,
-          [key]: {
-            score: scoreInfo.score,
-            total: scoreInfo.total,
-            percentage,
-            at: Date.now(),
-          },
+          [key]: { score: scoreInfo.score, total: scoreInfo.total, percentage, at: Date.now() },
         };
         try {
           localStorage.setItem(KEY_SCORES_PREFIX + lessonId, JSON.stringify(next));
