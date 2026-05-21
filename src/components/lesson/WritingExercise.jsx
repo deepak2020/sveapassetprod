@@ -4,30 +4,17 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
+import { useWritingAnswers } from "@/hooks/useWritingAnswers";
 
-function storageKey(lessonId) {
-  return `svenska:writing:${lessonId}`;
-}
-
-function loadSaved(lessonId) {
-  try {
-    const raw = localStorage.getItem(storageKey(lessonId));
-    return raw ? JSON.parse(raw) : {};
-  } catch {
-    return {};
-  }
-}
-
-function saveToStorage(lessonId, answers) {
-  try {
-    localStorage.setItem(storageKey(lessonId), JSON.stringify(answers));
-  } catch {}
-}
-
-function PromptCard({ prompt, index, onSubmit, isSubmitted, savedAnswer, onEdit }) {
+function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer }) {
   const [answer, setAnswer] = useState(savedAnswer || "");
   const [showExample, setShowExample] = useState(false);
   const [editing, setEditing] = useState(false);
+
+  // Sync textarea when savedAnswer loads from backend
+  useEffect(() => {
+    if (savedAnswer && !editing) setAnswer(savedAnswer);
+  }, [savedAnswer]);
 
   const handleSubmit = () => {
     onSubmit(index, answer);
@@ -50,7 +37,7 @@ function PromptCard({ prompt, index, onSubmit, isSubmitted, savedAnswer, onEdit 
       <Card className="border-border/50">
         <CardContent className="p-5 space-y-4">
           <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center text-sm font-bold text-violet-700 shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center text-sm font-bold text-violet-700 dark:text-violet-300 shrink-0">
               {isSubmitted && !editing ? <CheckCircle2 className="w-4 h-4 text-green-600" /> : index + 1}
             </div>
             <div>
@@ -135,37 +122,32 @@ function PromptCard({ prompt, index, onSubmit, isSubmitted, savedAnswer, onEdit 
 }
 
 export default function WritingExercise({ prompts, lessonId, onComplete }) {
-  const [answers, setAnswers] = useState(() => loadSaved(lessonId));
+  const { answers, saveAnswer, removeAnswer } = useWritingAnswers(lessonId);
   const [completionFired, setCompletionFired] = useState(false);
 
-  // Fire onComplete once on mount if all prompts were already answered
+  // Fire onComplete if all prompts are already answered (loaded from storage/backend)
   useEffect(() => {
-    if (!completionFired && prompts?.length > 0 && Object.keys(answers).length === prompts.length && onComplete) {
+    if (!completionFired && prompts?.length > 0 && Object.keys(answers).length === prompts.length) {
       setCompletionFired(true);
-      onComplete();
+      onComplete?.();
     }
-  }, []);
+  }, [answers]);
 
   if (!prompts || prompts.length === 0) {
     return <p className="text-muted-foreground text-sm">No writing exercises available.</p>;
   }
 
   const handleSubmit = (index, answer) => {
-    const updated = { ...answers, [index]: answer };
-    setAnswers(updated);
-    if (lessonId) saveToStorage(lessonId, updated);
-    if (Object.keys(updated).length === prompts.length && onComplete && !completionFired) {
+    saveAnswer(index, answer);
+    const newCount = Object.keys(answers).filter((k) => k != index).length + 1;
+    if (newCount === prompts.length && !completionFired) {
       setCompletionFired(true);
-      onComplete();
+      onComplete?.();
     }
   };
 
   const handleEdit = (index) => {
-    // Remove from answers so the prompt goes back to input mode
-    const updated = { ...answers };
-    delete updated[index];
-    setAnswers(updated);
-    if (lessonId) saveToStorage(lessonId, updated);
+    removeAnswer(index);
   };
 
   const doneCount = Object.keys(answers).length;
