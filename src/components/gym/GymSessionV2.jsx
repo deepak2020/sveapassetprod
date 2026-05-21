@@ -51,7 +51,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
 
   const options = getOptions();
 
-  const handleAnswer = async (answer) => {
+  const handleAnswer = (answer) => {
     if (answered) return;
     const expectedWords = normalize(sentence.answer);
     const givenWords = normalize(answer);
@@ -60,8 +60,8 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
     setAnswered(true);
     setCorrect(isCorrect);
     if (isCorrect) setScore(s => s + 1);
-    await awardXP(base44, isCorrect ? XP_REWARDS.cloze_correct : 0);
-    await updateSRS(sentence.id, isCorrect, srsCards);
+    awardXP(base44, isCorrect ? XP_REWARDS.cloze_correct : 0);
+    updateSRS(sentence.id, isCorrect, srsCards);
   };
 
   const handleNext = () => {

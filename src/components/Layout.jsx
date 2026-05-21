@@ -46,6 +46,28 @@ export default function Layout() {
   const { user, isAuthenticated, logout } = useAuth();
   const activeTab = getActiveTab(location.pathname);
 
+  // Scroll-position map keyed by tab root path
+  const scrollPositions = useRef({});
+  const prevPathRef = useRef(location.pathname);
+
+  useEffect(() => {
+    const prevPath = prevPathRef.current;
+    const currentPath = location.pathname;
+
+    if (prevPath !== currentPath) {
+      // Save scroll for the tab we're leaving
+      const leavingTab = getActiveTab(prevPath);
+      if (leavingTab) scrollPositions.current[leavingTab] = window.scrollY;
+      prevPathRef.current = currentPath;
+    }
+
+    // Restore scroll for the tab we're entering (after page transition animation)
+    const enteringTab = getActiveTab(currentPath);
+    const saved = enteringTab ? (scrollPositions.current[enteringTab] ?? 0) : 0;
+    const timer = setTimeout(() => window.scrollTo(0, saved), 300);
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
   const { data: userProfile } = useQuery({
     queryKey: ["me"],
     queryFn: () => base44.auth.me(),

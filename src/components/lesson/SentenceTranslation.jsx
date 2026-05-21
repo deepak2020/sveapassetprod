@@ -21,7 +21,9 @@ function isCloseEnough(input, answer) {
 }
 
 export default function SentenceTranslation({ wordPairs, onComplete }) {
-  const exercises = (wordPairs || []).filter(wp => wp.example_en && wp.example_sv);
+  const allExercises = (wordPairs || []).filter(wp => wp.example_en && wp.example_sv);
+  const [exercisePool, setExercisePool] = useState(allExercises);
+  const [wrongIndices, setWrongIndices] = useState([]);
   const [current, setCurrent] = useState(0);
   const [input, setInput] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -29,24 +31,27 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
   const [finished, setFinished] = useState(false);
   const [showHint, setShowHint] = useState(false);
 
-  if (!exercises.length) {
+  if (!allExercises.length) {
     return <p className="text-muted-foreground text-sm">No sentence translation exercises available for this lesson.</p>;
   }
 
-  const ex = exercises[current];
+  const ex = exercisePool[current];
   const isCorrect = submitted && isCloseEnough(input, ex.example_sv);
 
   const handleSubmit = () => {
     if (!input.trim()) return;
     setSubmitted(true);
-    if (isCloseEnough(input, ex.example_sv)) setScore(s => s + 1);
+    if (isCloseEnough(input, ex.example_sv)) {
+      setScore(s => s + 1);
+    } else {
+      setWrongIndices(prev => [...prev, current]);
+    }
   };
 
   const handleNext = () => {
-    if (current + 1 >= exercises.length) {
+    if (current + 1 >= exercisePool.length) {
       setFinished(true);
-      const finalScore = isCorrect ? score : score; // score is already updated for current question via handleSubmit
-      onComplete?.(finalScore, exercises.length);
+      onComplete?.(score, exercisePool.length);
     } else {
       setCurrent(c => c + 1);
       setInput("");
@@ -55,13 +60,20 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
     }
   };
 
+  const wrongCount = wrongIndices.length;
+
   const restart = () => {
+    const retryPool = wrongCount > 0
+      ? wrongIndices.map(i => exercisePool[i])
+      : allExercises;
+    setExercisePool(retryPool);
+    setWrongIndices([]);
     setCurrent(0); setInput(""); setSubmitted(false);
     setScore(0); setFinished(false); setShowHint(false);
   };
 
   if (finished) {
-    const pct = Math.round((score / exercises.length) * 100);
+    const pct = Math.round((score / exercisePool.length) * 100);
     return (
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
         <Card className="border-border/50">
@@ -73,9 +85,14 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
               {pct >= 80 ? "Excellent! 🎉" : pct >= 60 ? "Good job! 👍" : "Keep going! 💪"}
             </h3>
             <p className="text-4xl font-bold text-primary my-2">{pct}%</p>
-            <p className="text-muted-foreground mb-6">{score} / {exercises.length} correct</p>
-            <Button onClick={restart} variant="outline" className="gap-2">
-              <RotateCcw className="w-4 h-4" /> Try Again
+            <p className="text-muted-foreground mb-6">{score} / {exercisePool.length} correct</p>
+            {wrongCount > 0 && (
+              <Button onClick={restart} className="gap-2 mb-3 w-full">
+                <RotateCcw className="w-4 h-4" /> Retry {wrongCount} wrong answer{wrongCount !== 1 ? "s" : ""}
+              </Button>
+            )}
+            <Button onClick={restart} variant="outline" className="gap-2 w-full">
+              <RotateCcw className="w-4 h-4" /> {wrongCount > 0 ? "Start over" : "Try Again"}
             </Button>
           </CardContent>
         </Card>
@@ -88,14 +105,14 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm font-medium text-muted-foreground">
-            Translate to Swedish — {current + 1} / {exercises.length}
+            Translate to Swedish — {current + 1} / {exercisePool.length}
           </CardTitle>
           <span className="text-sm text-muted-foreground">Score: {score}</span>
         </div>
         <div className="w-full h-1.5 bg-muted rounded-full mt-2">
           <div
             className="h-full bg-primary rounded-full transition-all duration-500"
-            style={{ width: `${((current + 1) / exercises.length) * 100}%` }}
+            style={{ width: `${((current + 1) / exercisePool.length) * 100}%` }}
           />
         </div>
       </CardHeader>

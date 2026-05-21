@@ -258,7 +258,7 @@ export default function LessonDetail() {
         {/* Lesson content */}
         <TabsContent value="content">
           {lesson.content ? (
-            <div className="prose prose-slate max-w-none bg-card rounded-xl border border-border/50 p-6">
+            <div className="prose prose-slate max-w-none bg-card rounded-xl border border-border/50 p-6 lesson-text">
               <ReactMarkdown>{lesson.content}</ReactMarkdown>
             </div>
           ) : (

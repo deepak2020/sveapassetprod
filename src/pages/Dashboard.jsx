@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { Flame, Zap, BookOpen, Landmark, FlaskConical, BarChart3, Trophy, Star, Dumbbell, Target, LogOut, Trash2 } from "lucide-react";
@@ -47,13 +47,14 @@ export default function Dashboard() {
   const [saved, setSaved] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const touchStartY = useRef(null);
+  const queryClient = useQueryClient();
 
   const { data: user, refetch } = useQuery({
     queryKey: ["me"],
     queryFn: () => base44.auth.me(),
   });
 
-  const { data: quizResults, refetch: refetchQuizResults } = useQuery({
+  const { data: quizResults } = useQuery({
     queryKey: ["quiz-results-recent"],
     queryFn: () => base44.entities.QuizResult.list("-created_date", 20),
     initialData: [],
@@ -61,9 +62,9 @@ export default function Dashboard() {
 
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
-    await Promise.all([refetch(), refetchQuizResults()]);
+    await queryClient.invalidateQueries();
     setRefreshing(false);
-  }, [refetch, refetchQuizResults]);
+  }, [queryClient]);
 
   const handleTouchStart = (e) => {
     touchStartY.current = e.touches[0].clientY;

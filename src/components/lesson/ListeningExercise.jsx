@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, CheckCircle2, XCircle, Mic } from "lucide-react";
+import { Volume2, CheckCircle2, XCircle, Mic, RotateCcw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { playAudio } from "@/lib/speech";
 
 export default function ListeningExercise({ phrases, onComplete }) {
+  const [phrasePool, setPhrasePool] = useState(phrases);
+  const [wrongIndices, setWrongIndices] = useState([]);
   const [current, setCurrent] = useState(0);
   const [typed, setTyped] = useState("");
   const [selected, setSelected] = useState(null);
@@ -19,7 +21,7 @@ export default function ListeningExercise({ phrases, onComplete }) {
     return <p className="text-muted-foreground text-sm">No listening exercises available.</p>;
   }
 
-  const phrase = phrases[current];
+  const phrase = phrasePool[current];
   const isTranscribe = phrase.exercise_type === "transcribe";
 
   const handleAnswer = (answer) => {
@@ -29,7 +31,11 @@ export default function ListeningExercise({ phrases, onComplete }) {
     const isCorrect = given === expected;
     setAnswered(true);
     setCorrect(isCorrect);
-    if (isCorrect) setScore(s => s + 1);
+    if (isCorrect) {
+      setScore(s => s + 1);
+    } else {
+      setWrongIndices(prev => [...prev, current]);
+    }
   };
 
   const handleListening = () => {
@@ -65,9 +71,9 @@ export default function ListeningExercise({ phrases, onComplete }) {
   };
 
   const handleNext = () => {
-    if (current + 1 >= phrases.length) {
+    if (current + 1 >= phrasePool.length) {
       setFinished(true);
-      onComplete?.(score, phrases.length);
+      onComplete?.(score, phrasePool.length);
     } else {
       setCurrent(c => c + 1);
       setTyped("");
@@ -77,23 +83,35 @@ export default function ListeningExercise({ phrases, onComplete }) {
     }
   };
 
+  const wrongCount = wrongIndices.length;
+
+  const restart = () => {
+    const retryPool = wrongCount > 0
+      ? wrongIndices.map(i => phrasePool[i])
+      : phrases;
+    setPhrasePool(retryPool);
+    setWrongIndices([]);
+    setCurrent(0); setTyped(""); setSelected(null);
+    setAnswered(false); setCorrect(false); setScore(0); setFinished(false);
+  };
+
   if (finished) {
-    const pct = Math.round((score / phrases.length) * 100);
+    const pct = Math.round((score / phrasePool.length) * 100);
     return (
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
         <Card className="border-border/50 bg-green-50 border-green-200">
           <CardContent className="p-6 text-center">
             <h3 className="font-semibold text-lg text-green-900 mb-2">Listening complete!</h3>
             <p className="text-3xl font-bold text-green-600 mb-2">{pct}%</p>
-            <p className="text-sm text-green-700">{score} / {phrases.length} correct</p>
-            <Button onClick={() => {
-              setCurrent(0);
-              setScore(0);
-              setFinished(false);
-              setAnswered(false);
-              setTyped("");
-              setSelected(null);
-            }} className="mt-4">Try again</Button>
+            <p className="text-sm text-green-700">{score} / {phrasePool.length} correct</p>
+            {wrongCount > 0 && (
+              <Button onClick={restart} className="mt-4 w-full gap-2">
+                <RotateCcw className="w-4 h-4" /> Retry {wrongCount} wrong answer{wrongCount !== 1 ? "s" : ""}
+              </Button>
+            )}
+            <Button onClick={restart} variant="outline" className="mt-2 w-full gap-2">
+              <RotateCcw className="w-4 h-4" /> {wrongCount > 0 ? "Start over" : "Try again"}
+            </Button>
           </CardContent>
         </Card>
       </motion.div>
@@ -103,7 +121,7 @@ export default function ListeningExercise({ phrases, onComplete }) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between text-sm text-muted-foreground">
-        <span>{current + 1} / {phrases.length}</span>
+        <span>{current + 1} / {phrasePool.length}</span>
         <span className="font-semibold text-primary">Score: {score}</span>
       </div>
 

@@ -6,28 +6,23 @@ import { useAuth } from "@/lib/AuthContext";
 
 export default function AddToVocabButton({ swedish, english, lessonId, lessonTitle, exampleSentence }) {
   const [added, setAdded] = useState(false);
-  const [loading, setLoading] = useState(false);
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) return null;
 
-  const handleAddToVocab = async () => {
-    setLoading(true);
-    try {
-      await base44.entities.UserVocabulary.create({
-        swedish,
-        english,
-        lesson_id: lessonId,
-        lesson_title: lessonTitle,
-        example_sentence: exampleSentence,
-      });
-      setAdded(true);
-      setTimeout(() => setAdded(false), 2000);
-    } catch (error) {
-      console.error("Failed to add to vocabulary:", error);
-    } finally {
-      setLoading(false);
-    }
+  const handleAddToVocab = () => {
+    if (added) return;
+    // Optimistic: show success immediately, server call runs in background
+    setAdded(true);
+    base44.entities.UserVocabulary.create({
+      swedish,
+      english,
+      lesson_id: lessonId,
+      lesson_title: lessonTitle,
+      example_sentence: exampleSentence,
+    }).catch(() => {
+      setAdded(false); // revert on failure
+    });
   };
 
   return (
@@ -35,7 +30,7 @@ export default function AddToVocabButton({ swedish, english, lessonId, lessonTit
       size="lg"
       variant={added ? "default" : "outline"}
       onClick={handleAddToVocab}
-      disabled={loading || added}
+      disabled={added}
       className="gap-1.5 w-full"
     >
       {added ? (
