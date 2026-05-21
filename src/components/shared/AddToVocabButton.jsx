@@ -31,6 +31,7 @@ export default function AddToVocabButton({ swedish, english, lessonId, lessonTit
       variant={added ? "default" : "outline"}
       onClick={handleAddToVocab}
       disabled={added}
+      aria-label={added ? "Added to vocabulary" : "Add to vocabulary"}
       className="gap-1.5 w-full"
     >
       {added ? (

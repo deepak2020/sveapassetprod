@@ -5,6 +5,7 @@ import { getStoredTheme, setStoredTheme } from "@/components/ThemeSync";
 const ORDER = ["light", "dark", "system"];
 const ICONS = { light: Sun, dark: Moon, system: Monitor };
 const LABELS = { light: "Light", dark: "Dark", system: "System" };
+const NEXT_LABELS = { light: "dark", dark: "system", system: "light" };
 
 export default function ThemeToggle({ className = "" }) {
   const [theme, setTheme] = useState("system");
@@ -28,8 +29,9 @@ export default function ThemeToggle({ className = "" }) {
     <button
       type="button"
       onClick={cycle}
+      aria-label={`Switch to ${NEXT_LABELS[theme]} mode`}
       title={`Theme: ${LABELS[theme]} (click to change)`}
-      className={`flex items-center justify-center w-9 h-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors ${className}`}
+      className={`flex items-center justify-center min-w-[44px] min-h-[44px] w-9 h-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors ${className}`}
     >
       <Icon className="w-4 h-4" />
     </button>
