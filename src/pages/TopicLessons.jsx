@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { ArrowLeft, ArrowRight, CheckCircle2, Circle } from "lucide-react";
+import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -29,15 +29,15 @@ function getAvailableKeys(lesson) {
   ].filter(Boolean);
 }
 
-const SKILL_LABEL = {
-  vocabulary: "Vocabulary",
-  grammar: "Grammar",
-  reading: "Reading",
-  writing: "Writing",
-  speaking: "Speaking",
-  listening: "Listening",
-  phrases: "Phrases",
-  pronunciation: "Pronunciation",
+const SKILL_META = {
+  vocabulary:    { label: "Vocabulary",    labelSv: "Ordförråd",   emoji: "📝" },
+  grammar:       { label: "Grammar",       labelSv: "Grammatik",   emoji: "🔤" },
+  reading:       { label: "Reading",       labelSv: "Läsning",     emoji: "📖" },
+  writing:       { label: "Writing",       labelSv: "Skrivning",   emoji: "✍️" },
+  speaking:      { label: "Speaking",      labelSv: "Tal",         emoji: "🗣️" },
+  listening:     { label: "Listening",     labelSv: "Lyssning",    emoji: "👂" },
+  phrases:       { label: "Phrases",       labelSv: "Fraser",      emoji: "💬" },
+  pronunciation: { label: "Pronunciation", labelSv: "Uttal",       emoji: "🔊" },
 };
 
 export default function TopicLessons() {
@@ -89,62 +89,58 @@ export default function TopicLessons() {
         </p>
       </div>
 
-      <ol className="space-y-3">
-        {lessons.map((lesson, idx) => {
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {lessons.map((lesson) => {
           const available = getAvailableKeys(lesson);
           const completed = getLessonProgress(lesson.id);
           const doneCount = available.filter((k) => completed.includes(k)).length;
           const pct = available.length ? Math.round((doneCount / available.length) * 100) : 0;
           const isDone = available.length > 0 && doneCount === available.length;
-          const skillLabel = SKILL_LABEL[lesson.skill || lesson.category] || lesson.category;
+          const skill = lesson.skill || lesson.category;
+          const meta = SKILL_META[skill] || { label: lesson.title, labelSv: lesson.title_sv, emoji: "📄" };
 
           return (
-            <li key={lesson.id}>
-              <Link
-                to={`/language/${lesson.id}`}
-                className={`group flex items-center gap-4 p-4 rounded-xl border bg-card hover:shadow-md hover:border-primary/40 transition-all ${
-                  isDone ? "border-green-300/60 bg-green-50/30" : "border-border/50"
-                }`}
-              >
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full shrink-0 font-bold text-sm ${
-                  isDone ? "bg-green-100 text-green-700" : "bg-muted text-muted-foreground"
-                }`}>
-                  {isDone ? <CheckCircle2 className="w-5 h-5" /> : idx + 1}
-                </div>
+            <Link
+              key={lesson.id}
+              to={`/language/${lesson.id}`}
+              className={`group relative flex flex-col gap-3 p-4 rounded-xl border bg-card hover:shadow-md hover:border-primary/40 transition-all ${
+                isDone
+                  ? "border-green-300/60 dark:border-green-700/40 bg-green-50/30 dark:bg-green-950/20"
+                  : "border-border/50"
+              }`}
+            >
+              {/* Done badge */}
+              {isDone && (
+                <CheckCircle2 className="absolute top-3 right-3 w-4 h-4 text-green-500" />
+              )}
 
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <h3 className="font-semibold text-base truncate">{lesson.title}</h3>
-                  </div>
-                  {lesson.title_sv && lesson.title_sv !== lesson.title && (
-                    <p className="text-xs italic text-muted-foreground truncate mb-1.5">{lesson.title_sv}</p>
-                  )}
-                  <div className="flex items-center gap-3">
-                    {skillLabel && (
-                      <span className="text-[11px] font-medium text-muted-foreground">{skillLabel}</span>
-                    )}
-                    {available.length > 0 && (
-                      <div className="flex items-center gap-1.5 min-w-0 flex-1 max-w-[180px]">
-                        <div className="h-1 flex-1 bg-muted rounded-full overflow-hidden">
-                          <div
-                            className={`h-full transition-all ${isDone ? "bg-green-500" : "bg-primary"}`}
-                            style={{ width: `${pct}%` }}
-                          />
-                        </div>
-                        <span className="text-[10px] font-medium text-muted-foreground whitespace-nowrap">
-                          {doneCount}/{available.length}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                </div>
+              {/* Emoji icon */}
+              <span className="text-3xl leading-none">{meta.emoji}</span>
 
-                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
-              </Link>
-            </li>
+              {/* Skill name */}
+              <div>
+                <p className="font-semibold text-sm text-foreground">{meta.labelSv}</p>
+                <p className="text-xs text-muted-foreground italic">{meta.label}</p>
+              </div>
+
+              {/* Progress bar */}
+              {available.length > 0 && (
+                <div className="mt-auto space-y-1">
+                  <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all ${isDone ? "bg-green-500" : "bg-primary"}`}
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                  <p className="text-[10px] text-muted-foreground">
+                    {isDone ? "Klar! · Done" : `${doneCount} / ${available.length} aktiviteter`}
+                  </p>
+                </div>
+              )}
+            </Link>
           );
         })}
-      </ol>
+      </div>
     </div>
   );
 }
