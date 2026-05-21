@@ -106,11 +106,7 @@ export default function LessonDetail() {
   const hasTranslate = lesson.word_pairs?.some(wp => wp.example_en && wp.example_sv);
   const hasMatch = lesson.match_pairs?.length > 0;
 
-  const allDone = completed.length >= 3 || (
-    (!hasVocab || completed.includes("learn")) &&
-    (!hasBlanks || completed.includes("practice")) &&
-    (!hasQuiz || completed.includes("quiz"))
-  );
+  const allDone = availableKeys.length > 0 && doneCount === availableKeys.length;
 
   // Fire confetti once when lesson is completed
   if (allDone && !confettiFired.current && typeof window !== "undefined") {
@@ -188,15 +184,15 @@ export default function LessonDetail() {
 
       {/* Completion banner */}
       {allDone && (
-        <div className="mb-6 p-4 rounded-xl bg-green-50 border border-green-200 flex items-center gap-3">
-          <Trophy className="w-5 h-5 text-green-600 shrink-0" />
+        <div className="mb-6 p-4 rounded-xl bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800/50 flex items-center gap-3">
+          <Trophy className="w-5 h-5 text-green-600 dark:text-green-400 shrink-0" />
           <div>
-            <p className="font-semibold text-green-800 text-sm">Lesson complete! 🎉</p>
-            <p className="text-xs text-green-600">You've finished all activities for this lesson.</p>
+            <p className="font-semibold text-green-800 dark:text-green-300 text-sm">Lesson complete! 🎉</p>
+            <p className="text-xs text-green-600 dark:text-green-400">You've finished all activities for this lesson.</p>
           </div>
           {nextLesson && (
             <Link to={`/language/${nextLesson.id}`} className="ml-auto">
-              <Button size="sm" variant="outline" className="border-green-300 text-green-700 hover:bg-green-100">Next lesson</Button>
+              <Button size="sm" variant="outline" className="border-green-300 dark:border-green-700 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30">Next lesson</Button>
             </Link>
           )}
         </div>

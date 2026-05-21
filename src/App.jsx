@@ -23,6 +23,7 @@ import Contact from './pages/Contact';
 import ThemeSync from './components/ThemeSync';
 import XPToast from './components/shared/XPToast';
 import StreakMilestoneModal from './components/shared/StreakMilestoneModal';
+import WhatsNewModal from './components/shared/WhatsNewModal';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -81,6 +82,7 @@ function App() {
         <Toaster />
         <XPToast />
         <StreakMilestoneModal />
+        <WhatsNewModal />
       </QueryClientProvider>
     </AuthProvider>
   )
