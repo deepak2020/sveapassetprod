@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -22,6 +22,26 @@ const exerciseBadge = (lesson) => {
 
 export default function LanguageLessons() {
   const [activeCourse, setActiveCourse] = useState(null);
+  const queryClient = useQueryClient();
+  const [refreshing, setRefreshing] = useState(false);
+  const touchStartY = useRef(null);
+
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await queryClient.invalidateQueries();
+    setRefreshing(false);
+  }, [queryClient]);
+
+  const handleTouchStart = (e) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartY.current === null) return;
+    const delta = e.changedTouches[0].clientY - touchStartY.current;
+    if (delta > 80 && window.scrollY === 0) handleRefresh();
+    touchStartY.current = null;
+  };
 
   // Lightweight counts for the course overview cards (one tiny query, not full lessons)
   const { data: courseCounts = {} } = useQuery({
@@ -59,7 +79,16 @@ export default function LanguageLessons() {
   const activeCourseData = SFI_COURSES.find((c) => c.id === activeCourse);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      {refreshing && (
+        <div className="flex justify-center mb-4">
+          <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
       {/* Navigation & Title */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
         <div>

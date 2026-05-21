@@ -90,9 +90,22 @@
     overscroll-behavior-y: none;
   }
 
+  /* Interactive game elements: prevent accidental text selection on mobile */
   .no-select {
     user-select: none;
     -webkit-user-select: none;
+  }
+
+  /* Lesson reading content: always selectable so users can copy-paste to translation tools */
+  .lesson-text {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  /* Ensure prose content inside any select-none parent remains selectable */
+  .prose, .prose * {
+    user-select: text;
+    -webkit-user-select: text;
   }
 
   @media (prefers-reduced-motion: reduce) {
