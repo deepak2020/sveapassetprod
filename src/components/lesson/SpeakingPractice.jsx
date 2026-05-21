@@ -124,7 +124,14 @@ export default function SpeakingPractice({ phrases, onComplete }) {
       </div>
 
       {/* Progress bar */}
-      <div className="w-full h-1.5 bg-muted rounded-full mb-3">
+      <div
+        className="w-full h-1.5 bg-muted rounded-full mb-3"
+        role="progressbar"
+        aria-valuenow={attempted}
+        aria-valuemin={0}
+        aria-valuemax={phrases.length}
+        aria-label="Speaking practice progress"
+      >
         <div
           className="h-full bg-primary rounded-full transition-all duration-500"
           style={{ width: `${(attempted / phrases.length) * 100}%` }}
@@ -150,16 +157,22 @@ export default function SpeakingPractice({ phrases, onComplete }) {
                   ? "border-orange-300/60"
                   : "hover:border-green-300/60"
               }`}
+              role="button"
+              tabIndex={0}
+              aria-expanded={isOpen}
+              aria-label={`${phrase.phrase_sv} — ${phrase.phrase_en}. ${fb ? (fb.isCorrect ? 'Correct' : 'Needs practice') : 'Not yet attempted'}`}
               onClick={() => setExpanded(isOpen ? null : i)}
+              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setExpanded(isOpen ? null : i); } }}
             >
               <CardContent className="p-4">
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0 flex-1">
                     {/* SpeakButton stops propagation internally via its own onClick */}
-                    <div onClick={(e) => e.stopPropagation()}>
+                    <div onClick={(e) => e.stopPropagation()} aria-label="Play phrase audio">
                       <SpeakButton
                         text={phrase.phrase_sv}
                         className="w-9 h-9 rounded-xl bg-green-100 text-green-600 hover:bg-green-200 shrink-0"
+                        ariaLabel="Play phrase audio"
                       />
                     </div>
                     <div className="min-w-0">
@@ -175,6 +188,7 @@ export default function SpeakingPractice({ phrases, onComplete }) {
                       size="icon"
                       variant={listening === i ? "default" : "outline"}
                       className="w-9 h-9 rounded-xl"
+                      aria-label={listening === i ? "Listening — recording in progress" : "Record pronunciation"}
                       onClick={(e) => handleRecord(e, i)}
                       disabled={listening === i}
                     >
@@ -191,6 +205,7 @@ export default function SpeakingPractice({ phrases, onComplete }) {
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
+                    aria-live="polite"
                     className="mt-3 pt-3 border-t border-border/50 space-y-3"
                   >
                     {phrase.pronunciation_tip && (
@@ -211,7 +226,7 @@ export default function SpeakingPractice({ phrases, onComplete }) {
                             <Button
                               size="sm"
                               variant="outline"
-                              className="h-7 px-2 text-xs gap-1"
+                              className="min-h-[44px] px-2 text-xs gap-1"
                               onClick={(e) => handleRecord(e, i)}
                               disabled={listening === i}
                             >

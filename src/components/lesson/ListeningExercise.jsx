@@ -122,7 +122,7 @@ export default function ListeningExercise({ phrases, onComplete }) {
     <div className="space-y-4">
       <div className="flex items-center justify-between text-sm text-muted-foreground">
         <span>{current + 1} / {phrasePool.length}</span>
-        <span className="font-semibold text-primary">Score: {score}</span>
+        <span className="font-semibold text-primary" aria-live="polite">Score: {score}</span>
       </div>
 
       <AnimatePresence mode="wait">
@@ -137,6 +137,7 @@ export default function ListeningExercise({ phrases, onComplete }) {
                 <p className="text-sm text-muted-foreground">Listen to the Swedish phrase:</p>
                 <button
                   onClick={() => playAudio(phrase.phrase_sv, "sv-SE", 1)}
+                  aria-label="Play Swedish phrase audio"
                   className="w-full p-4 rounded-xl border-2 border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors flex items-center justify-center gap-2 font-semibold text-primary"
                 >
                   <Volume2 className="w-5 h-5" /> Play audio
@@ -152,12 +153,14 @@ export default function ListeningExercise({ phrases, onComplete }) {
                     onKeyDown={e => { if (e.key === "Enter" && !answered) handleAnswer(typed); }}
                     disabled={answered}
                     placeholder="Type what you hear..."
+                    aria-label="Type what you hear in Swedish"
                     className="w-full border-2 border-border/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary transition-colors"
                   />
                   <div className="flex gap-2 text-sm text-muted-foreground">
                     {["å", "ä", "ö"].map(c => (
                       <button key={c} onClick={() => setTyped(t => t + c)}
-                        className="px-2.5 py-1 border rounded-lg hover:bg-muted transition-colors font-medium">{c}</button>
+                        aria-label={`Insert ${c}`}
+                        className="px-2.5 py-1 min-h-[44px] min-w-[44px] border rounded-lg hover:bg-muted transition-colors font-medium">{c}</button>
                     ))}
                   </div>
                   {!answered && (
@@ -179,6 +182,15 @@ export default function ListeningExercise({ phrases, onComplete }) {
                         key={idx}
                         onClick={() => { setSelected(idx); handleAnswer(opt); }}
                         disabled={answered}
+                        aria-label={
+                          answered
+                            ? idx === phrase.correct_index
+                              ? `${opt} — correct answer`
+                              : idx === selected
+                              ? `${opt} — incorrect selection`
+                              : opt
+                            : opt
+                        }
                         className={`w-full p-3 rounded-xl border-2 text-left text-sm font-medium transition-all flex items-center justify-between gap-2 ${
                           answered
                             ? idx === phrase.correct_index
@@ -200,7 +212,7 @@ export default function ListeningExercise({ phrases, onComplete }) {
 
               {answered && (
                 <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
-                  <div className={`p-3 rounded-lg ${correct ? "bg-green-50 border border-green-200" : "bg-red-50 border border-red-200"}`}>
+                  <div aria-live="assertive" className={`p-3 rounded-lg ${correct ? "bg-green-50 border border-green-200" : "bg-red-50 border border-red-200"}`}>
                     <p className={`text-sm font-semibold ${correct ? "text-green-700" : "text-red-700"}`}>
                       {correct ? "✓ Correct!" : `✗ Answer: ${phrase.phrase_sv}`}
                     </p>
