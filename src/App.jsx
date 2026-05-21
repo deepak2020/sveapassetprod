@@ -48,10 +48,16 @@ const AuthenticatedApp = () => {
     }
   }
 
-  // Gate: show welcome screen to unauthenticated users (except public pages)
+  // Gate: prompt returning users (who have visited before) to sign in
   const isPublicPath = PUBLIC_PATHS.some(p => window.location.pathname.startsWith(p));
-  if (authChecked && !isAuthenticated && !isPublicPath) {
+  const isReturningUser = !!localStorage.getItem("svenska:visited") || !!localStorage.getItem("svenska:last_lesson");
+  if (authChecked && !isAuthenticated && !isPublicPath && isReturningUser) {
     return <Welcome />;
+  }
+
+  // First-time visitors pass through freely — mark them as visited
+  if (authChecked && !isAuthenticated) {
+    localStorage.setItem("svenska:visited", "1");
   }
 
   // Render the main app

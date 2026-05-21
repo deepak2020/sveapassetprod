@@ -12,10 +12,6 @@ const FEATURES = [
 
 export default function Welcome() {
   const { navigateToLogin } = useAuth();
-  const isReturning = !!localStorage.getItem("svenska:last_lesson") || !!localStorage.getItem("svenska:visited");
-
-  // Mark as visited so next time they're treated as returning
-  localStorage.setItem("svenska:visited", "1");
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -37,7 +33,7 @@ export default function Welcome() {
             className="w-full h-12 text-base font-semibold"
             onClick={navigateToLogin}
           >
-            {isReturning ? "Sign in" : "Get started — it's free"}
+            Sign in to continue
           </Button>
           <Button
             size="lg"
@@ -45,7 +41,7 @@ export default function Welcome() {
             className="w-full h-12 text-base"
             onClick={navigateToLogin}
           >
-            {isReturning ? "Create a new account" : "Already have an account? Sign in"}
+            Create a new account
           </Button>
         </div>
       </div>
