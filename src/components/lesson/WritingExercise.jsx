@@ -9,25 +9,33 @@ import { useWritingAnswers } from "@/hooks/useWritingAnswers";
 
 async function evaluateAnswer(prompt, hint, exampleAnswer, userAnswer) {
   const result = await base44.integrations.Core.InvokeLLM({
-    prompt: `You are a Swedish language teacher helping SFI (Swedish for Immigrants) students practice writing.
+    prompt: `You are a Swedish language teacher evaluating an SFI student's written answer.
 
-Writing prompt given to student: "${prompt}"
-${hint ? `Hint provided: ${hint}` : ""}
-${exampleAnswer ? `Example answer: ${exampleAnswer}` : ""}
+Question: "${prompt}"
+${hint ? `Hint: ${hint}` : ""}
+${exampleAnswer ? `Model answer: ${exampleAnswer}` : ""}
+Student wrote: "${userAnswer}"
 
-Student's answer: "${userAnswer}"
+Step 1 — Read the student's text word by word.
+Step 2 — In a single pass, collect EVERY error you see across ALL of these categories at the same time:
+  a) Spelling mistakes (skip proper nouns and names)
+  b) Wrong verb form or tense
+  c) Wrong article (en/ett)
+  d) Wrong word order
+  e) Wrong or unnatural vocabulary choice
 
-Evaluate the student's answer thoroughly. Be encouraging and supportive — they are learning Swedish.
+Step 3 — Put ALL errors from step 2 into the grammar_issues array in one go. Do not save some for later. Do not group by category. List every single one now.
 
-IMPORTANT for grammar_issues: Find and list EVERY grammar, spelling, word order, and vocabulary mistake in the student's answer — not just one. Each issue must include the exact wrong text as it appears in the student's answer, the corrected Swedish form, and a brief explanation in English. If a word is a proper noun or name, do NOT flag it as a spelling error.
+Step 4 — Decide if the answer addresses the question (relevant).
+Step 5 — Write one tip and one overall sentence.
 
-Return JSON with exactly these fields:
-- relevant: boolean — does the answer actually address the writing prompt?
-- relevance_feedback: string — one sentence on whether they answered the question or went off-topic (in English)
-- grammar_issues: array — INCLUDE ALL mistakes found, not just the first one. Each item: wrong (exact phrase from student text), correct (fixed Swedish), explanation (why, in English). Empty array only if there are truly no issues.
-- suggestion: string — one practical tip to expand or improve the answer (in English, brief)
+Return JSON:
+- relevant: boolean
+- relevance_feedback: string (English, one sentence)
+- grammar_issues: array of ALL errors found in step 2, each with: wrong (exact text from student), correct (Swedish fix), explanation (English, max 10 words). Must be complete — do not omit any error.
+- suggestion: string (English, one practical tip)
 - score: "great" | "good" | "needs_work"
-- overall: string — one encouraging sentence summarising their effort (in English)`,
+- overall: string (English, one encouraging sentence)`,
     response_json_schema: {
       type: "object",
       properties: {
