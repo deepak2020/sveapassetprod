@@ -31,7 +31,7 @@ export default function ThemeToggle({ className = "" }) {
       onClick={cycle}
       aria-label={`Switch to ${NEXT_LABELS[theme]} mode`}
       title={`Theme: ${LABELS[theme]} (click to change)`}
-      className={`flex items-center justify-center min-w-[44px] min-h-[44px] w-9 h-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors ${className}`}
+      className={`relative flex items-center justify-center w-9 h-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors before:absolute before:inset-[-4px] before:content-[''] ${className}`}
     >
       <Icon className="w-4 h-4" />
     </button>
