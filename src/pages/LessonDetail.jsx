@@ -353,7 +353,7 @@ export default function LessonDetail() {
               <h2 className="font-semibold text-lg">✍️ Writing Practice</h2>
               <p className="text-sm text-muted-foreground">Short writing exercises to reinforce your learning.</p>
             </div>
-            <WritingExercise prompts={lesson.writing_prompts} onComplete={() => markComplete("writing")} />
+            <WritingExercise prompts={lesson.writing_prompts} lessonId={lessonId} onComplete={() => markComplete("writing")} />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
                 <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">

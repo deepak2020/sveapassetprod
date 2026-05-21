@@ -1,17 +1,45 @@
-import { useState } from "react";
-import { Lightbulb, ChevronDown, ChevronUp, CheckCircle2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Lightbulb, ChevronDown, ChevronUp, CheckCircle2, PencilLine } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 
-function PromptCard({ prompt, index, onSubmit, isSubmitted, savedAnswer }) {
+function storageKey(lessonId) {
+  return `svenska:writing:${lessonId}`;
+}
+
+function loadSaved(lessonId) {
+  try {
+    const raw = localStorage.getItem(storageKey(lessonId));
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveToStorage(lessonId, answers) {
+  try {
+    localStorage.setItem(storageKey(lessonId), JSON.stringify(answers));
+  } catch {}
+}
+
+function PromptCard({ prompt, index, onSubmit, isSubmitted, savedAnswer, onEdit }) {
   const [answer, setAnswer] = useState(savedAnswer || "");
   const [showExample, setShowExample] = useState(false);
+  const [editing, setEditing] = useState(false);
 
   const handleSubmit = () => {
     onSubmit(index, answer);
+    setEditing(false);
   };
+
+  const handleEdit = () => {
+    setEditing(true);
+    onEdit(index);
+  };
+
+  const showInput = !isSubmitted || editing;
 
   return (
     <motion.div
@@ -23,7 +51,7 @@ function PromptCard({ prompt, index, onSubmit, isSubmitted, savedAnswer }) {
         <CardContent className="p-5 space-y-4">
           <div className="flex items-start gap-3">
             <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center text-sm font-bold text-violet-700 shrink-0">
-              {isSubmitted ? <CheckCircle2 className="w-4 h-4 text-green-600" /> : index + 1}
+              {isSubmitted && !editing ? <CheckCircle2 className="w-4 h-4 text-green-600" /> : index + 1}
             </div>
             <div>
               <p className="font-medium text-foreground">{prompt.prompt}</p>
@@ -35,13 +63,14 @@ function PromptCard({ prompt, index, onSubmit, isSubmitted, savedAnswer }) {
             </div>
           </div>
 
-          {!isSubmitted ? (
+          {showInput ? (
             <>
               <Textarea
                 placeholder="Skriv ditt svar här... (Write your answer here)"
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 className="min-h-[80px] resize-none"
+                autoFocus={editing}
               />
               <div className="flex items-center justify-between gap-3">
                 <button
@@ -51,20 +80,41 @@ function PromptCard({ prompt, index, onSubmit, isSubmitted, savedAnswer }) {
                   {showExample ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                   {showExample ? "Hide example" : "Show example answer"}
                 </button>
-                <Button size="sm" onClick={handleSubmit} disabled={!answer.trim()} className="gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> Done
-                </Button>
+                <div className="flex gap-2">
+                  {editing && (
+                    <Button size="sm" variant="ghost" onClick={() => setEditing(false)} className="text-muted-foreground">
+                      Cancel
+                    </Button>
+                  )}
+                  <Button size="sm" onClick={handleSubmit} disabled={!answer.trim()} className="gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Done
+                  </Button>
+                </div>
               </div>
             </>
           ) : (
             <div className="space-y-3">
-              <div className="bg-violet-50 rounded-xl p-3 border border-violet-200/60">
-                <p className="text-sm font-medium text-violet-700 mb-1">Your answer:</p>
+              <div className="bg-violet-50 dark:bg-violet-950/30 rounded-xl p-3 border border-violet-200/60 dark:border-violet-800/40">
+                <p className="text-sm font-medium text-violet-700 dark:text-violet-300 mb-1">Your answer:</p>
                 <p className="text-sm text-foreground">{savedAnswer}</p>
               </div>
-              <button onClick={() => setShowExample(!showExample)} className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-                {showExample ? "Hide example" : "Compare with example"}
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={handleEdit}
+                  className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
+                >
+                  <PencilLine className="w-3 h-3" /> Edit answer
+                </button>
+                {prompt.example_answer && (
+                  <button
+                    onClick={() => setShowExample(!showExample)}
+                    className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
+                  >
+                    {showExample ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                    {showExample ? "Hide example" : "Compare with example"}
+                  </button>
+                )}
+              </div>
             </div>
           )}
 
@@ -72,10 +122,10 @@ function PromptCard({ prompt, index, onSubmit, isSubmitted, savedAnswer }) {
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
-              className="bg-green-50 rounded-xl p-3 border border-green-200/60"
+              className="bg-green-50 dark:bg-green-950/30 rounded-xl p-3 border border-green-200/60 dark:border-green-800/40"
             >
-              <p className="text-xs font-semibold text-green-700 mb-1">Example answer:</p>
-              <p className="text-sm text-green-800">{prompt.example_answer}</p>
+              <p className="text-xs font-semibold text-green-700 dark:text-green-400 mb-1">Example answer:</p>
+              <p className="text-sm text-green-800 dark:text-green-300">{prompt.example_answer}</p>
             </motion.div>
           )}
         </CardContent>
@@ -84,8 +134,17 @@ function PromptCard({ prompt, index, onSubmit, isSubmitted, savedAnswer }) {
   );
 }
 
-export default function WritingExercise({ prompts, onComplete }) {
-  const [answers, setAnswers] = useState({});
+export default function WritingExercise({ prompts, lessonId, onComplete }) {
+  const [answers, setAnswers] = useState(() => loadSaved(lessonId));
+  const [completionFired, setCompletionFired] = useState(false);
+
+  // Fire onComplete once on mount if all prompts were already answered
+  useEffect(() => {
+    if (!completionFired && prompts?.length > 0 && Object.keys(answers).length === prompts.length && onComplete) {
+      setCompletionFired(true);
+      onComplete();
+    }
+  }, []);
 
   if (!prompts || prompts.length === 0) {
     return <p className="text-muted-foreground text-sm">No writing exercises available.</p>;
@@ -94,10 +153,19 @@ export default function WritingExercise({ prompts, onComplete }) {
   const handleSubmit = (index, answer) => {
     const updated = { ...answers, [index]: answer };
     setAnswers(updated);
-    const submittedCount = Object.keys(updated).length;
-    if (submittedCount === prompts.length && onComplete) {
+    if (lessonId) saveToStorage(lessonId, updated);
+    if (Object.keys(updated).length === prompts.length && onComplete && !completionFired) {
+      setCompletionFired(true);
       onComplete();
     }
+  };
+
+  const handleEdit = (index) => {
+    // Remove from answers so the prompt goes back to input mode
+    const updated = { ...answers };
+    delete updated[index];
+    setAnswers(updated);
+    if (lessonId) saveToStorage(lessonId, updated);
   };
 
   const doneCount = Object.keys(answers).length;
@@ -109,6 +177,9 @@ export default function WritingExercise({ prompts, onComplete }) {
         {doneCount > 0 && doneCount < prompts.length && (
           <span className="ml-2 font-medium text-foreground">{doneCount}/{prompts.length} completed</span>
         )}
+        {doneCount === prompts.length && (
+          <span className="ml-2 font-medium text-green-600">All done ✓</span>
+        )}
       </p>
       {prompts.map((prompt, i) => (
         <PromptCard
@@ -116,6 +187,7 @@ export default function WritingExercise({ prompts, onComplete }) {
           prompt={prompt}
           index={i}
           onSubmit={handleSubmit}
+          onEdit={handleEdit}
           isSubmitted={i in answers}
           savedAnswer={answers[i]}
         />
