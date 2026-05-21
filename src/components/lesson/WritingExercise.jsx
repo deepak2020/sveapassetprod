@@ -95,8 +95,8 @@ function wordDiff(original, corrected) {
   ];
 }
 
-// Shows the corrected text with changed words highlighted in bold green
-// (original is shown separately above, so no need for strikethrough here)
+// Shows corrected text: unchanged words normally, changed words as
+// strikethrough-red (wrong) immediately followed by bold-green (correct)
 function AnnotatedText({ original, correctedText }) {
   if (!correctedText || original === correctedText) return null;
 
@@ -110,14 +110,19 @@ function AnnotatedText({ original, correctedText }) {
         }
         if (seg.type === "changed") {
           return (
-            <span key={i} className="font-semibold text-green-700 dark:text-green-400 underline decoration-green-400/60">
-              {seg.corr}
+            <span key={i}>
+              <s className="text-red-500 dark:text-red-400">{seg.orig}</s>
+              {" "}
+              <span className="font-semibold text-green-700 dark:text-green-400">{seg.corr}</span>
             </span>
           );
         }
-        // fallback: show corrected block
         return (
-          <span key={i} className="font-semibold text-green-700 dark:text-green-400">{seg.corr}</span>
+          <span key={i}>
+            <s className="text-red-400">{seg.orig}</s>
+            {" "}
+            <span className="font-semibold text-green-700 dark:text-green-400">{seg.corr}</span>
+          </span>
         );
       })}
     </span>
