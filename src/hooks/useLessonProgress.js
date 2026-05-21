@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 
 const KEY_LAST = "svenska:last_lesson";
 const KEY_PROGRESS_PREFIX = "svenska:lesson_progress:";
@@ -43,23 +44,21 @@ export function useLastLesson() {
 export function useLessonCompletion(lessonId) {
   const [completed, setCompleted] = useState([]);
   const [scores, setScores] = useState({});
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (!lessonId) return;
 
     // Load from localStorage immediately (no latency)
-    let localKeys = [];
     try {
       const raw = localStorage.getItem(KEY_PROGRESS_PREFIX + lessonId);
-      if (raw) {
-        localKeys = JSON.parse(raw);
-        setCompleted(localKeys);
-      }
+      if (raw) setCompleted(JSON.parse(raw));
       const rawScores = localStorage.getItem(KEY_SCORES_PREFIX + lessonId);
       if (rawScores) setScores(JSON.parse(rawScores));
     } catch (_) {}
 
-    // Then load from backend and merge (handles cross-device progress)
+    // Load from backend and merge — only when logged in, so records are user-scoped
+    if (!isAuthenticated) return;
     base44.entities.QuizResult.filter(
       { quiz_type: "lesson_tab", source_id: lessonId },
       null,
@@ -79,7 +78,7 @@ export function useLessonCompletion(lessonId) {
         });
       })
       .catch(() => {});
-  }, [lessonId]);
+  }, [lessonId, isAuthenticated]);
 
   const markComplete = (key, scoreInfo) => {
     // Update local state + localStorage immediately
@@ -92,18 +91,21 @@ export function useLessonCompletion(lessonId) {
       return next;
     });
 
-    // Persist to backend (fire-and-forget — localStorage already updated above)
-    base44.entities.QuizResult.create({
-      quiz_type: "lesson_tab",
-      source_id: lessonId,
-      skill: key,
-      score: scoreInfo?.score ?? 1,
-      total: scoreInfo?.total ?? 1,
-      percentage:
-        scoreInfo?.total > 0
-          ? Math.round((scoreInfo.score / scoreInfo.total) * 100)
-          : 100,
-    }).catch(() => {});
+    // Persist to backend only when logged in — records are automatically
+    // scoped to the authenticated user by the base44 server via the auth token
+    if (isAuthenticated) {
+      base44.entities.QuizResult.create({
+        quiz_type: "lesson_tab",
+        source_id: lessonId,
+        skill: key,
+        score: scoreInfo?.score ?? 1,
+        total: scoreInfo?.total ?? 1,
+        percentage:
+          scoreInfo?.total > 0
+            ? Math.round((scoreInfo.score / scoreInfo.total) * 100)
+            : 100,
+      }).catch(() => {});
+    }
 
     if (scoreInfo && typeof scoreInfo.score === "number" && typeof scoreInfo.total === "number") {
       setScores((prev) => {
