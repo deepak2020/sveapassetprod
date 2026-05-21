@@ -95,10 +95,14 @@ function wordDiff(original, corrected) {
   ];
 }
 
+function normalize(text) {
+  return text?.trim().replace(/\s+/g, " ") || "";
+}
+
 // Shows corrected text: unchanged words normally, changed words as
 // strikethrough-red (wrong) immediately followed by bold-green (correct)
 function AnnotatedText({ original, correctedText }) {
-  if (!correctedText || original === correctedText) return null;
+  if (!correctedText || normalize(original) === normalize(correctedText)) return null;
 
   const segments = wordDiff(original, correctedText);
 
@@ -250,7 +254,7 @@ function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer,
               </div>
 
               {/* Corrected version — separate box below */}
-              {!checking && feedback?.corrected_text && feedback.corrected_text !== savedAnswer && (
+              {!checking && feedback?.corrected_text && normalize(feedback.corrected_text) !== normalize(savedAnswer) && (
                 <motion.div
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
