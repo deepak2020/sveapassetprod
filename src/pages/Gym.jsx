@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { Play, BookOpen, Upload, Brain } from "lucide-react";
@@ -24,6 +24,7 @@ export default function Gym() {
   const [showImport, setShowImport] = useState(false);
   const [importing, setImporting] = useState(false);
   const { dueCards, masteredCount, totalCount, refresh } = useVocabSRS();
+  const sessionRef = useRef(null);
 
   const { data: sentences = [] } = useQuery({
     queryKey: ["cloze-sentences"],
@@ -134,10 +135,14 @@ export default function Gym() {
         </Card>
         {user && (
           <>
-            <Card className="border-border/50">
+            <Card
+              className={`border-border/50 transition-all ${dueCount > 0 ? "cursor-pointer hover:border-orange-400 hover:shadow-md active:scale-95" : ""}`}
+              onClick={() => dueCount > 0 && sessionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
+            >
               <CardContent className="p-4 text-center">
                 <p className="text-2xl font-bold text-orange-500">{dueCount}</p>
                 <p className="text-xs text-muted-foreground mt-1">Förfallna för granskning</p>
+                {dueCount > 0 && <p className="text-[10px] text-orange-400 mt-0.5 italic">Tryck för att starta · Tap to start</p>}
               </CardContent>
             </Card>
             <Card className="border-border/50">
@@ -267,7 +272,7 @@ function GymDashboard({ sentences, srsCards, onStartSession }) {
   return (
     <div className="space-y-6">
       {/* SFI Level Selection */}
-      <div>
+      <div ref={sessionRef}>
         <h2 className="font-semibold mb-3 text-sm text-muted-foreground uppercase tracking-wide">SFI-nivå</h2>
         <div className="grid grid-cols-4 gap-3">
           {SFI_LEVELS.map(level => {
