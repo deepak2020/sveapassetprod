@@ -70,7 +70,8 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
     if (!touchStartX.current || !flipped) return;
     const diff = touchStartX.current - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 50) {
-      if (diff > 0) handleKnow();
+      // Swipe right = Got it, swipe left = Still learning (Tinder convention)
+      if (diff < 0) handleKnow();
       else handleLearning();
     }
     touchStartX.current = null;
@@ -148,7 +149,9 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
               <p className="text-xs text-muted-foreground mt-4">Tap to reveal translation</p>
             )}
             {flipped && (
-              <p className="text-xs text-muted-foreground mt-4 md:hidden">Swipe left/right to answer</p>
+              <p className="text-xs text-muted-foreground mt-4 md:hidden">
+                ← Still learning &nbsp;·&nbsp; Got it! →
+              </p>
             )}
           </div>
         </motion.div>
