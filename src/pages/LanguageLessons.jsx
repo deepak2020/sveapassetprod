@@ -2,15 +2,19 @@ import { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Trash2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import LevelBadge from "../components/shared/LevelBadge";
 import EmptyState from "../components/shared/EmptyState";
 import TopicCard from "../components/language/TopicCard";
+import CleanupLessonsModal from "../components/language/CleanupLessonsModal";
 import { motion } from "framer-motion";
+import { useAuth } from "@/lib/AuthContext";
 
 import { SFI_COURSES } from "@/lib/course-constants";
+
+const ADMIN_EMAIL = "deepak2020rana@gmail.com";
 
 const exerciseBadge = (lesson) => {
   const parts = [];
@@ -22,7 +26,10 @@ const exerciseBadge = (lesson) => {
 
 export default function LanguageLessons() {
   const [activeCourse, setActiveCourse] = useState(null);
+  const [cleanupCourse, setCleanupCourse] = useState(null);
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const isAdmin = user?.email === ADMIN_EMAIL;
   const [refreshing, setRefreshing] = useState(false);
   const touchStartY = useRef(null);
 
@@ -153,8 +160,19 @@ export default function LanguageLessons() {
                     <span className="text-sm font-bold text-primary">
                       {countByCourse(course.id)} enheter tillgängliga · <span className="font-normal italic">units available</span>
                     </span>
-                    <div className={`p-2 rounded-full bg-gradient-to-r ${course.color} text-white`}>
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <div className="flex items-center gap-2">
+                      {isAdmin && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setCleanupCourse(course.id); }}
+                          className="p-2 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-800/50 transition-colors"
+                          title="Clean up duplicate lessons"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
+                      <div className={`p-2 rounded-full bg-gradient-to-r ${course.color} text-white`}>
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -188,6 +206,20 @@ export default function LanguageLessons() {
               );
             })()}
         </div>
+      )}
+
+      {cleanupCourse && (
+        <CleanupLessonsModal
+          open={!!cleanupCourse}
+          course={cleanupCourse}
+          keepCount={90}
+          onClose={() => setCleanupCourse(null)}
+          onComplete={() => {
+            queryClient.invalidateQueries({ queryKey: ["lesson-course-counts"] });
+            queryClient.invalidateQueries({ queryKey: ["lessons", cleanupCourse] });
+            setCleanupCourse(null);
+          }}
+        />
       )}
     </div>
   );
