@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 
 const CURRENT_VERSION = "1.3";
 const STORAGE_KEY = "svenska:whats_new_seen";
@@ -40,15 +41,18 @@ const FEATURES = [
 
 export default function WhatsNewModal() {
   const [open, setOpen] = useState(false);
+  const { isAuthenticated, authChecked } = useAuth();
 
   useEffect(() => {
+    if (!authChecked) return;
+    if (isAuthenticated) return;
     try {
       const seen = localStorage.getItem(STORAGE_KEY);
       if (seen !== CURRENT_VERSION) setOpen(true);
     } catch {
       setOpen(true);
     }
-  }, []);
+  }, [authChecked, isAuthenticated]);
 
   const dismiss = () => {
     try { localStorage.setItem(STORAGE_KEY, CURRENT_VERSION); } catch {}
