@@ -3,65 +3,51 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const CURRENT_VERSION = "1.2";
+const CURRENT_VERSION = "1.3";
 const STORAGE_KEY = "svenska:whats_new_seen";
 
 const FEATURES = [
   {
-    emoji: "📅",
-    title: "Dagens utmaningar",
-    titleEn: "Daily challenges",
-    desc: "4 utmaningar om dagen — morgon, eftermiddag, kväll och natt. Låses upp efter tid.",
-    descEn: "4 challenges a day unlocking by time of day.",
+    emoji: "✍️",
+    title: "AI-skrivfeedback",
+    titleEn: "AI writing feedback",
+    desc: "Skriv ett svar och få direkt feedback — AI markerar fel med genomstrykning och visar rätt ord i grönt.",
+    descEn: "Write an answer and get instant AI feedback with strikethrough errors and green corrections inline.",
   },
   {
-    emoji: "⚡",
-    title: "XP-notiser",
-    titleEn: "XP toasts",
-    desc: "Se dina poäng direkt när du svarar rätt.",
-    descEn: "Floating +XP popup on every correct answer.",
+    emoji: "💾",
+    title: "Sparade skrivövningar",
+    titleEn: "Writing answers saved",
+    desc: "Dina skrivövningssvar sparas automatiskt — de finns kvar nästa gång du öppnar lektionen.",
+    descEn: "Your writing exercise answers are saved automatically and restored when you return.",
   },
   {
-    emoji: "🔥",
-    title: "Svitmilstolpar",
-    titleEn: "Streak milestones",
-    desc: "Bonuspoäng och belöning vid 7, 30 och 100 dagars svit.",
-    descEn: "Bonus XP + reward modal at 7, 30 and 100-day streaks.",
+    emoji: "📱",
+    title: "Bättre mobilnavigering",
+    titleEn: "Better mobile navigation",
+    desc: "Navigationsknapparna för föregående/nästa lektion syns nu korrekt på mobil.",
+    descEn: "Previous/next lesson buttons are now properly visible on mobile screens.",
   },
   {
-    emoji: "🧠",
-    title: "Ordförråds-SRS",
-    titleEn: "Vocabulary SRS",
-    desc: "Ord du lärt dig sparas automatiskt i en upprepningsdäck i Gym.",
-    descEn: "Lesson vocab saved to a spaced-repetition review deck in Gym.",
+    emoji: "👋",
+    title: "Välkommen tillbaka-banner",
+    titleEn: "Welcome back banner",
+    desc: "Återvändande besökare uppmanas att skapa ett konto för att spara sina framsteg.",
+    descEn: "Returning visitors are gently nudged to create an account to track their progress.",
   },
   {
-    emoji: "📉",
-    title: "Svaga områden",
-    titleEn: "Weak area card",
-    desc: "Dashboarden visar dina svagaste färdigheter och rekommenderar lektioner.",
-    descEn: "Dashboard shows your weakest skills and recommends lessons.",
+    emoji: "🎤",
+    title: "Talbockmarkering",
+    titleEn: "Speaking completion",
+    desc: "Talövningar markeras nu korrekt som klara med en bockmarkering.",
+    descEn: "Speaking exercises now correctly show a checkmark when completed.",
   },
   {
-    emoji: "➡️",
-    title: "Nästa aktivitet",
-    titleEn: "Next activity button",
-    desc: "Knapp inuti varje lektionsflik för att gå vidare utan att scrolla upp.",
-    descEn: "Button inside each lesson tab to move forward without scrolling.",
-  },
-  {
-    emoji: "🔊",
-    title: "Förbättrat tal",
-    titleEn: "Better TTS voices",
-    desc: "Väljer automatiskt den bästa tillgängliga svenska rösten på din enhet.",
-    descEn: "Automatically picks the best available Swedish voice on your device.",
-  },
-  {
-    emoji: "✅",
-    title: "Lektionsstatus",
-    titleEn: "Lesson completion",
-    desc: "Konfetti och banner när alla aktiviteter i en lektion är klara.",
-    descEn: "Confetti + banner when all activities in a lesson are completed.",
+    emoji: "🔍",
+    title: "SEO-förbättringar",
+    titleEn: "SEO improvements",
+    desc: "Appen är nu sökbar — robots.txt, sitemap och kanoniska URL:er tillagda.",
+    descEn: "The app is now crawlable with robots.txt, sitemap.xml, and canonical URLs.",
   },
 ];
 
