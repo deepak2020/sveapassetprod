@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { base44 } from "@/api/base44Client";
 
 const CURRENT_VERSION = "1.3";
 const STORAGE_KEY = "svenska:whats_new_seen";
@@ -12,42 +13,28 @@ const FEATURES = [
     title: "AI-skrivfeedback",
     titleEn: "AI writing feedback",
     desc: "Skriv ett svar och få direkt feedback — AI markerar fel med genomstrykning och visar rätt ord i grönt.",
-    descEn: "Write an answer and get instant AI feedback with strikethrough errors and green corrections inline.",
+    descEn: "Write an answer and get instant AI feedback — wrong words crossed out, correct words shown in green.",
   },
   {
-    emoji: "💾",
-    title: "Sparade skrivövningar",
-    titleEn: "Writing answers saved",
-    desc: "Dina skrivövningssvar sparas automatiskt — de finns kvar nästa gång du öppnar lektionen.",
-    descEn: "Your writing exercise answers are saved automatically and restored when you return.",
+    emoji: "🤖",
+    title: "AI rättar din grammatik",
+    titleEn: "AI corrects your grammar",
+    desc: "Varje skrivövning granskas av AI som hittar grammatikfel, ordföljd och stavning på en gång.",
+    descEn: "Every writing exercise is reviewed by AI checking grammar, word order, and spelling all at once.",
   },
   {
-    emoji: "📱",
-    title: "Bättre mobilnavigering",
-    titleEn: "Better mobile navigation",
-    desc: "Navigationsknapparna för föregående/nästa lektion syns nu korrekt på mobil.",
-    descEn: "Previous/next lesson buttons are now properly visible on mobile screens.",
+    emoji: "📊",
+    title: "Spara dina framsteg",
+    titleEn: "Save your progress",
+    desc: "Skapa ett gratis konto för att synka dina framsteg mellan enheter och aldrig tappa det du lärt dig.",
+    descEn: "Create a free account to sync your progress across devices and never lose what you've learned.",
   },
   {
-    emoji: "👋",
-    title: "Välkommen tillbaka-banner",
-    titleEn: "Welcome back banner",
-    desc: "Återvändande besökare uppmanas att skapa ett konto för att spara sina framsteg.",
-    descEn: "Returning visitors are gently nudged to create an account to track their progress.",
-  },
-  {
-    emoji: "🎤",
-    title: "Talbockmarkering",
-    titleEn: "Speaking completion",
-    desc: "Talövningar markeras nu korrekt som klara med en bockmarkering.",
-    descEn: "Speaking exercises now correctly show a checkmark when completed.",
-  },
-  {
-    emoji: "🔍",
-    title: "SEO-förbättringar",
-    titleEn: "SEO improvements",
-    desc: "Appen är nu sökbar — robots.txt, sitemap och kanoniska URL:er tillagda.",
-    descEn: "The app is now crawlable with robots.txt, sitemap.xml, and canonical URLs.",
+    emoji: "🏆",
+    title: "Personlig statistik",
+    titleEn: "Personal stats",
+    desc: "Med ett konto ser du din svit, XP och svaga områden — så du vet exakt vad du ska öva på.",
+    descEn: "With an account you see your streak, XP, and weak areas — so you know exactly what to practise.",
   },
 ];
 
@@ -132,10 +119,13 @@ export default function WhatsNewModal() {
             </div>
 
             {/* Footer */}
-            <div className="px-6 py-4 border-t border-border/40 shrink-0">
-              <Button className="w-full" onClick={dismiss}>
-                Kom igång! · Let's go!
+            <div className="px-6 py-4 border-t border-border/40 shrink-0 space-y-2">
+              <Button className="w-full" onClick={() => { dismiss(); base44.auth.redirectToLogin(window.location.href); }}>
+                Skapa gratis konto · Create free account
               </Button>
+              <button onClick={dismiss} className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors py-1">
+                Fortsätt utan konto · Continue without account
+              </button>
             </div>
           </motion.div>
         </motion.div>
