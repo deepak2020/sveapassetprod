@@ -17,20 +17,31 @@ export default function GenerateTopicModal({ open, onClose, onCreated }) {
     setLoading(true);
 
     const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `Generate a comprehensive Swedish civic education topic for citizenship test preparation.
+      prompt: `You are creating original educational content for Swedish citizenship test preparation.
 
 Topic title: "${title}"
 Category: ${category}
 
-Return a JSON object with:
-- content: detailed markdown content (3-5 paragraphs explaining the topic clearly for immigrants learning about Sweden)
-- key_facts: array of 4-6 objects with "fact" (short statement) and "detail" (1-2 sentence explanation)
-- quiz_questions: array of 4 multiple-choice questions, each with:
-  - question: the question text
-  - options: array of exactly 4 answer strings
-  - correct_index: index (0-3) of the correct answer
+IMPORTANT: Create ORIGINAL content using ONLY these official Swedish sources:
+- Sverige.se (official government website about Sweden)
+- Migrationsverket.se (Swedish Migration Agency - citizenship & integration info)
+- Official Swedish government publications and fact sheets
+- Public domain Swedish statistics
 
-Make sure the content is accurate, factual, and relevant to Swedish society and citizenship.`,
+Do NOT use general knowledge or training data that might match published textbooks.
+Instead: Take official facts from the sources above and explain them in YOUR OWN WORDS with original examples and context.
+
+Return a JSON object with:
+- content: 3-5 paragraphs of ORIGINAL explanation (cite facts from official sources, use your own wording and examples)
+- key_facts: array of 4-6 original bullet points with explanations
+- quiz_questions: 4 original multiple-choice questions for citizenship test prep
+
+Guidelines:
+- Write as if teaching an immigrant about Swedish society
+- Use clear, simple language
+- Include practical relevance to daily life in Sweden
+- Create ORIGINAL content — do not reproduce published textbooks
+- Focus on facts from official Swedish government sources only`,
       response_json_schema: {
         type: "object",
         properties: {
