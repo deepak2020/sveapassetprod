@@ -2,66 +2,39 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { base44 } from "@/api/base44Client";
 
-const CURRENT_VERSION = "1.2";
+const CURRENT_VERSION = "1.3";
 const STORAGE_KEY = "svenska:whats_new_seen";
 
 const FEATURES = [
   {
-    emoji: "📅",
-    title: "Dagens utmaningar",
-    titleEn: "Daily challenges",
-    desc: "4 utmaningar om dagen — morgon, eftermiddag, kväll och natt. Låses upp efter tid.",
-    descEn: "4 challenges a day unlocking by time of day.",
+    emoji: "✍️",
+    title: "AI-skrivfeedback",
+    titleEn: "AI writing feedback",
+    desc: "Skriv ett svar och få direkt feedback — AI markerar fel med genomstrykning och visar rätt ord i grönt.",
+    descEn: "Write an answer and get instant AI feedback — wrong words crossed out, correct words shown in green.",
   },
   {
-    emoji: "⚡",
-    title: "XP-notiser",
-    titleEn: "XP toasts",
-    desc: "Se dina poäng direkt när du svarar rätt.",
-    descEn: "Floating +XP popup on every correct answer.",
+    emoji: "🤖",
+    title: "AI rättar din grammatik",
+    titleEn: "AI corrects your grammar",
+    desc: "Varje skrivövning granskas av AI som hittar grammatikfel, ordföljd och stavning på en gång.",
+    descEn: "Every writing exercise is reviewed by AI checking grammar, word order, and spelling all at once.",
   },
   {
-    emoji: "🔥",
-    title: "Svitmilstolpar",
-    titleEn: "Streak milestones",
-    desc: "Bonuspoäng och belöning vid 7, 30 och 100 dagars svit.",
-    descEn: "Bonus XP + reward modal at 7, 30 and 100-day streaks.",
+    emoji: "📊",
+    title: "Spara dina framsteg",
+    titleEn: "Save your progress",
+    desc: "Skapa ett gratis konto för att synka dina framsteg mellan enheter och aldrig tappa det du lärt dig.",
+    descEn: "Create a free account to sync your progress across devices and never lose what you've learned.",
   },
   {
-    emoji: "🧠",
-    title: "Ordförråds-SRS",
-    titleEn: "Vocabulary SRS",
-    desc: "Ord du lärt dig sparas automatiskt i en upprepningsdäck i Gym.",
-    descEn: "Lesson vocab saved to a spaced-repetition review deck in Gym.",
-  },
-  {
-    emoji: "📉",
-    title: "Svaga områden",
-    titleEn: "Weak area card",
-    desc: "Dashboarden visar dina svagaste färdigheter och rekommenderar lektioner.",
-    descEn: "Dashboard shows your weakest skills and recommends lessons.",
-  },
-  {
-    emoji: "➡️",
-    title: "Nästa aktivitet",
-    titleEn: "Next activity button",
-    desc: "Knapp inuti varje lektionsflik för att gå vidare utan att scrolla upp.",
-    descEn: "Button inside each lesson tab to move forward without scrolling.",
-  },
-  {
-    emoji: "🔊",
-    title: "Förbättrat tal",
-    titleEn: "Better TTS voices",
-    desc: "Väljer automatiskt den bästa tillgängliga svenska rösten på din enhet.",
-    descEn: "Automatically picks the best available Swedish voice on your device.",
-  },
-  {
-    emoji: "✅",
-    title: "Lektionsstatus",
-    titleEn: "Lesson completion",
-    desc: "Konfetti och banner när alla aktiviteter i en lektion är klara.",
-    descEn: "Confetti + banner when all activities in a lesson are completed.",
+    emoji: "🏆",
+    title: "Personlig statistik",
+    titleEn: "Personal stats",
+    desc: "Med ett konto ser du din svit, XP och svaga områden — så du vet exakt vad du ska öva på.",
+    descEn: "With an account you see your streak, XP, and weak areas — so you know exactly what to practise.",
   },
 ];
 
@@ -146,10 +119,13 @@ export default function WhatsNewModal() {
             </div>
 
             {/* Footer */}
-            <div className="px-6 py-4 border-t border-border/40 shrink-0">
-              <Button className="w-full" onClick={dismiss}>
-                Kom igång! · Let's go!
+            <div className="px-6 py-4 border-t border-border/40 shrink-0 space-y-2">
+              <Button className="w-full" onClick={() => { dismiss(); base44.auth.redirectToLogin(window.location.href); }}>
+                Skapa gratis konto · Create free account
               </Button>
+              <button onClick={dismiss} className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors py-1">
+                Fortsätt utan konto · Continue without account
+              </button>
             </div>
           </motion.div>
         </motion.div>
