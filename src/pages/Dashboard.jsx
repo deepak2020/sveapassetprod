@@ -578,6 +578,20 @@ export default function Dashboard() {
             </div>
           </div>
 
+          {user.email === "deepak2020rana@gmail.com" && (
+            <div className="flex gap-2">
+              <button
+                onClick={async () => {
+                  const res = await base44.functions.invoke("syncAllUsersToBrevo", {});
+                  alert(`Synced ${res.synced}/${res.total} users to Brevo`);
+                }}
+                className="text-xs px-3 py-1.5 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground border border-border"
+              >
+                Sync all users → Brevo
+              </button>
+            </div>
+          )}
+
           <Card className="border-border/50 bg-gradient-to-r from-primary/5 to-transparent">
             <CardContent className="p-5">
               <div className="flex items-center justify-between mb-3">
