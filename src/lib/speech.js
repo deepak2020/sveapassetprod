@@ -1,5 +1,7 @@
-// Shared speech utility — picks the best available voice for a language
-// and applies learner-friendly rate/pitch defaults.
+// Shared speech utility — picks the best available voice for a language.
+// Handles browser-specific Web Speech API bugs:
+//   Chrome: getVoices() async load + engine freeze after inactivity
+//   Safari: voiceschanged never fires + cancel() breaks immediate speak
 
 const QUALITY_TIERS = ["premium", "enhanced", "natural", "online", "google", "compact"];
 
@@ -9,46 +11,52 @@ function scoreVoice(voice) {
   return idx === -1 ? QUALITY_TIERS.length - 2 : idx;
 }
 
-function pickBestVoice(lang = "sv-SE") {
+function getBestVoiceForLang(lang = "sv-SE") {
   const voices = window.speechSynthesis?.getVoices() ?? [];
+  if (voices.length === 0) return null;
   const candidates = voices.filter((v) => v.lang === lang || v.lang.startsWith(lang.split("-")[0]));
   if (candidates.length === 0) return null;
   return candidates.slice().sort((a, b) => scoreVoice(a) - scoreVoice(b))[0];
 }
 
-const voiceCache = {};
+const isSafari =
+  typeof window !== "undefined" &&
+  /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-function getCachedVoice(lang = "sv-SE") {
-  if (!voiceCache[lang]) {
-    voiceCache[lang] = pickBestVoice(lang);
-  }
-  return voiceCache[lang];
-}
-
-// Prime the cache once voices load (Chrome loads them async)
-if (typeof window !== "undefined" && window.speechSynthesis) {
-  const prime = () => { voiceCache["sv-SE"] = pickBestVoice("sv-SE"); };
-  if (window.speechSynthesis.getVoices().length > 0) prime();
-  else window.speechSynthesis.addEventListener("voiceschanged", prime, { once: true });
+// Chrome freeze fix: pause+resume every 10s while speaking
+if (typeof window !== "undefined" && window.speechSynthesis && !isSafari) {
+  setInterval(() => {
+    const ss = window.speechSynthesis;
+    if (ss?.speaking) {
+      ss.pause();
+      ss.resume();
+    }
+  }, 10000);
 }
 
 export function getBestVoice(lang = "sv-SE") {
-  return getCachedVoice(lang);
+  return getBestVoiceForLang(lang);
 }
 
 export function playAudio(text, lang = "sv-SE", speed = 1) {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
+  const ss = window.speechSynthesis;
+  if (!ss) return;
 
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = lang;
+  const go = () => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang;
+    const voice = getBestVoiceForLang(lang);
+    if (voice) utterance.voice = voice;
+    utterance.rate = speed === 1 ? 0.92 : speed;
+    utterance.pitch = 0.97;
+    ss.speak(utterance);
+  };
 
-  const voice = getCachedVoice(lang);
-  if (voice) utterance.voice = voice;
-
-  // Apply learner-friendly defaults when using natural speed
-  utterance.rate = speed === 1 ? 0.92 : speed;
-  utterance.pitch = 0.97;
-
-  window.speechSynthesis.speak(utterance);
+  ss.cancel();
+  // Safari silently drops speak() called immediately after cancel()
+  if (isSafari) {
+    setTimeout(go, 50);
+  } else {
+    go();
+  }
 }
