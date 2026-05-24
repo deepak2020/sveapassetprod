@@ -81,6 +81,10 @@ export function useLessonCompletion(lessonId) {
   }, [lessonId, isAuthenticated]);
 
   const markComplete = (key, scoreInfo) => {
+    // Skip silently if already marked complete — prevents duplicate backend records
+    // when WritingExercise / SpeakingPractice re-fire onComplete on mount.
+    if (completed.includes(key)) return;
+
     // Update local state + localStorage immediately
     setCompleted((prev) => {
       if (prev.includes(key)) return prev;

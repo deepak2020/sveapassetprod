@@ -56,6 +56,11 @@ export default function SpeakingPractice({ phrases, onComplete, storageKey, user
   const [feedback, setFeedback] = useState(() => saved?.feedback ?? {});
   const [manualDone, setManualDone] = useState(() => saved?.manualDone ?? {});
   const [finished, setFinished] = useState(() => !!previousResult);
+  const mountedRef = useRef(false);
+
+  useEffect(() => {
+    mountedRef.current = true;
+  }, []);
 
   // Auto-expand card when result arrives so feedback is immediately visible
   useEffect(() => {
@@ -65,6 +70,7 @@ export default function SpeakingPractice({ phrases, onComplete, storageKey, user
 
   // Mark section complete once every phrase has been attempted or manually marked done
   useEffect(() => {
+    if (!mountedRef.current) return;
     if (!phrases || phrases.length === 0) return;
     const attemptedCount = speechSupported
       ? Object.keys(feedback).length
