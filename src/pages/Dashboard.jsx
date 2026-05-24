@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
-import { Flame, Zap, BookOpen, Landmark, FlaskConical, BarChart3, Trophy, Star, Dumbbell, Target, LogOut, Trash2 } from "lucide-react";
+import { Flame, Zap, BookOpen, Landmark, FlaskConical, BarChart3, Trophy, Star, Dumbbell, Target, LogOut, Trash2, CalendarDays } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -26,6 +26,9 @@ import EmptyState from "../components/shared/EmptyState";
 import SkillBreakdown from "../components/dashboard/SkillBreakdown";
 import WeakAreaCard from "../components/dashboard/WeakAreaCard";
 import DailyChallenge from "../components/dashboard/DailyChallenge";
+import TodaysPlanCard from "../components/planner/TodaysPlanCard";
+import CreateStudyPlanModal from "../components/planner/CreateStudyPlanModal";
+import { useStudyPlan } from "@/hooks/useStudyPlan";
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -46,6 +49,7 @@ export default function Dashboard() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [showPlanModal, setShowPlanModal] = useState(false);
   const touchStartY = useRef(null);
   const queryClient = useQueryClient();
 
@@ -53,6 +57,8 @@ export default function Dashboard() {
     queryKey: ["me"],
     queryFn: () => base44.auth.me(),
   });
+
+  const { plan, createPlan, deletePlan, getTodaysLessons, getDayNumber, getProgress } = useStudyPlan(user?.id);
 
   const { data: quizResults } = useQuery({
     queryKey: ["quiz-results-recent"],
@@ -267,6 +273,32 @@ export default function Dashboard() {
             </p>
           </CardContent>
         </Card>
+      )}
+
+      {/* Study Plan */}
+      {plan ? (
+        <TodaysPlanCard
+          plan={plan}
+          onDelete={deletePlan}
+          getTodaysLessons={getTodaysLessons}
+          getDayNumber={getDayNumber}
+          getProgress={getProgress}
+        />
+      ) : (
+        <button
+          onClick={() => setShowPlanModal(true)}
+          className="w-full p-4 rounded-xl border-2 border-dashed border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all text-left group"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+              <CalendarDays className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="font-semibold text-sm group-hover:text-primary transition-colors">Create Study Plan</p>
+              <p className="text-xs text-muted-foreground">Set a goal and get a day-by-day lesson schedule</p>
+            </div>
+          </div>
+        </button>
       )}
 
       {/* Daily challenge */}
@@ -718,6 +750,17 @@ export default function Dashboard() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <CreateStudyPlanModal
+        open={showPlanModal}
+        onClose={() => setShowPlanModal(false)}
+        userId={user?.id}
+        primaryCourse={user?.sfi_level || "A"}
+        onCreated={async (planData) => {
+          await createPlan(planData);
+          setShowPlanModal(false);
+        }}
+      />
     </div>
   );
 }
