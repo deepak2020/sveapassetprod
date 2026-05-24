@@ -7,8 +7,9 @@ import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
 // Simple fuzzy check: allow 1-2 character differences (typos)
 function isCloseEnough(input, answer) {
-  const a = input.trim().toLowerCase().replace(/[.,!?]/g, "");
-  const b = answer.trim().toLowerCase().replace(/[.,!?]/g, "");
+  const norm = (s) => s.trim().toLowerCase().replace(/[.,!?;:]/g, "").replace(/\s+/g, " ");
+  const a = norm(input);
+  const b = norm(answer);
   if (a === b) return true;
   if (Math.abs(a.length - b.length) > 2) return false;
   let diff = 0;
