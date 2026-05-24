@@ -16,6 +16,13 @@ export const XP_REWARDS = {
   flashcard_good: 10,
   flashcard_hard: 5,
   quiz_correct: 20,
+  match_correct: 10,
+  translate_correct: 15,
+  translate_wrong: 5,
+  listen_correct: 15,
+  listen_wrong: 5,
+  writing_submitted: 20,
+  speaking_attempted: 5,
   daily_goal_met: 25,
   streak_7days: 50,
 };
@@ -64,7 +71,7 @@ export async function awardXP(base44, xpAmount, label) {
 
     if (lastActive === yesterdayStr) {
       newStreak += 1;
-    } else if (lastActive !== today) {
+    } else {
       newStreak = 1;
     }
 

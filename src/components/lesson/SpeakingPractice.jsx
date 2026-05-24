@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import SpeakButton from "@/components/shared/SpeakButton";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
+import { base44 } from "@/api/base44Client";
+import { awardXP, XP_REWARDS } from "@/lib/xp";
 
 const fuzzyMatch = (userText, expectedText) => {
   const user = normalizeAnswer(userText);
@@ -126,6 +128,7 @@ export default function SpeakingPractice({ phrases, onComplete, storageKey, user
             save({ current: Object.keys(next).length, score: correctCount, feedback: next });
             return next;
           });
+          awardXP(base44, XP_REWARDS.speaking_attempted);
           playSound(isCorrect);
         }
         setListening(null);
@@ -159,7 +162,7 @@ export default function SpeakingPractice({ phrases, onComplete, storageKey, user
               <SpeakButton text={p.phrase_sv} lang="sv-SE" />
               {manualDone[i]
                 ? <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
-                : <button onClick={() => setManualDone(prev => { const next = { ...prev, [i]: true }; save({ current: Object.keys(next).length, score: Object.keys(next).length, manualDone: next }); return next; })} className="text-xs px-3 py-1.5 rounded-lg border border-primary/40 text-primary hover:bg-primary/10 transition-colors shrink-0">Done</button>
+                : <button onClick={() => { awardXP(base44, XP_REWARDS.speaking_attempted); setManualDone(prev => { const next = { ...prev, [i]: true }; save({ current: Object.keys(next).length, score: Object.keys(next).length, manualDone: next }); return next; }); }} className="text-xs px-3 py-1.5 rounded-lg border border-primary/40 text-primary hover:bg-primary/10 transition-colors shrink-0">Done</button>
               }
             </div>
           ))}

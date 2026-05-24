@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
+import { base44 } from "@/api/base44Client";
+import { awardXP, XP_REWARDS } from "@/lib/xp";
 
 // Simple fuzzy check: allow 1-2 character differences (typos)
 function isCloseEnough(input, answer) {
@@ -55,9 +57,11 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
     setSubmitted(true);
     if (isCloseEnough(input, ex.example_sv)) {
       setScore(s => { save({ current, score: s + 1 }); return s + 1; });
+      awardXP(base44, XP_REWARDS.translate_correct);
     } else {
       save({ current, score });
       setWrongIndices(prev => [...prev, current]);
+      awardXP(base44, XP_REWARDS.translate_wrong);
     }
   };
 

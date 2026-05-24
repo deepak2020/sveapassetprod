@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { playAudio } from "@/lib/speech";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
+import { base44 } from "@/api/base44Client";
+import { awardXP, XP_REWARDS } from "@/lib/xp";
 
 export default function ListeningExercise({ phrases, onComplete, storageKey, userId, lessonId, tab, initialProgress, previousResult }) {
   const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
@@ -45,9 +47,11 @@ export default function ListeningExercise({ phrases, onComplete, storageKey, use
     setCorrect(isCorrect);
     if (isCorrect) {
       setScore(s => { save({ current, score: s + 1 }); return s + 1; });
+      awardXP(base44, XP_REWARDS.listen_correct);
     } else {
       save({ current, score });
       setWrongIndices(prev => [...prev, current]);
+      awardXP(base44, XP_REWARDS.listen_wrong);
     }
   };
 

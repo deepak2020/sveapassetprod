@@ -9,6 +9,7 @@ import confetti from "canvas-confetti";
 import { ArrowLeft, ArrowRight, BookOpen, Pen, Mic, Trophy } from "lucide-react";
 import { useLessonCompletion, setLastLesson } from "@/hooks/useLessonProgress";
 import { addVocabSRSCards } from "@/hooks/useVocabSRS";
+import { awardXP } from "@/lib/xp";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -104,13 +105,14 @@ export default function LessonDetail() {
     if (lesson) setLastLesson(lesson);
   }, [lesson]);
 
-  // Track lesson opened — fires once when lesson data loads
+  // Track lesson opened — fires once when lesson data loads; also touches last_active_date for streak
   useEffect(() => {
     if (!lesson) return;
     base44.analytics.track({
       eventName: "lesson_opened",
       properties: { lesson_id: lesson.id, lesson_title: lesson.title, sfi_course: lesson.sfi_course || null, topic: lesson.topic || null, skill: lesson.skill || null },
     });
+    awardXP(base44, 0); // update last_active_date so streak is maintained even if no exercise is done
     // Track abandonment on unmount if no tab was completed yet
     return () => {
       base44.analytics.track({

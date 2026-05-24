@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { motion, AnimatePresence } from "framer-motion";
 import { base44 } from "@/api/base44Client";
+import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { useWritingAnswers } from "@/hooks/useWritingAnswers";
 
 async function evaluateAnswer(prompt, hint, exampleAnswer, userAnswer) {
@@ -343,6 +344,7 @@ export default function WritingExercise({ prompts, lessonId, onComplete }) {
 
   const handleSubmit = (index, answer) => {
     saveAnswer(index, answer);
+    awardXP(base44, XP_REWARDS.writing_submitted);
     runFeedback(index, answer);
     const newCount = Object.keys(answers).filter((k) => Number(k) !== index).length + 1;
     if (newCount === prompts.length && !completionFired) {

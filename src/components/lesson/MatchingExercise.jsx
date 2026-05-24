@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
+import { base44 } from "@/api/base44Client";
+import { awardXP, XP_REWARDS } from "@/lib/xp";
 
 export default function MatchingExercise({ pairs, onComplete, storageKey, userId, lessonId, tab, initialProgress }) {
   const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
@@ -38,6 +40,7 @@ export default function MatchingExercise({ pairs, onComplete, storageKey, userId
       const newMatched = [...matched, left];
       setMatched(newMatched);
       setSelected({ left: null, right: null });
+      awardXP(base44, XP_REWARDS.match_correct);
       if (newMatched.length === pairs.length) {
         clear();
         setDone(true);
