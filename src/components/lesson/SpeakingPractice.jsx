@@ -56,11 +56,10 @@ export default function SpeakingPractice({ phrases, onComplete, storageKey, user
   const [feedback, setFeedback] = useState(() => saved?.feedback ?? {});
   const [manualDone, setManualDone] = useState(() => saved?.manualDone ?? {});
   const [finished, setFinished] = useState(() => !!previousResult);
-  const mountedRef = useRef(false);
-
-  useEffect(() => {
-    mountedRef.current = true;
-  }, []);
+  // Capture sizes of feedback/manualDone that were restored from storage on mount.
+  // The completion effect only fires when the user adds something NEW this session.
+  const initialFeedbackSize = useRef(Object.keys(saved?.feedback ?? {}).length);
+  const initialManualSize = useRef(Object.keys(saved?.manualDone ?? {}).length);
 
   // Auto-expand card when result arrives so feedback is immediately visible
   useEffect(() => {
@@ -70,11 +69,12 @@ export default function SpeakingPractice({ phrases, onComplete, storageKey, user
 
   // Mark section complete once every phrase has been attempted or manually marked done
   useEffect(() => {
-    if (!mountedRef.current) return;
     if (!phrases || phrases.length === 0) return;
-    const attemptedCount = speechSupported
-      ? Object.keys(feedback).length
-      : Object.keys(manualDone).length;
+    const feedbackCount = Object.keys(feedback).length;
+    const manualCount = Object.keys(manualDone).length;
+    // Skip if nothing new was added beyond what was already in storage at mount
+    if (feedbackCount <= initialFeedbackSize.current && manualCount <= initialManualSize.current) return;
+    const attemptedCount = speechSupported ? feedbackCount : manualCount;
     if (attemptedCount >= phrases.length) {
       clear();
       setFinished(true);

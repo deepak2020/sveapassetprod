@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Lightbulb, ChevronDown, ChevronUp, CheckCircle2, PencilLine, Loader2, ThumbsUp, AlertCircle, MessageSquare } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -319,19 +319,6 @@ export default function WritingExercise({ prompts, lessonId, onComplete }) {
   const { answers, saveAnswer, removeAnswer } = useWritingAnswers(lessonId);
   const [completionFired, setCompletionFired] = useState(false);
   const [feedbackState, setFeedbackState] = useState({});
-  const mountedRef = useRef(false);
-
-  useEffect(() => {
-    mountedRef.current = true;
-  }, []);
-
-  useEffect(() => {
-    if (!mountedRef.current) return;
-    if (!completionFired && prompts?.length > 0 && Object.keys(answers).length === prompts.length) {
-      setCompletionFired(true);
-      onComplete?.();
-    }
-  }, [answers]);
 
   if (!prompts || prompts.length === 0) {
     return <p className="text-muted-foreground text-sm">No writing exercises available.</p>;
