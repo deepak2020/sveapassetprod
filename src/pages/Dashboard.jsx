@@ -360,30 +360,6 @@ export default function Dashboard() {
       </Link>
 
 
-      {/* XP breakdown info */}
-      <Card className="border-border/50 bg-muted/30">
-        <CardContent className="p-5">
-          <div className="mb-3">
-            <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Så tjänar du XP</h3>
-            <p className="text-xs text-muted-foreground/60 italic">How to earn XP</p>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
-            {[
-              { label: "Lektion klar", sublabel: "Lesson complete", xp: 5 },
-              { label: "Övning godkänd", sublabel: "Practice passed", xp: 15 },
-              { label: "Quiz rätt", sublabel: "Quiz correct", xp: 20 },
-              { label: "Flashkort Bra/Lätt", sublabel: "Flashcard Good/Easy", xp: 10 },
-              { label: "7-dagars svit", sublabel: "7-day streak", xp: 50 },
-              { label: "Dagmål uppnått", sublabel: "Daily goal met", xp: 25 },
-            ].map(item => (
-              <div key={item.label} className="flex items-center justify-between bg-background rounded-lg px-3 py-2 border border-border/50">
-                <span className="text-muted-foreground text-xs">{item.label}<span className="block text-muted-foreground/50 italic">{item.sublabel}</span></span>
-                <span className="font-bold text-primary text-xs">+{item.xp}</span>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
         </TabsContent>
 
         {/* Progress Tab */}
