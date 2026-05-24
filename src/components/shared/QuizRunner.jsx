@@ -6,14 +6,22 @@ import { base44 } from "@/api/base44Client";
 import { motion, AnimatePresence } from "framer-motion";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import SpeakButton from "@/components/shared/SpeakButton";
+import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
-export default function QuizRunner({ questions, quizType, sourceId, sourceTitle, onComplete, previousResult }) {
+export default function QuizRunner({ questions, quizType, sourceId, sourceTitle, onComplete, previousResult, storageKey }) {
+  const { load, save, clear } = useExerciseProgress(storageKey);
   const [questionPool, setQuestionPool] = useState(questions);
   const [wrongIndices, setWrongIndices] = useState([]);
-  const [currentQ, setCurrentQ] = useState(0);
+  const [currentQ, setCurrentQ] = useState(() => {
+    if (previousResult) return 0;
+    return load()?.current ?? 0;
+  });
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
-  const [score, setScore] = useState(() => previousResult?.score ?? 0);
+  const [score, setScore] = useState(() => {
+    if (previousResult) return previousResult.score ?? 0;
+    return load()?.score ?? 0;
+  });
   const [finished, setFinished] = useState(() => !!previousResult);
 
   if (!questions || questions.length === 0) {
@@ -35,7 +43,7 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
     setAnswered(true);
     const correct = index === question.correct_index;
     if (correct) {
-      setScore(s => s + 1);
+      setScore(s => { save({ current: currentQ, score: s + 1 }); return s + 1; });
     } else {
       setWrongIndices(prev => [...prev, currentQ]);
     }
@@ -46,6 +54,7 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
     if (currentQ + 1 >= questionPool.length) {
       const finalScore = score;
       const percentage = Math.round((finalScore / questionPool.length) * 100);
+      clear();
       const isAuth = await base44.auth.isAuthenticated();
       if (isAuth) {
         await base44.entities.QuizResult.create({
@@ -60,13 +69,16 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
       setFinished(true);
       if (onComplete) onComplete(finalScore, questionPool.length);
     } else {
-      setCurrentQ(currentQ + 1);
+      const nextQ = currentQ + 1;
+      save({ current: nextQ, score });
+      setCurrentQ(nextQ);
       setSelected(null);
       setAnswered(false);
     }
   };
 
   const handleRestart = () => {
+    clear();
     const retryPool = wrongIndices.length > 0
       ? wrongIndices.map(i => questionPool[i])
       : questions;

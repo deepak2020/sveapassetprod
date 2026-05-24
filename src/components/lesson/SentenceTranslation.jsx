@@ -3,6 +3,7 @@ import { CheckCircle2, XCircle, RotateCcw, Trophy, Lightbulb } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
+import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
 // Simple fuzzy check: allow 1-2 character differences (typos)
 function isCloseEnough(input, answer) {
@@ -20,14 +21,15 @@ function isCloseEnough(input, answer) {
   return true;
 }
 
-export default function SentenceTranslation({ wordPairs, onComplete }) {
+export default function SentenceTranslation({ wordPairs, onComplete, storageKey }) {
+  const { load, save, clear } = useExerciseProgress(storageKey);
   const allExercises = (wordPairs || []).filter(wp => wp.example_en && wp.example_sv);
   const [exercisePool, setExercisePool] = useState(allExercises);
   const [wrongIndices, setWrongIndices] = useState([]);
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(() => load()?.current ?? 0);
   const [input, setInput] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(() => load()?.score ?? 0);
   const [finished, setFinished] = useState(false);
   const [showHint, setShowHint] = useState(false);
 
@@ -42,7 +44,7 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
     if (!input.trim()) return;
     setSubmitted(true);
     if (isCloseEnough(input, ex.example_sv)) {
-      setScore(s => s + 1);
+      setScore(s => { save({ current, score: s + 1 }); return s + 1; });
     } else {
       setWrongIndices(prev => [...prev, current]);
     }
@@ -50,10 +52,13 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
 
   const handleNext = () => {
     if (current + 1 >= exercisePool.length) {
+      clear();
       setFinished(true);
       onComplete?.(score, exercisePool.length);
     } else {
-      setCurrent(c => c + 1);
+      const next = current + 1;
+      save({ current: next, score });
+      setCurrent(next);
       setInput("");
       setSubmitted(false);
       setShowHint(false);
@@ -63,6 +68,7 @@ export default function SentenceTranslation({ wordPairs, onComplete }) {
   const wrongCount = wrongIndices.length;
 
   const restart = () => {
+    clear();
     const retryPool = wrongCount > 0
       ? wrongIndices.map(i => exercisePool[i])
       : allExercises;
