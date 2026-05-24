@@ -71,6 +71,39 @@ export default function LessonDetail() {
     if (lesson) setLastLesson(lesson);
   }, [lesson]);
 
+  // Sync lesson completion to study plan in Supabase (must be before early returns)
+  const allDoneForSync = !isLoading && !!lesson;
+  useEffect(() => {
+    if (!allDoneForSync || !user?.id || planSyncFired.current) return;
+    // Check if all available tabs are completed
+    const hasVocabCheck = lesson?.word_pairs?.length > 0;
+    const hasBlanksCheck = lesson?.fill_in_blanks?.length > 0;
+    const hasQuizCheck = lesson?.quiz_questions?.length > 0;
+    const hasReviewCheck = lesson?.review_questions?.length > 0;
+    const hasWritingCheck = lesson?.writing_prompts?.length > 0;
+    const hasSpeakingCheck = lesson?.speaking_phrases?.length > 0;
+    const hasListeningCheck = lesson?.listening_phrases?.length > 0;
+    const hasTranslateCheck = lesson?.word_pairs?.some(wp => wp.example_en && wp.example_sv);
+    const hasMatchCheck = lesson?.match_pairs?.length > 0;
+    const keys = [
+      hasVocabCheck && "learn", hasBlanksCheck && "practice", hasMatchCheck && "match",
+      hasWritingCheck && "writing", hasSpeakingCheck && "speaking", hasListeningCheck && "listening",
+      hasTranslateCheck && "translate", hasReviewCheck && "review", hasQuizCheck && "quiz",
+    ].filter(Boolean);
+    if (keys.length === 0 || !keys.every(k => completed.includes(k))) return;
+    planSyncFired.current = true;
+    (async () => {
+      const { data: plans } = await supabase.from('study_plans').getByUserId(user.id);
+      const plan = Array.isArray(plans) ? plans[0] : plans;
+      if (!plan) return;
+      const current = plan.completed_lesson_ids || [];
+      if (current.includes(lessonId)) return;
+      await supabase.from('study_plans').update(plan.id, {
+        completed_lesson_ids: [...current, lessonId],
+      });
+    })();
+  }, [allDoneForSync, completed, user?.id, lessonId]);
+
   // Controlled tab state — default to "learn" if available, else "practice", else "content"
   const defaultTab = lesson
     ? (lesson.word_pairs?.length > 0 ? "learn" : lesson.fill_in_blanks?.length > 0 ? "practice" : "content")
@@ -135,22 +168,6 @@ export default function LessonDetail() {
       });
     }, 200);
   }
-
-  // Sync lesson completion to study plan in Supabase
-  useEffect(() => {
-    if (!allDone || !user?.id || planSyncFired.current) return;
-    planSyncFired.current = true;
-    (async () => {
-      const { data: plans } = await supabase.from('study_plans').getByUserId(user.id);
-      const plan = Array.isArray(plans) ? plans[0] : plans;
-      if (!plan) return;
-      const current = plan.completed_lesson_ids || [];
-      if (current.includes(lessonId)) return;
-      await supabase.from('study_plans').update(plan.id, {
-        completed_lesson_ids: [...current, lessonId],
-      });
-    })();
-  }, [allDone, user?.id, lessonId]);
 
   const pct = availableKeys.length ? Math.round((doneCount / availableKeys.length) * 100) : 0;
 
