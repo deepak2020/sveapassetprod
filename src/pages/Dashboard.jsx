@@ -544,9 +544,6 @@ export default function Dashboard() {
                     {level.name}
                   </span>
                 </div>
-                {nextLevel && (
-                  <span className="text-xs text-muted-foreground">{xpInLevel} / {xpNeeded} XP → {nextLevel.name}</span>
-                )}
               </div>
               <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
                 <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
