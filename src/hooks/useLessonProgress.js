@@ -6,6 +6,43 @@ const KEY_LAST = "svenska:last_lesson";
 const KEY_PROGRESS_PREFIX = "svenska:lesson_progress:";
 const KEY_SCORES_PREFIX = "svenska:lesson_scores:";
 
+// One-time session cleanup: remove "writing" and "speaking" from all lesson_progress
+// localStorage entries so that spurious QuizResult records created by old buggy code
+// no longer auto-mark these tabs as complete. Writing completions will be re-validated
+// against actual writing_answer records from the backend. Speaking is validated locally.
+const PURGE_KEY = "svenska:suspect_completions_v1";
+function purgeLocalSuspectCompletions() {
+  if (typeof window === "undefined") return;
+  if (sessionStorage.getItem(PURGE_KEY)) return;
+  sessionStorage.setItem(PURGE_KEY, "1");
+  try {
+    const progressKeys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k?.startsWith(KEY_PROGRESS_PREFIX)) progressKeys.push(k);
+    }
+    for (const k of progressKeys) {
+      try {
+        const arr = JSON.parse(localStorage.getItem(k) || "[]");
+        if (Array.isArray(arr)) {
+          const cleaned = arr.filter(t => t !== "writing" && t !== "speaking");
+          if (cleaned.length !== arr.length) localStorage.setItem(k, JSON.stringify(cleaned));
+        }
+      } catch (_) {}
+      // Also remove spurious "speaking" score (can't be validated from backend)
+      const lessonId = k.slice(KEY_PROGRESS_PREFIX.length);
+      try {
+        const scoreKey = KEY_SCORES_PREFIX + lessonId;
+        const scores = JSON.parse(localStorage.getItem(scoreKey) || "{}");
+        if (scores.speaking !== undefined) {
+          delete scores.speaking;
+          localStorage.setItem(scoreKey, JSON.stringify(scores));
+        }
+      } catch (_) {}
+    }
+  } catch (_) {}
+}
+
 // Track the most recently visited lesson (used by the Continue Learning card)
 export function setLastLesson(lesson) {
   if (!lesson?.id) return;
@@ -49,6 +86,9 @@ export function useLessonCompletion(lessonId) {
   useEffect(() => {
     if (!lessonId) return;
 
+    // Remove stale spurious writing/speaking keys from all lesson_progress localStorage entries
+    purgeLocalSuspectCompletions();
+
     // Load from localStorage immediately (no latency)
     try {
       const raw = localStorage.getItem(KEY_PROGRESS_PREFIX + lessonId);
@@ -57,16 +97,25 @@ export function useLessonCompletion(lessonId) {
       if (rawScores) setScores(JSON.parse(rawScores));
     } catch (_) {}
 
-    // Load from backend and merge — only when logged in, so records are user-scoped
+    // Load from backend and merge — only when logged in, so records are user-scoped.
+    // "writing" is only trusted when actual writing_answer records exist (prevents spurious
+    // completions from the old auto-firing bug from polluting lesson progress).
+    // "speaking" is validated locally only — the backend record cannot be reliably
+    // distinguished from spurious completions, so we trust localStorage exclusively.
     if (!isAuthenticated) return;
-    base44.entities.QuizResult.filter(
-      { quiz_type: "lesson_tab", source_id: lessonId },
-      null,
-      200
-    )
-      .then((results) => {
-        if (!results?.length) return;
-        const backendKeys = [...new Set(results.map((r) => r.skill).filter(Boolean))];
+    Promise.all([
+      base44.entities.QuizResult.filter({ quiz_type: "lesson_tab", source_id: lessonId }, null, 200),
+      base44.entities.QuizResult.filter({ quiz_type: "writing_answer", source_id: lessonId }, null, 5),
+    ])
+      .then(([tabResults, writingAnswers]) => {
+        const hasRealWritingAnswers = (writingAnswers?.length ?? 0) > 0;
+        const backendKeys = [
+          ...new Set((tabResults || []).map((r) => r.skill).filter(Boolean)),
+        ].filter((k) => {
+          if (k === "writing") return hasRealWritingAnswers;
+          if (k === "speaking") return false; // trust localStorage only
+          return true;
+        });
         setCompleted((prev) => {
           const merged = [...new Set([...prev, ...backendKeys])];
           if (merged.length !== prev.length) {
@@ -81,8 +130,7 @@ export function useLessonCompletion(lessonId) {
   }, [lessonId, isAuthenticated]);
 
   const markComplete = (key, scoreInfo) => {
-    // Skip silently if already marked complete — prevents duplicate backend records
-    // when WritingExercise / SpeakingPractice re-fire onComplete on mount.
+    // Skip silently if already marked complete — prevents duplicate backend records.
     if (completed.includes(key)) return;
 
     // Update local state + localStorage immediately
