@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
-import { Flame, Zap, BookOpen, Landmark, FlaskConical, BarChart3, Trophy, Star, Dumbbell, Target, LogOut, Trash2, CalendarDays } from "lucide-react";
+import { Flame, Zap, BookOpen, Landmark, FlaskConical, BarChart3, Trophy, Target, LogOut, Trash2, CalendarDays } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -124,16 +124,6 @@ export default function Dashboard() {
   };
 
   const today = new Date().toISOString().split("T")[0];
-  const dueCount = srsCards.filter(c => c.due_date <= today && c.status !== "mastered").length;
-  
-  // Gym stats
-  const gymStats = {
-    total: srsCards.length,
-    mastered: srsCards.filter(c => c.mastery_percentage === 100).length,
-    learning: srsCards.filter(c => c.mastery_percentage < 100 && c.mastery_percentage > 0).length,
-    new: srsCards.filter(c => c.mastery_percentage === 0).length,
-  };
-  const masteredPct = gymStats.total > 0 ? Math.round((gymStats.mastered / gymStats.total) * 100) : 0;
 
   // Estimate today's activity in minutes: each quiz result = ~2 min, each SRS card answered today = ~0.5 min
   const todayResults = quizResults.filter(r => r.created_date?.startsWith(today));
@@ -292,58 +282,6 @@ export default function Dashboard() {
 
       {/* Weak area recommendations — shows after ≥3 quizzes in any skill */}
       <WeakAreaCard results={results} userSfiLevel={user.sfi_level} />
-
-      {/* Gym card */}
-      <Link to="/gym" className="group">
-        <Card className="border-border/50 hover:border-violet-400 hover:shadow-md transition-all duration-200">
-          <CardContent className="p-5">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center shrink-0">
-                  <Dumbbell className="w-5 h-5 text-violet-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">Träningssalen</h3>
-                  <p className="text-sm text-muted-foreground">Intensiv meningsträning</p>
-                  <p className="text-xs text-muted-foreground/60 italic">High-volume cloze sentence practice</p>
-                </div>
-              </div>
-              <div className="text-right shrink-0">
-                {dueCount > 0 ? (
-                  <span className="bg-orange-100 text-orange-600 text-xs font-bold px-2 py-1 rounded-full">{dueCount} förfallna</span>
-                ) : (
-                  <span className="text-xs text-primary font-medium group-hover:underline">Börja →</span>
-                )}
-              </div>
-            </div>
-            {gymStats.total > 0 && (
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-muted-foreground">Mastery progress</span>
-                  <span className="font-semibold text-emerald-600">{masteredPct}%</span>
-                </div>
-                <div className="w-full h-1.5 bg-muted rounded-full overflow-hidden">
-                  <div className="h-full bg-emerald-500 rounded-full transition-all" style={{ width: `${masteredPct}%` }} />
-                </div>
-                <div className="grid grid-cols-3 gap-2 text-xs mt-2">
-                  <div className="p-2 rounded-lg bg-emerald-50 text-center">
-                    <p className="font-bold text-emerald-600">{gymStats.mastered}</p>
-                    <p className="text-emerald-600/70">Mastered</p>
-                  </div>
-                  <div className="p-2 rounded-lg bg-blue-50 text-center">
-                    <p className="font-bold text-blue-600">{gymStats.learning}</p>
-                    <p className="text-blue-600/70">Learning</p>
-                  </div>
-                  <div className="p-2 rounded-lg bg-slate-50 text-center">
-                    <p className="font-bold text-slate-600">{gymStats.new}</p>
-                    <p className="text-slate-600/70">New</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </Link>
 
 
         </TabsContent>
