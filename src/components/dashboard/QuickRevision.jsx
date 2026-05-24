@@ -194,12 +194,16 @@ export default function QuickRevision() {
     staleTime: 10 * 60 * 1000,
   });
 
-  // Merge meta + details
+  // Merge meta + details; only keep lessons that have enough vocabulary to quiz on
   const lessons = useMemo(() => {
     const detailMap = Object.fromEntries(lessonDetails.filter(Boolean).map((l) => [l.id, l]));
     return lessonMeta
       .map((m) => ({ ...m, lesson: detailMap[m.id] ?? null }))
-      .filter((m) => m.lesson !== null);
+      .filter((m) => {
+        if (!m.lesson) return false;
+        const pairs = (m.lesson.word_pairs || []).filter((p) => p.english && p.swedish);
+        return pairs.length >= 2;
+      });
   }, [lessonMeta, lessonDetails]);
 
   const [activeId, setActiveId] = useState(null);
