@@ -1,7 +1,7 @@
 // Shared speech utility — picks the best available voice for a language.
-// Works around Chrome's two known Web Speech API bugs:
-//   1. getVoices() returns [] on first synchronous call (voices load async)
-//   2. speechSynthesis silently freezes after ~15s of page inactivity
+// Handles browser-specific Web Speech API bugs:
+//   Chrome: getVoices() async load + engine freeze after inactivity
+//   Safari: voiceschanged never fires + cancel() breaks immediate speak
 
 const QUALITY_TIERS = ["premium", "enhanced", "natural", "online", "google", "compact"];
 
@@ -11,7 +11,6 @@ function scoreVoice(voice) {
   return idx === -1 ? QUALITY_TIERS.length - 2 : idx;
 }
 
-// Never cache null — always re-query until voices are available
 function getBestVoiceForLang(lang = "sv-SE") {
   const voices = window.speechSynthesis?.getVoices() ?? [];
   if (voices.length === 0) return null;
@@ -20,8 +19,12 @@ function getBestVoiceForLang(lang = "sv-SE") {
   return candidates.slice().sort((a, b) => scoreVoice(a) - scoreVoice(b))[0];
 }
 
-// Chrome freeze fix: every 10s while speaking, pause+resume to un-stick the engine
-if (typeof window !== "undefined" && window.speechSynthesis) {
+const isSafari =
+  typeof window !== "undefined" &&
+  /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+// Chrome freeze fix: pause+resume every 10s while speaking
+if (typeof window !== "undefined" && window.speechSynthesis && !isSafari) {
   setInterval(() => {
     const ss = window.speechSynthesis;
     if (ss?.speaking) {
@@ -36,17 +39,24 @@ export function getBestVoice(lang = "sv-SE") {
 }
 
 export function playAudio(text, lang = "sv-SE", speed = 1) {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
+  const ss = window.speechSynthesis;
+  if (!ss) return;
 
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = lang;
+  const go = () => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang;
+    const voice = getBestVoiceForLang(lang);
+    if (voice) utterance.voice = voice;
+    utterance.rate = speed === 1 ? 0.92 : speed;
+    utterance.pitch = 0.97;
+    ss.speak(utterance);
+  };
 
-  const voice = getBestVoiceForLang(lang);
-  if (voice) utterance.voice = voice;
-
-  utterance.rate = speed === 1 ? 0.92 : speed;
-  utterance.pitch = 0.97;
-
-  window.speechSynthesis.speak(utterance);
+  ss.cancel();
+  // Safari silently drops speak() called immediately after cancel()
+  if (isSafari) {
+    setTimeout(go, 50);
+  } else {
+    go();
+  }
 }
