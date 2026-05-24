@@ -6,16 +6,16 @@ import { Button } from "@/components/ui/button";
 import { playAudio } from "@/lib/speech";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
-export default function ListeningExercise({ phrases, onComplete, storageKey }) {
-  const { load, save, clear } = useExerciseProgress(storageKey);
+export default function ListeningExercise({ phrases, onComplete, storageKey, userId, lessonId, tab, initialProgress }) {
+  const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
   const [phrasePool, setPhrasePool] = useState(phrases);
   const [wrongIndices, setWrongIndices] = useState([]);
-  const [current, setCurrent] = useState(() => load()?.current ?? 0);
+  const [current, setCurrent] = useState(() => initialProgress?.current ?? load()?.current ?? 0);
   const [typed, setTyped] = useState("");
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
   const [correct, setCorrect] = useState(false);
-  const [score, setScore] = useState(() => load()?.score ?? 0);
+  const [score, setScore] = useState(() => initialProgress?.score ?? load()?.score ?? 0);
   const [finished, setFinished] = useState(false);
   const [listening, setListening] = useState(false);
 

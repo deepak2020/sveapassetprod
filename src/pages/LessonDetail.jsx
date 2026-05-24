@@ -63,6 +63,16 @@ export default function LessonDetail() {
     enabled: !!lesson?.sfi_course,
   });
 
+  // Fetch saved exercise progress from Supabase for cross-device restore
+  const { data: remoteProgress = {} } = useQuery({
+    queryKey: ["exercise-progress", lessonId, user?.id],
+    queryFn: async () => {
+      const records = await supabase.exerciseProgress.getForLesson(user.id, lessonId);
+      return Object.fromEntries(records.map(r => [r.tab, { current: r.current_index, score: r.score }]));
+    },
+    enabled: !!user?.id && !!lessonId,
+  });
+
   const currentIdx = siblings.findIndex((l) => l.id === lessonId);
   const prevLesson = currentIdx > 0 ? siblings[currentIdx - 1] : null;
   const nextLesson = currentIdx >= 0 && currentIdx < siblings.length - 1 ? siblings[currentIdx + 1] : null;
@@ -339,6 +349,9 @@ export default function LessonDetail() {
               lessonId={lesson.id}
               lessonTitle={lesson.title}
               storageKey={`${lessonId}-learn`}
+              userId={user?.id}
+              tab="learn"
+              initialProgress={remoteProgress["learn"]}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -362,6 +375,10 @@ export default function LessonDetail() {
               onComplete={(score, total) => markComplete("practice", { score, total })}
               previousResult={scores["practice"]}
               storageKey={`${lessonId}-practice`}
+              userId={user?.id}
+              lessonId={lessonId}
+              tab="practice"
+              initialProgress={remoteProgress["practice"]}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -384,6 +401,10 @@ export default function LessonDetail() {
               pairs={lesson.match_pairs}
               onComplete={(score, total) => markComplete("match", { score, total })}
               storageKey={`${lessonId}-match`}
+              userId={user?.id}
+              lessonId={lessonId}
+              tab="match"
+              initialProgress={remoteProgress["match"]}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -442,6 +463,10 @@ export default function LessonDetail() {
               phrases={lesson.listening_phrases}
               onComplete={(score, total) => markComplete("listening", { score, total })}
               storageKey={`${lessonId}-listening`}
+              userId={user?.id}
+              lessonId={lessonId}
+              tab="listening"
+              initialProgress={remoteProgress["listening"]}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -464,6 +489,10 @@ export default function LessonDetail() {
               wordPairs={lesson.word_pairs}
               onComplete={(score, total) => markComplete("translate", { score, total })}
               storageKey={`${lessonId}-translate`}
+              userId={user?.id}
+              lessonId={lessonId}
+              tab="translate"
+              initialProgress={remoteProgress["translate"]}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -490,6 +519,9 @@ export default function LessonDetail() {
               onComplete={(score, total) => markComplete("review", { score, total })}
               previousResult={scores["review"]}
               storageKey={`${lessonId}-review`}
+              userId={user?.id}
+              tab="review"
+              initialProgress={remoteProgress["review"]}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -516,6 +548,9 @@ export default function LessonDetail() {
               onComplete={(score, total) => markComplete("quiz", { score, total })}
               previousResult={scores["quiz"]}
               storageKey={`${lessonId}-quiz`}
+              userId={user?.id}
+              tab="quiz"
+              initialProgress={remoteProgress["quiz"]}
             />
             {/* No nextTabKey on last tab — lesson complete banner handles it */}
           </TabsContent>

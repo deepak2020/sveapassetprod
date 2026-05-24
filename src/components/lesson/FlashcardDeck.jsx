@@ -9,10 +9,10 @@ import SpeakButton from "@/components/shared/SpeakButton";
 import AddToVocabButton from "@/components/shared/AddToVocabButton";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
-export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonTitle, storageKey }) {
-  const { load, save, clear } = useExerciseProgress(storageKey);
+export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonTitle, storageKey, userId, tab, initialProgress }) {
+  const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
   const [cardPool, setCardPool] = useState(wordPairs || []);
-  const [index, setIndex] = useState(() => load()?.index ?? 0);
+  const [index, setIndex] = useState(() => initialProgress?.current ?? load()?.index ?? 0);
   const [flipped, setFlipped] = useState(false);
   const [known, setKnown] = useState([]);
   const [learning, setLearning] = useState([]);
@@ -58,7 +58,7 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
       onComplete?.(finalKnown, total);
     } else {
       const next = index + 1;
-      save({ index: next });
+      save({ index: next, current: next });
       setIndex(next);
     }
   };

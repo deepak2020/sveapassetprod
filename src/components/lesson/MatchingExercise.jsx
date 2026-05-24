@@ -5,9 +5,9 @@ import { CheckCircle2, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
-export default function MatchingExercise({ pairs, onComplete, storageKey }) {
-  const { load, save, clear } = useExerciseProgress(storageKey);
-  const savedMatched = load()?.matched ?? [];
+export default function MatchingExercise({ pairs, onComplete, storageKey, userId, lessonId, tab, initialProgress }) {
+  const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
+  const savedMatched = initialProgress?.matched ?? load()?.matched ?? [];
   const [shuffledRight, setShuffledRight] = useState([]);
   const [selected, setSelected] = useState({ left: null, right: null });
   const [matched, setMatched] = useState(savedMatched);
