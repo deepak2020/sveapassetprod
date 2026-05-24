@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
+import { useAuth } from "@/lib/AuthContext";
 import { Link } from "react-router-dom";
 // analytics: lesson tab clicks tracked via base44.analytics.track
 import confetti from "canvas-confetti";
@@ -38,7 +40,9 @@ export default function LessonDetail() {
   const pathParts = window.location.pathname.split("/");
   const lessonId = pathParts[pathParts.length - 1];
   const { completed, scores, markComplete } = useLessonCompletion(lessonId);
+  const { user } = useAuth();
   const confettiFired = useRef(false);
+  const planSyncFired = useRef(false);
   const tabsRef = useRef(null);
 
   const { data: lesson, isLoading } = useQuery({
@@ -131,6 +135,23 @@ export default function LessonDetail() {
       });
     }, 200);
   }
+
+  // Sync lesson completion to study plan in Supabase
+  useEffect(() => {
+    if (!allDone || !user?.id || planSyncFired.current) return;
+    planSyncFired.current = true;
+    (async () => {
+      const { data: plans } = await supabase.from('study_plans').getByUserId(user.id);
+      const plan = Array.isArray(plans) ? plans[0] : plans;
+      if (!plan) return;
+      const current = plan.completed_lesson_ids || [];
+      if (current.includes(lessonId)) return;
+      await supabase.from('study_plans').update(plan.id, {
+        completed_lesson_ids: [...current, lessonId],
+      });
+    })();
+  }, [allDone, user?.id, lessonId]);
+
   const pct = availableKeys.length ? Math.round((doneCount / availableKeys.length) * 100) : 0;
 
   const allTabs = ["content", ...availableKeys];
