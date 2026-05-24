@@ -6,10 +6,10 @@ const KEY_LAST = "svenska:last_lesson";
 const KEY_PROGRESS_PREFIX = "svenska:lesson_progress:";
 const KEY_SCORES_PREFIX = "svenska:lesson_scores:";
 
-// One-time session cleanup: remove "writing" and "speaking" from all lesson_progress
-// localStorage entries so that spurious QuizResult records created by old buggy code
-// no longer auto-mark these tabs as complete. Writing completions will be re-validated
-// against actual writing_answer records from the backend. Speaking is validated locally.
+// One-time session cleanup: strip "writing" and "speaking" from all lesson_progress
+// localStorage entries. These tabs were spuriously created by old buggy code that
+// fired onComplete() on mount. Writing completions are re-validated against actual
+// writing_answer records from the backend. Speaking is validated locally only.
 const PURGE_KEY = "svenska:suspect_completions_v1";
 function purgeLocalSuspectCompletions() {
   if (typeof window === "undefined") return;
@@ -29,7 +29,7 @@ function purgeLocalSuspectCompletions() {
           if (cleaned.length !== arr.length) localStorage.setItem(k, JSON.stringify(cleaned));
         }
       } catch (_) {}
-      // Also remove spurious "speaking" score (can't be validated from backend)
+      // Also remove spurious "speaking" score (cannot be validated from backend)
       const lessonId = k.slice(KEY_PROGRESS_PREFIX.length);
       try {
         const scoreKey = KEY_SCORES_PREFIX + lessonId;
@@ -79,30 +79,39 @@ export function useLastLesson() {
 // Persists to both localStorage (fast, offline) and backend via QuizResult
 // (quiz_type="lesson_tab") so progress survives across devices and logins.
 export function useLessonCompletion(lessonId) {
-  const [completed, setCompleted] = useState([]);
-  const [scores, setScores] = useState({});
+  // Initialize synchronously from localStorage so that the first render after
+  // lesson data loads already has the correct completion state. This is critical:
+  // LessonDetail captures initialDoneRef on the first render, so if completed
+  // starts as [] and is only populated via a useEffect, initialDoneRef is always
+  // set to false and every previously-completed lesson triggers the celebration
+  // banner on re-open.
+  const [completed, setCompleted] = useState(() => {
+    // Run the purge before reading so spurious keys are stripped immediately.
+    purgeLocalSuspectCompletions();
+    if (!lessonId) return [];
+    try {
+      const raw = localStorage.getItem(KEY_PROGRESS_PREFIX + lessonId);
+      return raw ? JSON.parse(raw) : [];
+    } catch (_) { return []; }
+  });
+
+  const [scores, setScores] = useState(() => {
+    if (!lessonId) return {};
+    try {
+      const raw = localStorage.getItem(KEY_SCORES_PREFIX + lessonId);
+      return raw ? JSON.parse(raw) : {};
+    } catch (_) { return {}; }
+  });
+
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (!lessonId) return;
+    if (!lessonId || !isAuthenticated) return;
 
-    // Remove stale spurious writing/speaking keys from all lesson_progress localStorage entries
-    purgeLocalSuspectCompletions();
-
-    // Load from localStorage immediately (no latency)
-    try {
-      const raw = localStorage.getItem(KEY_PROGRESS_PREFIX + lessonId);
-      if (raw) setCompleted(JSON.parse(raw));
-      const rawScores = localStorage.getItem(KEY_SCORES_PREFIX + lessonId);
-      if (rawScores) setScores(JSON.parse(rawScores));
-    } catch (_) {}
-
-    // Load from backend and merge — only when logged in, so records are user-scoped.
-    // "writing" is only trusted when actual writing_answer records exist (prevents spurious
-    // completions from the old auto-firing bug from polluting lesson progress).
-    // "speaking" is validated locally only — the backend record cannot be reliably
-    // distinguished from spurious completions, so we trust localStorage exclusively.
-    if (!isAuthenticated) return;
+    // Merge backend records. "writing" is only trusted when actual writing_answer
+    // records exist (prevents old spurious lesson_tab records from showing the tab as
+    // done). "speaking" cannot be reliably validated server-side so it is trusted
+    // from localStorage only.
     Promise.all([
       base44.entities.QuizResult.filter({ quiz_type: "lesson_tab", source_id: lessonId }, null, 200),
       base44.entities.QuizResult.filter({ quiz_type: "writing_answer", source_id: lessonId }, null, 5),
@@ -113,7 +122,7 @@ export function useLessonCompletion(lessonId) {
           ...new Set((tabResults || []).map((r) => r.skill).filter(Boolean)),
         ].filter((k) => {
           if (k === "writing") return hasRealWritingAnswers;
-          if (k === "speaking") return false; // trust localStorage only
+          if (k === "speaking") return false;
           return true;
         });
         setCompleted((prev) => {
