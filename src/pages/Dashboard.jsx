@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { getLevelProgress, getNextLevel } from "@/lib/xp";
+import { getLevelProgress, getNextLevel, healStreak } from "@/lib/xp";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
@@ -60,6 +60,9 @@ export default function Dashboard() {
   });
 
   usePageView("dashboard");
+
+  useEffect(() => { healStreak(base44); }, []);
+
   const { plan, createPlan, deletePlan, getTodaysLessons, getDayNumber, getProgress } = useStudyPlan(user?.id);
 
   const { data: quizResults } = useQuery({

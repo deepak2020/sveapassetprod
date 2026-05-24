@@ -102,3 +102,45 @@ export async function awardXP(base44, xpAmount, label) {
 
   return { newXP, newStreak, bonusXP, milestoneReached };
 }
+
+// Self-healing streak repair: recalculates streak from QuizResult history
+// Runs once per session; only fixes streak if it shows as 1 (the reset bug value)
+export async function healStreak(base44) {
+  const HEALED_KEY = "svenska:streak_healed_v1";
+  if (sessionStorage.getItem(HEALED_KEY)) return;
+  sessionStorage.setItem(HEALED_KEY, "1");
+
+  const user = await base44.auth.me();
+  if (!user || user.streak_days > 1) return;
+
+  const results = await base44.entities.QuizResult.list("-created_date", 500);
+  const activeDates = [
+    ...new Set(results.map(r => r.created_date?.split("T")[0]).filter(Boolean))
+  ].sort().reverse();
+
+  if (!activeDates.length) return;
+
+  const today = new Date().toISOString().split("T")[0];
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split("T")[0];
+
+  if (!activeDates.includes(today) && !activeDates.includes(yesterdayStr)) return;
+
+  let streak = 0;
+  let checkDate = activeDates.includes(today) ? today : yesterdayStr;
+  for (const date of activeDates) {
+    if (date === checkDate) {
+      streak++;
+      const d = new Date(checkDate + "T12:00:00Z");
+      d.setDate(d.getDate() - 1);
+      checkDate = d.toISOString().split("T")[0];
+    } else if (date < checkDate) {
+      break;
+    }
+  }
+
+  if (streak > 1) {
+    await base44.auth.updateMe({ streak_days: streak });
+  }
+}
