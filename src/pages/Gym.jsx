@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { Play, BookOpen, Upload, Brain, CheckCircle2, XCircle } from "lucide-react";
@@ -27,6 +27,10 @@ export default function Gym() {
   const { dueCards, masteredCount, totalCount, refresh } = useVocabSRS();
   const sessionRef = useRef(null);
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    base44.analytics.track({ eventName: "page_viewed", properties: { page: "gym" } });
+  }, []);
 
   const { data: sentences = [] } = useQuery({
     queryKey: ["cloze-sentences"],
@@ -70,7 +74,7 @@ export default function Gym() {
     return (
       <VocabReviewSession
         cards={dueCards}
-        onFinish={() => { setVocabSession(false); refresh(); }}
+        onFinish={() => { setVocabSession(false); refresh(); base44.analytics.track({ eventName: "vocab_review_completed", properties: { card_count: dueCards.length } }); }}
       />
     );
   }
@@ -181,7 +185,7 @@ export default function Gym() {
               </div>
               <div className="text-right shrink-0 ml-3">
                 {dueCards.length > 0 ? (
-                  <Button size="sm" onClick={() => setVocabSession(true)} className="gap-1.5 bg-violet-600 hover:bg-violet-700">
+                  <Button size="sm" onClick={() => { setVocabSession(true); base44.analytics.track({ eventName: "vocab_review_started", properties: { due_cards: dueCards.length } }); }} className="gap-1.5 bg-violet-600 hover:bg-violet-700">
                     <Play className="w-3.5 h-3.5" /> Review {dueCards.length}
                   </Button>
                 ) : (
@@ -274,6 +278,10 @@ function GymDashboard({ sentences, srsCards, onStartSession, sessionRef }) {
 
   const startSession = () => {
     const quiz = sessionSentences.slice(0, Math.min(count, sessionSentences.length));
+    base44.analytics.track({
+      eventName: "gym_session_started",
+      properties: { mode: selectedMode, sfi_level: selectedLevel, sentence_count: quiz.length },
+    });
     onStartSession({ sentences: quiz, mode: selectedMode });
   };
 

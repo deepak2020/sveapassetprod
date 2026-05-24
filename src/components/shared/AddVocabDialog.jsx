@@ -19,6 +19,7 @@ export default function AddVocabDialog() {
         swedish: swedish.trim(),
         english: english.trim(),
       });
+      base44.analytics.track({ eventName: "vocabulary_word_saved", properties: { swedish: swedish.trim(), english: english.trim() } });
       setSwedish("");
       setEnglish("");
       setOpen(false);

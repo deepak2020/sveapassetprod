@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
+import { usePageView } from "@/hooks/usePageView";
 import { Trash2, BookOpen, Brain, Play } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import { useVocabSRS, addSavedWordToSRS } from "@/hooks/useVocabSRS";
 import VocabReviewSession from "@/components/gym/VocabReviewSession";
 
 export default function MyVocabulary() {
+  usePageView("my_vocabulary");
   const [searchTerm, setSearchTerm] = useState("");
   const [reviewing, setReviewing] = useState(false);
   const { dueCards, totalCount, refresh } = useVocabSRS();
@@ -26,6 +28,7 @@ export default function MyVocabulary() {
   const handleDelete = async (id) => {
     if (confirm("Delete this word?")) {
       await base44.entities.UserVocabulary.delete(id);
+      base44.analytics.track({ eventName: "vocabulary_word_deleted", properties: { source: "my_vocabulary" } });
       refetch();
     }
   };
