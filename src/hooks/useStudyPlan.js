@@ -48,10 +48,18 @@ export function useStudyPlan(userId) {
     if (data) setPlan(Array.isArray(data) ? data[0] : data);
   };
 
+  const getLocalDate = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  };
+
   const getTodaysLessons = () => {
     if (!plan?.daily_schedule) return [];
-    const today = new Date().toISOString().split('T')[0];
-    const todayEntry = plan.daily_schedule.find(d => d.date === today);
+    const today = getLocalDate();
+    const schedule = typeof plan.daily_schedule === 'string'
+      ? JSON.parse(plan.daily_schedule)
+      : plan.daily_schedule;
+    const todayEntry = schedule.find(d => d.date === today);
     return todayEntry?.lesson_ids || [];
   };
 
