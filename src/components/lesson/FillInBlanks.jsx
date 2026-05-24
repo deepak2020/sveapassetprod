@@ -7,14 +7,14 @@ import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
-export default function FillInBlanks({ exercises, onComplete, previousResult, storageKey }) {
-  const { load, save, clear } = useExerciseProgress(storageKey);
+export default function FillInBlanks({ exercises, onComplete, previousResult, storageKey, userId, lessonId, tab, initialProgress }) {
+  const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
   const [exercisePool, setExercisePool] = useState(exercises);
   const [wrongIndices, setWrongIndices] = useState([]);
-  const [current, setCurrent] = useState(() => previousResult ? 0 : (load()?.current ?? 0));
+  const [current, setCurrent] = useState(() => previousResult ? 0 : (initialProgress?.current ?? load()?.current ?? 0));
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
-  const [score, setScore] = useState(() => previousResult ? (previousResult.score ?? 0) : (load()?.score ?? 0));
+  const [score, setScore] = useState(() => previousResult ? (previousResult.score ?? 0) : (initialProgress?.score ?? load()?.score ?? 0));
   const [finished, setFinished] = useState(() => !!previousResult);
 
   if (!exercises || exercises.length === 0) {

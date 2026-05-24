@@ -21,15 +21,15 @@ function isCloseEnough(input, answer) {
   return true;
 }
 
-export default function SentenceTranslation({ wordPairs, onComplete, storageKey }) {
-  const { load, save, clear } = useExerciseProgress(storageKey);
+export default function SentenceTranslation({ wordPairs, onComplete, storageKey, userId, lessonId, tab, initialProgress }) {
+  const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
   const allExercises = (wordPairs || []).filter(wp => wp.example_en && wp.example_sv);
   const [exercisePool, setExercisePool] = useState(allExercises);
   const [wrongIndices, setWrongIndices] = useState([]);
-  const [current, setCurrent] = useState(() => load()?.current ?? 0);
+  const [current, setCurrent] = useState(() => initialProgress?.current ?? load()?.current ?? 0);
   const [input, setInput] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [score, setScore] = useState(() => load()?.score ?? 0);
+  const [score, setScore] = useState(() => initialProgress?.score ?? load()?.score ?? 0);
   const [finished, setFinished] = useState(false);
   const [showHint, setShowHint] = useState(false);
 

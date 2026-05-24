@@ -8,19 +8,19 @@ import { awardXP, XP_REWARDS } from "@/lib/xp";
 import SpeakButton from "@/components/shared/SpeakButton";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
-export default function QuizRunner({ questions, quizType, sourceId, sourceTitle, onComplete, previousResult, storageKey }) {
-  const { load, save, clear } = useExerciseProgress(storageKey);
+export default function QuizRunner({ questions, quizType, sourceId, sourceTitle, onComplete, previousResult, storageKey, userId, tab, initialProgress }) {
+  const { load, save, clear } = useExerciseProgress(storageKey, userId, sourceId, tab);
   const [questionPool, setQuestionPool] = useState(questions);
   const [wrongIndices, setWrongIndices] = useState([]);
   const [currentQ, setCurrentQ] = useState(() => {
     if (previousResult) return 0;
-    return load()?.current ?? 0;
+    return initialProgress?.current ?? load()?.current ?? 0;
   });
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState(() => {
     if (previousResult) return previousResult.score ?? 0;
-    return load()?.score ?? 0;
+    return initialProgress?.score ?? load()?.score ?? 0;
   });
   const [finished, setFinished] = useState(() => !!previousResult);
 

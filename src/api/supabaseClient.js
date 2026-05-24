@@ -51,4 +51,35 @@ export const supabase = {
       });
     },
   }),
+
+  exerciseProgress: {
+    async getForLesson(userId, lessonId) {
+      const { data } = await sbFetch(
+        `exercise_progress?user_id=eq.${userId}&lesson_id=eq.${encodeURIComponent(lessonId)}`
+      );
+      return Array.isArray(data) ? data : [];
+    },
+
+    async upsert(userId, lessonId, tab, currentIndex, score) {
+      return sbFetch('exercise_progress', {
+        method: 'POST',
+        headers: { 'Prefer': 'resolution=merge-duplicates,return=representation' },
+        body: JSON.stringify({
+          user_id: userId,
+          lesson_id: lessonId,
+          tab,
+          current_index: currentIndex,
+          score,
+          updated_at: new Date().toISOString(),
+        }),
+      });
+    },
+
+    async clear(userId, lessonId, tab) {
+      return sbFetch(
+        `exercise_progress?user_id=eq.${userId}&lesson_id=eq.${encodeURIComponent(lessonId)}&tab=eq.${tab}`,
+        { method: 'DELETE' }
+      );
+    },
+  },
 };
