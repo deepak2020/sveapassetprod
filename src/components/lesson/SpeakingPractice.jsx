@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, Mic, CheckCircle2, XCircle, RotateCcw, MicOff } from "lucide-react";
+import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import SpeakButton from "@/components/shared/SpeakButton";
 
 const fuzzyMatch = (userText, expectedText) => {
-  const normalize = (text) => text.toLowerCase().trim().replace(/[.,!?]/g, "");
-  const user = normalize(userText);
-  const expected = normalize(expectedText);
+  const user = normalizeAnswer(userText);
+  const expected = normalizeAnswer(expectedText);
 
   if (user === expected) return 1;
 

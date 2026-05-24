@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { playAudio } from "@/lib/speech";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
+import { normalizeAnswer } from "@/lib/normalizeAnswer";
 
 export default function ListeningExercise({ phrases, onComplete, storageKey, userId, lessonId, tab, initialProgress }) {
   const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
@@ -26,12 +27,10 @@ export default function ListeningExercise({ phrases, onComplete, storageKey, use
   const phrase = phrasePool[current];
   const isTranscribe = phrase.exercise_type === "transcribe";
 
-  const normalize = (s) => s.trim().toLowerCase().replace(/[.,!?;:]/g, "").replace(/\s+/g, " ");
-
   const handleAnswer = (answer) => {
     if (answered) return;
-    const expected = normalize(phrase.phrase_sv);
-    const given = normalize(answer);
+    const expected = normalizeAnswer(phrase.phrase_sv);
+    const given = normalizeAnswer(answer);
     const isCorrect = given === expected;
     setAnswered(true);
     setCorrect(isCorrect);
