@@ -364,6 +364,7 @@ export default function LessonDetail() {
               }}
               lessonId={lesson.id}
               lessonTitle={lesson.title}
+              previousResult={scores["learn"]}
               storageKey={`${lessonId}-learn`}
               userId={user?.id}
               tab="learn"

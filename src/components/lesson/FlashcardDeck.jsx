@@ -9,15 +9,15 @@ import SpeakButton from "@/components/shared/SpeakButton";
 import AddToVocabButton from "@/components/shared/AddToVocabButton";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
-export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonTitle, storageKey, userId, tab, initialProgress }) {
+export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonTitle, storageKey, userId, tab, initialProgress, previousResult }) {
   const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
   const remoteApplied = useRef(false);
   const [cardPool, setCardPool] = useState(wordPairs || []);
-  const [index, setIndex] = useState(() => initialProgress?.current ?? load()?.index ?? 0);
+  const [index, setIndex] = useState(() => previousResult ? 0 : (initialProgress?.current ?? load()?.index ?? 0));
   const [flipped, setFlipped] = useState(false);
   const [known, setKnown] = useState([]);
   const [learning, setLearning] = useState([]);
-  const [finished, setFinished] = useState(false);
+  const [finished, setFinished] = useState(() => !!previousResult);
   const touchStartX = useRef(null);
   const { speak } = useSpeech();
 
@@ -94,25 +94,33 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
   };
 
   if (finished) {
-    const pct = Math.round((known.length / total) * 100);
+    const fromPrev = known.length === 0 && !!previousResult;
+    const displayPct = fromPrev ? previousResult.percentage : Math.round((known.length / total) * 100);
+    const displayKnown = fromPrev ? previousResult.score : known.length;
+    const displayTotal = fromPrev ? previousResult.total : total;
     return (
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-8">
         <div className="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-4">
           <Trophy className="w-10 h-10 text-amber-500" />
         </div>
-        <h3 className="font-display text-2xl font-bold mb-1">Round complete!</h3>
+        <h3 className="font-display text-2xl font-bold mb-1">
+          {fromPrev ? "Already completed! ✓" : "Round complete!"}
+        </h3>
+        {fromPrev && (
+          <p className="text-sm text-muted-foreground italic mb-2">Your last score</p>
+        )}
         <div aria-live="polite">
-          <p className="text-4xl font-bold text-primary my-3">{pct}%</p>
-          <p className="text-muted-foreground mb-4">{known.length} known · {learning.length} still learning</p>
+          <p className="text-4xl font-bold text-primary my-3">{displayPct}%</p>
+          <p className="text-muted-foreground mb-4">{displayKnown} known · {displayTotal - displayKnown} still learning</p>
         </div>
         <div className="flex flex-col gap-2 max-w-xs mx-auto">
-          {learning.length > 0 && (
+          {!fromPrev && learning.length > 0 && (
             <Button onClick={() => restart(true)} className="gap-2">
               <RotateCcw className="w-4 h-4" /> Retry {learning.length} still learning
             </Button>
           )}
           <Button onClick={() => restart(false)} variant="outline" className="gap-2">
-            <RotateCcw className="w-4 h-4" /> {learning.length > 0 ? "Review all cards" : "Review again"}
+            <RotateCcw className="w-4 h-4" /> {fromPrev ? "Review cards again" : learning.length > 0 ? "Review all cards" : "Review again"}
           </Button>
         </div>
       </motion.div>
