@@ -11,11 +11,17 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
   const progress = getProgress();
   const completed = plan.completed_lesson_ids || [];
 
+  const allCourses = [plan.course, ...(plan.include_courses || [])];
+
   const { data: todayLessons = [] } = useQuery({
     queryKey: ["planner-today-lessons", todayLessonIds],
     queryFn: async () => {
       if (!todayLessonIds.length) return [];
-      const all = await base44.entities.Lesson.filter({ sfi_course: plan.course }, "order", 500);
+      let all = [];
+      for (const c of allCourses) {
+        const lessons = await base44.entities.Lesson.filter({ sfi_course: c }, "order", 500);
+        all = [...all, ...lessons];
+      }
       return all.filter(l => todayLessonIds.includes(l.id));
     },
     enabled: todayLessonIds.length > 0,

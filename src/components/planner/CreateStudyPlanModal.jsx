@@ -58,12 +58,14 @@ export default function CreateStudyPlanModal({ open, onClose, onCreated, userId,
     setStep("generating");
 
     const startDate = new Date();
+    const toLocalDate = (d) =>
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     const schedule = [];
 
     for (let i = 0; i < targetDays; i++) {
       const date = new Date(startDate);
       date.setDate(date.getDate() + i);
-      const dateStr = date.toISOString().split('T')[0];
+      const dateStr = toLocalDate(date);
       const dayLessons = preview.lessons.slice(i * preview.perDay, (i + 1) * preview.perDay);
       if (dayLessons.length > 0) {
         schedule.push({ date: dateStr, lesson_ids: dayLessons.map(l => l.id) });
@@ -74,7 +76,7 @@ export default function CreateStudyPlanModal({ open, onClose, onCreated, userId,
       course,
       include_courses: includeCourses,
       focus_skills: focusSkills,
-      start_date: startDate.toISOString().split('T')[0],
+      start_date: toLocalDate(startDate),
       target_days: targetDays,
       daily_schedule: schedule,
       completed_lesson_ids: [],

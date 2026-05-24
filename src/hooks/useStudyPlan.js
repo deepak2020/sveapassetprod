@@ -12,29 +12,28 @@ export function useStudyPlan(userId) {
 
   const fetchPlan = async () => {
     setLoading(true);
-    const { data } = await supabase
-      .from('study_plans')
-      .select('*')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .single();
-    setPlan(data || null);
+    const { data, error } = await supabase.from('study_plans').getByUserId(userId);
+    if (error) console.error('fetchPlan error:', error);
+    setPlan(Array.isArray(data) ? data[0] || null : data);
     setLoading(false);
   };
 
   const createPlan = async (planData) => {
-    const { data, error } = await supabase
-      .from('study_plans')
-      .insert([{ user_id: userId, ...planData }])
-      .select()
-      .single();
-    if (!error) setPlan(data);
-    return { data, error };
+    const { data, error } = await supabase.from('study_plans').insert({
+      user_id: userId,
+      ...planData,
+    });
+    if (error) {
+      console.error('createPlan error:', error);
+      return { data: null, error };
+    }
+    const created = Array.isArray(data) ? data[0] : data;
+    setPlan(created);
+    return { data: created, error: null };
   };
 
   const deletePlan = async () => {
-    await supabase.from('study_plans').delete().eq('user_id', userId);
+    await supabase.from('study_plans').delete(userId);
     setPlan(null);
   };
 
@@ -43,19 +42,24 @@ export function useStudyPlan(userId) {
     const current = plan.completed_lesson_ids || [];
     if (current.includes(lessonId)) return;
     const updated = [...current, lessonId];
-    const { data } = await supabase
-      .from('study_plans')
-      .update({ completed_lesson_ids: updated })
-      .eq('id', plan.id)
-      .select()
-      .single();
-    if (data) setPlan(data);
+    const { data } = await supabase.from('study_plans').update(plan.id, {
+      completed_lesson_ids: updated,
+    });
+    if (data) setPlan(Array.isArray(data) ? data[0] : data);
+  };
+
+  const getLocalDate = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   };
 
   const getTodaysLessons = () => {
     if (!plan?.daily_schedule) return [];
-    const today = new Date().toISOString().split('T')[0];
-    const todayEntry = plan.daily_schedule.find(d => d.date === today);
+    const today = getLocalDate();
+    const schedule = typeof plan.daily_schedule === 'string'
+      ? JSON.parse(plan.daily_schedule)
+      : plan.daily_schedule;
+    const todayEntry = schedule.find(d => d.date === today);
     return todayEntry?.lesson_ids || [];
   };
 
