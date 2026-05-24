@@ -99,7 +99,6 @@ function QuizMode({ lesson, onClose }) {
 
   return (
     <div className="space-y-3">
-      {/* Progress bar */}
       <div className="flex items-center gap-1">
         {questions.map((_, i) => (
           <div key={i} className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
@@ -110,7 +109,6 @@ function QuizMode({ lesson, onClose }) {
         <span className="text-xs text-muted-foreground ml-2 shrink-0">{current + 1}/{questions.length}</span>
       </div>
 
-      {/* Question */}
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -128,7 +126,6 @@ function QuizMode({ lesson, onClose }) {
             )}
           </div>
 
-          {/* Options */}
           <div className="grid grid-cols-2 gap-2">
             {q.options.map((opt) => {
               const isSelected = activeChoice === opt;
@@ -167,52 +164,54 @@ function QuizMode({ lesson, onClose }) {
 }
 
 export default function QuickRevision() {
-  const { data: completedTabs = [], isLoading } = useQuery({
+  // Step 1: get all lesson_tab completion records
+  const { data: completedTabs = [], isLoading: tabsLoading } = useQuery({
     queryKey: ["lesson-tab-results"],
     queryFn: () => base44.entities.QuizResult.filter({ quiz_type: "lesson_tab" }, "-created_date", 300),
     staleTime: 5 * 60 * 1000,
   });
 
-  // Derive unique lessons in recency order, collecting which tabs are done
-  const recentLessons = useMemo(() => {
+  // Derive up to 6 unique lesson IDs in recency order + their completed skills
+  const lessonMeta = useMemo(() => {
     const map = new Map();
     for (const r of completedTabs) {
-      if (!r.source_id || !r.source_title) continue;
+      if (!r.source_id) continue;
       if (!map.has(r.source_id)) {
-        map.set(r.source_id, { id: r.source_id, title: r.source_title, skills: new Set(), at: r.created_date });
+        map.set(r.source_id, { id: r.source_id, skills: new Set() });
       }
       if (r.skill) map.get(r.source_id).skills.add(r.skill);
     }
-    return [...map.values()]
-      .slice(0, 6)
-      .map((l) => ({ ...l, skills: [...l.skills] }));
+    return [...map.values()].slice(0, 6).map((l) => ({ ...l, skills: [...l.skills] }));
   }, [completedTabs]);
 
-  const [activeId, setActiveId] = useState(null);
-  const [activeLesson, setActiveLesson] = useState(null);
-  const [loadingId, setLoadingId] = useState(null);
+  const lessonIds = useMemo(() => lessonMeta.map((l) => l.id), [lessonMeta]);
 
-  const startRevision = async (lessonId) => {
-    if (activeId === lessonId) {
-      setActiveId(null);
-      setActiveLesson(null);
-      return;
-    }
-    setLoadingId(lessonId);
-    setActiveId(lessonId);
-    setActiveLesson(null);
-    try {
-      const lesson = await base44.entities.Lesson.get(lessonId);
-      setActiveLesson(lesson);
-    } catch {
-      setActiveId(null);
-    } finally {
-      setLoadingId(null);
-    }
+  // Step 2: fetch actual lesson entities (title + word_pairs) for those IDs
+  const { data: lessonDetails = [], isLoading: detailsLoading } = useQuery({
+    queryKey: ["revision-lesson-details", lessonIds.join(",")],
+    queryFn: () => Promise.all(lessonIds.map((id) => base44.entities.Lesson.get(id).catch(() => null))),
+    enabled: lessonIds.length > 0,
+    staleTime: 10 * 60 * 1000,
+  });
+
+  // Merge meta + details
+  const lessons = useMemo(() => {
+    const detailMap = Object.fromEntries(lessonDetails.filter(Boolean).map((l) => [l.id, l]));
+    return lessonMeta
+      .map((m) => ({ ...m, lesson: detailMap[m.id] ?? null }))
+      .filter((m) => m.lesson !== null);
+  }, [lessonMeta, lessonDetails]);
+
+  const [activeId, setActiveId] = useState(null);
+
+  const toggleRevision = (id) => {
+    setActiveId((prev) => (prev === id ? null : id));
   };
 
+  const isLoading = tabsLoading || (lessonIds.length > 0 && detailsLoading);
+
   if (isLoading) return null;
-  if (recentLessons.length === 0) return null;
+  if (lessons.length === 0) return null;
 
   return (
     <Card className="border-border/50">
@@ -225,20 +224,18 @@ export default function QuickRevision() {
         <p className="text-xs text-muted-foreground">Tap a lesson to practise its vocabulary in a quick quiz.</p>
       </CardHeader>
       <CardContent className="space-y-2 pt-0">
-        {recentLessons.map((lesson) => {
-          const isActive = activeId === lesson.id;
-          const isThisLoading = loadingId === lesson.id;
+        {lessons.map(({ id, skills, lesson }) => {
+          const isActive = activeId === id;
           return (
-            <div key={lesson.id} className="rounded-xl border border-border/50 overflow-hidden">
-              {/* Lesson row */}
+            <div key={id} className="rounded-xl border border-border/50 overflow-hidden">
               <button
-                onClick={() => startRevision(lesson.id)}
+                onClick={() => toggleRevision(id)}
                 className={`w-full flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors ${isActive ? "bg-primary/5 border-b border-border/40" : "hover:bg-muted/50"}`}
               >
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium truncate">{lesson.title}</p>
                   <div className="flex flex-wrap gap-1 mt-0.5">
-                    {lesson.skills.map((s) => (
+                    {skills.map((s) => (
                       <span key={s} className="inline-flex items-center gap-0.5 text-[10px] text-emerald-600 font-medium">
                         <CheckCircle2 className="w-2.5 h-2.5" />
                         {TAB_LABELS[s] ?? s}
@@ -246,15 +243,9 @@ export default function QuickRevision() {
                     ))}
                   </div>
                 </div>
-                <div className="shrink-0 text-muted-foreground">
-                  {isThisLoading
-                    ? <Loader2 className="w-4 h-4 animate-spin" />
-                    : <ChevronRight className={`w-4 h-4 transition-transform ${isActive ? "rotate-90 text-primary" : ""}`} />
-                  }
-                </div>
+                <ChevronRight className={`w-4 h-4 shrink-0 text-muted-foreground transition-transform ${isActive ? "rotate-90 text-primary" : ""}`} />
               </button>
 
-              {/* Inline quiz */}
               <AnimatePresence>
                 {isActive && (
                   <motion.div
@@ -265,17 +256,11 @@ export default function QuickRevision() {
                     className="overflow-hidden"
                   >
                     <div className="px-4 py-4">
-                      {activeLesson ? (
-                        <QuizMode
-                          key={activeLesson.id}
-                          lesson={activeLesson}
-                          onClose={() => { setActiveId(null); setActiveLesson(null); }}
-                        />
-                      ) : (
-                        <div className="flex justify-center py-4">
-                          <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
-                        </div>
-                      )}
+                      <QuizMode
+                        key={id}
+                        lesson={lesson}
+                        onClose={() => setActiveId(null)}
+                      />
                     </div>
                   </motion.div>
                 )}
