@@ -359,92 +359,7 @@ export default function Dashboard() {
         </Card>
       </Link>
 
-      {/* Recent activity */}
-      <div>
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <h2 className="font-semibold text-foreground">Senaste aktivitet</h2>
-            <p className="text-xs text-muted-foreground/60 italic">Recent activity</p>
-          </div>
-          {quizResults.length > 0 && (
-            <button
-              className="text-xs text-primary hover:underline flex items-center gap-1"
-              onClick={() => document.querySelector('[role="tab"][value="progress"]')?.click()}
-            >
-              Se Framsteg →
-            </button>
-          )}
-        </div>
-        {quizResults.length === 0 ? (
-          <Card className="border-border/50 border-dashed">
-            <CardContent className="p-6 text-center">
-              <Trophy className="w-8 h-8 mx-auto mb-2 text-muted-foreground/40" />
-              <p className="text-sm text-muted-foreground">Ingen aktivitet ännu</p>
-              <p className="text-xs text-muted-foreground/60 italic mb-3">No activity yet</p>
-              <Link to="/language">
-                <Button size="sm" variant="outline">Börja en lektion</Button>
-              </Link>
-            </CardContent>
-          </Card>
-        ) : (
-          <div className="space-y-2">
-            {quizResults.slice(0, 5).map(r => {
-              const href = r.quiz_type === "civic"
-                ? (r.source_id ? `/civic/${r.source_id}` : "/civic")
-                : (r.source_id ? `/language/${r.source_id}` : "/language");
-              return (
-                <Link key={r.id} to={href}>
-                  <Card className="border-border/50 hover:border-primary/40 hover:shadow-sm transition-all cursor-pointer">
-                    <CardContent className="p-4 flex items-center justify-between">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${r.quiz_type === "civic" ? "bg-violet-100" : "bg-blue-100"}`}>
-                          {r.quiz_type === "civic" ? <Landmark className="w-4 h-4 text-violet-600" /> : <BookOpen className="w-4 h-4 text-blue-600" />}
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-sm font-medium truncate">{r.source_title || "Quiz"}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {r.score}/{r.total} rätt
-                            {r.created_date && ` · ${format(new Date(r.created_date), "MMM d")}`}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1 text-sm font-semibold text-primary shrink-0">
-                        <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                        {r.percentage}%
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              );
-            })}
-          </div>
-        )}
-      </div>
 
-      {/* XP breakdown info */}
-      <Card className="border-border/50 bg-muted/30">
-        <CardContent className="p-5">
-          <div className="mb-3">
-            <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Så tjänar du XP</h3>
-            <p className="text-xs text-muted-foreground/60 italic">How to earn XP</p>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
-            {[
-              { label: "Lektion klar", sublabel: "Lesson complete", xp: 5 },
-              { label: "Övning godkänd", sublabel: "Practice passed", xp: 15 },
-              { label: "Quiz rätt", sublabel: "Quiz correct", xp: 20 },
-              { label: "Flashkort Bra/Lätt", sublabel: "Flashcard Good/Easy", xp: 10 },
-              { label: "7-dagars svit", sublabel: "7-day streak", xp: 50 },
-              { label: "Dagmål uppnått", sublabel: "Daily goal met", xp: 25 },
-            ].map(item => (
-              <div key={item.label} className="flex items-center justify-between bg-background rounded-lg px-3 py-2 border border-border/50">
-                <span className="text-muted-foreground text-xs">{item.label}<span className="block text-muted-foreground/50 italic">{item.sublabel}</span></span>
-                <span className="font-bold text-primary text-xs">+{item.xp}</span>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
         </TabsContent>
 
         {/* Progress Tab */}
@@ -629,9 +544,6 @@ export default function Dashboard() {
                     {level.name}
                   </span>
                 </div>
-                {nextLevel && (
-                  <span className="text-xs text-muted-foreground">{xpInLevel} / {xpNeeded} XP → {nextLevel.name}</span>
-                )}
               </div>
               <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
                 <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
