@@ -229,25 +229,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Level card */}
-      <Card className="border-border/50 bg-gradient-to-r from-primary/5 to-transparent">
-        <CardContent className="p-5">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <Trophy className="w-5 h-5 text-primary" />
-              <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${XP_LEVEL_COLORS[level.name] || "bg-muted text-muted-foreground"}`}>
-                {level.name}
-              </span>
-            </div>
-          </div>
-          <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-            <div
-              className="h-full bg-primary rounded-full transition-all duration-700"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Daily goal */}
       {user.daily_goal_minutes && (
