@@ -44,6 +44,7 @@ export default function LessonDetail() {
   const confettiFired = useRef(false);
   const planSyncFired = useRef(false);
   const tabsRef = useRef(null);
+  const initialDoneRef = useRef(null); // tracks whether lesson was already done on mount
 
   const { data: lesson, isLoading } = useQuery({
     queryKey: ["lesson", lessonId],
@@ -157,8 +158,15 @@ export default function LessonDetail() {
   const doneCount = availableKeys.filter((k) => completed.includes(k)).length;
   const allDone = availableKeys.length > 0 && doneCount === availableKeys.length;
 
-  // Fire confetti once when lesson is completed
-  if (allDone && !confettiFired.current && typeof window !== "undefined") {
+  // Capture whether lesson was already done when the page first loaded
+  if (initialDoneRef.current === null && availableKeys.length > 0) {
+    initialDoneRef.current = allDone;
+  }
+  // Only celebrate if the user completed it during THIS visit (not already done before)
+  const justCompleted = allDone && initialDoneRef.current === false;
+
+  // Fire confetti once when lesson is completed in this session
+  if (justCompleted && !confettiFired.current && typeof window !== "undefined") {
     confettiFired.current = true;
     setTimeout(() => {
       confetti({
@@ -219,8 +227,8 @@ export default function LessonDetail() {
         </div>
       )}
 
-      {/* Completion banner */}
-      {allDone && (
+      {/* Completion banner — only when completed during this visit */}
+      {justCompleted && (
         <div className="mb-6 p-4 rounded-xl bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800/50 flex items-center gap-3">
           <Trophy className="w-5 h-5 text-green-600 dark:text-green-400 shrink-0" />
           <div>
