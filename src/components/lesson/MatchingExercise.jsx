@@ -3,13 +3,16 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
-export default function MatchingExercise({ pairs, onComplete }) {
+export default function MatchingExercise({ pairs, onComplete, storageKey }) {
+  const { load, save, clear } = useExerciseProgress(storageKey);
+  const savedMatched = load()?.matched ?? [];
   const [shuffledRight, setShuffledRight] = useState([]);
   const [selected, setSelected] = useState({ left: null, right: null });
-  const [matched, setMatched] = useState([]); // array of left values that are matched
+  const [matched, setMatched] = useState(savedMatched);
   const [wrong, setWrong] = useState(false);
-  const [done, setDone] = useState(false);
+  const [done, setDone] = useState(savedMatched.length === (pairs?.length ?? 0) && pairs?.length > 0);
 
   useEffect(() => {
     const rights = [...pairs.map(p => p.right)].sort(() => Math.random() - 0.5);
@@ -36,8 +39,11 @@ export default function MatchingExercise({ pairs, onComplete }) {
       setMatched(newMatched);
       setSelected({ left: null, right: null });
       if (newMatched.length === pairs.length) {
+        clear();
         setDone(true);
         onComplete?.(pairs.length, pairs.length);
+      } else {
+        save({ matched: newMatched });
       }
     } else {
       setWrong(true);
@@ -49,6 +55,7 @@ export default function MatchingExercise({ pairs, onComplete }) {
   };
 
   const reset = () => {
+    clear();
     setMatched([]);
     setSelected({ left: null, right: null });
     setDone(false);

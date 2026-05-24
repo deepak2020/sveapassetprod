@@ -5,14 +5,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
+import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
-export default function FillInBlanks({ exercises, onComplete, previousResult }) {
+export default function FillInBlanks({ exercises, onComplete, previousResult, storageKey }) {
+  const { load, save, clear } = useExerciseProgress(storageKey);
   const [exercisePool, setExercisePool] = useState(exercises);
   const [wrongIndices, setWrongIndices] = useState([]);
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(() => previousResult ? 0 : (load()?.current ?? 0));
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
-  const [score, setScore] = useState(() => previousResult?.score ?? 0);
+  const [score, setScore] = useState(() => previousResult ? (previousResult.score ?? 0) : (load()?.score ?? 0));
   const [finished, setFinished] = useState(() => !!previousResult);
 
   if (!exercises || exercises.length === 0) {
@@ -28,7 +30,7 @@ export default function FillInBlanks({ exercises, onComplete, previousResult }) 
     setAnswered(true);
     const correct = option === ex.answer;
     if (correct) {
-      setScore(s => s + 1);
+      setScore(s => { save({ current, score: s + 1 }); return s + 1; });
     } else {
       setWrongIndices(prev => [...prev, current]);
     }
@@ -37,10 +39,13 @@ export default function FillInBlanks({ exercises, onComplete, previousResult }) 
 
   const handleNext = () => {
     if (current + 1 >= exercisePool.length) {
+      clear();
       setFinished(true);
       onComplete?.(score, exercisePool.length);
     } else {
-      setCurrent(c => c + 1);
+      const next = current + 1;
+      save({ current: next, score });
+      setCurrent(next);
       setSelected(null);
       setAnswered(false);
     }
@@ -49,6 +54,7 @@ export default function FillInBlanks({ exercises, onComplete, previousResult }) 
   const wrongCount = wrongIndices.length;
 
   const restart = () => {
+    clear();
     const retryPool = wrongCount > 0
       ? wrongIndices.map(i => exercisePool[i])
       : exercises;

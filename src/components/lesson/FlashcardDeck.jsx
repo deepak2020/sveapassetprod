@@ -7,10 +7,12 @@ import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { useSpeech } from "@/hooks/useSpeech";
 import SpeakButton from "@/components/shared/SpeakButton";
 import AddToVocabButton from "@/components/shared/AddToVocabButton";
+import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
-export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonTitle }) {
+export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonTitle, storageKey }) {
+  const { load, save, clear } = useExerciseProgress(storageKey);
   const [cardPool, setCardPool] = useState(wordPairs || []);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(() => load()?.index ?? 0);
   const [flipped, setFlipped] = useState(false);
   const [known, setKnown] = useState([]);
   const [learning, setLearning] = useState([]);
@@ -50,15 +52,19 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
   const advance = (knewThisCard) => {
     setFlipped(false);
     if (index + 1 >= total) {
+      clear();
       setFinished(true);
       const finalKnown = known.length + (knewThisCard ? 1 : 0);
       onComplete?.(finalKnown, total);
     } else {
-      setIndex(i => i + 1);
+      const next = index + 1;
+      save({ index: next });
+      setIndex(next);
     }
   };
 
   const restart = (retryLearning = false) => {
+    clear();
     setCardPool(retryLearning ? learning : (wordPairs || []));
     setIndex(0); setFlipped(false); setKnown([]); setLearning([]); setFinished(false);
   };

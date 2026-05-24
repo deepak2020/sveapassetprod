@@ -338,6 +338,7 @@ export default function LessonDetail() {
               }}
               lessonId={lesson.id}
               lessonTitle={lesson.title}
+              storageKey={`${lessonId}-learn`}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -360,6 +361,7 @@ export default function LessonDetail() {
               exercises={lesson.fill_in_blanks}
               onComplete={(score, total) => markComplete("practice", { score, total })}
               previousResult={scores["practice"]}
+              storageKey={`${lessonId}-practice`}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -381,6 +383,7 @@ export default function LessonDetail() {
             <MatchingExercise
               pairs={lesson.match_pairs}
               onComplete={(score, total) => markComplete("match", { score, total })}
+              storageKey={`${lessonId}-match`}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -438,6 +441,7 @@ export default function LessonDetail() {
             <ListeningExercise
               phrases={lesson.listening_phrases}
               onComplete={(score, total) => markComplete("listening", { score, total })}
+              storageKey={`${lessonId}-listening`}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -459,6 +463,7 @@ export default function LessonDetail() {
             <SentenceTranslation
               wordPairs={lesson.word_pairs}
               onComplete={(score, total) => markComplete("translate", { score, total })}
+              storageKey={`${lessonId}-translate`}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -484,6 +489,7 @@ export default function LessonDetail() {
               sourceTitle={`${lesson.title} — Review`}
               onComplete={(score, total) => markComplete("review", { score, total })}
               previousResult={scores["review"]}
+              storageKey={`${lessonId}-review`}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
@@ -509,6 +515,7 @@ export default function LessonDetail() {
               sourceTitle={lesson.title}
               onComplete={(score, total) => markComplete("quiz", { score, total })}
               previousResult={scores["quiz"]}
+              storageKey={`${lessonId}-quiz`}
             />
             {/* No nextTabKey on last tab — lesson complete banner handles it */}
           </TabsContent>

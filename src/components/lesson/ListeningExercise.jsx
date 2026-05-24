@@ -4,16 +4,18 @@ import { Volume2, CheckCircle2, XCircle, Mic, RotateCcw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { playAudio } from "@/lib/speech";
+import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
-export default function ListeningExercise({ phrases, onComplete }) {
+export default function ListeningExercise({ phrases, onComplete, storageKey }) {
+  const { load, save, clear } = useExerciseProgress(storageKey);
   const [phrasePool, setPhrasePool] = useState(phrases);
   const [wrongIndices, setWrongIndices] = useState([]);
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(() => load()?.current ?? 0);
   const [typed, setTyped] = useState("");
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
   const [correct, setCorrect] = useState(false);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(() => load()?.score ?? 0);
   const [finished, setFinished] = useState(false);
   const [listening, setListening] = useState(false);
 
@@ -32,7 +34,7 @@ export default function ListeningExercise({ phrases, onComplete }) {
     setAnswered(true);
     setCorrect(isCorrect);
     if (isCorrect) {
-      setScore(s => s + 1);
+      setScore(s => { save({ current, score: s + 1 }); return s + 1; });
     } else {
       setWrongIndices(prev => [...prev, current]);
     }
@@ -72,10 +74,13 @@ export default function ListeningExercise({ phrases, onComplete }) {
 
   const handleNext = () => {
     if (current + 1 >= phrasePool.length) {
+      clear();
       setFinished(true);
       onComplete?.(score, phrasePool.length);
     } else {
-      setCurrent(c => c + 1);
+      const next = current + 1;
+      save({ current: next, score });
+      setCurrent(next);
       setTyped("");
       setSelected(null);
       setAnswered(false);
@@ -86,6 +91,7 @@ export default function ListeningExercise({ phrases, onComplete }) {
   const wrongCount = wrongIndices.length;
 
   const restart = () => {
+    clear();
     const retryPool = wrongCount > 0
       ? wrongIndices.map(i => phrasePool[i])
       : phrases;
