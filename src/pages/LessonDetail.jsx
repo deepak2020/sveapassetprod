@@ -36,6 +36,28 @@ const TAB_LABELS = {
   quiz: "🎯 Quiz",
 };
 
+const TAB_SHORT = {
+  learn: "Vocab",
+  practice: "Practice",
+  match: "Match",
+  writing: "Writing",
+  speaking: "Speaking",
+  listening: "Listening",
+  translate: "Translate",
+  review: "Review",
+  quiz: "Quiz",
+};
+
+function readLocalProgress(lessonId, tab) {
+  try {
+    const raw = localStorage.getItem(`ep:${lessonId}-${tab}`);
+    if (!raw) return null;
+    const saved = JSON.parse(raw);
+    if (Date.now() - saved.ts > 7 * 24 * 60 * 60 * 1000) { localStorage.removeItem(`ep:${lessonId}-${tab}`); return null; }
+    return saved;
+  } catch { return null; }
+}
+
 export default function LessonDetail() {
   const pathParts = window.location.pathname.split("/");
   const lessonId = pathParts[pathParts.length - 1];
@@ -191,6 +213,49 @@ export default function LessonDetail() {
   // Only celebrate if the user completed it during THIS visit (not already done before)
   const justCompleted = allDone && initialDoneRef.current === false;
 
+  // Totals for each exercise type (for progress display)
+  const tabTotals = {
+    learn: lesson.word_pairs?.length ?? 0,
+    practice: lesson.fill_in_blanks?.length ?? 0,
+    quiz: lesson.quiz_questions?.length ?? 0,
+    review: lesson.review_questions?.length ?? 0,
+    match: lesson.match_pairs?.length ?? 0,
+    translate: lesson.word_pairs?.filter(wp => wp.example_en && wp.example_sv).length ?? 0,
+    writing: lesson.writing_prompts?.length ?? 0,
+    speaking: lesson.speaking_phrases?.length ?? 0,
+    listening: lesson.listening_phrases?.length ?? 0,
+  };
+
+  // Best (furthest) saved progress for each tab: prefer Supabase remote if further ahead
+  const tabProgress = {};
+  for (const key of availableKeys) {
+    if (completed.includes(key)) continue; // already finished
+    const local = readLocalProgress(lessonId, key);
+    const remote = remoteProgress[key];
+    const localN = key === "match" ? (local?.matched?.length ?? 0) : (local?.current ?? 0);
+    const remoteN = key === "match" ? 0 : (remote?.current ?? 0); // matching not synced to supabase
+    if (localN > 0 || remoteN > 0) {
+      tabProgress[key] = remoteN > localN ? remote : local;
+    }
+  }
+
+  const inProgressKeys = availableKeys.filter(k => !completed.includes(k) && tabProgress[k]);
+
+  // Returns a small inline indicator for each tab trigger
+  const tabStatus = (key) => {
+    if (completed.includes(key)) {
+      const s = scores[key];
+      return <span className="ml-1 text-green-500 text-[10px] font-bold leading-none">✓{s ? ` ${s.percentage}%` : ""}</span>;
+    }
+    const p = tabProgress[key];
+    if (p) {
+      const n = key === "match" ? (p.matched?.length ?? 0) : (p.current ?? 0);
+      const tot = tabTotals[key];
+      return <span className="ml-1 text-amber-500 text-[10px] font-semibold leading-none">{n}/{tot}</span>;
+    }
+    return null;
+  };
+
   // Fire confetti once when lesson is completed in this session
   if (justCompleted && !confettiFired.current && typeof window !== "undefined") {
     confettiFired.current = true;
@@ -253,6 +318,29 @@ export default function LessonDetail() {
         </div>
       )}
 
+      {/* In-progress banner — activities left mid-way */}
+      {!allDone && inProgressKeys.length > 0 && (
+        <div className="mb-5 p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/50">
+          <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-2">📍 Resume where you left off</p>
+          <div className="flex flex-wrap gap-2">
+            {inProgressKeys.map(key => {
+              const p = tabProgress[key];
+              const n = key === "match" ? (p?.matched?.length ?? 0) : (p?.current ?? 0);
+              const tot = tabTotals[key];
+              return (
+                <button
+                  key={key}
+                  onClick={() => goToTab(key)}
+                  className="text-xs px-2.5 py-1.5 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 font-medium hover:bg-amber-200 dark:hover:bg-amber-800/60 transition-colors"
+                >
+                  {TAB_SHORT[key]} — {n}/{tot} done
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Completion banner — only when completed during this visit */}
       {justCompleted && (
         <div className="mb-6 p-4 rounded-xl bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800/50 flex items-center gap-3">
@@ -281,48 +369,48 @@ export default function LessonDetail() {
             <BookOpen className="w-3.5 h-3.5" /> Lesson
           </TabsTrigger>
           {hasVocab && (
-            <TabsTrigger value="learn" aria-label={`Learn vocabulary${completed.includes("learn") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
-              🃏 Learn {completed.includes("learn") && "✓"}
+            <TabsTrigger value="learn" aria-label={`Learn vocabulary${completed.includes("learn") ? " — completed" : tabProgress["learn"] ? " — in progress" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
+              🃏 Learn{tabStatus("learn")}
             </TabsTrigger>
           )}
           {hasBlanks && (
-            <TabsTrigger value="practice" aria-label={`Practice${completed.includes("practice") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
-              🧩 Practice {completed.includes("practice") && "✓"}
+            <TabsTrigger value="practice" aria-label={`Practice${completed.includes("practice") ? " — completed" : tabProgress["practice"] ? " — in progress" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
+              🧩 Practice{tabStatus("practice")}
             </TabsTrigger>
           )}
           {hasMatch && (
-            <TabsTrigger value="match" aria-label={`Match${completed.includes("match") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
-              🔗 Match {completed.includes("match") && "✓"}
+            <TabsTrigger value="match" aria-label={`Match${completed.includes("match") ? " — completed" : tabProgress["match"] ? " — in progress" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
+              🔗 Match{tabStatus("match")}
             </TabsTrigger>
           )}
           {hasWriting && (
             <TabsTrigger value="writing" aria-label={`Writing${completed.includes("writing") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
-              ✍️ Writing {completed.includes("writing") && "✓"}
+              ✍️ Writing{tabStatus("writing")}
             </TabsTrigger>
           )}
           {hasSpeaking && (
             <TabsTrigger value="speaking" aria-label={`Speaking${completed.includes("speaking") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
-              🗣️ Speaking {completed.includes("speaking") && "✓"}
+              🗣️ Speaking{tabStatus("speaking")}
             </TabsTrigger>
           )}
           {hasListening && (
-            <TabsTrigger value="listening" aria-label={`Listening${completed.includes("listening") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
-              👂 Listening {completed.includes("listening") && "✓"}
+            <TabsTrigger value="listening" aria-label={`Listening${completed.includes("listening") ? " — completed" : tabProgress["listening"] ? " — in progress" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
+              👂 Listening{tabStatus("listening")}
             </TabsTrigger>
           )}
           {hasTranslate && (
-            <TabsTrigger value="translate" aria-label={`Translate${completed.includes("translate") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
-              ✍️ Translate {completed.includes("translate") && "✓"}
+            <TabsTrigger value="translate" aria-label={`Translate${completed.includes("translate") ? " — completed" : tabProgress["translate"] ? " — in progress" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
+              ✍️ Translate{tabStatus("translate")}
             </TabsTrigger>
           )}
           {hasReview && (
-            <TabsTrigger value="review" aria-label={`Review${completed.includes("review") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
-              🔁 Review {completed.includes("review") && "✓"}
+            <TabsTrigger value="review" aria-label={`Review${completed.includes("review") ? " — completed" : tabProgress["review"] ? " — in progress" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
+              🔁 Review{tabStatus("review")}
             </TabsTrigger>
           )}
           {hasQuiz && (
-            <TabsTrigger value="quiz" aria-label={`Quiz${completed.includes("quiz") ? " — completed" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
-              🎯 Quiz {completed.includes("quiz") && "✓"}
+            <TabsTrigger value="quiz" aria-label={`Quiz${completed.includes("quiz") ? " — completed" : tabProgress["quiz"] ? " — in progress" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
+              🎯 Quiz{tabStatus("quiz")}
             </TabsTrigger>
           )}
         </TabsList>
@@ -479,6 +567,7 @@ export default function LessonDetail() {
             <ListeningExercise
               phrases={lesson.listening_phrases}
               onComplete={(score, total) => markComplete("listening", { score, total })}
+              previousResult={scores["listening"]}
               storageKey={`${lessonId}-listening`}
               userId={user?.id}
               lessonId={lessonId}
@@ -505,6 +594,7 @@ export default function LessonDetail() {
             <SentenceTranslation
               wordPairs={lesson.word_pairs}
               onComplete={(score, total) => markComplete("translate", { score, total })}
+              previousResult={scores["translate"]}
               storageKey={`${lessonId}-translate`}
               userId={user?.id}
               lessonId={lessonId}

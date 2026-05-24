@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, CheckCircle2, XCircle, Mic, RotateCcw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,18 +7,27 @@ import { playAudio } from "@/lib/speech";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
 
-export default function ListeningExercise({ phrases, onComplete, storageKey, userId, lessonId, tab, initialProgress }) {
+export default function ListeningExercise({ phrases, onComplete, storageKey, userId, lessonId, tab, initialProgress, previousResult }) {
   const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
+  const remoteApplied = useRef(false);
   const [phrasePool, setPhrasePool] = useState(phrases);
   const [wrongIndices, setWrongIndices] = useState([]);
-  const [current, setCurrent] = useState(() => initialProgress?.current ?? load()?.current ?? 0);
+  const [current, setCurrent] = useState(() => previousResult ? 0 : (initialProgress?.current ?? load()?.current ?? 0));
   const [typed, setTyped] = useState("");
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
   const [correct, setCorrect] = useState(false);
-  const [score, setScore] = useState(() => initialProgress?.score ?? load()?.score ?? 0);
-  const [finished, setFinished] = useState(false);
+  const [score, setScore] = useState(() => previousResult ? (previousResult.score ?? 0) : (initialProgress?.score ?? load()?.score ?? 0));
+  const [finished, setFinished] = useState(() => !!previousResult);
   const [listening, setListening] = useState(false);
+
+  useEffect(() => {
+    if (remoteApplied.current || finished || initialProgress == null) return;
+    remoteApplied.current = true;
+    const localIdx = load()?.current ?? 0;
+    const remoteIdx = initialProgress.current ?? 0;
+    if (remoteIdx > localIdx) { setCurrent(remoteIdx); setScore(initialProgress.score ?? 0); }
+  }, [initialProgress]);
 
   if (!phrases || phrases.length === 0) {
     return <p className="text-muted-foreground text-sm">No listening exercises available.</p>;
@@ -37,6 +46,7 @@ export default function ListeningExercise({ phrases, onComplete, storageKey, use
     if (isCorrect) {
       setScore(s => { save({ current, score: s + 1 }); return s + 1; });
     } else {
+      save({ current, score });
       setWrongIndices(prev => [...prev, current]);
     }
   };
@@ -103,21 +113,27 @@ export default function ListeningExercise({ phrases, onComplete, storageKey, use
   };
 
   if (finished) {
-    const pct = Math.round((score / phrasePool.length) * 100);
+    const fromPrev = wrongIndices.length === 0 && score === 0 && !!previousResult;
+    const displayPct = fromPrev ? previousResult.percentage : Math.round((score / phrasePool.length) * 100);
+    const displayScore = fromPrev ? previousResult.score : score;
+    const displayTotal = fromPrev ? previousResult.total : phrasePool.length;
     return (
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
         <Card className="border-border/50 bg-green-50 border-green-200">
           <CardContent className="p-6 text-center">
-            <h3 className="font-semibold text-lg text-green-900 mb-2">Listening complete!</h3>
-            <p className="text-3xl font-bold text-green-600 mb-2">{pct}%</p>
-            <p className="text-sm text-green-700">{score} / {phrasePool.length} correct</p>
-            {wrongCount > 0 && (
+            <h3 className="font-semibold text-lg text-green-900 mb-2">
+              {fromPrev ? "Already completed! ✓" : "Listening complete!"}
+            </h3>
+            {fromPrev && <p className="text-xs text-green-700 italic mb-1">Your last score</p>}
+            <p className="text-3xl font-bold text-green-600 mb-2">{displayPct}%</p>
+            <p className="text-sm text-green-700">{displayScore} / {displayTotal} correct</p>
+            {!fromPrev && wrongCount > 0 && (
               <Button onClick={restart} className="mt-4 w-full gap-2">
                 <RotateCcw className="w-4 h-4" /> Retry {wrongCount} wrong answer{wrongCount !== 1 ? "s" : ""}
               </Button>
             )}
             <Button onClick={restart} variant="outline" className="mt-2 w-full gap-2">
-              <RotateCcw className="w-4 h-4" /> {wrongCount > 0 ? "Start over" : "Try again"}
+              <RotateCcw className="w-4 h-4" /> {fromPrev ? "Try again" : wrongCount > 0 ? "Start over" : "Try again"}
             </Button>
           </CardContent>
         </Card>

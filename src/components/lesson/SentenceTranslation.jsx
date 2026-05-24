@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { CheckCircle2, XCircle, RotateCcw, Trophy, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,17 +22,26 @@ function isCloseEnough(input, answer) {
   return true;
 }
 
-export default function SentenceTranslation({ wordPairs, onComplete, storageKey, userId, lessonId, tab, initialProgress }) {
+export default function SentenceTranslation({ wordPairs, onComplete, storageKey, userId, lessonId, tab, initialProgress, previousResult }) {
   const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
+  const remoteApplied = useRef(false);
   const allExercises = (wordPairs || []).filter(wp => wp.example_en && wp.example_sv);
   const [exercisePool, setExercisePool] = useState(allExercises);
   const [wrongIndices, setWrongIndices] = useState([]);
-  const [current, setCurrent] = useState(() => initialProgress?.current ?? load()?.current ?? 0);
+  const [current, setCurrent] = useState(() => previousResult ? 0 : (initialProgress?.current ?? load()?.current ?? 0));
   const [input, setInput] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [score, setScore] = useState(() => initialProgress?.score ?? load()?.score ?? 0);
-  const [finished, setFinished] = useState(false);
+  const [score, setScore] = useState(() => previousResult ? (previousResult.score ?? 0) : (initialProgress?.score ?? load()?.score ?? 0));
+  const [finished, setFinished] = useState(() => !!previousResult);
   const [showHint, setShowHint] = useState(false);
+
+  useEffect(() => {
+    if (remoteApplied.current || finished || initialProgress == null) return;
+    remoteApplied.current = true;
+    const localIdx = load()?.current ?? 0;
+    const remoteIdx = initialProgress.current ?? 0;
+    if (remoteIdx > localIdx) { setCurrent(remoteIdx); setScore(initialProgress.score ?? 0); }
+  }, [initialProgress]);
 
   if (!allExercises.length) {
     return <p className="text-muted-foreground text-sm">No sentence translation exercises available for this lesson.</p>;
@@ -47,6 +56,7 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
     if (isCloseEnough(input, ex.example_sv)) {
       setScore(s => { save({ current, score: s + 1 }); return s + 1; });
     } else {
+      save({ current, score });
       setWrongIndices(prev => [...prev, current]);
     }
   };
@@ -80,7 +90,10 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
   };
 
   if (finished) {
-    const pct = Math.round((score / exercisePool.length) * 100);
+    const fromPrev = wrongIndices.length === 0 && score === 0 && !!previousResult;
+    const displayPct = fromPrev ? previousResult.percentage : Math.round((score / exercisePool.length) * 100);
+    const displayScore = fromPrev ? previousResult.score : score;
+    const displayTotal = fromPrev ? previousResult.total : exercisePool.length;
     return (
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
         <Card className="border-border/50">
@@ -89,17 +102,18 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
               <Trophy className="w-8 h-8 text-amber-500" />
             </div>
             <h3 className="font-display text-2xl font-bold mb-1">
-              {pct >= 80 ? "Excellent! 🎉" : pct >= 60 ? "Good job! 👍" : "Keep going! 💪"}
+              {fromPrev ? "Already completed! ✓" : displayPct >= 80 ? "Excellent! 🎉" : displayPct >= 60 ? "Good job! 👍" : "Keep going! 💪"}
             </h3>
-            <p className="text-4xl font-bold text-primary my-2">{pct}%</p>
-            <p className="text-muted-foreground mb-6">{score} / {exercisePool.length} correct</p>
-            {wrongCount > 0 && (
+            {fromPrev && <p className="text-sm text-muted-foreground italic mb-2">Your last score</p>}
+            <p className="text-4xl font-bold text-primary my-2">{displayPct}%</p>
+            <p className="text-muted-foreground mb-6">{displayScore} / {displayTotal} correct</p>
+            {!fromPrev && wrongCount > 0 && (
               <Button onClick={restart} className="gap-2 mb-3 w-full">
                 <RotateCcw className="w-4 h-4" /> Retry {wrongCount} wrong answer{wrongCount !== 1 ? "s" : ""}
               </Button>
             )}
             <Button onClick={restart} variant="outline" className="gap-2 w-full">
-              <RotateCcw className="w-4 h-4" /> {wrongCount > 0 ? "Start over" : "Try Again"}
+              <RotateCcw className="w-4 h-4" /> {fromPrev ? "Try again" : wrongCount > 0 ? "Start over" : "Try Again"}
             </Button>
           </CardContent>
         </Card>
