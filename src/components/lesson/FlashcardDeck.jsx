@@ -11,6 +11,7 @@ import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
 export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonTitle, storageKey, userId, tab, initialProgress }) {
   const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
+  const remoteApplied = useRef(false);
   const [cardPool, setCardPool] = useState(wordPairs || []);
   const [index, setIndex] = useState(() => initialProgress?.current ?? load()?.index ?? 0);
   const [flipped, setFlipped] = useState(false);
@@ -19,6 +20,14 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
   const [finished, setFinished] = useState(false);
   const touchStartX = useRef(null);
   const { speak } = useSpeech();
+
+  useEffect(() => {
+    if (remoteApplied.current || finished || initialProgress == null) return;
+    remoteApplied.current = true;
+    const localIdx = load()?.current ?? load()?.index ?? 0;
+    const remoteIdx = initialProgress.current ?? 0;
+    if (remoteIdx > localIdx) setIndex(remoteIdx);
+  }, [initialProgress]);
 
   // Auto-play Swedish pronunciation when a new card appears or when flipping back to Swedish side
   useEffect(() => {

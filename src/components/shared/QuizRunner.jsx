@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, XCircle, ArrowRight, RotateCcw, Trophy, Lightbulb } from "lucide-react";
@@ -10,6 +10,7 @@ import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
 export default function QuizRunner({ questions, quizType, sourceId, sourceTitle, onComplete, previousResult, storageKey, userId, tab, initialProgress }) {
   const { load, save, clear } = useExerciseProgress(storageKey, userId, sourceId, tab);
+  const remoteApplied = useRef(false);
   const [questionPool, setQuestionPool] = useState(questions);
   const [wrongIndices, setWrongIndices] = useState([]);
   const [currentQ, setCurrentQ] = useState(() => {
@@ -23,6 +24,17 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
     return initialProgress?.score ?? load()?.score ?? 0;
   });
   const [finished, setFinished] = useState(() => !!previousResult);
+
+  useEffect(() => {
+    if (remoteApplied.current || finished || initialProgress == null) return;
+    remoteApplied.current = true;
+    const localIdx = load()?.current ?? 0;
+    const remoteIdx = initialProgress.current ?? 0;
+    if (remoteIdx > localIdx) {
+      setCurrentQ(remoteIdx);
+      setScore(initialProgress.score ?? 0);
+    }
+  }, [initialProgress]);
 
   if (!questions || questions.length === 0) {
     return (
@@ -45,6 +57,7 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
     if (correct) {
       setScore(s => { save({ current: currentQ, score: s + 1 }); return s + 1; });
     } else {
+      save({ current: currentQ, score });
       setWrongIndices(prev => [...prev, currentQ]);
     }
     await awardXP(base44, correct ? XP_REWARDS.quiz_correct : 0);

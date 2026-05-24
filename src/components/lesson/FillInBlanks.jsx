@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { CheckCircle2, XCircle, RotateCcw, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +9,7 @@ import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
 export default function FillInBlanks({ exercises, onComplete, previousResult, storageKey, userId, lessonId, tab, initialProgress }) {
   const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
+  const remoteApplied = useRef(false);
   const [exercisePool, setExercisePool] = useState(exercises);
   const [wrongIndices, setWrongIndices] = useState([]);
   const [current, setCurrent] = useState(() => previousResult ? 0 : (initialProgress?.current ?? load()?.current ?? 0));
@@ -16,6 +17,18 @@ export default function FillInBlanks({ exercises, onComplete, previousResult, st
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState(() => previousResult ? (previousResult.score ?? 0) : (initialProgress?.score ?? load()?.score ?? 0));
   const [finished, setFinished] = useState(() => !!previousResult);
+
+  // Apply remote progress once Supabase responds (handles cross-device restore)
+  useEffect(() => {
+    if (remoteApplied.current || finished || initialProgress == null) return;
+    remoteApplied.current = true;
+    const localIdx = load()?.current ?? 0;
+    const remoteIdx = initialProgress.current ?? 0;
+    if (remoteIdx > localIdx) {
+      setCurrent(remoteIdx);
+      setScore(initialProgress.score ?? 0);
+    }
+  }, [initialProgress]);
 
   if (!exercises || exercises.length === 0) {
     return <p className="text-muted-foreground text-sm">No fill-in-the-blank exercises available.</p>;
@@ -32,6 +45,7 @@ export default function FillInBlanks({ exercises, onComplete, previousResult, st
     if (correct) {
       setScore(s => { save({ current, score: s + 1 }); return s + 1; });
     } else {
+      save({ current, score });
       setWrongIndices(prev => [...prev, current]);
     }
     await awardXP(base44, correct ? XP_REWARDS.cloze_correct : XP_REWARDS.cloze_wrong);
