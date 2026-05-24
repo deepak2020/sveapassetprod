@@ -14,6 +14,7 @@ import CivicTopics from './pages/CivicTopics';
 import TopicDetail from './pages/TopicDetail';
 import LanguageTest from './pages/LanguageTest';
 import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
 import Onboarding from './pages/Onboarding';
 import Gym from './pages/Gym';
 import CitizenshipTest from './pages/CitizenshipTest';
@@ -56,7 +57,7 @@ const AuthenticatedApp = () => {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/language" element={<LanguageLessons />} />
         <Route path="/language/topic/:course/:topic" element={<TopicLessons />} />
         <Route path="/language/:id" element={<LessonDetail />} />

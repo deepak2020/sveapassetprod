@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp, Mic, CheckCircle2, XCircle, RotateCcw } from "lucide-react";
+import { ChevronDown, ChevronUp, Mic, CheckCircle2, XCircle, RotateCcw, MicOff } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -43,10 +43,13 @@ const playSound = (isCorrect) => {
   } catch (_) {}
 };
 
+const speechSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+
 export default function SpeakingPractice({ phrases, onComplete }) {
   const [expanded, setExpanded] = useState(null);
   const [listening, setListening] = useState(null);
   const [feedback, setFeedback] = useState({});
+  const [manualDone, setManualDone] = useState({});
 
   // Auto-expand card when result arrives so feedback is immediately visible
   useEffect(() => {
@@ -54,13 +57,16 @@ export default function SpeakingPractice({ phrases, onComplete }) {
     if (latest !== undefined) setExpanded(latest);
   }, [feedback]);
 
-  // Mark section complete once every phrase has been attempted at least once
+  // Mark section complete once every phrase has been attempted or manually marked done
   useEffect(() => {
     if (!phrases || phrases.length === 0) return;
-    if (Object.keys(feedback).length >= phrases.length) {
+    const attemptedCount = speechSupported
+      ? Object.keys(feedback).length
+      : Object.keys(manualDone).length;
+    if (attemptedCount >= phrases.length) {
       onComplete?.();
     }
-  }, [feedback, phrases, onComplete]);
+  }, [feedback, manualDone, phrases, onComplete]);
 
   if (!phrases || phrases.length === 0) {
     return <p className="text-muted-foreground text-sm">No speaking phrases available.</p>;
@@ -107,8 +113,34 @@ export default function SpeakingPractice({ phrases, onComplete }) {
     }
   };
 
-  const attempted = Object.keys(feedback).length;
+  const attempted = speechSupported ? Object.keys(feedback).length : Object.keys(manualDone).length;
   const allAttempted = attempted >= phrases.length;
+
+  if (!speechSupported) {
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 text-sm text-amber-800 dark:text-amber-300 mb-4">
+          <MicOff className="w-4 h-4 shrink-0" />
+          <span>Speech recognition isn't supported in this browser. Read each phrase aloud and mark it done manually.</span>
+        </div>
+        <div className="space-y-2">
+          {phrases.map((p, i) => (
+            <div key={i} className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${manualDone[i] ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800" : "bg-card border-border"}`}>
+              <div className="flex-1 min-w-0">
+                <p className="font-medium text-sm">{p.phrase_sv}</p>
+                {p.phrase_en && <p className="text-xs text-muted-foreground">{p.phrase_en}</p>}
+              </div>
+              <SpeakButton text={p.phrase_sv} lang="sv-SE" />
+              {manualDone[i]
+                ? <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
+                : <button onClick={() => setManualDone(prev => ({ ...prev, [i]: true }))} className="text-xs px-3 py-1.5 rounded-lg border border-primary/40 text-primary hover:bg-primary/10 transition-colors shrink-0">Done</button>
+              }
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-3">
