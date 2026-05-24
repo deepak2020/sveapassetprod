@@ -26,6 +26,7 @@ import EmptyState from "../components/shared/EmptyState";
 import SkillBreakdown from "../components/dashboard/SkillBreakdown";
 import WeakAreaCard from "../components/dashboard/WeakAreaCard";
 import DailyChallenge from "../components/dashboard/DailyChallenge";
+import QuickRevision from "../components/dashboard/QuickRevision";
 import TodaysPlanCard from "../components/planner/TodaysPlanCard";
 import CreateStudyPlanModal from "../components/planner/CreateStudyPlanModal";
 import { useStudyPlan } from "@/hooks/useStudyPlan";
@@ -285,6 +286,9 @@ export default function Dashboard() {
 
       {/* Daily challenge */}
       <DailyChallenge />
+
+      {/* Quick revision — completed lessons */}
+      <QuickRevision />
 
       {/* Weak area recommendations — shows after ≥3 quizzes in any skill */}
       <WeakAreaCard results={results} userSfiLevel={user.sfi_level} />
