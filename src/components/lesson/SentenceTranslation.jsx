@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
+import { normalizeAnswer } from "@/lib/normalizeAnswer";
 
 // Simple fuzzy check: allow 1-2 character differences (typos)
 function isCloseEnough(input, answer) {
-  const norm = (s) => s.trim().toLowerCase().replace(/[.,!?;:]/g, "").replace(/\s+/g, " ");
-  const a = norm(input);
-  const b = norm(answer);
+  const a = normalizeAnswer(input);
+  const b = normalizeAnswer(answer);
   if (a === b) return true;
   if (Math.abs(a.length - b.length) > 2) return false;
   let diff = 0;
