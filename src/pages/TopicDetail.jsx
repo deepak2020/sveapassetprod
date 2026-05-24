@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { usePageView } from "@/hooks/usePageView";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Lightbulb } from "lucide-react";
@@ -11,6 +12,7 @@ import CivicQuizRunner from "../components/civic/CivicQuizRunner";
 import ReactMarkdown from "react-markdown";
 
 export default function TopicDetail() {
+  usePageView("civic_topic_detail");
   const pathParts = window.location.pathname.split("/");
   const topicId = pathParts[pathParts.length - 1];
 

@@ -82,6 +82,22 @@ export default function LessonDetail() {
     if (lesson) setLastLesson(lesson);
   }, [lesson]);
 
+  // Track lesson opened — fires once when lesson data loads
+  useEffect(() => {
+    if (!lesson) return;
+    base44.analytics.track({
+      eventName: "lesson_opened",
+      properties: { lesson_id: lesson.id, lesson_title: lesson.title, sfi_course: lesson.sfi_course || null, topic: lesson.topic || null, skill: lesson.skill || null },
+    });
+    // Track abandonment on unmount if no tab was completed yet
+    return () => {
+      base44.analytics.track({
+        eventName: "lesson_exited",
+        properties: { lesson_id: lesson.id, sfi_course: lesson.sfi_course || null },
+      });
+    };
+  }, [lesson?.id]);
+
   // Sync lesson completion to study plan in Supabase (must be before early returns)
   const allDoneForSync = !isLoading && !!lesson;
   useEffect(() => {

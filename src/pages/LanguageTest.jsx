@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePageView } from "@/hooks/usePageView";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
@@ -18,6 +19,7 @@ const SFI_COURSES = [
 ];
 
 export default function LanguageTest() {
+  usePageView("language_test");
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedLesson, setSelectedLesson] = useState(null);
   const [testState, setTestState] = useState("select"); // select | running | results

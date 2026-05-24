@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { usePageView } from "@/hooks/usePageView";
 import { base44 } from "@/api/base44Client";
 import { useState } from "react";
 import { User, Zap, Flame, BookOpen, Trophy, LogOut, BarChart3, Trash2, TrendingUp, Target, Landmark, FlaskConical } from "lucide-react";
@@ -17,6 +18,7 @@ const SFI_LEVELS = ["A", "B", "C", "D"];
 const DAILY_GOALS = [5, 10, 15, 30];
 
 export default function Profile() {
+  usePageView("profile");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const queryClient = useQueryClient();

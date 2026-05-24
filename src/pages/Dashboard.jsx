@@ -10,7 +10,7 @@ import { getLevelProgress, getNextLevel } from "@/lib/xp";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,6 +29,7 @@ import DailyChallenge from "../components/dashboard/DailyChallenge";
 import TodaysPlanCard from "../components/planner/TodaysPlanCard";
 import CreateStudyPlanModal from "../components/planner/CreateStudyPlanModal";
 import { useStudyPlan } from "@/hooks/useStudyPlan";
+import { usePageView } from "@/hooks/usePageView";
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -58,6 +59,7 @@ export default function Dashboard() {
     queryFn: () => base44.auth.me(),
   });
 
+  usePageView("dashboard");
   const { plan, createPlan, deletePlan, getTodaysLessons, getDayNumber, getProgress } = useStudyPlan(user?.id);
 
   const { data: quizResults } = useQuery({
@@ -114,6 +116,7 @@ export default function Dashboard() {
   const handleDeleteVocab = async (vocabId) => {
     await base44.entities.UserVocabulary.delete(vocabId);
     queryClient.invalidateQueries({ queryKey: ["my-vocabulary"] });
+    base44.analytics.track({ eventName: "vocabulary_word_deleted", properties: { source: "dashboard" } });
   };
 
   const today = new Date().toISOString().split("T")[0];
@@ -255,7 +258,7 @@ export default function Dashboard() {
       {plan ? (
         <TodaysPlanCard
           plan={plan}
-          onDelete={() => { if (window.confirm("Delete your study plan? This cannot be undone.")) deletePlan(); }}
+          onDelete={() => { if (window.confirm("Delete your study plan? This cannot be undone.")) { deletePlan(); base44.analytics.track({ eventName: "study_plan_deleted" }); } }}
           getTodaysLessons={getTodaysLessons}
           getDayNumber={getDayNumber}
           getProgress={getProgress}
@@ -646,6 +649,7 @@ export default function Dashboard() {
         primaryCourse={user?.sfi_level || "A"}
         onCreated={async (planData) => {
           await createPlan(planData);
+          base44.analytics.track({ eventName: "study_plan_created", properties: { course: planData.course, target_days: planData.target_days, focus_skills: planData.focus_skills } });
           setShowPlanModal(false);
         }}
       />

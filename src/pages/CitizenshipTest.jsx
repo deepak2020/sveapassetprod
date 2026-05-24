@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { usePageView } from "@/hooks/usePageView";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
@@ -22,6 +23,7 @@ function shuffle(arr) {
 }
 
 export default function CitizenshipTest() {
+  usePageView("citizenship_test");
   const [stage, setStage] = useState("intro"); // intro | running | done
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({}); // {index: selectedOptionIndex}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePageView } from "@/hooks/usePageView";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
@@ -38,6 +39,7 @@ const CHAPTER_ORDER = [
 ];
 
 export default function CivicTopics() {
+  usePageView("civic_topics");
   const [categoryFilter, setCategoryFilter] = useState("all");
 
   const { data: topics = [], isLoading } = useQuery({
