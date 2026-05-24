@@ -112,6 +112,22 @@ export default function LanguageTest() {
     );
   }
 
+  // ── NO QUESTIONS ERROR ───────────────────────────────────────────
+  if (testState === "running" && allQuestions.length === 0) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-12 text-center space-y-4">
+        <BookOpen className="w-12 h-12 text-muted-foreground mx-auto" />
+        <h2 className="text-xl font-semibold">No quiz questions found</h2>
+        <p className="text-muted-foreground text-sm">
+          {selectedLesson ? `"${selectedLesson.title}" has no quiz questions yet.` : `SFI ${selectedCourse} has no quizzable lessons yet.`}
+        </p>
+        <Button variant="outline" onClick={resetTest} className="gap-2">
+          <RotateCcw className="w-4 h-4" /> Go back
+        </Button>
+      </div>
+    );
+  }
+
   // ── QUIZ RUNNING ─────────────────────────────────────────────────
   if (testState === "running" && current) {
     return (

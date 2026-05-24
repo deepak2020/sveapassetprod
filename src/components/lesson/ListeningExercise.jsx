@@ -26,10 +26,12 @@ export default function ListeningExercise({ phrases, onComplete, storageKey, use
   const phrase = phrasePool[current];
   const isTranscribe = phrase.exercise_type === "transcribe";
 
+  const normalize = (s) => s.trim().toLowerCase().replace(/[.,!?;:]/g, "").replace(/\s+/g, " ");
+
   const handleAnswer = (answer) => {
     if (answered) return;
-    const expected = phrase.phrase_sv.trim().toLowerCase();
-    const given = answer.trim().toLowerCase();
+    const expected = normalize(phrase.phrase_sv);
+    const given = normalize(answer);
     const isCorrect = given === expected;
     setAnswered(true);
     setCorrect(isCorrect);

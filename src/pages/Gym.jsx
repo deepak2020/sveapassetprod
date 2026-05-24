@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { Play, BookOpen, Upload, Brain } from "lucide-react";
+import { Play, BookOpen, Upload, Brain, CheckCircle2, XCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,8 +23,10 @@ export default function Gym() {
   const [vocabSession, setVocabSession] = useState(false);
   const [showImport, setShowImport] = useState(false);
   const [importing, setImporting] = useState(false);
+  const [importStatus, setImportStatus] = useState(null); // { ok: bool, msg: string }
   const { dueCards, masteredCount, totalCount, refresh } = useVocabSRS();
   const sessionRef = useRef(null);
+  const queryClient = useQueryClient();
 
   const { data: sentences = [] } = useQuery({
     queryKey: ["cloze-sentences"],
@@ -52,15 +54,15 @@ export default function Gym() {
 
   const handleImportTatoeba = async (sfiLevel) => {
     setImporting(true);
+    setImportStatus(null);
     try {
       const res = await base44.functions.invoke('importTatoebaData', { limit: 1000, sfiLevel });
-      alert(`✓ Imported ${res.data.imported} sentences from Tatoeba`);
-      window.location.reload();
+      setImportStatus({ ok: true, msg: `Imported ${res.data.imported} sentences from Tatoeba (SFI ${sfiLevel})` });
+      queryClient.invalidateQueries({ queryKey: ["cloze-sentences"] });
     } catch (error) {
-      alert(`✗ Import failed: ${error.message}`);
+      setImportStatus({ ok: false, msg: `Import failed: ${error.message}` });
     } finally {
       setImporting(false);
-      setShowImport(false);
     }
   };
 
@@ -121,6 +123,12 @@ export default function Gym() {
               ))}
             </div>
             <p className="text-xs text-muted-foreground italic">Importer ~50 meningar från Tatoeba per SFI-nivå</p>
+            {importStatus && (
+              <div className={`flex items-center gap-2 text-sm rounded-lg px-3 py-2 ${importStatus.ok ? "bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400" : "bg-destructive/10 text-destructive"}`}>
+                {importStatus.ok ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <XCircle className="w-4 h-4 shrink-0" />}
+                {importStatus.msg}
+              </div>
+            )}
           </CardContent>
         </Card>
       )}

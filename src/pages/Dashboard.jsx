@@ -113,7 +113,7 @@ export default function Dashboard() {
 
   const handleDeleteVocab = async (vocabId) => {
     await base44.entities.UserVocabulary.delete(vocabId);
-    window.location.reload();
+    queryClient.invalidateQueries({ queryKey: ["my-vocabulary"] });
   };
 
   const today = new Date().toISOString().split("T")[0];
@@ -255,7 +255,7 @@ export default function Dashboard() {
       {plan ? (
         <TodaysPlanCard
           plan={plan}
-          onDelete={deletePlan}
+          onDelete={() => { if (window.confirm("Delete your study plan? This cannot be undone.")) deletePlan(); }}
           getTodaysLessons={getTodaysLessons}
           getDayNumber={getDayNumber}
           getProgress={getProgress}

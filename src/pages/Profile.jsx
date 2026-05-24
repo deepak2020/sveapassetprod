@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { useState } from "react";
 import { User, Zap, Flame, BookOpen, Trophy, LogOut, BarChart3, Trash2, TrendingUp, Target, Landmark, FlaskConical } from "lucide-react";
@@ -19,6 +19,7 @@ const DAILY_GOALS = [5, 10, 15, 30];
 export default function Profile() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const queryClient = useQueryClient();
 
   const { data: user, refetch } = useQuery({
     queryKey: ["me"],
@@ -69,8 +70,7 @@ export default function Profile() {
 
   const handleDeleteVocab = async (vocabId) => {
     await base44.entities.UserVocabulary.delete(vocabId);
-    // Refetch vocabulary list
-    window.location.reload();
+    queryClient.invalidateQueries({ queryKey: ["my-vocabulary"] });
   };
 
   // Progress metrics
