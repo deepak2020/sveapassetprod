@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp, Mic, CheckCircle2, XCircle, RotateCcw, MicOff } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { ChevronDown, ChevronUp, Mic, CheckCircle2, XCircle, RotateCcw, MicOff, Trophy } from "lucide-react";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import SpeakButton from "@/components/shared/SpeakButton";
+import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
 const fuzzyMatch = (userText, expectedText) => {
   const user = normalizeAnswer(userText);
@@ -45,11 +46,14 @@ const playSound = (isCorrect) => {
 
 const speechSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
 
-export default function SpeakingPractice({ phrases, onComplete }) {
+export default function SpeakingPractice({ phrases, onComplete, storageKey, userId, lessonId, tab, initialProgress, previousResult }) {
+  const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
+  const saved = load();
   const [expanded, setExpanded] = useState(null);
   const [listening, setListening] = useState(null);
-  const [feedback, setFeedback] = useState({});
-  const [manualDone, setManualDone] = useState({});
+  const [feedback, setFeedback] = useState(() => saved?.feedback ?? {});
+  const [manualDone, setManualDone] = useState(() => saved?.manualDone ?? {});
+  const [finished, setFinished] = useState(() => !!previousResult);
 
   // Auto-expand card when result arrives so feedback is immediately visible
   useEffect(() => {
@@ -64,12 +68,32 @@ export default function SpeakingPractice({ phrases, onComplete }) {
       ? Object.keys(feedback).length
       : Object.keys(manualDone).length;
     if (attemptedCount >= phrases.length) {
+      clear();
+      setFinished(true);
       onComplete?.();
     }
-  }, [feedback, manualDone, phrases, onComplete]);
+  }, [feedback, manualDone, phrases]);
 
   if (!phrases || phrases.length === 0) {
     return <p className="text-muted-foreground text-sm">No speaking phrases available.</p>;
+  }
+
+  if (finished && Object.keys(feedback).length === 0 && Object.keys(manualDone).length === 0) {
+    // Already completed in a previous session — show summary with option to practice again
+    const pct = previousResult?.percentage ?? 100;
+    return (
+      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-8">
+        <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+          <Trophy className="w-10 h-10 text-green-600" />
+        </div>
+        <h3 className="font-display text-2xl font-bold mb-1">Already completed! ✓</h3>
+        <p className="text-sm text-muted-foreground italic mb-2">You practised all {phrases.length} phrases</p>
+        <p className="text-4xl font-bold text-primary my-3">{pct}%</p>
+        <Button onClick={() => setFinished(false)} variant="outline" className="gap-2 mt-2">
+          <RotateCcw className="w-4 h-4" /> Practise again
+        </Button>
+      </motion.div>
+    );
   }
 
   const handleRecord = (e, index) => {
@@ -96,10 +120,12 @@ export default function SpeakingPractice({ phrases, onComplete }) {
           const transcript = event.results[0][0].transcript;
           const score = fuzzyMatch(transcript, phrases[index].phrase_sv);
           const isCorrect = score >= 0.75;
-          setFeedback((prev) => ({
-            ...prev,
-            [index]: { transcript, score, isCorrect }
-          }));
+          setFeedback((prev) => {
+            const next = { ...prev, [index]: { transcript, score, isCorrect } };
+            const correctCount = Object.values(next).filter(f => f.isCorrect).length;
+            save({ current: Object.keys(next).length, score: correctCount, feedback: next });
+            return next;
+          });
           playSound(isCorrect);
         }
         setListening(null);
@@ -133,7 +159,7 @@ export default function SpeakingPractice({ phrases, onComplete }) {
               <SpeakButton text={p.phrase_sv} lang="sv-SE" />
               {manualDone[i]
                 ? <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
-                : <button onClick={() => setManualDone(prev => ({ ...prev, [i]: true }))} className="text-xs px-3 py-1.5 rounded-lg border border-primary/40 text-primary hover:bg-primary/10 transition-colors shrink-0">Done</button>
+                : <button onClick={() => setManualDone(prev => { const next = { ...prev, [i]: true }; save({ current: Object.keys(next).length, score: Object.keys(next).length, manualDone: next }); return next; })} className="text-xs px-3 py-1.5 rounded-lg border border-primary/40 text-primary hover:bg-primary/10 transition-colors shrink-0">Done</button>
               }
             </div>
           ))}

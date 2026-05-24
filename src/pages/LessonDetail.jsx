@@ -230,10 +230,21 @@ export default function LessonDetail() {
   const tabProgress = {};
   for (const key of availableKeys) {
     if (completed.includes(key)) continue; // already finished
-    const local = readLocalProgress(lessonId, key);
+    let local;
+    if (key === "writing") {
+      // WritingExercise uses its own localStorage key (svenska:writing:{lessonId})
+      try {
+        const raw = localStorage.getItem(`svenska:writing:${lessonId}`);
+        const ans = raw ? JSON.parse(raw) : {};
+        const n = Object.keys(ans).length;
+        local = n > 0 ? { current: n } : null;
+      } catch { local = null; }
+    } else {
+      local = readLocalProgress(lessonId, key);
+    }
     const remote = remoteProgress[key];
     const localN = key === "match" ? (local?.matched?.length ?? 0) : (local?.current ?? 0);
-    const remoteN = key === "match" ? 0 : (remote?.current ?? 0); // matching not synced to supabase
+    const remoteN = key === "match" ? 0 : (remote?.current ?? 0);
     if (localN > 0 || remoteN > 0) {
       tabProgress[key] = remoteN > localN ? remote : local;
     }
@@ -546,7 +557,16 @@ export default function LessonDetail() {
               <h2 className="font-semibold text-lg">🗣️ Speaking Practice</h2>
               <p className="text-sm text-muted-foreground">Read these phrases aloud to practice your pronunciation.</p>
             </div>
-            <SpeakingPractice phrases={lesson.speaking_phrases} onComplete={() => markComplete("speaking")} />
+            <SpeakingPractice
+              phrases={lesson.speaking_phrases}
+              onComplete={() => markComplete("speaking")}
+              previousResult={scores["speaking"]}
+              storageKey={`${lessonId}-speaking`}
+              userId={user?.id}
+              lessonId={lessonId}
+              tab="speaking"
+              initialProgress={remoteProgress["speaking"]}
+            />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
                 <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
