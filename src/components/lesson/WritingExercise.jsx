@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
-import { Lightbulb, ChevronDown, ChevronUp, CheckCircle2, PencilLine, Loader2, ThumbsUp, AlertCircle, MessageSquare } from "lucide-react";
+import {
+  Lightbulb, ChevronDown, ChevronUp, CheckCircle2, PencilLine,
+  Loader2, ThumbsUp, AlertCircle, MessageSquare, RotateCcw, BookOpen,
+} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { motion, AnimatePresence } from "framer-motion";
 import { base44 } from "@/api/base44Client";
 import { useWritingAnswers } from "@/hooks/useWritingAnswers";
+import { useWritingRevision } from "@/hooks/useWritingRevision";
+import SpeakButton from "@/components/shared/SpeakButton";
 
 async function evaluateAnswer(prompt, hint, exampleAnswer, userAnswer) {
   const result = await base44.integrations.Core.InvokeLLM({
@@ -26,15 +31,15 @@ Step 2 — In a single pass, fix EVERY error across ALL categories at once:
 
 Step 3 — Write corrected_text: the student's FULL answer with ALL corrections applied. Keep names, punctuation, and correct words exactly as written. Only fix the errors.
 
-Step 4 — List every change you made in grammar_issues.
+Step 4 — List every change you made in grammar_issues. For each issue write a clear educational explanation of the Swedish grammar RULE that was broken — explain WHY it is wrong (e.g. "Swedish present tense verbs end in -r", "ett-words use ett not en as article").
 
 Step 5 — Decide if the answer addresses the question, write one tip, one overall sentence.
 
 Return JSON:
-- corrected_text: string — the student's full answer with every error fixed
+- corrected_text: string
 - relevant: boolean
 - relevance_feedback: string (English, one sentence)
-- grammar_issues: array of every change made, each: wrong (original word/phrase), correct (fixed form), explanation (English, max 10 words)
+- grammar_issues: array, each: wrong (string), correct (string), explanation (English, max 15 words explaining the grammar rule)
 - suggestion: string (English, one practical tip)
 - score: "great" | "good" | "needs_work"
 - overall: string (English, one encouraging sentence)`,
@@ -64,31 +69,24 @@ Return JSON:
   return result;
 }
 
-// Split text into tokens: words and the whitespace/punctuation between them
 function tokenize(text) {
   return text.split(/(\s+)/);
 }
 
-// Word-by-word diff between original and corrected text.
-// Returns array of segments: { type: "same"|"changed", orig, corr }
 function wordDiff(original, corrected) {
   if (!corrected || original === corrected) return [{ type: "same", orig: original }];
-
   const origTokens = tokenize(original);
   const corrTokens = tokenize(corrected);
-
-  // Fast path: same token count — compare slot by slot
   if (origTokens.length === corrTokens.length) {
     return origTokens.map((tok, i) => {
-      const same = tok.toLowerCase().replace(/[^a-zåäöA-ZÅÄÖ]/g, "") ===
-                   corrTokens[i].toLowerCase().replace(/[^a-zåäöA-ZÅÄÖ]/g, "");
+      const same =
+        tok.toLowerCase().replace(/[^a-zåäöA-ZÅÄÖ]/g, "") ===
+        corrTokens[i].toLowerCase().replace(/[^a-zåäöA-ZÅÄÖ]/g, "");
       return same
         ? { type: "same", orig: tok }
         : { type: "changed", orig: tok, corr: corrTokens[i] };
     });
   }
-
-  // Fallback: show original word-by-word then corrected version
   return [
     { type: "same", orig: original + " " },
     { type: "corrected_block", corr: corrected },
@@ -99,20 +97,15 @@ function normalize(text) {
   return text?.trim().replace(/\s+/g, " ") || "";
 }
 
-// Shows corrected text: unchanged words normally, changed words as
-// strikethrough-red (wrong) immediately followed by bold-green (correct)
 function AnnotatedText({ original, correctedText }) {
   if (!correctedText || normalize(original) === normalize(correctedText)) return null;
-
   const segments = wordDiff(original, correctedText);
-
   return (
     <span className="text-sm leading-relaxed">
       {segments.map((seg, i) => {
-        if (seg.type === "same") {
+        if (seg.type === "same")
           return <span key={i} className="text-foreground">{seg.orig}</span>;
-        }
-        if (seg.type === "changed") {
+        if (seg.type === "changed")
           return (
             <span key={i}>
               <s className="text-red-500 dark:text-red-400">{seg.orig}</s>
@@ -120,7 +113,6 @@ function AnnotatedText({ original, correctedText }) {
               <span className="font-semibold text-green-700 dark:text-green-400">{seg.corr}</span>
             </span>
           );
-        }
         return (
           <span key={i}>
             <s className="text-red-400">{seg.orig}</s>
@@ -134,14 +126,45 @@ function AnnotatedText({ original, correctedText }) {
 }
 
 const SCORE_STYLES = {
-  great: { bg: "bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800/40", text: "text-green-800 dark:text-green-300", icon: <ThumbsUp className="w-4 h-4 text-green-600 shrink-0" /> },
-  good:  { bg: "bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800/40",   text: "text-blue-800 dark:text-blue-300",  icon: <CheckCircle2 className="w-4 h-4 text-blue-500 shrink-0" /> },
-  needs_work: { bg: "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800/40", text: "text-amber-800 dark:text-amber-200", icon: <MessageSquare className="w-4 h-4 text-amber-500 shrink-0" /> },
+  great: {
+    bg: "bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800/40",
+    text: "text-green-800 dark:text-green-300",
+    icon: <ThumbsUp className="w-4 h-4 text-green-600 shrink-0" />,
+  },
+  good: {
+    bg: "bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800/40",
+    text: "text-blue-800 dark:text-blue-300",
+    icon: <CheckCircle2 className="w-4 h-4 text-blue-500 shrink-0" />,
+  },
+  needs_work: {
+    bg: "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800/40",
+    text: "text-amber-800 dark:text-amber-200",
+    icon: <MessageSquare className="w-4 h-4 text-amber-500 shrink-0" />,
+  },
 };
+
+// Mini grammar lesson card — shows what was wrong, what's correct, and WHY
+function GrammarIssueCard({ issue }) {
+  return (
+    <div className="rounded-xl border border-amber-200 dark:border-amber-800/40 bg-amber-50 dark:bg-amber-950/20 px-3 py-2.5">
+      <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+        <span className="text-xs font-mono bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 line-through px-1.5 py-0.5 rounded">
+          {issue.wrong}
+        </span>
+        <span className="text-xs text-muted-foreground">→</span>
+        <span className="text-xs font-mono font-semibold bg-green-100 dark:bg-green-950/40 text-green-700 dark:text-green-400 px-1.5 py-0.5 rounded">
+          {issue.correct}
+        </span>
+      </div>
+      <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+        💡 {issue.explanation}
+      </p>
+    </div>
+  );
+}
 
 function WritingFeedback({ feedback }) {
   const style = SCORE_STYLES[feedback.score] || SCORE_STYLES.good;
-
   return (
     <div className="space-y-2.5">
       {/* Overall verdict */}
@@ -161,6 +184,19 @@ function WritingFeedback({ feedback }) {
         </div>
       )}
 
+      {/* Grammar mini-lessons */}
+      {feedback.grammar_issues?.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+            <BookOpen className="w-3.5 h-3.5 text-amber-500" />
+            Grammar notes ({feedback.grammar_issues.length})
+          </p>
+          {feedback.grammar_issues.map((issue, i) => (
+            <GrammarIssueCard key={i} issue={issue} />
+          ))}
+        </div>
+      )}
+
       {/* Tip */}
       {feedback.suggestion && (
         <div className="flex items-start gap-2 bg-violet-50 dark:bg-violet-950/30 border border-violet-200/60 dark:border-violet-800/40 rounded-xl px-3 py-2.5">
@@ -172,7 +208,45 @@ function WritingFeedback({ feedback }) {
   );
 }
 
-function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer, feedback, checking, checkFailed }) {
+// Reveal the example answer word by word so the user is guided, not just shown the answer
+function ProgressiveHint({ exampleAnswer }) {
+  const [revealed, setRevealed] = useState(0);
+  const words = exampleAnswer?.split(" ") ?? [];
+  if (!exampleAnswer) return null;
+  const allShown = revealed >= words.length;
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      {!allShown && (
+        <button
+          onClick={() => setRevealed((r) => Math.min(r + 1, words.length))}
+          className="text-xs text-violet-500 hover:text-violet-700 dark:hover:text-violet-300 flex items-center gap-1 transition-colors"
+        >
+          <Lightbulb className="w-3 h-3" />
+          {revealed === 0 ? "Hint" : "More"}
+        </button>
+      )}
+      {revealed > 0 && (
+        <>
+          <span className="text-xs font-mono text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/30 px-2 py-0.5 rounded-md">
+            {words.slice(0, revealed).join(" ")}{!allShown ? " …" : ""}
+          </span>
+          <button
+            onClick={() => setRevealed(0)}
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+          >
+            reset
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
+
+function PromptCard({
+  prompt, index, onSubmit, onEdit,
+  isSubmitted, savedAnswer, feedback, checking, checkFailed,
+  isRevision = false,
+}) {
   const [answer, setAnswer] = useState(savedAnswer || "");
   const [showExample, setShowExample] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -192,21 +266,30 @@ function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer,
   };
 
   const showInput = !isSubmitted || editing;
+  const wordCountHint = prompt.example_answer
+    ? prompt.example_answer.split(/\s+/).filter(Boolean).length
+    : null;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
+      transition={{ delay: index * 0.08 }}
     >
-      <Card className="border-border/50">
+      <Card className={`border-border/50 ${isRevision ? "border-l-4 border-l-amber-400" : ""}`}>
         <CardContent className="p-5 space-y-4">
+          {isRevision && (
+            <div className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400 font-medium">
+              <RotateCcw className="w-3 h-3" /> Revision — you had errors here before
+            </div>
+          )}
+
           {/* Prompt */}
           <div className="flex items-start gap-3">
             <div className="w-8 h-8 rounded-lg bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center text-sm font-bold text-violet-700 dark:text-violet-300 shrink-0">
               {isSubmitted && !editing ? <CheckCircle2 className="w-4 h-4 text-green-600" /> : index + 1}
             </div>
-            <div>
+            <div className="flex-1">
               <p className="font-medium text-foreground">{prompt.prompt}</p>
               {prompt.hint && (
                 <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1">
@@ -218,6 +301,21 @@ function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer,
 
           {showInput ? (
             <>
+              {/* Dictation helper — listen to the example, then write it */}
+              {prompt.example_answer && (
+                <div className="flex items-center gap-3 flex-wrap p-2.5 bg-blue-50 dark:bg-blue-950/20 rounded-xl border border-blue-200/60 dark:border-blue-800/30">
+                  <SpeakButton text={prompt.example_answer} lang="sv-SE" />
+                  <span className="text-xs text-blue-700 dark:text-blue-300 flex-1">
+                    Listen to the answer, then write it from memory
+                  </span>
+                  {wordCountHint && (
+                    <span className="text-xs text-muted-foreground bg-white/60 dark:bg-black/20 px-2 py-0.5 rounded-full">
+                      ~{wordCountHint} word{wordCountHint !== 1 ? "s" : ""}
+                    </span>
+                  )}
+                </div>
+              )}
+
               <Textarea
                 placeholder="Skriv ditt svar här... (Write your answer here)"
                 value={answer}
@@ -225,14 +323,9 @@ function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer,
                 className="min-h-[80px] resize-none"
                 autoFocus={editing}
               />
-              <div className="flex items-center justify-between gap-3">
-                <button
-                  onClick={() => setShowExample(!showExample)}
-                  className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
-                >
-                  {showExample ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                  {showExample ? "Hide example" : "Show example answer"}
-                </button>
+
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <ProgressiveHint exampleAnswer={prompt.example_answer} />
                 <div className="flex gap-2">
                   {editing && (
                     <Button size="sm" variant="ghost" onClick={() => setEditing(false)} className="text-muted-foreground">
@@ -247,20 +340,24 @@ function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer,
             </>
           ) : (
             <div className="space-y-3">
-              {/* Original answer — unchanged */}
+              {/* Your answer */}
               <div className="bg-violet-50 dark:bg-violet-950/30 rounded-xl p-3 border border-violet-200/60 dark:border-violet-800/40">
                 <p className="text-sm font-medium text-violet-700 dark:text-violet-300 mb-1.5">Your answer:</p>
                 <p className="text-sm text-foreground leading-relaxed">{savedAnswer}</p>
               </div>
 
-              {/* Corrected version — separate box below */}
-              {!checking && feedback?.corrected_text && normalize(feedback.corrected_text) !== normalize(savedAnswer) && (
+              {/* Corrected version with listen button */}
+              {!checking && feedback?.corrected_text &&
+                normalize(feedback.corrected_text) !== normalize(savedAnswer) && (
                 <motion.div
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="rounded-xl p-3 border border-green-200 dark:border-green-800/40 bg-green-50 dark:bg-green-950/30"
                 >
-                  <p className="text-sm font-medium text-green-700 dark:text-green-400 mb-1.5">Corrected version:</p>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <p className="text-sm font-medium text-green-700 dark:text-green-400">Corrected:</p>
+                    <SpeakButton text={feedback.corrected_text} lang="sv-SE" />
+                  </div>
                   <AnnotatedText original={savedAnswer} correctedText={feedback.corrected_text} />
                 </motion.div>
               )}
@@ -298,13 +395,17 @@ function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer,
             </div>
           )}
 
+          {/* Example answer panel */}
           {showExample && prompt.example_answer && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               className="bg-green-50 dark:bg-green-950/30 rounded-xl p-3 border border-green-200/60 dark:border-green-800/40"
             >
-              <p className="text-xs font-semibold text-green-700 dark:text-green-400 mb-1">Example answer:</p>
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-xs font-semibold text-green-700 dark:text-green-400">Example answer:</p>
+                <SpeakButton text={prompt.example_answer} lang="sv-SE" />
+              </div>
               <p className="text-sm text-green-800 dark:text-green-300">{prompt.example_answer}</p>
             </motion.div>
           )}
@@ -314,8 +415,74 @@ function PromptCard({ prompt, index, onSubmit, onEdit, isSubmitted, savedAnswer,
   );
 }
 
+// Standalone revision card for previously wrong answers
+function RevisionCard({ item, onMastered }) {
+  const [answer, setAnswer] = useState("");
+  const [done, setDone] = useState(false);
+
+  if (done) return null;
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+      <Card className="border-l-4 border-l-amber-400 border-border/50">
+        <CardContent className="p-5 space-y-3">
+          <div className="flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400 font-medium">
+            <RotateCcw className="w-3 h-3" />
+            Revision practice
+            {item.attempts > 1 && (
+              <span className="text-muted-foreground font-normal">· attempt {item.attempts + 1}</span>
+            )}
+          </div>
+
+          <p className="font-medium text-foreground">{item.promptText}</p>
+
+          {/* Remind them of previous errors */}
+          {item.grammarIssues?.length > 0 && (
+            <div className="space-y-1.5">
+              <p className="text-xs text-muted-foreground">Mistakes from last time:</p>
+              {item.grammarIssues.slice(0, 3).map((issue, i) => (
+                <GrammarIssueCard key={i} issue={issue} />
+              ))}
+            </div>
+          )}
+
+          {/* Dictation helper */}
+          {item.exampleAnswer && (
+            <div className="flex items-center gap-2 p-2.5 bg-blue-50 dark:bg-blue-950/20 rounded-xl border border-blue-200/60 dark:border-blue-800/30">
+              <SpeakButton text={item.exampleAnswer} lang="sv-SE" />
+              <span className="text-xs text-blue-700 dark:text-blue-300">
+                Listen, then write without looking
+              </span>
+            </div>
+          )}
+
+          <Textarea
+            placeholder="Try again in Swedish…"
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
+            className="min-h-[70px] resize-none"
+          />
+
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <ProgressiveHint exampleAnswer={item.exampleAnswer} />
+            <Button
+              size="sm"
+              onClick={() => { setDone(true); onMastered(); }}
+              disabled={!answer.trim()}
+              className="gap-1.5"
+            >
+              <CheckCircle2 className="w-3.5 h-3.5" /> Mastered ✓
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+}
+
 export default function WritingExercise({ prompts, lessonId, onComplete }) {
   const { answers, saveAnswer, removeAnswer } = useWritingAnswers(lessonId);
+  const { addToRevision, removeFromRevision, getForLesson } = useWritingRevision();
   const [completionFired, setCompletionFired] = useState(false);
   const [feedbackState, setFeedbackState] = useState({});
 
@@ -336,6 +503,20 @@ export default function WritingExercise({ prompts, lessonId, onComplete }) {
     try {
       const feedback = await evaluateAnswer(p.prompt, p.hint, p.example_answer, answer);
       setFeedbackState((prev) => ({ ...prev, [index]: { checking: false, feedback, failed: false } }));
+
+      // Save to revision if there are grammar issues or the answer needs work
+      if (feedback.grammar_issues?.length > 0 || feedback.score === "needs_work") {
+        addToRevision({
+          lessonId,
+          promptIndex: index,
+          promptText: p.prompt,
+          exampleAnswer: p.example_answer,
+          userAnswer: answer,
+          grammarIssues: feedback.grammar_issues || [],
+        });
+      } else if (feedback.score === "great") {
+        removeFromRevision(lessonId, index);
+      }
     } catch {
       setFeedbackState((prev) => ({ ...prev, [index]: { checking: false, feedback: null, failed: true } }));
     }
@@ -361,11 +542,12 @@ export default function WritingExercise({ prompts, lessonId, onComplete }) {
   };
 
   const doneCount = Object.keys(answers).length;
+  const revisionItems = getForLesson(lessonId);
 
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground mb-4">
-        Write your answers in Swedish. Your answer will be reviewed against the question automatically.
+        Write your answers in Swedish. Tap 🔊 to hear the answer first — then write it from memory.
         {doneCount > 0 && doneCount < prompts.length && (
           <span className="ml-2 font-medium text-foreground">{doneCount}/{prompts.length} completed</span>
         )}
@@ -373,6 +555,7 @@ export default function WritingExercise({ prompts, lessonId, onComplete }) {
           <span className="ml-2 font-medium text-green-600">All done ✓</span>
         )}
       </p>
+
       {prompts.map((prompt, i) => {
         const fs = feedbackState[i] || {};
         return (
@@ -390,6 +573,30 @@ export default function WritingExercise({ prompts, lessonId, onComplete }) {
           />
         );
       })}
+
+      {/* Revision section — previously wrong answers resurface here */}
+      {revisionItems.length > 0 && (
+        <div className="space-y-3 pt-2">
+          <div className="flex items-center gap-2">
+            <div className="flex-1 border-t border-amber-200 dark:border-amber-800/40" />
+            <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 flex items-center gap-1.5 px-2 whitespace-nowrap">
+              <RotateCcw className="w-3.5 h-3.5" />
+              Practice your mistakes ({revisionItems.length})
+            </span>
+            <div className="flex-1 border-t border-amber-200 dark:border-amber-800/40" />
+          </div>
+          <p className="text-xs text-muted-foreground text-center">
+            These sentences had errors. Keep practising until they feel natural.
+          </p>
+          {revisionItems.map((item) => (
+            <RevisionCard
+              key={item.id}
+              item={item}
+              onMastered={() => removeFromRevision(item.lessonId, item.promptIndex)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
