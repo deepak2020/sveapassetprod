@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { CheckCircle2, XCircle, RotateCcw, Trophy, Lightbulb, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 import { useWritingRevision } from "@/hooks/useWritingRevision";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
+import { base44 } from "@/api/base44Client";
+import { awardXP, XP_REWARDS } from "@/lib/xp";
 import SpeakButton from "@/components/shared/SpeakButton";
 
 // Allow 1-2 character differences (typos)
@@ -24,7 +26,7 @@ function isCloseEnough(input, answer) {
   return true;
 }
 
-// Reveal correct answer word by word
+// Reveal the correct answer word by word
 function ProgressiveHint({ answer }) {
   const [revealed, setRevealed] = useState(0);
   const words = answer?.split(" ") ?? [];
@@ -61,18 +63,27 @@ function ProgressiveHint({ answer }) {
   );
 }
 
-export default function SentenceTranslation({ wordPairs, onComplete, storageKey, userId, lessonId, tab, initialProgress }) {
+export default function SentenceTranslation({ wordPairs, onComplete, storageKey, userId, lessonId, tab, initialProgress, previousResult }) {
   const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
   const { addToRevision, removeFromRevision } = useWritingRevision();
+  const remoteApplied = useRef(false);
 
   const allExercises = (wordPairs || []).filter(wp => wp.example_en && wp.example_sv);
   const [exercisePool, setExercisePool] = useState(allExercises);
   const [wrongIndices, setWrongIndices] = useState([]);
-  const [current, setCurrent] = useState(() => initialProgress?.current ?? load()?.current ?? 0);
+  const [current, setCurrent] = useState(() => previousResult ? 0 : (initialProgress?.current ?? load()?.current ?? 0));
   const [input, setInput] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [score, setScore] = useState(() => initialProgress?.score ?? load()?.score ?? 0);
-  const [finished, setFinished] = useState(false);
+  const [score, setScore] = useState(() => previousResult ? (previousResult.score ?? 0) : (initialProgress?.score ?? load()?.score ?? 0));
+  const [finished, setFinished] = useState(() => !!previousResult);
+
+  useEffect(() => {
+    if (remoteApplied.current || finished || initialProgress == null) return;
+    remoteApplied.current = true;
+    const localIdx = load()?.current ?? 0;
+    const remoteIdx = initialProgress.current ?? 0;
+    if (remoteIdx > localIdx) { setCurrent(remoteIdx); setScore(initialProgress.score ?? 0); }
+  }, [initialProgress]);
 
   if (!allExercises.length) {
     return <p className="text-muted-foreground text-sm">No sentence translation exercises available for this lesson.</p>;
@@ -86,11 +97,12 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
     setSubmitted(true);
     if (isCloseEnough(input, ex.example_sv)) {
       setScore(s => { save({ current, score: s + 1 }); return s + 1; });
-      // Mastered — remove from revision if it was there
+      awardXP(base44, XP_REWARDS.translate_correct);
       if (lessonId) removeFromRevision(`translate-${lessonId}`, current);
     } else {
+      save({ current, score });
       setWrongIndices(prev => [...prev, current]);
-      // Add to revision queue
+      awardXP(base44, XP_REWARDS.translate_wrong);
       if (lessonId) {
         addToRevision({
           lessonId: `translate-${lessonId}`,
@@ -132,7 +144,10 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
   };
 
   if (finished) {
-    const pct = Math.round((score / exercisePool.length) * 100);
+    const fromPrev = wrongIndices.length === 0 && score === 0 && !!previousResult;
+    const displayPct = fromPrev ? previousResult.percentage : Math.round((score / exercisePool.length) * 100);
+    const displayScore = fromPrev ? previousResult.score : score;
+    const displayTotal = fromPrev ? previousResult.total : exercisePool.length;
     return (
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
         <Card className="border-border/50">
@@ -141,17 +156,18 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
               <Trophy className="w-8 h-8 text-amber-500" />
             </div>
             <h3 className="font-display text-2xl font-bold mb-1">
-              {pct >= 80 ? "Excellent! 🎉" : pct >= 60 ? "Good job! 👍" : "Keep going! 💪"}
+              {fromPrev ? "Already completed! ✓" : displayPct >= 80 ? "Excellent! 🎉" : displayPct >= 60 ? "Good job! 👍" : "Keep going! 💪"}
             </h3>
-            <p className="text-4xl font-bold text-primary my-2">{pct}%</p>
-            <p className="text-muted-foreground mb-6">{score} / {exercisePool.length} correct</p>
-            {wrongCount > 0 && (
+            {fromPrev && <p className="text-sm text-muted-foreground italic mb-2">Your last score</p>}
+            <p className="text-4xl font-bold text-primary my-2">{displayPct}%</p>
+            <p className="text-muted-foreground mb-6">{displayScore} / {displayTotal} correct</p>
+            {!fromPrev && wrongCount > 0 && (
               <Button onClick={restart} className="gap-2 mb-3 w-full">
                 <RotateCcw className="w-4 h-4" /> Retry {wrongCount} wrong answer{wrongCount !== 1 ? "s" : ""}
               </Button>
             )}
             <Button onClick={restart} variant="outline" className="gap-2 w-full">
-              <RotateCcw className="w-4 h-4" /> {wrongCount > 0 ? "Start over" : "Try Again"}
+              <RotateCcw className="w-4 h-4" /> {fromPrev ? "Try again" : wrongCount > 0 ? "Start over" : "Try Again"}
             </Button>
           </CardContent>
         </Card>
@@ -192,16 +208,16 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
             exit={{ opacity: 0, x: -20 }}
             className="space-y-4"
           >
-            {/* English sentence + listen button */}
+            {/* English sentence */}
             <div className="bg-muted/40 rounded-xl p-4">
-              <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Translate to Swedish:</p>
+              <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Translate this sentence to Swedish:</p>
               <p className="text-lg font-semibold text-foreground">{ex.example_en}</p>
               <p className="text-xs text-muted-foreground mt-2">
                 Word: <span className="font-medium">{ex.english} → {ex.swedish}</span>
               </p>
             </div>
 
-            {/* Dictation helper — listen to correct Swedish, then write */}
+            {/* Dictation helper */}
             <div className="flex items-center gap-2 p-2.5 bg-blue-50 dark:bg-blue-950/20 rounded-xl border border-blue-200/60 dark:border-blue-800/30">
               <SpeakButton text={ex.example_sv} lang="sv-SE" />
               <span className="text-xs text-blue-700 dark:text-blue-300">
@@ -224,7 +240,7 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
             {/* Progressive hint while typing */}
             {!submitted && <ProgressiveHint answer={ex.example_sv} />}
 
-            {/* Feedback after submit */}
+            {/* Feedback */}
             {submitted && (
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
@@ -241,7 +257,6 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
                       {isCorrect ? "Correct!" : "Not quite"}
                     </span>
                   </div>
-                  {/* Listen to correct answer after feedback */}
                   <SpeakButton text={ex.example_sv} lang="sv-SE" />
                 </div>
                 {!isCorrect && (
