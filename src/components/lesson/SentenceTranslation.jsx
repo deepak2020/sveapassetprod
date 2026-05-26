@@ -9,21 +9,21 @@ import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import SpeakButton from "@/components/shared/SpeakButton";
+import { getCachedFeedback, setCachedFeedback, translateCacheKey } from "@/lib/aiCache";
 
-async function explainTranslation(englishSentence, correctSwedish, userAttempt) {
+async function explainTranslation(englishSentence, correctSwedish) {
   const result = await base44.integrations.Core.InvokeLLM({
-    prompt: `You are a Swedish language teacher. A student tried to translate an English sentence into Swedish but got it wrong.
+    prompt: `You are a Swedish language teacher. Explain the key words and grammar in this correct Swedish translation so a learner understands WHY each word is used.
 
 English: "${englishSentence}"
-Correct Swedish: "${correctSwedish}"
-Student wrote: "${userAttempt}"
+Swedish: "${correctSwedish}"
 
-Compare word by word. For each meaningful difference, explain WHY the correct word is used — the grammar rule, vocabulary choice, or Swedish idiom behind it. Be specific and educational (e.g. "hittade is past tense of hitta = to find", "bra is the Swedish adjective for good/great").
+For each meaningful word or phrase, explain its meaning, grammar role, or why Swedish uses it this way. Be specific (e.g. "hittade — past tense of hitta = to find", "bra — Swedish adjective for good, same form for en/ett", "en platsannons — en-word meaning job advertisement").
 
 Return JSON:
-- issues: array of { wrong: string (what the student wrote, or "" if they omitted it), correct: string (the correct word/phrase), explanation: string (max 15 words, explain the rule or meaning) }
+- issues: array of { wrong: string (set to "?"), correct: string (the word/phrase), explanation: string (max 15 words) }
 
-Only include meaningful differences, not punctuation. If the student left something out entirely, set wrong to "(missing)".`,
+Cover the 3-5 most important or non-obvious words. Skip very simple common words like jag/och/är unless they are the source of confusion.`,
     response_json_schema: {
       type: "object",
       properties: {
@@ -44,18 +44,21 @@ Only include meaningful differences, not punctuation. If the student left someth
   return result?.issues ?? [];
 }
 
+async function getExplanation(base44Client, lessonId, promptIndex, englishSentence, correctSwedish) {
+  const key = translateCacheKey(lessonId, promptIndex);
+  const cached = await getCachedFeedback(base44Client, key);
+  if (cached) return cached;
+  const issues = await explainTranslation(englishSentence, correctSwedish);
+  await setCachedFeedback(base44Client, key, issues);
+  return issues;
+}
+
 function GrammarIssueCard({ issue }) {
   return (
     <div className="rounded-xl border border-amber-200 dark:border-amber-800/40 bg-amber-50 dark:bg-amber-950/20 px-3 py-2.5">
-      <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
-        <span className="text-xs font-mono bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 line-through px-1.5 py-0.5 rounded">
-          {issue.wrong || "(missing)"}
-        </span>
-        <span className="text-xs text-muted-foreground">→</span>
-        <span className="text-xs font-mono font-semibold bg-green-100 dark:bg-green-950/40 text-green-700 dark:text-green-400 px-1.5 py-0.5 rounded">
-          {issue.correct}
-        </span>
-      </div>
+      <p className="text-xs font-mono font-semibold text-green-700 dark:text-green-400 mb-1">
+        {issue.correct}
+      </p>
       <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
         💡 {issue.explanation}
       </p>
@@ -157,9 +160,9 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
       save({ current, score });
       setWrongIndices(prev => [...prev, current]);
       awardXP(base44, XP_REWARDS.translate_wrong);
-      // Ask AI to explain why each word differs
+      // Fetch explanation — from cache if available, otherwise call AI and cache result
       setExplanation({ issues: [], loading: true });
-      explainTranslation(ex.example_en, ex.example_sv, input)
+      getExplanation(base44, lessonId, current, ex.example_en, ex.example_sv)
         .then(issues => setExplanation({ issues, loading: false }))
         .catch(() => setExplanation({ issues: [], loading: false }));
       if (lessonId) {
