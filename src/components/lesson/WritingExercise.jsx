@@ -11,6 +11,8 @@ import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { useWritingAnswers } from "@/hooks/useWritingAnswers";
 import { useWritingRevision } from "@/hooks/useWritingRevision";
+import { getCachedFeedback, setCachedFeedback, writingCacheKey } from "@/lib/aiCache";
+import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import SpeakButton from "@/components/shared/SpeakButton";
 
 async function evaluateAnswer(prompt, hint, exampleAnswer, userAnswer) {
@@ -495,7 +497,10 @@ export default function WritingExercise({ prompts, lessonId, onComplete }) {
     const p = prompts[index];
     setFeedbackState((prev) => ({ ...prev, [index]: { checking: true, feedback: null, failed: false } }));
     try {
-      const feedback = await evaluateAnswer(p.prompt, p.hint, p.example_answer, answer);
+      const key = writingCacheKey(lessonId, index, normalizeAnswer(answer));
+      const cached = await getCachedFeedback(base44, key);
+      const feedback = cached ?? await evaluateAnswer(p.prompt, p.hint, p.example_answer, answer);
+      if (!cached) await setCachedFeedback(base44, key, feedback);
       setFeedbackState((prev) => ({ ...prev, [index]: { checking: false, feedback, failed: false } }));
 
       // Save to revision if there are grammar issues or the answer needs work
