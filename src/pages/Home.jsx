@@ -5,12 +5,10 @@ import ContinueLearning from "../components/home/ContinueLearning";
 import WordOfTheDay from "../components/home/WordOfTheDay";
 import SRSReviewCard from "../components/home/SRSReviewCard";
 import SignupNudge from "../components/shared/SignupNudge";
-import WhatsNewDialog from "../components/home/WhatsNewDialog";
 
 export default function Home() {
   return (
     <div>
-      <WhatsNewDialog />
       <SignupNudge />
       <HeroSection />
       <ContinueLearning />

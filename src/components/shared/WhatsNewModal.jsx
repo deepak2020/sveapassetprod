@@ -5,37 +5,52 @@ import { Button } from "@/components/ui/button";
 import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
 
-const CURRENT_VERSION = "1.3";
+// Bump this string with every release to re-show the dialog to all users
+const CURRENT_VERSION = "2025-05-v3";
 const STORAGE_KEY = "svenska:whats_new_seen";
 
 const FEATURES = [
   {
-    emoji: "✍️",
-    title: "AI-skrivfeedback",
-    titleEn: "AI writing feedback",
-    desc: "Skriv ett svar och få direkt feedback — AI markerar fel med genomstrykning och visar rätt ord i grönt.",
-    descEn: "Write an answer and get instant AI feedback — wrong words crossed out, correct words shown in green.",
+    emoji: "🎧",
+    title: "Lyssna & skriv",
+    titleEn: "Listen & Write",
+    desc: "Tryck på högtalaren för att höra det rätta svaret — skriv sedan från minnet. Diktat-stil!",
+    descEn: "Tap the speaker to hear the correct answer, then write it from memory. Dictation-style learning.",
   },
   {
-    emoji: "🤖",
-    title: "AI rättar din grammatik",
-    titleEn: "AI corrects your grammar",
-    desc: "Varje skrivövning granskas av AI som hittar grammatikfel, ordföljd och stavning på en gång.",
-    descEn: "Every writing exercise is reviewed by AI checking grammar, word order, and spelling all at once.",
+    emoji: "💡",
+    title: "Progressiva ledtrådar",
+    titleEn: "Progressive Hints",
+    desc: "Avslöja svaret ett ord i taget istället för att se allt på en gång. Håller hjärnan igång.",
+    descEn: "Reveal the answer one word at a time instead of seeing it all at once. Keeps your brain working.",
   },
   {
-    emoji: "📊",
-    title: "Spara dina framsteg",
-    titleEn: "Save your progress",
-    desc: "Skapa ett gratis konto för att synka dina framsteg mellan enheter och aldrig tappa det du lärt dig.",
-    descEn: "Create a free account to sync your progress across devices and never lose what you've learned.",
+    emoji: "✏️",
+    title: "Grammatiklektioner",
+    titleEn: "Grammar Mini-Lessons",
+    desc: "Varje rättelse förklarar VARFÖR — grammatikregeln bakom felet, t.ex. \"svenska verb slutar på -r i presens\".",
+    descEn: "Every correction explains WHY — the grammar rule behind it, e.g. "Swedish verbs end in -r in present tense".",
   },
   {
-    emoji: "🏆",
-    title: "Personlig statistik",
-    titleEn: "Personal stats",
-    desc: "Med ett konto ser du din svit, XP och svaga områden — så du vet exakt vad du ska öva på.",
-    descEn: "With an account you see your streak, XP, and weak areas — so you know exactly what to practise.",
+    emoji: "🔄",
+    title: "Revisionsköa",
+    titleEn: "Revision Queue",
+    desc: "Fel svar sparas automatiskt och visas igen tills du behärskar dem.",
+    descEn: "Wrong answers are saved automatically and re-shown until you master them.",
+  },
+  {
+    emoji: "🏛️",
+    title: "Samhällskunskap",
+    titleEn: "Civic Knowledge",
+    desc: "Förbered dig för medborgarskapsprovet med ämnen från Sverige i Fokus.",
+    descEn: "Prepare for the Swedish citizenship test with topics from Sverige i Fokus.",
+  },
+  {
+    emoji: "⚡",
+    title: "Snabb repetition",
+    titleEn: "Quick Revision",
+    desc: "Gör ett snabbt vokabulärquiz på avklarade lektioner direkt från instrumentpanelen.",
+    descEn: "Do a quick vocabulary quiz on completed lessons directly from your dashboard.",
   },
 ];
 
@@ -45,14 +60,13 @@ export default function WhatsNewModal() {
 
   useEffect(() => {
     if (!authChecked) return;
-    if (isAuthenticated) return;
     try {
       const seen = localStorage.getItem(STORAGE_KEY);
       if (seen !== CURRENT_VERSION) setOpen(true);
     } catch {
       setOpen(true);
     }
-  }, [authChecked, isAuthenticated]);
+  }, [authChecked]);
 
   const dismiss = () => {
     try { localStorage.setItem(STORAGE_KEY, CURRENT_VERSION); } catch {}
@@ -88,8 +102,10 @@ export default function WhatsNewModal() {
                     <Sparkles className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h2 id="whats-new-title" className="font-display text-lg font-bold leading-tight">Nyheter · What's new</h2>
-                    <p className="text-xs text-muted-foreground">Version {CURRENT_VERSION}</p>
+                    <h2 id="whats-new-title" className="font-display text-lg font-bold leading-tight">
+                      Nyheter · What's new
+                    </h2>
+                    <p className="text-xs text-muted-foreground">Sveapasset · Version {CURRENT_VERSION}</p>
                   </div>
                 </div>
                 <button
@@ -124,11 +140,19 @@ export default function WhatsNewModal() {
 
             {/* Footer */}
             <div className="px-6 py-4 border-t border-border/40 shrink-0 space-y-2">
-              <Button className="w-full" onClick={() => { dismiss(); base44.auth.redirectToLogin(window.location.href); }}>
-                Skapa gratis konto · Create free account
-              </Button>
-              <button onClick={dismiss} className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors py-1">
-                Fortsätt utan konto · Continue without account
+              {!isAuthenticated && (
+                <Button
+                  className="w-full"
+                  onClick={() => { dismiss(); base44.auth.redirectToLogin(window.location.href); }}
+                >
+                  Skapa gratis konto · Create free account
+                </Button>
+              )}
+              <button
+                onClick={dismiss}
+                className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors py-1"
+              >
+                {isAuthenticated ? "Kom igång! · Let's go 🚀" : "Fortsätt utan konto · Continue without account"}
               </button>
             </div>
           </motion.div>
