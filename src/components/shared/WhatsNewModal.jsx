@@ -29,7 +29,7 @@ const FEATURES = [
     title: "Grammatiklektioner",
     titleEn: "Grammar Mini-Lessons",
     desc: "Varje rättelse förklarar VARFÖR — grammatikregeln bakom felet, t.ex. \"svenska verb slutar på -r i presens\".",
-    descEn: "Every correction explains WHY — the grammar rule behind it, e.g. "Swedish verbs end in -r in present tense".",
+    descEn: "Every correction explains WHY — the grammar rule behind it, e.g. 'Swedish verbs end in -r in present tense'.",
   },
   {
     emoji: "🔄",
