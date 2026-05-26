@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { CheckCircle2, XCircle, RotateCcw, Trophy, Lightbulb, BookOpen } from "lucide-react";
+import { CheckCircle2, XCircle, RotateCcw, Trophy, Lightbulb, BookOpen, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,6 +9,59 @@ import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import SpeakButton from "@/components/shared/SpeakButton";
+
+async function explainTranslation(englishSentence, correctSwedish, userAttempt) {
+  const result = await base44.integrations.Core.InvokeLLM({
+    prompt: `You are a Swedish language teacher. A student tried to translate an English sentence into Swedish but got it wrong.
+
+English: "${englishSentence}"
+Correct Swedish: "${correctSwedish}"
+Student wrote: "${userAttempt}"
+
+Compare word by word. For each meaningful difference, explain WHY the correct word is used — the grammar rule, vocabulary choice, or Swedish idiom behind it. Be specific and educational (e.g. "hittade is past tense of hitta = to find", "bra is the Swedish adjective for good/great").
+
+Return JSON:
+- issues: array of { wrong: string (what the student wrote, or "" if they omitted it), correct: string (the correct word/phrase), explanation: string (max 15 words, explain the rule or meaning) }
+
+Only include meaningful differences, not punctuation. If the student left something out entirely, set wrong to "(missing)".`,
+    response_json_schema: {
+      type: "object",
+      properties: {
+        issues: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              wrong: { type: "string" },
+              correct: { type: "string" },
+              explanation: { type: "string" },
+            },
+          },
+        },
+      },
+    },
+  });
+  return result?.issues ?? [];
+}
+
+function GrammarIssueCard({ issue }) {
+  return (
+    <div className="rounded-xl border border-amber-200 dark:border-amber-800/40 bg-amber-50 dark:bg-amber-950/20 px-3 py-2.5">
+      <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+        <span className="text-xs font-mono bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 line-through px-1.5 py-0.5 rounded">
+          {issue.wrong || "(missing)"}
+        </span>
+        <span className="text-xs text-muted-foreground">→</span>
+        <span className="text-xs font-mono font-semibold bg-green-100 dark:bg-green-950/40 text-green-700 dark:text-green-400 px-1.5 py-0.5 rounded">
+          {issue.correct}
+        </span>
+      </div>
+      <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+        💡 {issue.explanation}
+      </p>
+    </div>
+  );
+}
 
 // Allow 1-2 character differences (typos)
 function isCloseEnough(input, answer) {
@@ -76,6 +129,7 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(() => previousResult ? (previousResult.score ?? 0) : (initialProgress?.score ?? load()?.score ?? 0));
   const [finished, setFinished] = useState(() => !!previousResult);
+  const [explanation, setExplanation] = useState({ issues: [], loading: false });
 
   useEffect(() => {
     if (remoteApplied.current || finished || initialProgress == null) return;
@@ -103,6 +157,11 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
       save({ current, score });
       setWrongIndices(prev => [...prev, current]);
       awardXP(base44, XP_REWARDS.translate_wrong);
+      // Ask AI to explain why each word differs
+      setExplanation({ issues: [], loading: true });
+      explainTranslation(ex.example_en, ex.example_sv, input)
+        .then(issues => setExplanation({ issues, loading: false }))
+        .catch(() => setExplanation({ issues: [], loading: false }));
       if (lessonId) {
         addToRevision({
           lessonId: `translate-${lessonId}`,
@@ -127,6 +186,7 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
       setCurrent(next);
       setInput("");
       setSubmitted(false);
+      setExplanation({ issues: [], loading: false });
     }
   };
 
@@ -260,12 +320,32 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
                   <SpeakButton text={ex.example_sv} lang="sv-SE" />
                 </div>
                 {!isCorrect && (
-                  <div className="mt-2 space-y-1">
+                  <div className="mt-2 space-y-2.5">
                     <p className="text-sm text-foreground">
                       Correct: <span className="font-semibold">{ex.example_sv}</span>
                     </p>
+
+                    {/* AI grammar explanations */}
+                    {explanation.loading && (
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <Loader2 className="w-3 h-3 animate-spin" />
+                        Explaining the differences…
+                      </div>
+                    )}
+                    {!explanation.loading && explanation.issues.length > 0 && (
+                      <div className="space-y-2">
+                        <p className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                          <BookOpen className="w-3.5 h-3.5 text-amber-500" />
+                          Why these words?
+                        </p>
+                        {explanation.issues.map((issue, i) => (
+                          <GrammarIssueCard key={i} issue={issue} />
+                        ))}
+                      </div>
+                    )}
+
                     <p className="text-xs text-muted-foreground flex items-center gap-1">
-                      <BookOpen className="w-3 h-3" />
+                      <RotateCcw className="w-3 h-3" />
                       Added to your revision queue — you'll see this again.
                     </p>
                   </div>
