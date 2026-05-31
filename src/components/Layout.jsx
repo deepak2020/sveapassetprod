@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { BookOpen, Landmark, Home, Menu, X, LogIn, LogOut, User, FlaskConical, Flame, Zap, LayoutDashboard, Dumbbell } from "lucide-react";
+import { BookOpen, Landmark, Home, Menu, X, LogIn, LogOut, User, FlaskConical, Flame, Zap, LayoutDashboard, Dumbbell, MessageCircle } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/AuthContext";
@@ -15,13 +15,14 @@ const navItems = [
   { path: "/language", label: "Språk", icon: BookOpen },
   { path: "/civic", label: "Samhälle", icon: Landmark },
   { path: "/gym", label: "Träning", icon: Dumbbell },
+  { path: "/talk", label: "Talk", icon: MessageCircle },
 ];
 
 const bottomTabItems = [
   { path: "/dashboard", label: "Hem", icon: LayoutDashboard },
   { path: "/language", label: "Lär dig", icon: BookOpen },
   { path: "/civic", label: "Samhälle", icon: Landmark },
-  { path: "/gym", label: "Träning", icon: Dumbbell },
+  { path: "/talk", label: "Talk", icon: MessageCircle },
 ];
 
 // Root path for each bottom tab
@@ -30,6 +31,7 @@ const TAB_ROOTS = {
   "/language": "/language",
   "/civic": "/civic",
   "/gym": "/gym",
+  "/talk": "/talk",
 };
 
 function getActiveTab(pathname) {
