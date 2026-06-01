@@ -12,6 +12,7 @@ import TopicCard from "../components/language/TopicCard";
 import CleanupLessonsModal from "../components/language/CleanupLessonsModal";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/AuthContext";
+import AdBanner from "../components/shared/AdBanner";
 
 import { SFI_COURSES } from "@/lib/course-constants";
 
@@ -209,6 +210,8 @@ export default function LanguageLessons() {
             })()}
         </div>
       )}
+
+      <AdBanner slot="horizontal" className="mt-8" />
 
       {cleanupCourse && (
         <CleanupLessonsModal
