@@ -3,66 +3,71 @@
 
   <!-- Main pages -->
   <url>
-    <loc>https://www.sveapasset.com/</loc>
+    <loc>https://www.sveapasset.se/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.sveapasset.com/language</loc>
+    <loc>https://www.sveapasset.se/language</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.sveapasset.com/civic</loc>
+    <loc>https://www.sveapasset.se/civic</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.sveapasset.com/language-test</loc>
+    <loc>https://www.sveapasset.se/talk</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.sveapasset.se/language-test</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.sveapasset.com/citizenship-test</loc>
+    <loc>https://www.sveapasset.se/citizenship-test</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- SFI course landing pages -->
   <url>
-    <loc>https://www.sveapasset.com/language/topic/A</loc>
+    <loc>https://www.sveapasset.se/language/topic/A</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.sveapasset.com/language/topic/B</loc>
+    <loc>https://www.sveapasset.se/language/topic/B</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.sveapasset.com/language/topic/C</loc>
+    <loc>https://www.sveapasset.se/language/topic/C</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.sveapasset.com/language/topic/D</loc>
+    <loc>https://www.sveapasset.se/language/topic/D</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Info pages -->
   <url>
-    <loc>https://www.sveapasset.com/about</loc>
+    <loc>https://www.sveapasset.se/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.sveapasset.com/contact</loc>
+    <loc>https://www.sveapasset.se/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://www.sveapasset.com/privacy</loc>
+    <loc>https://www.sveapasset.se/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
