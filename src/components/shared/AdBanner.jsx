@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 
-// Replace with your real AdSense publisher ID: ca-pub-XXXXXXXXXXXXXXXXX
-const PUBLISHER_ID = "ca-pub-XXXXXXXXXXXXXXXXX";
+const PUBLISHER_ID = "ca-pub-3746039055875209";
 
 const AD_SLOTS = {
   // Horizontal banner — use between content sections
