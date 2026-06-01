@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, CheckCircle2, XCircle, RotateCcw, Trophy, Loader2, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SpeakButton from "@/components/shared/SpeakButton";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import { TALK_TOPICS, LEVELS, LEVEL_LABELS, COUNT_OPTIONS } from "@/data/talkTopics";
+import { supabase } from "@/api/supabaseClient";
 import { base44 } from "@/api/base44Client";
 import { getCachedFeedback, setCachedFeedback, translateCacheKey } from "@/lib/aiCache";
 
@@ -295,18 +296,61 @@ export default function Talk() {
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedCount, setSelectedCount] = useState(10);
   const [sentences, setSentences] = useState([]);
+  const [levelCounts, setLevelCounts] = useState({});
+  const [loadingStart, setLoadingStart] = useState(false);
+
+  // Load level counts when a topic is selected (from DB, fallback to static)
+  useEffect(() => {
+    if (!selectedTopic) return;
+    supabase.talkSentences.getLevelCounts(selectedTopic.id)
+      .then(counts => {
+        if (Object.keys(counts).length > 0) {
+          setLevelCounts(counts);
+        } else {
+          // Fallback to static data counts
+          const staticCounts = {};
+          for (const lvl of LEVELS) {
+            staticCounts[lvl] = selectedTopic.levels?.[lvl]?.length ?? 0;
+          }
+          setLevelCounts(staticCounts);
+        }
+      })
+      .catch(() => {
+        const staticCounts = {};
+        for (const lvl of LEVELS) {
+          staticCounts[lvl] = selectedTopic.levels?.[lvl]?.length ?? 0;
+        }
+        setLevelCounts(staticCounts);
+      });
+  }, [selectedTopic]);
 
   const handleTopicSelect = (topic) => {
     setSelectedTopic(topic);
     setSelectedLevel(null);
+    setLevelCounts({});
     setStep("config");
   };
 
-  const handleStart = () => {
-    const pool = selectedTopic.levels[selectedLevel] ?? [];
-    const shuffled = [...pool].sort(() => Math.random() - 0.5);
-    setSentences(shuffled.slice(0, Math.min(selectedCount, shuffled.length)));
-    setStep("exercise");
+  const handleStart = async () => {
+    setLoadingStart(true);
+    try {
+      let pool = await supabase.talkSentences.getByTopicAndLevel(selectedTopic.id, selectedLevel);
+      if (!pool.length) {
+        // Fallback to static data
+        pool = selectedTopic.levels?.[selectedLevel] ?? [];
+      }
+      const shuffled = [...pool].sort(() => Math.random() - 0.5);
+      setSentences(shuffled.slice(0, Math.min(selectedCount, shuffled.length)));
+      setStep("exercise");
+    } catch {
+      // Fallback to static data on error
+      const pool = selectedTopic.levels?.[selectedLevel] ?? [];
+      const shuffled = [...pool].sort(() => Math.random() - 0.5);
+      setSentences(shuffled.slice(0, Math.min(selectedCount, shuffled.length)));
+      setStep("exercise");
+    } finally {
+      setLoadingStart(false);
+    }
   };
 
   const backToTopics = () => {
@@ -385,7 +429,7 @@ export default function Talk() {
               <div className="grid grid-cols-2 gap-2">
                 {LEVELS.map(lvl => {
                   const info = LEVEL_LABELS[lvl];
-                  const count = selectedTopic.levels[lvl]?.length ?? 0;
+                  const count = levelCounts[lvl] ?? selectedTopic.levels?.[lvl]?.length ?? 0;
                   const isSelected = selectedLevel === lvl;
                   return (
                     <button
@@ -413,7 +457,7 @@ export default function Talk() {
                 <div className="flex gap-2 flex-wrap">
                   {COUNT_OPTIONS.map(n => {
                     const available = selectedTopic.levels[selectedLevel]?.length ?? 0;
-                    const disabled = n > available;
+                    const disabled = n > available || available === 0;
                     return (
                       <button
                         key={n}
@@ -447,10 +491,10 @@ export default function Talk() {
 
             <Button
               onClick={handleStart}
-              disabled={!selectedLevel}
-              className="w-full text-base py-6"
+              disabled={!selectedLevel || loadingStart}
+              className="w-full text-base py-6 gap-2"
             >
-              Start practice →
+              {loadingStart ? <><Loader2 className="w-4 h-4 animate-spin" /> Loading…</> : "Start practice →"}
             </Button>
           </motion.div>
         )}
