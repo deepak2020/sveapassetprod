@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import CategoryBadge from "../components/shared/CategoryBadge";
 import EmptyState from "../components/shared/EmptyState";
 import { motion } from "framer-motion";
+import AdBanner from "../components/shared/AdBanner";
 
 const categoryIcons = {
   government: "🏛️",
@@ -211,6 +212,8 @@ export default function CivicTopics() {
             ))}
         </div>
       )}
+
+      <AdBanner slot="horizontal" className="mt-8" />
     </div>
   );
 }
