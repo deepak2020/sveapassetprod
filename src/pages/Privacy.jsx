@@ -19,7 +19,7 @@ export default function Privacy() {
       </div>
 
       <p className="text-sm text-muted-foreground mb-10">
-        Senast uppdaterad · <em>Last updated:</em> 17 maj 2026
+        Senast uppdaterad · <em>Last updated:</em> 1 juni 2026
       </p>
 
       <div className="prose prose-slate dark:prose-invert max-w-none space-y-8">
@@ -67,25 +67,25 @@ export default function Privacy() {
           sv={{
             title: "4. Vilka delar vi data med?",
             body:
-              "Vi delar data med våra tekniska underleverantörer: Base44 (vår tjänsteplattform och databas) och Anthropic (AI som driver innehållsgenerering). Vi säljer aldrig dina uppgifter till tredje part.",
+              "Vi delar data med våra tekniska underleverantörer: Base44 (vår tjänsteplattform och databas), Anthropic (AI som driver innehållsgenerering) och Google AdSense (annonsering, se avsnitt 5). Vi säljer aldrig dina uppgifter till tredje part.",
           }}
           en={{
             title: "Who do we share data with?",
             body:
-              "We share data with our technical sub-processors: Base44 (our hosting platform and database) and Anthropic (AI provider used for content generation). We never sell your data to third parties.",
+              "We share data with our technical sub-processors: Base44 (our hosting platform and database), Anthropic (AI provider used for content generation), and Google AdSense (advertising, see section 5). We never sell your data to third parties.",
           }}
         />
 
         <Section
           sv={{
-            title: "5. Cookies",
+            title: "5. Cookies & Annonsering",
             body:
-              "Vi använder endast nödvändiga cookies för att hålla dig inloggad och spara dina inställningar (t.ex. mörkt läge). Vi använder inga spårnings- eller marknadsföringscookies.",
+              "Vi använder nödvändiga cookies för att hålla dig inloggad och spara dina inställningar (t.ex. mörkt läge). Vi använder också Google AdSense för att visa annonser. Google och dess partners kan använda cookies (inklusive DoubleClick-cookies) för att visa annonser baserade på dina tidigare besök på denna och andra webbplatser. Du kan välja bort personanpassade annonser via Googles annonsinställningar på adssettings.google.com. Besökare i EES, Storbritannien och Schweiz visas ett samtyckesmeddelande för att hantera sina inställningar.",
           }}
           en={{
-            title: "Cookies",
+            title: "Cookies & Advertising",
             body:
-              "We only use essential cookies to keep you logged in and remember your settings (e.g. dark mode). We do not use tracking or marketing cookies.",
+              "We use essential cookies to keep you logged in and remember your settings (e.g. dark mode). We also use Google AdSense to display advertisements. Google and its partners may use cookies (including DoubleClick cookies) to serve ads based on your prior visits to this and other websites. You can opt out of personalised advertising by visiting Google's Ad Settings at adssettings.google.com. Visitors in the EEA, UK, and Switzerland are shown a consent message to manage their preferences.",
           }}
         />
 
