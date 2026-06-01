@@ -7,4 +7,4 @@ Disallow: /dashboard
 Disallow: /profile
 Disallow: /gym
 
-Sitemap: https://www.sveapasset.com/sitemap.xml
+Sitemap: https://www.sveapasset.se/sitemap.xml
