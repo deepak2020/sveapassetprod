@@ -1,10 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, XCircle, Trophy, ArrowLeft, Zap } from "lucide-react";
+import { CheckCircle2, XCircle, Trophy, ArrowLeft, Zap, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import { XP_REWARDS } from "@/lib/xp";
+import { base44 } from "@/api/base44Client";
+import { getCachedFeedback, setCachedFeedback } from "@/lib/aiCache";
+
+async function explainVocabAnswer(english, swedish, userAnswer) {
+  return base44.integrations.Core.InvokeLLM({
+    prompt: `You are a friendly Swedish teacher for SFI students.
+
+English word/phrase: "${english}"
+Correct Swedish: "${swedish}"
+Student wrote: "${userAnswer || "(nothing)"}"
+
+In simple English, explain in 1-2 sentences why "${swedish}" is the correct translation.
+Focus on what's useful: word type, any grammar rule, or why this specific word is used.
+Then give one short memory tip to remember this word.
+
+Return JSON:
+- explanation: string (1-2 sentences, why this is correct)
+- tip: string (one short memory trick)`,
+    response_json_schema: {
+      type: "object",
+      properties: {
+        explanation: { type: "string" },
+        tip: { type: "string" },
+      },
+    },
+  });
+}
 
 export default function DailyReviewSession({ items, onComplete, onExit }) {
   const [current, setCurrent] = useState(0);
@@ -13,8 +40,29 @@ export default function DailyReviewSession({ items, onComplete, onExit }) {
   const [correct, setCorrect] = useState(false);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
+  const [aiFeedback, setAiFeedback] = useState(null);
+  const [aiLoading, setAiLoading] = useState(false);
 
   const item = items[current];
+
+  useEffect(() => {
+    if (!answered || correct || !item) return;
+    const cacheKey = `review-vocab-${item.id}`;
+    setAiFeedback(null);
+    setAiLoading(true);
+    (async () => {
+      try {
+        const cached = await getCachedFeedback(base44, cacheKey);
+        if (cached) { setAiFeedback(cached); setAiLoading(false); return; }
+        const result = await explainVocabAnswer(item.english, item.swedish, typed);
+        if (result?.explanation) {
+          setAiFeedback(result);
+          await setCachedFeedback(base44, cacheKey, result);
+        }
+      } catch {}
+      setAiLoading(false);
+    })();
+  }, [answered, correct, current]);
 
   const handleCheck = () => {
     if (answered || !item) return;
@@ -32,6 +80,8 @@ export default function DailyReviewSession({ items, onComplete, onExit }) {
       setTyped("");
       setAnswered(false);
       setCorrect(false);
+      setAiFeedback(null);
+      setAiLoading(false);
     }
   };
 
@@ -161,6 +211,31 @@ export default function DailyReviewSession({ items, onComplete, onExit }) {
                       )}
                     </div>
                   </div>
+
+                  {/* AI explanation on wrong answers */}
+                  {!correct && (
+                    <div className="rounded-xl border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-900/20 p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Sparkles className="w-4 h-4 text-violet-600 dark:text-violet-400 shrink-0" />
+                        <span className="text-xs font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide">AI Explanation</span>
+                      </div>
+                      {aiLoading ? (
+                        <div className="flex items-center gap-2 text-sm text-violet-600 dark:text-violet-400">
+                          <Loader2 className="w-4 h-4 animate-spin" /> Thinking…
+                        </div>
+                      ) : aiFeedback ? (
+                        <div className="space-y-2 text-sm">
+                          <p className="text-foreground leading-relaxed">{aiFeedback.explanation}</p>
+                          {aiFeedback.tip && (
+                            <p className="text-muted-foreground italic text-xs border-t border-violet-200 dark:border-violet-700 pt-2">
+                              💡 {aiFeedback.tip}
+                            </p>
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
+                  )}
+
                   <Button onClick={handleNext} className="w-full">
                     {current + 1 >= items.length ? "See Results" : "Next →"}
                   </Button>
