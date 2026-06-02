@@ -7,6 +7,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import AddVocabDialog from "@/components/shared/AddVocabDialog";
 import ThemeToggle from "@/components/shared/ThemeToggle";
+import FeedbackButton from "@/components/shared/FeedbackButton";
 import { AnimatePresence, motion } from "framer-motion";
 
 const navItems = [
@@ -227,6 +228,9 @@ export default function Layout() {
 
       {/* Global Add Vocab Dialog */}
       {isAuthenticated && <AddVocabDialog />}
+
+      {/* Floating feedback button — visible to all users */}
+      <FeedbackButton />
 
       {/* Bottom tab bar (mobile) */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-xl border-t border-border/50" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
