@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, PlayCircle, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -99,41 +99,71 @@ export default function TopicLessons() {
           const skill = lesson.skill || lesson.category;
           const meta = SKILL_META[skill] || { label: lesson.title, labelSv: lesson.title_sv, emoji: "📄" };
 
+          const isNew = doneCount === 0;
+          const isInProgress = doneCount > 0 && !isDone;
+
           return (
             <li key={lesson.id}>
               <Link
                 to={`/language/${lesson.id}`}
-                className={`group flex items-center gap-4 p-4 rounded-xl border bg-card hover:shadow-md hover:border-primary/40 transition-all ${
+                className={`group flex items-center gap-4 p-4 rounded-xl border bg-card hover:shadow-md transition-all ${
                   isDone
-                    ? "border-green-300/60 dark:border-green-700/40 bg-green-50/30 dark:bg-green-950/20"
-                    : "border-border/50"
+                    ? "border-green-300/60 dark:border-green-700/40 bg-green-50/30 dark:bg-green-950/20 hover:border-green-400/60"
+                    : isInProgress
+                    ? "border-amber-300/60 dark:border-amber-700/40 bg-amber-50/20 dark:bg-amber-950/10 hover:border-amber-400/60"
+                    : "border-border/50 hover:border-primary/40"
                 }`}
               >
+                {/* Icon */}
                 <div className={`flex items-center justify-center w-10 h-10 rounded-full shrink-0 text-xl ${
-                  isDone ? "bg-green-100 dark:bg-green-900/40" : "bg-muted"
+                  isDone
+                    ? "bg-green-100 dark:bg-green-900/40"
+                    : isInProgress
+                    ? "bg-amber-100 dark:bg-amber-900/40"
+                    : "bg-muted"
                 }`}>
-                  {isDone ? <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400" /> : meta.emoji}
+                  {isDone
+                    ? <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400" />
+                    : meta.emoji}
                 </div>
 
+                {/* Content */}
                 <div className="min-w-0 flex-1">
                   <p className="font-semibold text-base">{meta.labelSv}</p>
-                  <p className="text-xs text-muted-foreground italic mb-1.5">{meta.label}</p>
+                  <p className="text-xs text-muted-foreground italic mb-2">{meta.label}</p>
                   {available.length > 0 && (
                     <div className="flex items-center gap-2">
-                      <div className="h-1 flex-1 bg-muted rounded-full overflow-hidden">
+                      <div className="h-1.5 flex-1 bg-muted rounded-full overflow-hidden">
                         <div
-                          className={`h-full transition-all ${isDone ? "bg-green-500" : "bg-primary"}`}
+                          className={`h-full rounded-full transition-all duration-500 ${
+                            isDone ? "bg-green-500" : isInProgress ? "bg-amber-500" : "bg-primary/30"
+                          }`}
                           style={{ width: `${pct}%` }}
                         />
                       </div>
                       <span className="text-[10px] text-muted-foreground whitespace-nowrap">
-                        {isDone ? "Klar!" : `${doneCount}/${available.length}`}
+                        {doneCount}/{available.length}
                       </span>
                     </div>
                   )}
                 </div>
 
-                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
+                {/* Status CTA badge */}
+                <div className="shrink-0">
+                  {isDone ? (
+                    <span className="flex items-center gap-1 text-xs font-semibold text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-900/40 px-2.5 py-1 rounded-full">
+                      <CheckCircle2 className="w-3.5 h-3.5" /> Klar
+                    </span>
+                  ) : isInProgress ? (
+                    <span className="flex items-center gap-1 text-xs font-semibold text-amber-700 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/40 px-2.5 py-1 rounded-full">
+                      <RotateCcw className="w-3.5 h-3.5" /> Fortsätt
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-1 text-xs font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      <PlayCircle className="w-3.5 h-3.5" /> Börja
+                    </span>
+                  )}
+                </div>
               </Link>
             </li>
           );
