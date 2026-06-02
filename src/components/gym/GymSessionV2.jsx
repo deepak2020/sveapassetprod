@@ -1,11 +1,40 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, XCircle, Trophy, RotateCcw, ArrowLeft, Volume2, Zap, Mic } from "lucide-react";
+import { CheckCircle2, XCircle, Trophy, RotateCcw, ArrowLeft, Volume2, Zap, Mic, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { playAudio } from "@/lib/speech";
+import { getCachedFeedback, setCachedFeedback } from "@/lib/aiCache";
+
+async function explainClozeAnswer(sentenceEn, sentenceSv, blankAnswer, userAnswer) {
+  return base44.integrations.Core.InvokeLLM({
+    prompt: `You are a friendly Swedish language teacher for SFI students.
+
+English sentence: "${sentenceEn}"
+Swedish sentence (with blank): "${sentenceSv}"
+Correct answer: "${blankAnswer}"
+Student wrote: "${userAnswer || "(nothing)"}"
+
+Explain in simple English (max 2 sentences) WHY "${blankAnswer}" is correct here.
+Focus on the grammar rule (e.g. verb form, article en/ett, word order, tense).
+Then give one short memory tip to remember this rule.
+
+Return JSON with:
+- explanation: string (why the answer is correct, max 2 sentences)
+- rule: string (grammar rule name, e.g. "Present tense -r ending")
+- tip: string (one short memory tip)`,
+    response_json_schema: {
+      type: "object",
+      properties: {
+        explanation: { type: "string" },
+        rule: { type: "string" },
+        tip: { type: "string" },
+      },
+    },
+  });
+}
 
 function shuffle(arr) {
   return [...arr].sort(() => Math.random() - 0.5);
@@ -29,6 +58,28 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
   const [listening, setListening] = useState(false);
+  const [aiFeedback, setAiFeedback] = useState(null);
+  const [aiLoading, setAiLoading] = useState(false);
+
+  useEffect(() => {
+    if (!answered || correct) return;
+    const sentence = sentences[current];
+    const cacheKey = `gym-cloze-${sentence.id}-${sentence.answer}`;
+    setAiFeedback(null);
+    setAiLoading(true);
+    (async () => {
+      try {
+        const cached = await getCachedFeedback(base44, cacheKey);
+        if (cached) { setAiFeedback(cached); setAiLoading(false); return; }
+        const result = await explainClozeAnswer(sentence.sentence_en, sentence.sentence_sv, sentence.answer, typed || selected || "");
+        if (result?.explanation) {
+          setAiFeedback(result);
+          await setCachedFeedback(base44, cacheKey, result);
+        }
+      } catch {}
+      setAiLoading(false);
+    })();
+  }, [answered, correct, current]);
 
   if (!sentences || sentences.length === 0) {
     return (
@@ -73,6 +124,8 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
       setTyped("");
       setAnswered(false);
       setCorrect(false);
+      setAiFeedback(null);
+      setAiLoading(false);
     }
   };
 
@@ -169,29 +222,6 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
               <div className="bg-muted/40 rounded-xl p-4 space-y-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs font-semibold text-foreground uppercase">Swedish</span>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => playAudio(sentence.sentence_sv, "sv-SE", 0.6)}
-                      className="p-1.5 rounded-lg border border-border/50 hover:bg-muted transition-colors"
-                      title="Slow (0.6x)"
-                    >
-                      <Volume2 className="w-4 h-4 text-muted-foreground" />
-                    </button>
-                    <button
-                      onClick={() => playAudio(sentence.sentence_sv, "sv-SE", 1)}
-                      className="p-1.5 rounded-lg border border-border/50 hover:bg-muted transition-colors"
-                      title="Normal (1x)"
-                    >
-                      <Volume2 className="w-4 h-4 text-primary" />
-                    </button>
-                    <button
-                      onClick={() => playAudio(sentence.sentence_sv, "sv-SE", 1.4)}
-                      className="p-1.5 rounded-lg border border-border/50 hover:bg-muted transition-colors"
-                      title="Fast (1.4x)"
-                    >
-                      <Volume2 className="w-4 h-4 text-orange-500" />
-                    </button>
-                  </div>
                 </div>
                 <p className="text-lg font-medium leading-relaxed">
                   {parts.map((part, idx) => (
@@ -327,17 +357,47 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
               {/* Result */}
               {answered && (
                 <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
-                  <div aria-live="assertive" className={`p-3 rounded-lg ${correct ? "bg-green-50 border border-green-200" : "bg-red-50 border border-red-200"}`}>
-                    <p className={`text-sm font-semibold ${correct ? "text-green-700" : "text-red-700"}`}>
+                  <div aria-live="assertive" className={`p-3 rounded-lg ${correct ? "bg-green-50 border border-green-200 dark:bg-green-900/20 dark:border-green-800" : "bg-red-50 border border-red-200 dark:bg-red-900/20 dark:border-red-800"}`}>
+                    <p className={`text-sm font-semibold ${correct ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"}`}>
                       {correct ? "✓ Correct!" : `✗ Answer: ${sentence.answer}`}
                     </p>
                   </div>
 
                   {sentence.grammar_note && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800">
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-300">
                       💡 {sentence.grammar_note}
                     </div>
                   )}
+
+                  {/* AI Grammar Explanation — shown on wrong answers */}
+                  {!correct && (
+                    <div className="rounded-xl border border-violet-200 bg-violet-50 dark:bg-violet-900/20 dark:border-violet-800 p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Sparkles className="w-4 h-4 text-violet-600 dark:text-violet-400 shrink-0" />
+                        <span className="text-xs font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide">AI Grammar Tip</span>
+                      </div>
+                      {aiLoading ? (
+                        <div className="flex items-center gap-2 text-sm text-violet-600 dark:text-violet-400">
+                          <Loader2 className="w-4 h-4 animate-spin" /> Analyzing…
+                        </div>
+                      ) : aiFeedback ? (
+                        <div className="space-y-2 text-sm">
+                          {aiFeedback.rule && (
+                            <span className="inline-block px-2 py-0.5 rounded-md bg-violet-100 dark:bg-violet-800/50 text-violet-700 dark:text-violet-300 text-xs font-semibold">
+                              {aiFeedback.rule}
+                            </span>
+                          )}
+                          <p className="text-foreground leading-relaxed">{aiFeedback.explanation}</p>
+                          {aiFeedback.tip && (
+                            <p className="text-muted-foreground italic text-xs border-t border-violet-200 dark:border-violet-700 pt-2">
+                              💡 {aiFeedback.tip}
+                            </p>
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
+                  )}
+
                   <Button onClick={handleNext} className="w-full">
                     {current + 1 >= sentences.length ? "See Results" : "Next"}
                   </Button>

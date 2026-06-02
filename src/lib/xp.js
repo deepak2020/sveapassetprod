@@ -25,6 +25,7 @@ export const XP_REWARDS = {
   speaking_attempted: 5,
   daily_goal_met: 25,
   streak_7days: 50,
+  daily_review_bonus: 50,
 };
 
 export function getLevel(xp) {

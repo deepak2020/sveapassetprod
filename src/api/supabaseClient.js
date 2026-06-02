@@ -82,4 +82,18 @@ export const supabase = {
       );
     },
   },
+
+  feedback: {
+    async insert(row) {
+      return sbFetch('user_feedback', {
+        method: 'POST',
+        headers: { 'Prefer': 'return=minimal' },
+        body: JSON.stringify(row),
+      });
+    },
+
+    async list() {
+      return sbFetch('user_feedback?order=created_at.desc&limit=200');
+    },
+  },
 };
