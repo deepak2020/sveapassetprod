@@ -9,6 +9,7 @@ import GymSessionV2 from "@/components/gym/GymSessionV2";
 import VocabReviewSession from "@/components/gym/VocabReviewSession";
 import LoginGate from "@/components/shared/LoginGate";
 import { useVocabSRS } from "@/hooks/useVocabSRS";
+import { useDailyReview } from "@/hooks/useDailyReview";
 
 const SFI_LEVELS = ["A", "B", "C", "D"];
 const SENTENCE_COUNTS = [10, 25, 50];
@@ -25,6 +26,7 @@ export default function Gym() {
   const [importing, setImporting] = useState(false);
   const [importStatus, setImportStatus] = useState(null); // { ok: bool, msg: string }
   const { dueCards, masteredCount, totalCount, refresh } = useVocabSRS();
+  const { showNudge, totalDue } = useDailyReview();
   const sessionRef = useRef(null);
   const queryClient = useQueryClient();
 
@@ -92,6 +94,14 @@ export default function Gym() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10 space-y-8">
+      {showNudge && (
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 text-sm">
+          <span className="text-lg shrink-0">🔥</span>
+          <p className="text-amber-800 dark:text-amber-300 flex-1">
+            <span className="font-semibold">{totalDue} words due for review</span> · Complete your daily warm-up on the Dashboard to earn +50 XP bonus.
+          </p>
+        </div>
+      )}
       <div className="flex items-center justify-between mb-8">
         <div className="text-center flex-1">
           <h1 className="font-display text-3xl font-bold mb-2">Träningssalen</h1>
