@@ -90,7 +90,7 @@ export default function FeedbackButton() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 40, scale: 0.95 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed bottom-0 left-0 right-0 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-md w-full z-50 bg-card rounded-t-2xl md:rounded-2xl border border-border/50 shadow-2xl"
+              className="fixed bottom-0 left-0 right-0 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-md w-full z-50 bg-card rounded-t-2xl md:rounded-2xl border border-border/50 shadow-2xl max-h-[90vh] overflow-y-auto"
               style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
             >
               {submitted ? (
