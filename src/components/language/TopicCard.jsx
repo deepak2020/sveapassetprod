@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, BookOpen } from "lucide-react";
+import { ArrowRight, CheckCircle2, BookOpen, PlayCircle, RotateCcw } from "lucide-react";
 
 // Mirror of the activity-availability logic in TopicLesson, on merged lessons.
 function getAvailableKeys(lessons) {
@@ -66,6 +66,9 @@ export default function TopicCard({ topic, lessons, course, index }) {
     { cards: 0, blanks: 0, quiz: 0, listening: 0 }
   );
 
+  const isNew = doneCount === 0;
+  const isInProgress = doneCount > 0 && !allDone;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -74,14 +77,19 @@ export default function TopicCard({ topic, lessons, course, index }) {
     >
       <Link to={`/language/topic/${course}/${encodeURIComponent(topic)}`} className="group block h-full">
         <div className={`h-full rounded-2xl border bg-card p-5 hover:shadow-lg hover:-translate-y-0.5 transition-all flex flex-col gap-3 ${
-          allDone ? "border-green-300 ring-2 ring-green-200/60" : "border-border/50"
+          allDone
+            ? "border-green-300 ring-2 ring-green-200/60 dark:ring-green-900/40"
+            : isInProgress
+            ? "border-amber-200 dark:border-amber-800/50"
+            : "border-border/50"
         }`}>
+          {/* Header */}
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-center gap-2 min-w-0">
               {allDone ? (
                 <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
               ) : (
-                <BookOpen className="w-5 h-5 text-primary flex-shrink-0" />
+                <BookOpen className={`w-5 h-5 flex-shrink-0 ${isInProgress ? "text-amber-500" : "text-primary"}`} />
               )}
               <div className="min-w-0">
                 <h3 className="font-bold text-base truncate">{topic}</h3>
@@ -90,38 +98,60 @@ export default function TopicCard({ topic, lessons, course, index }) {
                 )}
               </div>
             </div>
-            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap ${
-              allDone ? "bg-green-100 text-green-700" : doneCount > 0 ? "bg-amber-100 text-amber-700" : "bg-muted text-muted-foreground"
-            }`}>
-              {doneCount}/{total}
-            </span>
+            {/* Status badge */}
+            {allDone ? (
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400">
+                ✓ Klar
+              </span>
+            ) : isInProgress ? (
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400">
+                {doneCount}/{total}
+              </span>
+            ) : (
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap bg-muted text-muted-foreground">
+                {total} aktiviteter
+              </span>
+            )}
           </div>
 
-          {/* Activity progress bar */}
+          {/* Progress bar */}
           {total > 0 && (
             <div className="space-y-1">
               <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
                 <div
-                  className={`h-full transition-all ${allDone ? "bg-green-500" : "bg-primary"}`}
+                  className={`h-full transition-all duration-500 ${
+                    allDone ? "bg-green-500" : isInProgress ? "bg-amber-500" : "bg-primary/30"
+                  }`}
                   style={{ width: `${pct}%` }}
                 />
               </div>
-              <p className="text-[10px] text-muted-foreground">
-                {pct}% aktiviteter klara · <span className="italic">activities complete</span>
-              </p>
             </div>
           )}
 
+          {/* Content chips */}
           <div className="flex flex-wrap gap-1.5 text-[11px] font-medium">
-            {totals.cards > 0 && <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">🃏 {totals.cards}</span>}
-            {totals.blanks > 0 && <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">🧩 {totals.blanks}</span>}
-            {totals.listening > 0 && <span className="px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-200">👂 {totals.listening}</span>}
-            {totals.quiz > 0 && <span className="px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200">🎯 {totals.quiz}</span>}
+            {totals.cards > 0 && <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-900/20 dark:text-blue-300 dark:border-blue-800">🃏 {totals.cards}</span>}
+            {totals.blanks > 0 && <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 dark:bg-purple-900/20 dark:text-purple-300 dark:border-purple-800">🧩 {totals.blanks}</span>}
+            {totals.listening > 0 && <span className="px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-900/20 dark:text-cyan-300 dark:border-cyan-800">👂 {totals.listening}</span>}
+            {totals.quiz > 0 && <span className="px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-900/20 dark:text-rose-300 dark:border-rose-800">🎯 {totals.quiz}</span>}
           </div>
 
+          {/* Footer CTA */}
           <div className="mt-auto flex items-center justify-between pt-2 border-t border-border/40">
             <span className="text-xs text-muted-foreground">{lessons.length} lektioner</span>
-            <ArrowRight className="w-4 h-4 text-primary opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+            {allDone ? (
+              <span className="flex items-center gap-1 text-xs font-semibold text-green-600 dark:text-green-400">
+                <RotateCcw className="w-3.5 h-3.5" /> Repetera
+              </span>
+            ) : isInProgress ? (
+              <span className="flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 group-hover:text-amber-700 transition-colors">
+                <RotateCcw className="w-3.5 h-3.5" /> Fortsätt · <span className="italic font-normal">Continue</span>
+              </span>
+            ) : (
+              <span className="flex items-center gap-1 text-xs font-semibold text-primary group-hover:gap-2 transition-all">
+                <PlayCircle className="w-3.5 h-3.5" /> Börja · <span className="italic font-normal">Start</span>
+              </span>
+            )}
           </div>
         </div>
       </Link>

@@ -287,7 +287,8 @@ function GymDashboard({ sentences, srsCards, onStartSession, sessionRef }) {
     .sort((a, b) => a.avgFrequency - b.avgFrequency);
 
   const startSession = () => {
-    const quiz = sessionSentences.slice(0, Math.min(count, sessionSentences.length));
+    const shuffled = [...sessionSentences].sort(() => Math.random() - 0.5);
+    const quiz = shuffled.slice(0, Math.min(count, shuffled.length));
     base44.analytics.track({
       eventName: "gym_session_started",
       properties: { mode: selectedMode, sfi_level: selectedLevel, sentence_count: quiz.length },
