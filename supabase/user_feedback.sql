@@ -17,8 +17,13 @@ ALTER TABLE user_feedback ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "anyone can insert feedback"
   ON user_feedback FOR INSERT WITH CHECK (true);
 
--- Only service role (Supabase dashboard / admin) can read
-CREATE POLICY "service role reads feedback"
-  ON user_feedback FOR SELECT USING (false);
+-- Allow reads via anon key (access controlled at app level — admin page only)
+CREATE POLICY "public can read feedback"
+  ON user_feedback FOR SELECT USING (true);
 
 CREATE INDEX IF NOT EXISTS idx_feedback_created ON user_feedback (created_at DESC);
+
+-- If the table already exists and you need to fix the SELECT policy, run:
+-- DROP POLICY IF EXISTS "service role reads feedback" ON user_feedback;
+-- DROP POLICY IF EXISTS "public can read feedback" ON user_feedback;
+-- CREATE POLICY "public can read feedback" ON user_feedback FOR SELECT USING (true);

@@ -21,6 +21,7 @@ import CitizenshipTest from './pages/CitizenshipTest';
 import Privacy from './pages/Privacy';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import AdminFeedback from './pages/AdminFeedback';
 import ThemeSync from './components/ThemeSync';
 import XPToast from './components/shared/XPToast';
 import StreakMilestoneModal from './components/shared/StreakMilestoneModal';
@@ -69,6 +70,7 @@ const AuthenticatedApp = () => {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin/feedback" element={<AdminFeedback />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
