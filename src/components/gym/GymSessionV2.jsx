@@ -460,7 +460,9 @@ async function updateSRS(sentenceId, isCorrect, srsCards) {
     const timesSeen = (existing.times_seen || 0) + 1;
     const status = masteryPercentage === 100 ? "mastered" : masteryPercentage >= 50 ? "review" : "learning";
 
-    await base44.entities.UserSRSCard.update(existing.id, {
+    await base44.entities.UserSRSCard.delete(existing.id);
+    await base44.entities.UserSRSCard.create({
+      cloze_sentence_id: sentenceId,
       interval_days: interval,
       due_date: new Date(new Date().setDate(new Date().getDate() + interval)).toISOString().split("T")[0],
       times_seen: timesSeen,
