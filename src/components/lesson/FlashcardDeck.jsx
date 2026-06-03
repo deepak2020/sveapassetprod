@@ -6,7 +6,6 @@ import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { useSpeech } from "@/hooks/useSpeech";
 import SpeakButton from "@/components/shared/SpeakButton";
-import AddToVocabButton from "@/components/shared/AddToVocabButton";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
 export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonTitle, storageKey, userId, tab, initialProgress, previousResult }) {
@@ -218,13 +217,6 @@ export default function FlashcardDeck({ wordPairs, onComplete, lessonId, lessonT
               <CheckCircle2 className="w-5 h-5" /> Got it!
             </button>
           </div>
-          <AddToVocabButton
-            swedish={card.swedish}
-            english={card.english}
-            lessonId={lessonId}
-            lessonTitle={lessonTitle}
-            exampleSentence={card.example_sv}
-          />
         </div>
       ) : (
         <p className="text-center text-sm text-muted-foreground">Tap the card to reveal the answer, then rate yourself</p>

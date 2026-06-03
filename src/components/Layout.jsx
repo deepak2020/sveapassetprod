@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/AuthContext";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
-import AddVocabDialog from "@/components/shared/AddVocabDialog";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import FeedbackButton from "@/components/shared/FeedbackButton";
 import { AnimatePresence, motion } from "framer-motion";
@@ -225,9 +224,6 @@ export default function Layout() {
           </motion.div>
         </AnimatePresence>
       </main>
-
-      {/* Global Add Vocab Dialog */}
-      {isAuthenticated && <AddVocabDialog />}
 
       {/* Floating feedback button — visible to all users */}
       <FeedbackButton />
