@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, ChevronDown, CheckCircle2, PlayCircle, RotateCcw, Zap, Loader2 } from "lucide-react";
@@ -222,8 +222,17 @@ export default function Grammar() {
       .finally(() => setLoading(false));
   }, []);
 
+  const topicsRef = useRef(null);
+
   const toggleCategory = (catId) => {
+    const isOpening = selectedCategory !== catId;
     setSelectedCategory(prev => prev === catId ? null : catId);
+    if (isOpening) {
+      // Small delay to let the section render before scrolling
+      setTimeout(() => {
+        topicsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+    }
   };
 
   const activeCat = categories.find(c => c.id === selectedCategory);
@@ -266,6 +275,7 @@ export default function Grammar() {
       </div>
 
       {/* Topic grid — shown below when category selected */}
+      <div ref={topicsRef} />
       <AnimatePresence>
         {activeCat && (
           <motion.div
