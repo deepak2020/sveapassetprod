@@ -26,6 +26,8 @@ import XPToast from './components/shared/XPToast';
 import StreakMilestoneModal from './components/shared/StreakMilestoneModal';
 import WhatsNewModal from './components/shared/WhatsNewModal';
 import SignupNudge from './components/shared/SignupNudge';
+import Grammar from './pages/Grammar';
+import GrammarTopic from './pages/GrammarTopic';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, authChecked } = useAuth();
@@ -65,6 +67,8 @@ const AuthenticatedApp = () => {
         <Route path="/civic/:id" element={<TopicDetail />} />
         <Route path="/language-test" element={<LanguageTest />} />
         <Route path="/gym" element={<Gym />} />
+        <Route path="/grammar" element={<Grammar />} />
+        <Route path="/grammar/:categoryId/:topicId" element={<GrammarTopic />} />
         <Route path="/citizenship-test" element={<CitizenshipTest />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<About />} />
