@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, CheckCircle2, XCircle, RotateCcw, Trophy, Sparkles, Loader2, BookOpen, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GRAMMAR_CATEGORIES } from "@/data/grammarTopics";
+import { supabase } from "@/api/supabaseClient";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 
@@ -54,8 +55,40 @@ export default function GrammarTopic() {
   const { categoryId, topicId } = useParams();
   const navigate = useNavigate();
 
-  const category = GRAMMAR_CATEGORIES.find(c => c.id === categoryId);
-  const topic = category?.topics.find(t => t.id === topicId);
+  // Static fallback
+  const staticCat = GRAMMAR_CATEGORIES.find(c => c.id === categoryId);
+  const staticTopic = staticCat?.topics.find(t => t.id === topicId);
+
+  const [category, setCategory] = useState(staticCat);
+  const [topic, setTopic] = useState(staticTopic);
+  const [dbLoading, setDbLoading] = useState(true);
+
+  useEffect(() => {
+    // Try to load topic + exercises from DB
+    Promise.all([
+      supabase.grammar.getTopics(),
+      supabase.grammar.getExercises(topicId),
+    ]).then(([topicsRes, exRes]) => {
+      const dbTopic = topicsRes.data?.find(t => t.id === topicId);
+      if (dbTopic && exRes.data?.length) {
+        const dbCat = GRAMMAR_CATEGORIES.find(c => c.id === categoryId) || staticCat;
+        setCategory(dbCat);
+        setTopic({
+          id: dbTopic.id,
+          title: dbTopic.title,
+          titleSv: dbTopic.title_sv,
+          description: dbTopic.description,
+          rule: dbTopic.rule,
+          exercises: exRes.data.map(e => ({
+            q: e.question,
+            options: e.options,
+            correct: e.correct_index,
+            explanation: e.explanation,
+          })),
+        });
+      }
+    }).catch(() => {}).finally(() => setDbLoading(false));
+  }, [topicId, categoryId]);
 
   const [view, setView] = useState("lesson"); // lesson | exercise | result
   const [current, setCurrent] = useState(0);

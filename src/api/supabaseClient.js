@@ -83,6 +83,18 @@ export const supabase = {
     },
   },
 
+  grammar: {
+    async getTopics() {
+      return sbFetch('grammar_topics?order=category_id,sort_order');
+    },
+    async getExercises(topicId) {
+      return sbFetch(`grammar_exercises?topic_id=eq.${encodeURIComponent(topicId)}&order=sort_order`);
+    },
+    async getAllExercises() {
+      return sbFetch('grammar_exercises?order=topic_id,sort_order');
+    },
+  },
+
   feedback: {
     async insert(row) {
       return sbFetch('user_feedback', {

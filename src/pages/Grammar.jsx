@@ -1,8 +1,46 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, ChevronDown, CheckCircle2, PlayCircle, RotateCcw, Zap, Lock } from "lucide-react";
-import { GRAMMAR_CATEGORIES } from "@/data/grammarTopics";
+import { BookOpen, ChevronDown, CheckCircle2, PlayCircle, RotateCcw, Zap, Loader2 } from "lucide-react";
+import { GRAMMAR_CATEGORIES as STATIC_CATEGORIES } from "@/data/grammarTopics";
+import { supabase } from "@/api/supabaseClient";
+
+const CATEGORY_META = {
+  beginner:     { label: "Beginner",     labelSv: "Nybörjare",  emoji: "🌱", color: "green",  description: "Core building blocks — the must-knows for daily life" },
+  intermediate: { label: "Intermediate", labelSv: "Mellannivå", emoji: "🔥", color: "amber",  description: "Build fluency — tenses, agreement, and complex sentences" },
+  advanced:     { label: "Advanced",     labelSv: "Avancerad",  emoji: "⚡", color: "violet", description: "Fluency & precision — passive, participles, formal structures" },
+};
+
+function mergeDbWithStatic(dbTopics, dbExercises) {
+  if (!dbTopics?.length) return STATIC_CATEGORIES;
+  const exByTopic = {};
+  for (const ex of (dbExercises || [])) {
+    if (!exByTopic[ex.topic_id]) exByTopic[ex.topic_id] = [];
+    exByTopic[ex.topic_id].push({
+      q: ex.question,
+      options: ex.options,
+      correct: ex.correct_index,
+      explanation: ex.explanation,
+    });
+  }
+  const byCategory = {};
+  for (const t of dbTopics) {
+    if (!byCategory[t.category_id]) byCategory[t.category_id] = [];
+    byCategory[t.category_id].push({
+      id: t.id,
+      title: t.title,
+      titleSv: t.title_sv,
+      description: t.description,
+      rule: t.rule,
+      exercises: exByTopic[t.id] || [],
+    });
+  }
+  return ["beginner", "intermediate", "advanced"].map(catId => ({
+    id: catId,
+    ...CATEGORY_META[catId],
+    topics: byCategory[catId] || [],
+  }));
+}
 
 const COLOR = {
   green: {
@@ -176,33 +214,37 @@ export default function Grammar() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [allProgress, setAllProgress] = useState({});
+  const [categories, setCategories] = useState(STATIC_CATEGORIES);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const p = {};
-    for (const cat of GRAMMAR_CATEGORIES) {
-      for (const topic of cat.topics) {
-        p[topic.id] = getProgress(topic.id);
-      }
-    }
-    setAllProgress(p);
-    const onFocus = () => {
-      const fresh = {};
-      for (const cat of GRAMMAR_CATEGORIES) {
-        for (const topic of cat.topics) {
-          fresh[topic.id] = getProgress(topic.id);
-        }
-      }
-      setAllProgress(fresh);
-    };
-    window.addEventListener("focus", onFocus);
-    return () => window.removeEventListener("focus", onFocus);
+    Promise.all([supabase.grammar.getTopics(), supabase.grammar.getAllExercises()])
+      .then(([topicsRes, exRes]) => {
+        const merged = mergeDbWithStatic(topicsRes.data, exRes.data);
+        setCategories(merged);
+      })
+      .catch(() => {}) // keep static fallback
+      .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    const readProgress = () => {
+      const p = {};
+      for (const cat of categories) {
+        for (const topic of cat.topics) p[topic.id] = getProgress(topic.id);
+      }
+      setAllProgress(p);
+    };
+    readProgress();
+    window.addEventListener("focus", readProgress);
+    return () => window.removeEventListener("focus", readProgress);
+  }, [categories]);
 
   const toggleCategory = (catId) => {
     setSelectedCategory(prev => prev === catId ? null : catId);
   };
 
-  const activeCat = GRAMMAR_CATEGORIES.find(c => c.id === selectedCategory);
+  const activeCat = categories.find(c => c.id === selectedCategory);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-10">
@@ -224,8 +266,13 @@ export default function Grammar() {
       </div>
 
       {/* 3 Category cards */}
+      {loading && (
+        <div className="flex items-center justify-center gap-2 py-6 text-muted-foreground text-sm">
+          <Loader2 className="w-4 h-4 animate-spin" /> Loading grammar content…
+        </div>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        {GRAMMAR_CATEGORIES.map(cat => (
+        {categories.map(cat => (
           <CategoryCard
             key={cat.id}
             category={cat}
