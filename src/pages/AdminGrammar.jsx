@@ -37,11 +37,17 @@ ${existing}
 
 REQUIREMENTS:
 - Mix of difficulty: roughly 30% easy, 50% medium, 20% hard
-- Question types: multiple choice (3-4 options) OR fill-in-the-blank with options shown
+- VARY the question format — do NOT repeat the same question phrasing. Use a mix of:
+  • Fill in the blank: "Complete: '___ hund är stor.'"
+  • Spot the mistake: "Find the error: 'ett hund springer'"
+  • Translation: "Translate 'a house' into Swedish:"
+  • Gender identification: "What gender is 'bil'?"
+  • Choose the correct form: "Pick the right form: ..."
+  • True/false style: "Is this correct? 'ett dag är lång'"
 - Questions in English or Swedish, answers always in Swedish
-- Each question tests one aspect of the rule
+- Each question tests one concrete aspect of the rule
 - Explanations must state the grammar rule clearly (1 sentence)
-- No duplicate questions
+- No duplicate questions and no repeating the same question stem
 - Vary the vocabulary — use different nouns, verbs, adjectives each time
 
 Return JSON only.`,
