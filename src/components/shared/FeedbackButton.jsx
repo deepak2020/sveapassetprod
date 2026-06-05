@@ -99,87 +99,92 @@ export default function FeedbackButton() {
                   <p className="text-sm text-muted-foreground mt-1">Your feedback helps us improve.</p>
                 </div>
               ) : (
-                <div className="p-5 space-y-4">
-                  {/* Header */}
-                  <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                  {/* Scrollable fields */}
+                  <div className="p-5 space-y-4 overflow-y-auto">
+                    {/* Header */}
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="font-semibold text-foreground">Send Feedback</h3>
+                        <p className="text-xs text-muted-foreground italic mt-0.5">Skicka feedback · Help us improve</p>
+                      </div>
+                      <button onClick={handleClose} className="p-1.5 rounded-lg hover:bg-muted transition-colors">
+                        <X className="w-4 h-4 text-muted-foreground" />
+                      </button>
+                    </div>
+
+                    {/* Mood selector */}
                     <div>
-                      <h3 className="font-semibold text-foreground">Send Feedback</h3>
-                      <p className="text-xs text-muted-foreground italic mt-0.5">Skicka feedback · Help us improve</p>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">How are you feeling?</p>
+                      <div className="flex gap-2">
+                        {MOODS.map(m => (
+                          <button
+                            key={m.emoji}
+                            onClick={() => setMood(m)}
+                            title={m.label}
+                            className={`flex-1 py-2 rounded-xl text-xl transition-all ${
+                              mood?.emoji === m.emoji
+                                ? "bg-primary/10 ring-2 ring-primary scale-110"
+                                : "bg-muted/50 hover:bg-muted hover:scale-105"
+                            }`}
+                          >
+                            {m.emoji}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                    <button onClick={handleClose} className="p-1.5 rounded-lg hover:bg-muted transition-colors">
-                      <X className="w-4 h-4 text-muted-foreground" />
-                    </button>
-                  </div>
 
-                  {/* Mood selector */}
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">How are you feeling?</p>
-                    <div className="flex gap-2">
-                      {MOODS.map(m => (
-                        <button
-                          key={m.emoji}
-                          onClick={() => setMood(m)}
-                          title={m.label}
-                          className={`flex-1 py-2 rounded-xl text-xl transition-all ${
-                            mood?.emoji === m.emoji
-                              ? "bg-primary/10 ring-2 ring-primary scale-110"
-                              : "bg-muted/50 hover:bg-muted hover:scale-105"
-                          }`}
-                        >
-                          {m.emoji}
-                        </button>
-                      ))}
+                    {/* Category */}
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Category</p>
+                      <div className="grid grid-cols-2 gap-2">
+                        {CATEGORIES.map(c => (
+                          <button
+                            key={c}
+                            onClick={() => setCategory(c)}
+                            className={`px-3 py-2 rounded-lg text-xs font-medium text-left transition-all ${
+                              category === c
+                                ? "bg-primary text-primary-foreground"
+                                : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
+                            }`}
+                          >
+                            {c}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Category */}
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Category</p>
-                    <div className="grid grid-cols-2 gap-2">
-                      {CATEGORIES.map(c => (
-                        <button
-                          key={c}
-                          onClick={() => setCategory(c)}
-                          className={`px-3 py-2 rounded-lg text-xs font-medium text-left transition-all ${
-                            category === c
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
-                          }`}
-                        >
-                          {c}
-                        </button>
-                      ))}
+                    {/* Message */}
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Your message</p>
+                      <textarea
+                        value={message}
+                        onChange={e => setMessage(e.target.value)}
+                        placeholder="Tell us what happened or what you'd like to see…"
+                        rows={3}
+                        className="w-full border border-border/50 rounded-xl px-3 py-2.5 text-sm bg-transparent focus:outline-none focus:border-primary transition-colors resize-none"
+                      />
                     </div>
+
+                    {/* Page + user context (shown small) */}
+                    <p className="text-[10px] text-muted-foreground/60">
+                      Page: {location.pathname} {user?.email ? `· ${user.email}` : "· not logged in"}
+                    </p>
                   </div>
 
-                  {/* Message */}
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Your message</p>
-                    <textarea
-                      value={message}
-                      onChange={e => setMessage(e.target.value)}
-                      placeholder="Tell us what happened or what you'd like to see…"
-                      rows={3}
-                      className="w-full border border-border/50 rounded-xl px-3 py-2.5 text-sm bg-transparent focus:outline-none focus:border-primary transition-colors resize-none"
-                    />
+                  {/* Submit — always visible at the bottom */}
+                  <div className="px-5 pb-5 pt-2 border-t border-border/30 bg-card">
+                    <Button
+                      onClick={handleSubmit}
+                      disabled={!message.trim() || submitting}
+                      className="w-full gap-2"
+                    >
+                      {submitting
+                        ? <><Loader2 className="w-4 h-4 animate-spin" /> Sending…</>
+                        : <><Send className="w-4 h-4" /> Send Feedback</>
+                      }
+                    </Button>
                   </div>
-
-                  {/* Page + user context (shown small) */}
-                  <p className="text-[10px] text-muted-foreground/60">
-                    Page: {location.pathname} {user?.email ? `· ${user.email}` : "· not logged in"}
-                  </p>
-
-                  {/* Submit */}
-                  <Button
-                    onClick={handleSubmit}
-                    disabled={!message.trim() || submitting}
-                    className="w-full gap-2"
-                  >
-                    {submitting
-                      ? <><Loader2 className="w-4 h-4 animate-spin" /> Sending…</>
-                      : <><Send className="w-4 h-4" /> Send Feedback</>
-                    }
-                  </Button>
                 </div>
               )}
             </motion.div>

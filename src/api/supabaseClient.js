@@ -83,6 +83,46 @@ export const supabase = {
     },
   },
 
+  grammar: {
+    async getTopics() {
+      return sbFetch('grammar_topics?order=category_id,sort_order');
+    },
+    async getExercises(topicId) {
+      return sbFetch(`grammar_exercises?topic_id=eq.${encodeURIComponent(topicId)}&order=sort_order`);
+    },
+    async getAllExercises() {
+      return sbFetch('grammar_exercises?order=topic_id,sort_order');
+    },
+    async getExerciseCountByTopic() {
+      return sbFetch('grammar_exercises?select=topic_id&order=topic_id');
+    },
+    async insertExercises(exercises) {
+      return sbFetch('grammar_exercises', {
+        method: 'POST',
+        headers: { 'Prefer': 'return=minimal' },
+        body: JSON.stringify(exercises),
+      });
+    },
+    async getProgressForUser(userId) {
+      return sbFetch(`grammar_progress?user_id=eq.${encodeURIComponent(userId)}`);
+    },
+    async upsertProgress(userId, topicId, exercisesDone, exercisesTotal, score, completed) {
+      return sbFetch('grammar_progress', {
+        method: 'POST',
+        headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+        body: JSON.stringify({
+          user_id: userId,
+          topic_id: topicId,
+          exercises_done: exercisesDone,
+          exercises_total: exercisesTotal,
+          score,
+          completed,
+          last_seen_at: new Date().toISOString(),
+        }),
+      });
+    },
+  },
+
   feedback: {
     async insert(row) {
       return sbFetch('user_feedback', {
