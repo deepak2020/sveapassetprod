@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, CheckCircle2, XCircle, RotateCcw, Trophy, Sparkles, Loader2, BookOpen, ChevronRight } from "lucide-react";
+import { ArrowLeft, CheckCircle2, XCircle, RotateCcw, Trophy, Sparkles, Loader2, BookOpen, ChevronRight, Lightbulb, Table2, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GRAMMAR_CATEGORIES } from "@/data/grammarTopics";
 import { supabase } from "@/api/supabaseClient";
@@ -198,42 +198,104 @@ export default function GrammarTopic() {
 
   // ── LESSON VIEW ────────────────────────────────────────────────────────
   if (view === "lesson") {
+    const learn = staticTopic?.learn || topic?.learn;
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 pb-24 md:pb-10 space-y-6">
         <button onClick={() => navigate("/grammar")} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
           <ArrowLeft className="w-4 h-4" /> Grammar
         </button>
 
+        {/* Header */}
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${c.badge}`}>{category.emoji} {category.label}</span>
           </div>
           <h1 className="text-2xl font-bold">{topic.title}</h1>
           <p className="text-sm italic text-muted-foreground mt-0.5">{topic.titleSv}</p>
-          <p className="text-sm text-muted-foreground mt-2">{topic.description}</p>
         </div>
 
-        {/* Rule card */}
-        <div className="rounded-2xl border border-border/50 bg-card p-6 space-y-4">
+        {/* Concept explanation — beginner-friendly */}
+        {learn?.concept && (
+          <div className="rounded-2xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 p-5 space-y-2">
+            <div className="flex items-center gap-2">
+              <MessageSquare className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+              <h2 className="font-semibold text-sm text-blue-800 dark:text-blue-300 uppercase tracking-wide">What is this?</h2>
+            </div>
+            <p className="text-sm leading-relaxed text-blue-900 dark:text-blue-100">{learn.concept}</p>
+          </div>
+        )}
+
+        {/* Examples */}
+        {learn?.examples && learn.examples.length > 0 && (
+          <div className="rounded-2xl border border-border/50 bg-card p-5 space-y-3">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Examples</h2>
+            <div className="space-y-2">
+              {learn.examples.map((ex, i) => (
+                <div key={i} className="flex flex-col gap-0.5 py-1.5 border-b border-border/30 last:border-0">
+                  <div className="flex items-baseline gap-3 flex-wrap">
+                    <span className="font-semibold text-sm text-foreground">{ex.sv}</span>
+                    <span className="text-sm text-muted-foreground">{ex.en}</span>
+                  </div>
+                  {ex.note && (
+                    <p className="text-xs text-muted-foreground italic">{ex.note}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Quick-reference table */}
+        {learn?.table && (
+          <div className="rounded-2xl border border-border/50 bg-card overflow-hidden">
+            <div className="flex items-center gap-2 px-5 py-3 border-b border-border/40 bg-muted/30">
+              <Table2 className="w-4 h-4 text-muted-foreground" />
+              <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Quick Reference</h2>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-muted/20">
+                    {learn.table.headers.map((h, i) => (
+                      <th key={i} className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground uppercase tracking-wide whitespace-nowrap">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {learn.table.rows.map((row, i) => (
+                    <tr key={i} className={i % 2 === 0 ? "" : "bg-muted/10"}>
+                      {row.map((cell, j) => (
+                        <td key={j} className={`px-4 py-2.5 ${j === 0 ? "font-medium text-foreground" : "text-muted-foreground"} border-t border-border/20 text-xs`}>
+                          {cell}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Memory tip */}
+        {learn?.tip && (
+          <div className="rounded-2xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 p-5 space-y-2">
+            <div className="flex items-center gap-2">
+              <Lightbulb className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+              <h2 className="font-semibold text-sm text-amber-800 dark:text-amber-300 uppercase tracking-wide">Memory Tip</h2>
+            </div>
+            <p className="text-sm leading-relaxed text-amber-900 dark:text-amber-100">{learn.tip}</p>
+          </div>
+        )}
+
+        {/* The formal rule */}
+        <div className="rounded-2xl border border-border/50 bg-card p-5 space-y-3">
           <div className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-primary" />
-            <h2 className="font-semibold">The Rule</h2>
+            <BookOpen className="w-4 h-4 text-muted-foreground" />
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">The Full Rule</h2>
           </div>
           <div className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
             {topic.rule}
-          </div>
-        </div>
-
-        {/* Quick examples */}
-        <div className="rounded-2xl border border-border/50 bg-muted/30 p-5">
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">Quick examples</p>
-          <div className="space-y-2">
-            {exercises.slice(0, 3).map((e, i) => (
-              <div key={i} className="text-sm">
-                <span className="text-muted-foreground">{e.q.replace(/\n/g, " ")} → </span>
-                <span className="font-semibold text-foreground">{e.options[e.correct]}</span>
-              </div>
-            ))}
           </div>
         </div>
 
