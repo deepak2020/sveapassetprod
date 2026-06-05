@@ -93,6 +93,16 @@ export const supabase = {
     async getAllExercises() {
       return sbFetch('grammar_exercises?order=topic_id,sort_order');
     },
+    async getExerciseCountByTopic() {
+      return sbFetch('grammar_exercises?select=topic_id&order=topic_id');
+    },
+    async insertExercises(exercises) {
+      return sbFetch('grammar_exercises', {
+        method: 'POST',
+        headers: { 'Prefer': 'return=minimal' },
+        body: JSON.stringify(exercises),
+      });
+    },
     async getProgressForUser(userId) {
       return sbFetch(`grammar_progress?user_id=eq.${encodeURIComponent(userId)}`);
     },

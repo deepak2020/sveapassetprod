@@ -61,6 +61,7 @@ export default function GrammarTopic() {
 
   const [view, setView] = useState("lesson"); // lesson | exercise | result
   const [current, setCurrent] = useState(0);
+  const [sessionExercises, setSessionExercises] = useState([]);
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState(0);
@@ -68,28 +69,53 @@ export default function GrammarTopic() {
   const [aiLoading, setAiLoading] = useState(false);
   const xpAwarded = useRef(false);
 
-  // Load topic + exercises from DB
+  const SESSION_SIZE = 8; // exercises per session
+
+  function pickSession(allExercises) {
+    if (!allExercises?.length) return [];
+    const shuffled = [...allExercises].sort(() => Math.random() - 0.5);
+    // Try to include a mix of difficulties if tagged
+    const easy   = shuffled.filter(e => e.difficulty === "easy");
+    const medium = shuffled.filter(e => e.difficulty === "medium");
+    const hard   = shuffled.filter(e => e.difficulty === "hard");
+    const untagged = shuffled.filter(e => !e.difficulty || e.difficulty === "medium");
+    if (easy.length + medium.length + hard.length >= SESSION_SIZE) {
+      // Balanced pick: ~2 easy, ~4 medium, ~2 hard
+      return [
+        ...easy.slice(0, 2),
+        ...medium.slice(0, 4),
+        ...hard.slice(0, 2),
+      ].slice(0, SESSION_SIZE).sort(() => Math.random() - 0.5);
+    }
+    return shuffled.slice(0, SESSION_SIZE);
+  }
+
+  // Load topic + full exercise bank from DB, sample a session
   useEffect(() => {
     Promise.all([
       supabase.grammar.getTopics(),
       supabase.grammar.getExercises(topicId),
     ]).then(([topicsRes, exRes]) => {
       const dbTopic = topicsRes.data?.find(t => t.id === topicId);
-      if (dbTopic && exRes.data?.length) {
+      if (dbTopic) {
         setCategory(staticCat);
-        setTopic({
+        const allExercises = (exRes.data || []).map(e => ({
+          q: e.question,
+          options: e.options,
+          correct: e.correct_index,
+          explanation: e.explanation,
+          difficulty: e.difficulty,
+        }));
+        const topicData = {
           id: dbTopic.id,
           title: dbTopic.title,
           titleSv: dbTopic.title_sv,
           description: dbTopic.description,
           rule: dbTopic.rule,
-          exercises: exRes.data.map(e => ({
-            q: e.question,
-            options: e.options,
-            correct: e.correct_index,
-            explanation: e.explanation,
-          })),
-        });
+          exercises: allExercises,
+        };
+        setTopic(topicData);
+        setSessionExercises(pickSession(allExercises.length ? allExercises : staticTopic?.exercises || []));
       }
     }).catch(() => {}).finally(() => setDbLoading(false));
   }, [topicId, categoryId]);
@@ -98,6 +124,7 @@ export default function GrammarTopic() {
   useEffect(() => {
     setCurrent(0); setSelected(null); setAnswered(false);
     setScore(0); setView("lesson"); setAiText(null);
+    setSessionExercises([]);
     xpAwarded.current = false;
   }, [topicId]);
 
@@ -112,9 +139,11 @@ export default function GrammarTopic() {
   }, [answered]);
 
   const c = COLOR[category?.color || "green"];
-  const exercises = topic?.exercises || [];
+  // Use session exercises if loaded, fall back to static while DB loads
+  const exercises = sessionExercises.length ? sessionExercises : (staticTopic?.exercises || []);
   const ex = exercises[current];
   const total = exercises.length;
+  const bankSize = topic?.exercises?.length || total;
 
   if (!category || !topic) {
     return (
@@ -157,7 +186,10 @@ export default function GrammarTopic() {
     }
   };
 
-  const handleRestart = () => {
+  const handleRestart = (newSession = false) => {
+    if (newSession && topic?.exercises?.length) {
+      setSessionExercises(pickSession(topic.exercises));
+    }
     setCurrent(0); setSelected(null); setAnswered(false);
     setScore(0); setView("exercise"); setAiText(null);
     xpAwarded.current = false;
@@ -206,7 +238,9 @@ export default function GrammarTopic() {
         </div>
 
         <Button onClick={() => setView("exercise")} size="lg" className="w-full gap-2">
-          <ChevronRight className="w-5 h-5" /> Start {total} exercises
+          <ChevronRight className="w-5 h-5" />
+          Start {total} exercises
+          {bankSize > total && <span className="text-xs opacity-70 font-normal">({bankSize} in bank)</span>}
         </Button>
       </div>
     );
@@ -235,8 +269,13 @@ export default function GrammarTopic() {
           </div>
 
           <div className="flex flex-col gap-2 max-w-xs mx-auto pt-2">
-            <Button onClick={handleRestart} className="gap-2">
-              <RotateCcw className="w-4 h-4" /> Try again
+            {bankSize > total && (
+              <Button onClick={() => handleRestart(true)} className="gap-2">
+                <Sparkles className="w-4 h-4" /> New session ({bankSize} to draw from)
+              </Button>
+            )}
+            <Button onClick={() => handleRestart(false)} variant={bankSize > total ? "outline" : "default"} className="gap-2">
+              <RotateCcw className="w-4 h-4" /> Retry same questions
             </Button>
             <Button onClick={() => setView("lesson")} variant="outline" className="gap-2">
               <BookOpen className="w-4 h-4" /> Review rule
