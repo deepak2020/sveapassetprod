@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, ChevronDown, CheckCircle2, PlayCircle, RotateCcw, Zap, Loader2 } from "lucide-react";
 import { GRAMMAR_CATEGORIES as STATIC_CATEGORIES } from "@/data/grammarTopics";
 import { supabase } from "@/api/supabaseClient";
+import { useGrammarProgress } from "@/hooks/useGrammarProgress";
 
 const CATEGORY_META = {
   beginner:     { label: "Beginner",     labelSv: "Nybörjare",  emoji: "🌱", color: "green",  description: "Core building blocks — the must-knows for daily life" },
@@ -75,12 +76,6 @@ const COLOR = {
   },
 };
 
-function getProgress(topicId) {
-  try {
-    const raw = localStorage.getItem(`grammar:progress:${topicId}`);
-    return raw ? JSON.parse(raw) : null;
-  } catch { return null; }
-}
 
 function CategoryCard({ category, isSelected, onClick, allProgress }) {
   const c = COLOR[category.color];
@@ -213,9 +208,9 @@ function TopicCard({ topic, category, index, progress, onClick }) {
 export default function Grammar() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [allProgress, setAllProgress] = useState({});
   const [categories, setCategories] = useState(STATIC_CATEGORIES);
   const [loading, setLoading] = useState(true);
+  const { progress: allProgress, synced } = useGrammarProgress();
 
   useEffect(() => {
     Promise.all([supabase.grammar.getTopics(), supabase.grammar.getAllExercises()])
@@ -223,22 +218,9 @@ export default function Grammar() {
         const merged = mergeDbWithStatic(topicsRes.data, exRes.data);
         setCategories(merged);
       })
-      .catch(() => {}) // keep static fallback
+      .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
-
-  useEffect(() => {
-    const readProgress = () => {
-      const p = {};
-      for (const cat of categories) {
-        for (const topic of cat.topics) p[topic.id] = getProgress(topic.id);
-      }
-      setAllProgress(p);
-    };
-    readProgress();
-    window.addEventListener("focus", readProgress);
-    return () => window.removeEventListener("focus", readProgress);
-  }, [categories]);
 
   const toggleCategory = (catId) => {
     setSelectedCategory(prev => prev === catId ? null : catId);

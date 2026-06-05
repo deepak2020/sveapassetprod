@@ -7,11 +7,12 @@ import { GRAMMAR_CATEGORIES } from "@/data/grammarTopics";
 import { supabase } from "@/api/supabaseClient";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
+import { useGrammarProgress } from "@/hooks/useGrammarProgress";
 
 const COLOR = {
-  green:  { bar: "bg-green-500", badge: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300", correct: "border-green-400 bg-green-50 dark:bg-green-950/30", ai: "bg-green-50 border-green-200 dark:bg-green-950/30 dark:border-green-800" },
-  amber:  { bar: "bg-amber-500",  badge: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",  correct: "border-green-400 bg-green-50 dark:bg-green-950/30", ai: "bg-amber-50 border-amber-200 dark:bg-amber-950/30 dark:border-amber-800"  },
-  violet: { bar: "bg-violet-500", badge: "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300", correct: "border-green-400 bg-green-50 dark:bg-green-950/30", ai: "bg-violet-50 border-violet-200 dark:bg-violet-950/30 dark:border-violet-800" },
+  green:  { bar: "bg-green-500",  badge: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",  ai: "bg-green-50 border-green-200 dark:bg-green-950/30 dark:border-green-800" },
+  amber:  { bar: "bg-amber-500",  badge: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",  ai: "bg-amber-50 border-amber-200 dark:bg-amber-950/30 dark:border-amber-800"  },
+  violet: { bar: "bg-violet-500", badge: "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300", ai: "bg-violet-50 border-violet-200 dark:bg-violet-950/30 dark:border-violet-800" },
 };
 
 const aiCache = new Map();
@@ -37,7 +38,7 @@ Give a short, friendly explanation (2-3 sentences max) of WHY the correct answer
         required: ["explanation"],
       },
     });
-    const text = result?.explanation || result?.choices?.[0]?.message?.content || "";
+    const text = result?.explanation || "";
     aiCache.set(key, text);
     return text;
   } catch {
@@ -45,17 +46,12 @@ Give a short, friendly explanation (2-3 sentences max) of WHY the correct answer
   }
 }
 
-function saveProgress(topicId, done, total, completed) {
-  try {
-    localStorage.setItem(`grammar:progress:${topicId}`, JSON.stringify({ done, total, completed }));
-  } catch {}
-}
-
 export default function GrammarTopic() {
   const { categoryId, topicId } = useParams();
   const navigate = useNavigate();
+  const { saveProgress } = useGrammarProgress();
 
-  // Static fallback
+  // Static fallback while DB loads
   const staticCat = GRAMMAR_CATEGORIES.find(c => c.id === categoryId);
   const staticTopic = staticCat?.topics.find(t => t.id === topicId);
 
@@ -63,16 +59,24 @@ export default function GrammarTopic() {
   const [topic, setTopic] = useState(staticTopic);
   const [dbLoading, setDbLoading] = useState(true);
 
+  const [view, setView] = useState("lesson"); // lesson | exercise | result
+  const [current, setCurrent] = useState(0);
+  const [selected, setSelected] = useState(null);
+  const [answered, setAnswered] = useState(false);
+  const [score, setScore] = useState(0);
+  const [aiText, setAiText] = useState(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const xpAwarded = useRef(false);
+
+  // Load topic + exercises from DB
   useEffect(() => {
-    // Try to load topic + exercises from DB
     Promise.all([
       supabase.grammar.getTopics(),
       supabase.grammar.getExercises(topicId),
     ]).then(([topicsRes, exRes]) => {
       const dbTopic = topicsRes.data?.find(t => t.id === topicId);
       if (dbTopic && exRes.data?.length) {
-        const dbCat = GRAMMAR_CATEGORIES.find(c => c.id === categoryId) || staticCat;
-        setCategory(dbCat);
+        setCategory(staticCat);
         setTopic({
           id: dbTopic.id,
           title: dbTopic.title,
@@ -90,33 +94,27 @@ export default function GrammarTopic() {
     }).catch(() => {}).finally(() => setDbLoading(false));
   }, [topicId, categoryId]);
 
-  const [view, setView] = useState("lesson"); // lesson | exercise | result
-  const [current, setCurrent] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [answered, setAnswered] = useState(false);
-  const [score, setScore] = useState(0);
-  const [aiText, setAiText] = useState(null);
-  const [aiLoading, setAiLoading] = useState(false);
-  const xpAwarded = useRef(false);
+  // Reset state when navigating to a different topic
+  useEffect(() => {
+    setCurrent(0); setSelected(null); setAnswered(false);
+    setScore(0); setView("lesson"); setAiText(null);
+    xpAwarded.current = false;
+  }, [topicId]);
+
+  // Trigger AI explanation on wrong answer
+  useEffect(() => {
+    if (!answered || !ex || selected === ex.correct) return;
+    setAiLoading(true);
+    setAiText(null);
+    getAIExplanation(ex.q, ex.options[ex.correct], ex.options[selected], topic?.rule || "")
+      .then(txt => setAiText(txt))
+      .finally(() => setAiLoading(false));
+  }, [answered]);
 
   const c = COLOR[category?.color || "green"];
   const exercises = topic?.exercises || [];
   const ex = exercises[current];
   const total = exercises.length;
-
-  useEffect(() => {
-    // reset on topic change
-    setCurrent(0); setSelected(null); setAnswered(false); setScore(0); setView("lesson"); xpAwarded.current = false;
-  }, [topicId]);
-
-  useEffect(() => {
-    if (!answered || selected === ex?.correct) return;
-    setAiLoading(true);
-    setAiText(null);
-    getAIExplanation(ex.q, ex.options[ex.correct], ex.options[selected], topic.rule)
-      .then(txt => setAiText(txt))
-      .finally(() => setAiLoading(false));
-  }, [answered]);
 
   if (!category || !topic) {
     return (
@@ -135,16 +133,19 @@ export default function GrammarTopic() {
       setScore(s => s + 1);
       awardXP(base44, XP_REWARDS.quiz_correct || 5);
     }
+    // Save in-progress state
+    saveProgress(topicId, current, total, score + (idx === ex.correct ? 1 : 0), false);
   };
 
   const handleNext = () => {
     const nextIdx = current + 1;
+    const finalScore = score; // already updated via handleAnswer
     if (nextIdx >= total) {
-      const finalScore = score + (selected === ex.correct ? 0 : 0); // already counted
-      saveProgress(topic.id, total, total, true);
+      // Session complete
+      saveProgress(topicId, total, total, finalScore, true);
       if (!xpAwarded.current) {
         xpAwarded.current = true;
-        const bonus = Math.round((score / total) * 20);
+        const bonus = Math.round((finalScore / total) * 20);
         if (bonus > 0) awardXP(base44, bonus);
       }
       setView("result");
@@ -153,26 +154,24 @@ export default function GrammarTopic() {
       setSelected(null);
       setAnswered(false);
       setAiText(null);
-      saveProgress(topic.id, nextIdx, total, false);
     }
   };
 
   const handleRestart = () => {
-    setCurrent(0); setSelected(null); setAnswered(false); setScore(0); setView("exercise");
+    setCurrent(0); setSelected(null); setAnswered(false);
+    setScore(0); setView("exercise"); setAiText(null);
     xpAwarded.current = false;
-    saveProgress(topic.id, 0, total, false);
+    saveProgress(topicId, 0, total, 0, false);
   };
 
-  // ── LESSON VIEW ──────────────────────────────────────────────────────────
+  // ── LESSON VIEW ────────────────────────────────────────────────────────
   if (view === "lesson") {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 pb-24 md:pb-10 space-y-6">
-        {/* Back */}
         <button onClick={() => navigate("/grammar")} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
           <ArrowLeft className="w-4 h-4" /> Grammar
         </button>
 
-        {/* Header */}
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${c.badge}`}>{category.emoji} {category.label}</span>
@@ -188,18 +187,18 @@ export default function GrammarTopic() {
             <BookOpen className="w-5 h-5 text-primary" />
             <h2 className="font-semibold">The Rule</h2>
           </div>
-          <div className="prose prose-sm dark:prose-invert max-w-none text-muted-foreground leading-relaxed whitespace-pre-line">
+          <div className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
             {topic.rule}
           </div>
         </div>
 
-        {/* Quick examples from exercises */}
+        {/* Quick examples */}
         <div className="rounded-2xl border border-border/50 bg-muted/30 p-5">
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">Quick examples from the exercises</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">Quick examples</p>
           <div className="space-y-2">
             {exercises.slice(0, 3).map((e, i) => (
               <div key={i} className="text-sm">
-                <span className="text-muted-foreground">{e.q.replace("\n", " ")} → </span>
+                <span className="text-muted-foreground">{e.q.replace(/\n/g, " ")} → </span>
                 <span className="font-semibold text-foreground">{e.options[e.correct]}</span>
               </div>
             ))}
@@ -213,7 +212,7 @@ export default function GrammarTopic() {
     );
   }
 
-  // ── RESULT VIEW ──────────────────────────────────────────────────────────
+  // ── RESULT VIEW ────────────────────────────────────────────────────────
   if (view === "result") {
     const pct = Math.round((score / total) * 100);
     return (
@@ -222,39 +221,57 @@ export default function GrammarTopic() {
           <div className="w-20 h-20 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mx-auto">
             <Trophy className="w-10 h-10 text-amber-500" />
           </div>
-          <h2 className="text-2xl font-bold">{pct >= 80 ? "Excellent! 🎉" : pct >= 50 ? "Good work! 👍" : "Keep practising! 💪"}</h2>
+          <h2 className="text-2xl font-bold">
+            {pct >= 80 ? "Excellent! 🎉" : pct >= 50 ? "Good work! 👍" : "Keep practising! 💪"}
+          </h2>
           <p className="text-5xl font-bold text-primary">{pct}%</p>
           <p className="text-muted-foreground">{score} of {total} correct</p>
+
+          {/* Score breakdown bar */}
+          <div className="max-w-xs mx-auto">
+            <div className="h-3 bg-muted rounded-full overflow-hidden">
+              <div className={`h-full ${c.bar} rounded-full transition-all duration-700`} style={{ width: `${pct}%` }} />
+            </div>
+          </div>
+
           <div className="flex flex-col gap-2 max-w-xs mx-auto pt-2">
-            <Button onClick={handleRestart} className="gap-2"><RotateCcw className="w-4 h-4" /> Try again</Button>
-            <Button onClick={() => { setView("lesson"); }} variant="outline" className="gap-2"><BookOpen className="w-4 h-4" /> Review rule</Button>
-            <Button onClick={() => navigate("/grammar")} variant="ghost">← All topics</Button>
+            <Button onClick={handleRestart} className="gap-2">
+              <RotateCcw className="w-4 h-4" /> Try again
+            </Button>
+            <Button onClick={() => setView("lesson")} variant="outline" className="gap-2">
+              <BookOpen className="w-4 h-4" /> Review rule
+            </Button>
+            <Button onClick={() => navigate("/grammar")} variant="ghost">
+              ← All topics
+            </Button>
           </div>
         </motion.div>
       </div>
     );
   }
 
-  // ── EXERCISE VIEW ────────────────────────────────────────────────────────
+  // ── EXERCISE VIEW ──────────────────────────────────────────────────────
   return (
     <div className="max-w-2xl mx-auto px-4 py-8 pb-24 md:pb-10 space-y-6">
-      {/* Back */}
       <button onClick={() => setView("lesson")} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
         <ArrowLeft className="w-4 h-4" /> {topic.title}
       </button>
 
-      {/* Progress bar */}
+      {/* Progress */}
       <div className="space-y-2">
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>{current + 1} / {total}</span>
-          <span className="font-semibold">{score} correct</span>
+          <span className="font-semibold text-green-600">{score} correct</span>
         </div>
         <div className="h-2 bg-muted rounded-full overflow-hidden">
-          <div className={`h-full ${c.bar} rounded-full transition-all duration-500`} style={{ width: `${((current) / total) * 100}%` }} />
+          <div
+            className={`h-full ${c.bar} rounded-full transition-all duration-500`}
+            style={{ width: `${(current / total) * 100}%` }}
+          />
         </div>
       </div>
 
-      {/* Question card */}
+      {/* Question */}
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -263,7 +280,6 @@ export default function GrammarTopic() {
           exit={{ opacity: 0, x: -30 }}
           className="rounded-2xl border border-border/50 bg-card p-6 space-y-5"
         >
-          {/* Question */}
           <p className="text-lg font-semibold whitespace-pre-line leading-snug">{ex.q}</p>
 
           {/* Options */}
@@ -297,7 +313,7 @@ export default function GrammarTopic() {
             })}
           </div>
 
-          {/* Static explanation (always shown on answer) */}
+          {/* Static explanation */}
           {answered && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               className="rounded-xl border bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 p-4 text-sm text-blue-900 dark:text-blue-100"
@@ -318,7 +334,7 @@ export default function GrammarTopic() {
               </div>
               {aiLoading
                 ? <div className="flex items-center gap-2 text-muted-foreground"><Loader2 className="w-4 h-4 animate-spin" /> Analysing your answer…</div>
-                : <p className="leading-relaxed">{aiText || "Understanding the rule: " + ex.explanation}</p>
+                : <p className="leading-relaxed">{aiText || ex.explanation}</p>
               }
             </motion.div>
           )}
