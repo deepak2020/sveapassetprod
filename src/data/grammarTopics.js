@@ -13,6 +13,29 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Substantivens genus",
         description: "Every Swedish noun is either en- or ett-word. Learn the most common patterns.",
         rule: "Swedish nouns are either 'en' (utrum/common gender, ~75% of nouns) or 'ett' (neutrum). The gender determines article and adjective endings throughout the sentence. Common patterns: living creatures are usually en-words; many short everyday objects are ett-words. There are no hard rules — memorisation + pattern recognition is key.",
+        learn: {
+          concept: "In English, every noun just uses 'a' or 'the'. In Swedish, every noun has a gender — either 'en' or 'ett'. This isn't about male/female (like in French or Spanish) — it's just two groups. About 75% of Swedish nouns are en-words. The gender matters because it changes the article AND the adjective endings. The good news: you don't need to know every noun's gender perfectly to communicate — native speakers will understand you. But learning the gender with each new word will make your Swedish sound much more natural.",
+          examples: [
+            { sv: "en hund", en: "a dog", note: "living creatures → almost always en" },
+            { sv: "ett hus", en: "a house", note: "many short common objects → ett" },
+            { sv: "en bil", en: "a car", note: "vehicles → usually en" },
+            { sv: "ett barn", en: "a child", note: "exceptions exist — memorise these!" },
+            { sv: "en dag", en: "a day", note: "time words → usually en" },
+            { sv: "ett äpple", en: "an apple" },
+          ],
+          table: {
+            headers: ["Pattern", "Gender", "Examples"],
+            rows: [
+              ["Living things (people, animals)", "en", "en man, en kvinna, en katt, en hund"],
+              ["Days, months, seasons", "en", "en dag, en måndag, en sommar"],
+              ["Most nouns ending in -ing, -ning", "en", "en tidning, en mening, en övning"],
+              ["Most nouns ending in -ion", "en", "en station, en nation"],
+              ["Short everyday objects", "ett", "ett bord, ett hus, ett barn, ett ägg"],
+              ["Nouns ending in -ande, -ende", "ett", "ett leende, ett handlande"],
+            ],
+          },
+          tip: "When you learn a new Swedish noun, always learn it WITH its article. Don't just learn 'hund' — learn 'en hund'. Think of the article as part of the word itself.",
+        },
         exercises: [
           { q: "Which article is correct?\n'___ hund springer i parken.'", options: ["en", "ett"], correct: 0, explanation: "Hund (dog) is an en-word — living creatures are almost always en-words." },
           { q: "Choose the right article:\n'___ barn leker utomhus.'", options: ["en", "ett"], correct: 1, explanation: "Barn (child) is one of the most common ett-words — memorise it!" },
@@ -30,6 +53,26 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Bestämd form",
         description: "Add -en or -et to make a noun definite (the dog, the house).",
         rule: "In Swedish, 'the' is added as a suffix to the noun — not a separate word. en-words get -en (hund → hunden), ett-words get -et (hus → huset). Plural definite forms use -na (en-words) or -en/-a (ett-words). When an adjective comes before a definite noun, you use den/det/de as a separate word too (double definiteness: den stora hunden).",
+        learn: {
+          concept: "In English, 'the' is always a separate word: 'the dog', 'the house'. In Swedish, 'the' is glued onto the END of the noun as a suffix. This is unique to Scandinavian languages! The suffix you add depends on whether the noun is en- or ett-. Think of it like English adding '-dog-the' instead of 'the dog' — it feels backwards at first but quickly becomes natural.",
+          examples: [
+            { sv: "hund → hunden", en: "dog → the dog", note: "en-word: add -en" },
+            { sv: "hus → huset", en: "house → the house", note: "ett-word: add -et" },
+            { sv: "bil → bilen", en: "car → the car", note: "en-word: add -en" },
+            { sv: "barn → barnet", en: "child → the child", note: "ett-word: add -et" },
+            { sv: "bilar → bilarna", en: "cars → the cars", note: "plural en-word: add -na" },
+            { sv: "hus → husen", en: "houses → the houses", note: "plural ett-word: add -en" },
+          ],
+          table: {
+            headers: ["Type", "Indefinite", "Definite (singular)", "Definite (plural)"],
+            rows: [
+              ["en-word", "en hund", "hunden", "hundarna"],
+              ["ett-word", "ett hus", "huset", "husen"],
+              ["en-word (vowel ending)", "en flicka", "flickan", "flickorna"],
+            ],
+          },
+          tip: "Easy rule: en-words end in -n (hunden), ett-words end in -t (huset). The letter before matches the article!",
+        },
         exercises: [
           { q: "Make definite: 'hund' (dog, en-word)", options: ["hunden", "hundt", "hundena"], correct: 0, explanation: "en-words add -en in singular definite: hund → hunden." },
           { q: "Make definite: 'hus' (house, ett-word)", options: ["husen", "huset", "husena"], correct: 1, explanation: "ett-words add -et in singular definite: hus → huset." },
@@ -45,6 +88,30 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Presens",
         description: "All persons share the same form — Swedish present tense is simpler than English.",
         rule: "Swedish present tense is formed by adding -r to the infinitive (or stem). All persons use the same form: jag äter, du äter, han äter, vi äter. Irregular verbs to memorise: vara → är, ha → har, gå → går, stå → står, komma → kommer. The -r ending is the key marker of Swedish present tense.",
+        learn: {
+          concept: "In English, present tense changes by person: I eat, he eats (different!). In Swedish, it's much simpler — the verb stays the SAME for every person. Just add -r to the verb's infinitive form. That's it! So once you learn 'äter' (eats/eat), you use it for jag (I), du (you), han/hon (he/she), vi (we), ni (you all), de (they). There are only a handful of irregular verbs to memorise.",
+          examples: [
+            { sv: "Jag äter frukost.", en: "I eat breakfast." },
+            { sv: "Du äter frukost.", en: "You eat breakfast." },
+            { sv: "Han äter frukost.", en: "He eats breakfast.", note: "same form as 'I eat'!" },
+            { sv: "Vi äter frukost.", en: "We eat breakfast." },
+            { sv: "Hon är hemma.", en: "She is home.", note: "vara → är (irregular)" },
+            { sv: "Jag har en hund.", en: "I have a dog.", note: "ha → har (irregular)" },
+          ],
+          table: {
+            headers: ["Infinitive", "Present", "Meaning"],
+            rows: [
+              ["äta", "äter", "eat(s)"],
+              ["tala", "talar", "speak(s)"],
+              ["bo", "bor", "live(s)"],
+              ["vara", "är", "am/is/are (irregular!)"],
+              ["ha", "har", "have/has (irregular!)"],
+              ["gå", "går", "go(es)"],
+              ["komma", "kommer", "come(s)"],
+            ],
+          },
+          tip: "The key is: Swedish present tense always ends in -r. See a word ending in -r? It's probably present tense. No need to change the ending for different persons — Swedish grammar trusts you to figure out who's speaking from context!",
+        },
         exercises: [
           { q: "Conjugate 'att äta' (to eat):\n'Jag ___ middag kl 18.'", options: ["äta", "äter", "ätade"], correct: 1, explanation: "äta → äter. Add -r to the infinitive for most verbs." },
           { q: "Fill in: 'Hon ___ svenska och engelska.'", options: ["talar", "tala", "talat"], correct: 0, explanation: "tala → talar. All persons: jag/du/han/vi/ni/de talar." },
@@ -61,6 +128,25 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Negation med 'inte'",
         description: "Where exactly does 'inte' go in a sentence?",
         rule: "In main clauses, 'inte' comes directly after the finite verb: Jag äter inte (I don't eat). In subordinate clauses, 'inte' comes before the finite verb: ...att jag inte äter. This is one of the most common word-order mistakes made by English speakers, who put 'not' before the verb in all positions.",
+        learn: {
+          concept: "In English, 'not' usually goes before the main verb: 'I do NOT eat meat'. In Swedish, 'inte' (not) goes AFTER the verb in normal sentences: 'Jag äter INTE kött'. This feels backwards for English speakers! There's one important exception: in a subordinate clause (after words like att, om, när), 'inte' goes BEFORE the verb. Just remember: in a regular sentence, first say WHAT you do, then say 'not'.",
+          examples: [
+            { sv: "Jag äter inte kött.", en: "I don't eat meat.", note: "verb first, then inte" },
+            { sv: "Han förstår inte svenska.", en: "He doesn't understand Swedish." },
+            { sv: "Vi är inte hemma.", en: "We are not home." },
+            { sv: "...att jag INTE äter kött.", en: "...that I don't eat meat.", note: "after 'att': inte comes BEFORE the verb" },
+            { sv: "Jag vet att han inte kommer.", en: "I know that he isn't coming." },
+          ],
+          table: {
+            headers: ["Sentence type", "Pattern", "Example"],
+            rows: [
+              ["Main clause", "subject + verb + INTE", "Jag äter inte."],
+              ["Main clause (inversion)", "verb + subject + INTE", "Idag äter jag inte."],
+              ["Subordinate clause (after att/om/när)", "subject + INTE + verb", "...att jag inte äter."],
+            ],
+          },
+          tip: "Think of 'inte' as 'glued to the verb on the right' in main clauses. The verb comes first, inte follows right behind. In subordinate clauses, it flips: inte sneaks ahead of the verb.",
+        },
         exercises: [
           { q: "Where does 'inte' go?\n'Jag ___ förstår ___ svenska.'", options: ["inte / —", "— / inte", "inte / inte"], correct: 1, explanation: "In main clauses: verb THEN inte. Jag förstår inte svenska." },
           { q: "Which is correct?", options: ["Jag inte äter kött.", "Jag äter inte kött.", "Inte jag äter kött."], correct: 1, explanation: "Main clause: subject + verb + inte. Jag äter inte kött." },
@@ -75,6 +161,27 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Pluralformer",
         description: "Swedish nouns have 5 plural patterns — learn to spot which one applies.",
         rule: "Swedish plurals follow five patterns:\n1. -or (en flicka → flickor) — most en-words ending in -a\n2. -ar (en bil → bilar) — most other en-words\n3. -er (en stad → städer) — many en-words, often with vowel change\n4. -n (ett äpple → äpplen) — ett-words ending in a vowel\n5. No ending (ett hus → hus) — ett-words ending in a consonant\n\nTip: the definite plural always adds -na to the indefinite plural (bilar → bilarna), except group 5 which adds -en (hus → husen).",
+        learn: {
+          concept: "In English, nearly all plurals just add -s (cat → cats, house → houses). Swedish is trickier — there are five different plural endings and you choose based on the word's gender and ending. The good news: once you learn the pattern for a word, it stays consistent. Think of Swedish plurals like irregular English plurals (mouse → mice, child → children) — there's a system, you just need to learn it group by group.",
+          examples: [
+            { sv: "flicka → flickor", en: "girl → girls", note: "Group 1 (-or): en-words ending in -a" },
+            { sv: "bil → bilar", en: "car → cars", note: "Group 2 (-ar): most other en-words" },
+            { sv: "stad → städer", en: "city → cities", note: "Group 3 (-er): often with vowel change!" },
+            { sv: "äpple → äpplen", en: "apple → apples", note: "Group 4 (-n): ett-words ending in vowel" },
+            { sv: "hus → hus", en: "house → houses", note: "Group 5 (no change): ett-words ending in consonant" },
+          ],
+          table: {
+            headers: ["Group", "Ending", "Example", "Plural"],
+            rows: [
+              ["1", "-or", "en flicka", "flickor"],
+              ["2", "-ar", "en bil", "bilar"],
+              ["3", "-er", "en stad", "städer"],
+              ["4", "-n", "ett äpple", "äpplen"],
+              ["5", "(none)", "ett hus", "hus"],
+            ],
+          },
+          tip: "Start by just learning groups 2 and 5 — they cover most words you'll use early on. Group 2 (bilar, hundar, dagar) and Group 5 (hus, barn, år) will get you very far!",
+        },
         exercises: [
           { q: "Plural of 'en bil' (car):", options: ["bilar", "bilor", "bilen"], correct: 0, explanation: "Bil → bilar (group 2: -ar). Most short en-words that don't end in -a use -ar." },
           { q: "Plural of 'en flicka' (girl):", options: ["flickar", "flickor", "flicken"], correct: 1, explanation: "Flicka → flickor (group 1: -or). en-words ending in -a replace -a with -or." },
@@ -92,6 +199,30 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Possessiva pronomen",
         description: "min/mitt/mina, din/ditt/dina — possessives agree with the noun they describe.",
         rule: "Swedish possessives agree with the gender and number of the noun they modify (not the owner). min/din/sin: en-word singular. mitt/ditt/sitt: ett-word singular. mina/dina/sina: all plurals. hans/hennes/dess/deras don't change. Sin/sitt/sina refer back to the subject of the clause (reflexive possessives) — they can only be used when the possessor IS the subject.",
+        learn: {
+          concept: "In English, possessives (my, your, his, her) depend on the OWNER: 'his car', 'her car'. In Swedish, the possessive depends on the THING OWNED, not the owner. So 'my' changes based on whether the noun is en, ett, or plural. Think of it like adjective agreement — the possessive 'matches' the noun it describes. Min means 'my' for en-words, mitt for ett-words, mina for plurals.",
+          examples: [
+            { sv: "Min bil är röd.", en: "My car is red.", note: "bil = en-word → min" },
+            { sv: "Mitt hus är stort.", en: "My house is big.", note: "hus = ett-word → mitt" },
+            { sv: "Mina barn är söta.", en: "My children are cute.", note: "plural → mina" },
+            { sv: "Han älskar sin familj.", en: "He loves his (own) family.", note: "sin = refers back to subject (han)" },
+            { sv: "Jag ser hans bil.", en: "I see his car.", note: "hans never changes" },
+          ],
+          table: {
+            headers: ["Owner", "en-word", "ett-word", "plural"],
+            rows: [
+              ["I (jag)", "min", "mitt", "mina"],
+              ["you (du)", "din", "ditt", "dina"],
+              ["he/she/it (reflexive)", "sin", "sitt", "sina"],
+              ["he (hans)", "hans", "hans", "hans"],
+              ["she (hennes)", "hennes", "hennes", "hennes"],
+              ["we (vi)", "vår", "vårt", "våra"],
+              ["you (ni)", "er", "ert", "era"],
+              ["they (deras)", "deras", "deras", "deras"],
+            ],
+          },
+          tip: "Look at the NOUN, not the owner. Ask yourself: is the thing I'm describing en, ett, or plural? Then pick the right form. And remember: hans/hennes/deras NEVER change — they're the easy ones!",
+        },
         exercises: [
           { q: "Choose: '___ bil är röd.' (my car, en-word)", options: ["Min", "Mitt", "Mina"], correct: 0, explanation: "Bil is an en-word → use min. Min bil." },
           { q: "Choose: '___ hus är stort.' (my house, ett-word)", options: ["Min", "Mitt", "Mina"], correct: 1, explanation: "Hus is an ett-word → use mitt. Mitt hus." },
@@ -108,6 +239,26 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Grundläggande meningsbyggnad",
         description: "Subject–Verb–Object: the foundation before learning V2 inversion.",
         rule: "The default Swedish word order is Subject + Verb + Object (SVO), the same as English. Jag äter mat (I eat food). Adverbs of time typically go at the end: Jag äter mat varje dag. The key difference from English comes when something other than the subject starts the sentence — then the verb and subject invert (V2 rule). But understanding SVO first is essential.",
+        learn: {
+          concept: "A sentence has three key parts: the Subject (who does the action), the Verb (the action itself), and the Object (what the action is done to). In Swedish, the basic order is exactly the same as English: Subject → Verb → Object. 'I eat food' = 'Jag äter mat'. Learning this foundation is essential before moving on to the trickier Swedish word order rules. Most of your everyday sentences will follow this simple pattern.",
+          examples: [
+            { sv: "Jag äter mat.", en: "I eat food.", note: "S (jag) + V (äter) + O (mat)" },
+            { sv: "Maria dricker kaffe.", en: "Maria drinks coffee.", note: "S + V + O" },
+            { sv: "Han läser en bok.", en: "He reads a book." },
+            { sv: "Vi bor i Stockholm.", en: "We live in Stockholm.", note: "place goes at the end" },
+            { sv: "Jag tränar varje dag.", en: "I exercise every day.", note: "time goes at the end" },
+          ],
+          table: {
+            headers: ["Part", "Swedish", "English", "Question to ask"],
+            rows: [
+              ["Subject", "Jag", "I", "Who does the action?"],
+              ["Verb", "äter", "eat", "What is the action?"],
+              ["Object", "mat", "food", "What is acted upon?"],
+              ["Place/Time", "varje dag", "every day", "When/where?"],
+            ],
+          },
+          tip: "Ask yourself three questions: WHO? (subject) → DOES WHAT? (verb) → TO WHAT? (object). Put them in that order and you have a basic Swedish sentence. Time and place usually go at the very end.",
+        },
         exercises: [
           { q: "Which is the correct SVO sentence?", options: ["Äter jag mat.", "Jag äter mat.", "Mat äter jag."], correct: 1, explanation: "Basic SVO: Subject (Jag) + Verb (äter) + Object (mat)." },
           { q: "Identify the subject:\n'Maria dricker kaffe.'", options: ["Maria", "dricker", "kaffe"], correct: 0, explanation: "The subject is who/what does the action: Maria." },
@@ -123,6 +274,30 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Pronomen",
         description: "Subject and object forms — jag/mig, han/honom, hon/henne…",
         rule: "Swedish pronouns have two forms: subject (used before the verb) and object (used after the verb or preposition). Key pairs: jag/mig, du/dig, han/honom, hon/henne, det/det, vi/oss, ni/er, de/dem. Common mistake: using 'dom' (spoken) vs 'de/dem' (written).",
+        learn: {
+          concept: "Pronouns are small words that replace nouns ('I', 'you', 'he', 'she'...). In Swedish, just like English, pronouns have two forms: a SUBJECT form (used as the doer of the action) and an OBJECT form (used as the receiver). In English: 'He sees HIM' — 'he' is subject, 'him' is object. Swedish works the same way: 'Han ser HONOM'. The tricky pair is de/dem (they/them) — in spoken Swedish both are often pronounced 'dom', but in writing you need the correct form.",
+          examples: [
+            { sv: "Jag ser dig.", en: "I see you.", note: "jag = subject, dig = object" },
+            { sv: "Hon hjälper honom.", en: "She helps him.", note: "hon = subject, honom = object" },
+            { sv: "De bor här.", en: "They live here.", note: "De = subject form" },
+            { sv: "Jag ser dem.", en: "I see them.", note: "dem = object form" },
+            { sv: "Han hälsar på oss.", en: "He greets us.", note: "oss = object form of vi" },
+          ],
+          table: {
+            headers: ["English", "Subject form", "Object form"],
+            rows: [
+              ["I / me", "jag", "mig"],
+              ["you / you", "du", "dig"],
+              ["he / him", "han", "honom"],
+              ["she / her", "hon", "henne"],
+              ["it / it", "det/den", "det/den"],
+              ["we / us", "vi", "oss"],
+              ["you all / you all", "ni", "er"],
+              ["they / them", "de", "dem"],
+            ],
+          },
+          tip: "Subject forms are 'short and punchy': jag, du, han, hon, vi, ni, de. Object forms often sound 'softer': mig, dig, honom, henne, oss, er, dem. If in doubt: use the subject form before the verb, object form after the verb.",
+        },
         exercises: [
           { q: "Choose the subject pronoun:\n'___ bor i Stockholm.'", options: ["Mig", "Jag", "Honom"], correct: 1, explanation: "Jag is the subject form. Mig is the object form (e.g. 'Han ser mig')." },
           { q: "Choose the object form:\n'Han hälsar på ___.'", options: ["hon", "henne", "hennes"], correct: 1, explanation: "After a verb or preposition, use object form: henne (her)." },
@@ -148,6 +323,27 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Adjektivkongruens",
         description: "Adjectives change ending depending on gender, number, and definiteness.",
         rule: "Swedish adjectives agree with the noun in gender and number. Pattern: en-word (no ending), ett-word (add -t), plural (add -a), definite (add -a with den/det/de before). Example: en stor bil / ett stort hus / stora bilar / den stora bilen. Adjectives ending in -d often change to -t (röd → rött).",
+        learn: {
+          concept: "An adjective is a describing word — 'big', 'red', 'new', 'old'. In English, adjectives never change: 'a big car', 'a big house', 'big cars' — always 'big'. Swedish adjectives do change depending on what noun they describe. There are three situations: (1) en-word singular indefinite — no change, (2) ett-word singular indefinite — add -t, (3) any plural or definite noun — add -a. It feels like a lot, but the pattern is consistent once you get used to it.",
+          examples: [
+            { sv: "en stor bil", en: "a big car", note: "en-word → no ending" },
+            { sv: "ett stort hus", en: "a big house", note: "ett-word → add -t" },
+            { sv: "stora bilar", en: "big cars", note: "plural → add -a" },
+            { sv: "den stora bilen", en: "the big car", note: "definite → add -a" },
+            { sv: "det stora huset", en: "the big house", note: "definite → always -a" },
+            { sv: "ett rött äpple", en: "a red apple", note: "-d adjectives: röd → rött" },
+          ],
+          table: {
+            headers: ["Situation", "Ending", "Example"],
+            rows: [
+              ["en-word, indefinite", "(none)", "en stor bil"],
+              ["ett-word, indefinite", "-t", "ett stort hus"],
+              ["any plural", "-a", "stora bilar / stora hus"],
+              ["any definite (den/det/de + noun)", "-a", "den stora bilen, det stora huset"],
+            ],
+          },
+          tip: "Two rules cover most cases: (1) ett-word? add -t. (2) The noun is definite or plural? use -a. The default (en-word, indefinite singular) has no change at all — that's the easiest form!",
+        },
         exercises: [
           { q: "Choose: 'en ___ (big) stol'", options: ["stor", "stort", "stora"], correct: 0, explanation: "en-words: no extra ending. en stor stol." },
           { q: "Fill in: 'ett ___ (big) hus'", options: ["stor", "stort", "stora"], correct: 1, explanation: "ett-words: add -t. ett stort hus." },
@@ -164,6 +360,26 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "V2-regeln",
         description: "The verb always comes second in a main clause — even after adverbs.",
         rule: "In Swedish main clauses, the finite verb MUST be in position 2. If something other than the subject starts the sentence (an adverb, time expression, or object), the subject and verb invert. This is called the V2 (verb-second) rule. English only inverts in questions; Swedish does it in statements too. Example: Idag ATE jag frukost (Today I ate breakfast) → Idag åt jag frukost.",
+        learn: {
+          concept: "In English, the verb's position is quite flexible: 'Today I ate breakfast' or 'I ate breakfast today' — both fine. In Swedish, the verb MUST always be in position 2 (the second slot) in a main clause. If you start a sentence with a time word like 'Idag' (today) or 'Igår' (yesterday), the verb still needs to be second — so the subject gets pushed to position 3! This 'verb-second' rule is one of the most important rules in Swedish grammar and is why Swedish sometimes sounds 'inverted' compared to English.",
+          examples: [
+            { sv: "Jag åt frukost.", en: "I ate breakfast.", note: "normal order: S-V-O" },
+            { sv: "Idag åt jag frukost.", en: "Today I ate breakfast.", note: "'Idag' is pos.1, verb stays pos.2, subject moves to pos.3" },
+            { sv: "Igår gick hon till skolan.", en: "Yesterday she went to school.", note: "verb second even after time words" },
+            { sv: "Nu förstår jag!", en: "Now I understand!", note: "'Nu' triggers inversion" },
+            { sv: "Den filmen har jag sett.", en: "That film I have seen.", note: "even object fronting causes inversion" },
+          ],
+          table: {
+            headers: ["Position 1", "Position 2 (VERB)", "Position 3+"],
+            rows: [
+              ["Jag", "åt", "frukost."],
+              ["Idag", "åt", "jag frukost."],
+              ["Igår", "gick", "hon till skolan."],
+              ["Den boken", "har", "jag läst."],
+            ],
+          },
+          tip: "Count to two! Whatever starts the sentence takes slot 1. The verb MUST be in slot 2. Everything else follows. If you start with a time word, the subject gets bumped to slot 3. It's always: X + VERB + subject (if X isn't the subject).",
+        },
         exercises: [
           { q: "Which sentence is correct?", options: ["Idag jag åt frukost.", "Idag åt jag frukost.", "Jag åt idag frukost."], correct: 1, explanation: "When idag starts the sentence, verb comes next (position 2): Idag åt jag..." },
           { q: "Correct V2: 'Igår ___ hon till skolan.'", options: ["gick", "hon gick", "gå"], correct: 0, explanation: "Igår (adverb) is position 1, so verb (gick) must be position 2: Igår gick hon..." },
@@ -179,6 +395,29 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Preteritum & Perfekt",
         description: "Preteritum (simple past) vs Perfekt (har + participle) — when to use each.",
         rule: "Swedish has two main past tenses. Preteritum (simple past): for completed events, often with time markers like igår/förra veckan. Perfekt (har + supinum): for recent events or events relevant to the present. Regular verbs: -ade ending (köpa → köpte) or -ade (arbeta → arbetade). Key irregulars: vara→var, ha→hade, gå→gick, komma→kom, se→såg, äta→åt.",
+        learn: {
+          concept: "Swedish has two ways to talk about the past. PRETERITUM is like English simple past — you use it for events that are completely finished, especially with time markers like 'igår' (yesterday) or 'förra veckan' (last week). PERFEKT uses 'har' + past participle (like English 'have done') — you use it for events that are recent or still relevant to now. In everyday spoken Swedish, perfekt is very common. Preteritum is more common in writing and storytelling.",
+          examples: [
+            { sv: "Jag åt pizza igår.", en: "I ate pizza yesterday.", note: "preteritum — finished event with time marker" },
+            { sv: "Jag har ätit pizza.", en: "I have eaten pizza.", note: "perfekt — experience relevant to now" },
+            { sv: "Vi gick hem kl 10.", en: "We went home at 10.", note: "preteritum — specific completed event" },
+            { sv: "Har du sett den filmen?", en: "Have you seen that film?", note: "perfekt — asking about experience" },
+            { sv: "Hon var trött igår.", en: "She was tired yesterday.", note: "vara → var (preteritum)" },
+          ],
+          table: {
+            headers: ["Infinitive", "Preteritum", "Perfekt (supinum)", "Meaning"],
+            rows: [
+              ["vara", "var", "har varit", "be"],
+              ["ha", "hade", "har haft", "have"],
+              ["gå", "gick", "har gått", "go"],
+              ["komma", "kom", "har kommit", "come"],
+              ["se", "såg", "har sett", "see"],
+              ["äta", "åt", "har ätit", "eat"],
+              ["köpa", "köpte", "har köpt", "buy"],
+            ],
+          },
+          tip: "Preteritum clue words: igår (yesterday), förra (last), för X år sedan (X years ago). Perfekt clue words: just (just), redan (already), aldrig (never), någonsin (ever). When in doubt in speech, use perfekt — it sounds more natural in modern Swedish.",
+        },
         exercises: [
           { q: "Choose preteritum of 'gå':\n'Vi ___ hem igår.'", options: ["gick", "har gått", "gå"], correct: 0, explanation: "With igår (yesterday), use preteritum: gick. Perfect would be: vi har gått." },
           { q: "Which is correct?\n'Jag ___ aldrig ätit sushi.'", options: ["har", "hade", "åt"], correct: 0, explanation: "Perfekt (har + supinum) for experience/relevance to present: Jag har aldrig ätit." },
@@ -194,6 +433,29 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Modalverb",
         description: "Kan, ska, måste, vill, får, borde — how and when to use each.",
         rule: "Swedish modal verbs are followed by the infinitive WITHOUT 'att'. Key modals: kan (can/be able to), ska (will/going to), måste (must/have to), vill (want to), får (may/allowed to), borde (should). They have the same form for all persons in present tense. Past: kunde, skulle, var tvungen att, ville, fick, borde.",
+        learn: {
+          concept: "Modal verbs are 'helper verbs' that modify the main verb — they express ability (can), necessity (must), desire (want), permission (may), or plans (will). In English: 'I CAN swim', 'I MUST go', 'I WANT to eat'. In Swedish these work the same way, but with one key difference: the infinitive after a modal has NO 'att'. English says 'I want TO go', Swedish says 'Jag vill gå' (not 'att gå'). This is one of the most common beginner mistakes!",
+          examples: [
+            { sv: "Jag kan simma.", en: "I can swim.", note: "no 'att' after the modal!" },
+            { sv: "Du måste studera.", en: "You must study." },
+            { sv: "Vi vill åka till Sverige.", en: "We want to go to Sweden." },
+            { sv: "Får jag öppna fönstret?", en: "May I open the window?", note: "får = permission" },
+            { sv: "Han ska flytta imorgon.", en: "He is going to move tomorrow.", note: "ska = plans/future" },
+            { sv: "Du borde sova mer.", en: "You should sleep more.", note: "borde = advice" },
+          ],
+          table: {
+            headers: ["Modal", "Meaning", "Past form"],
+            rows: [
+              ["kan", "can / be able to", "kunde"],
+              ["ska", "will / going to / shall", "skulle"],
+              ["måste", "must / have to", "var tvungen att"],
+              ["vill", "want to", "ville"],
+              ["får", "may / allowed to", "fick"],
+              ["borde", "should (advice)", "borde"],
+            ],
+          },
+          tip: "The golden rule: modal verb + infinitive WITHOUT att. Say 'Jag vill gå' not 'Jag vill att gå'. Also: modal verbs don't change for person — 'jag kan', 'du kan', 'han kan' are all the same. That makes them easy to use once you know the base form!",
+        },
         exercises: [
           { q: "Choose: 'Jag ___ inte äta gluten.'", options: ["kan inte", "måste inte", "inte kan"], correct: 0, explanation: "Kan inte = cannot. Måste inte = must not (prohibition). Context: physical inability → kan inte." },
           { q: "Fill in: 'Du ___ (should) träna mer.'", options: ["ska", "borde", "vill"], correct: 1, explanation: "Borde = should (advice). Ska = will/going to. Vill = want to." },
@@ -209,6 +471,28 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Komparation",
         description: "stor → större → störst. Three degrees of comparison.",
         rule: "Swedish adjectives have three degrees: positive (stor), comparative (större), superlative (störst). Most adjectives add -are (comparative) and -ast (superlative). Short adjectives often have irregular forms: bra → bättre → bäst, dålig → sämre → sämst, gammal → äldre → äldst, liten → mindre → minst, stor → större → störst, lång → längre → längst. Use 'mer/mest' for long adjectives: intressant → mer intressant → mest intressant.",
+        learn: {
+          concept: "Comparative adjectives compare two things ('bigger', 'faster'). Superlative adjectives describe the extreme ('biggest', 'fastest'). In English, short adjectives add -er/-est (big → bigger → biggest), while long ones use more/most (interesting → more interesting → most interesting). Swedish works very similarly! Short adjectives add -are/-ast. Long adjectives use mer/mest. There are some irregular forms you need to memorise — but they're the same common adjectives that are also irregular in English.",
+          examples: [
+            { sv: "stor → större → störst", en: "big → bigger → biggest" },
+            { sv: "snabb → snabbare → snabbast", en: "fast → faster → fastest", note: "regular pattern: + -are, + -ast" },
+            { sv: "bra → bättre → bäst", en: "good → better → best", note: "irregular — must memorise" },
+            { sv: "intressant → mer intressant → mest intressant", en: "interesting → more interesting → most interesting", note: "long adjective: use mer/mest" },
+            { sv: "Det är det bästa kaffet.", en: "It's the best coffee.", note: "superlative in definite form: bäst → bästa" },
+          ],
+          table: {
+            headers: ["Positive", "Comparative", "Superlative", "English"],
+            rows: [
+              ["bra", "bättre", "bäst", "good/better/best"],
+              ["dålig", "sämre", "sämst", "bad/worse/worst"],
+              ["stor", "större", "störst", "big/bigger/biggest"],
+              ["liten", "mindre", "minst", "small/smaller/smallest"],
+              ["gammal", "äldre", "äldst", "old/older/oldest"],
+              ["lång", "längre", "längst", "long/tall/longer/longest"],
+            ],
+          },
+          tip: "Irregular comparatives are the most important to memorise — and they're the most common adjectives! Bra/bättre/bäst is used every day. Also note: the superlative in a definite context adds -a (det bästa, den störste).",
+        },
         exercises: [
           { q: "Comparative of 'stor' (big):", options: ["störare", "större", "störst"], correct: 1, explanation: "Stor → större (comparative). Irregular: the vowel changes o→ö." },
           { q: "Superlative of 'lång' (tall/long):", options: ["långare", "längre", "längst"], correct: 2, explanation: "Lång → längre (comparative) → längst (superlative). Vowel change a→ä." },
@@ -225,6 +509,28 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Reflexiva verb",
         description: "Verbs where the action reflects back on the subject: tvätta sig, känna sig.",
         rule: "Reflexive verbs use a reflexive pronoun that refers back to the subject. The pronoun changes by person: tvätta mig (I wash myself), tvätta dig (you wash yourself), tvätta sig (he/she/they wash themselves), tvätta oss (we wash ourselves), tvätta er (you all). 'Sig' is the third person reflexive — very common. Many Swedish verbs are reflexive that aren't in English: gifta sig (marry), känna sig (feel), sätta sig (sit down), klä sig (get dressed), skynda sig (hurry).",
+        learn: {
+          concept: "A reflexive verb is when the action 'bounces back' to the person doing it. In English we sometimes use '-self' words: 'I wash myself', 'he hurt himself'. In Swedish, reflexive verbs are much more common — many everyday Swedish verbs require a reflexive pronoun that English doesn't use at all. For example, 'to feel' is 'känna sig' (literally 'feel oneself'). You must change the reflexive pronoun to match the subject: mig (I), dig (you), sig (he/she/they), oss (we), er (you all).",
+          examples: [
+            { sv: "Jag tvättar mig.", en: "I wash (myself).", note: "1st person: mig" },
+            { sv: "Du tvättar dig.", en: "You wash (yourself).", note: "2nd person: dig" },
+            { sv: "Han tvättar sig.", en: "He washes (himself).", note: "3rd person: sig" },
+            { sv: "Hon känner sig trött.", en: "She feels tired.", note: "känna sig = to feel" },
+            { sv: "De gifte sig.", en: "They got married.", note: "gifta sig = to get married" },
+            { sv: "Skynda dig!", en: "Hurry up!", note: "imperative to 'du': use dig" },
+          ],
+          table: {
+            headers: ["Subject", "Reflexive pronoun", "Example"],
+            rows: [
+              ["jag (I)", "mig", "Jag klär mig."],
+              ["du (you)", "dig", "Du klär dig."],
+              ["han/hon/det/de (he/she/it/they)", "sig", "Han klär sig."],
+              ["vi (we)", "oss", "Vi klär oss."],
+              ["ni (you all)", "er", "Ni klär er."],
+            ],
+          },
+          tip: "The key reflexive pronoun to learn is 'sig' — it covers he, she, it, and they (all third person). Most reflexive verbs you'll encounter use 'sig' in their dictionary form: gifta SIG, klä SIG, känna SIG. That's the hint that they're reflexive.",
+        },
         exercises: [
           { q: "Choose: 'Jag ___ varje morgon.' (get dressed)", options: ["klär", "klär mig", "klär sig"], correct: 1, explanation: "First person: klä sig → klär mig. The reflexive pronoun changes to match the subject." },
           { q: "Fill in: 'Han ___ trött idag.' (feels)", options: ["känner", "känner sig", "känner mig"], correct: 1, explanation: "Third person: känna sig → känner sig. 'Sig' is used for han/hon/det/de." },
@@ -240,6 +546,27 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Genitiv",
         description: "Showing possession with -s — no apostrophe in Swedish.",
         rule: "Swedish genitive is formed by adding -s directly to the noun (no apostrophe). Mannens bil = the man's car. Stockholms stad = the city of Stockholm. Key rules: -s is added to the definite or indefinite form depending on context. If the noun already ends in -s, you can still add -s (or sometimes nothing). Genitive always precedes the noun it modifies. Alternative: use 'av' (of) for longer phrases: staden av Stockholm.",
+        learn: {
+          concept: "Genitive shows possession or belonging — 'the man's car', 'Sweden's capital'. In English we write an apostrophe + s (man's). In Swedish it's simpler: just add -s directly to the noun, NO apostrophe. 'Mannen' (the man) → 'mannens bil' (the man's car). This is much cleaner than English! The -s is added to whichever form of the noun you need — definite or indefinite. Swedish genitive is actually easier than English once you drop the apostrophe habit.",
+          examples: [
+            { sv: "mannens bil", en: "the man's car", note: "definite + s: mannen → mannens" },
+            { sv: "Marias bok", en: "Maria's book", note: "names: just add -s, no apostrophe" },
+            { sv: "Sveriges kung", en: "Sweden's king", note: "countries: Sverige → Sveriges" },
+            { sv: "hundets mat", en: "the dog's food", note: "ett-word definite: hundet → hundets" },
+            { sv: "barnens leksaker", en: "the children's toys", note: "plural definite: barnen → barnens" },
+          ],
+          table: {
+            headers: ["Form", "Genitive", "Example"],
+            rows: [
+              ["en-word (mannen)", "mannens", "mannens bil (the man's car)"],
+              ["ett-word (barnet)", "barnets", "barnets leksak (the child's toy)"],
+              ["Plural (barnen)", "barnens", "barnens skola (the children's school)"],
+              ["Name (Maria)", "Marias", "Marias bok (Maria's book)"],
+              ["Name ending in -s (Lars)", "Lars' or Lars", "Lars' bil or Lars bil"],
+            ],
+          },
+          tip: "Just add -s and skip the apostrophe. That's the whole rule! If a name already ends in -s (Lars, Marcus), you can either use Lars' or just Lars — both work. The most common mistake Swedes make is accidentally writing an apostrophe-s (English style) — don't do it!",
+        },
         exercises: [
           { q: "Genitive of 'mannen' (the man):", options: ["mannens", "mannens'", "av mannen"], correct: 0, explanation: "Add -s with no apostrophe: mannen → mannens. Swedish never uses apostrophe for possession." },
           { q: "Which is correct? 'The dog's bowl'", options: ["hundens skål", "hunden's skål", "skålen av hunden"], correct: 0, explanation: "Hundens skål — genitive -s added directly to the definite form, no apostrophe." },
@@ -255,6 +582,25 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Bisatser",
         description: "Word order changes inside 'att', 'om', 'när' clauses.",
         rule: "Inside subordinate clauses (after att, om, när, eftersom, etc.), word order changes: inte/aldrig/redan come BEFORE the verb (not after as in main clauses). Pattern: conjunction + subject + (inte) + verb + rest. Example main clause: Jag äter inte. Subordinate: ...att jag inte äter. This is one of the trickiest rules in Swedish.",
+        learn: {
+          concept: "A subordinate clause is a smaller clause inside a bigger sentence — it can't stand alone. It starts with words like 'att' (that), 'om' (if/whether), 'när' (when), 'eftersom' (because), 'fast' (although). In English, word order stays the same inside these clauses. In Swedish, there's a crucial difference: the negative word 'inte' (and similar words like 'aldrig', 'redan') moves to BEFORE the verb. This is the #1 word-order rule that trips up Swedish learners.",
+          examples: [
+            { sv: "Jag äter inte.", en: "I don't eat.", note: "main clause: verb → inte" },
+            { sv: "...att jag INTE äter.", en: "...that I don't eat.", note: "subordinate: inte → verb" },
+            { sv: "Jag vet att han inte kommer.", en: "I know that he isn't coming." },
+            { sv: "Om du inte har tid, ring mig.", en: "If you don't have time, call me." },
+            { sv: "Jag tror att hon alltid tränar.", en: "I think that she always trains.", note: "alltid also shifts before the verb" },
+          ],
+          table: {
+            headers: ["Clause type", "Word order", "Example"],
+            rows: [
+              ["Main clause", "subject + verb + INTE", "Jag äter inte kött."],
+              ["Subordinate (after att/om/när)", "subject + INTE + verb", "...att jag inte äter kött."],
+              ["Subordinate with aldrig", "subject + ALDRIG + verb", "...att han aldrig tränar."],
+            ],
+          },
+          tip: "The key words that shift are: inte, aldrig (never), redan (already), alltid (always), ofta (often). In a subordinate clause, these always come BEFORE the verb. A good test: if you can put 'because/that/if/when' in front of a clause, it's subordinate — and inte moves forward.",
+        },
         exercises: [
           { q: "Which is correct subordinate clause?\n'Jag vet att han ___.'", options: ["inte kommer", "kommer inte", "ej kommer"], correct: 0, explanation: "In subordinate clauses: subject + inte + verb. att han inte kommer." },
           { q: "Choose: 'Om du ___ tid, ring mig!'", options: ["har inte", "inte har", "have not"], correct: 1, explanation: "Subordinate clause after 'om': inte before verb. Om du inte har tid..." },
@@ -280,6 +626,26 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Passiv form",
         description: "Two passive constructions: -s form and bli + participle.",
         rule: "Swedish passive has two forms. 1) -s passive: add -s to verb (läsa → läses, köpa → köps). Most common in writing and formal speech. 2) Bli + past participle: Huset blir byggt. More common in spoken language. The agent (by whom) uses 'av': Boken läses av många. Past -s passive: läsas (infinitive), lästes (preteritum past).",
+        learn: {
+          concept: "In an active sentence, the subject does the action: 'Maria reads the book.' In a passive sentence, the subject receives the action: 'The book is read (by Maria).' Swedish has TWO ways to form the passive. The first (-s form) is simple — just add -s to the verb. The second (bli + participle) is more like English 'be + past participle'. The -s form is more common in formal/written Swedish; the bli form is more colloquial. Both are used and both are correct.",
+          examples: [
+            { sv: "Boken läses av många.", en: "The book is read by many.", note: "-s passive (formal)" },
+            { sv: "Huset byggs nu.", en: "The house is being built now.", note: "-s passive present" },
+            { sv: "Boken blev skriven 1990.", en: "The book was written in 1990.", note: "bli passive (colloquial)" },
+            { sv: "Maten serveras kl 18.", en: "Food is served at 6pm.", note: "-s form: serva → serveras" },
+            { sv: "Boken skrevs av Strindberg.", en: "The book was written by Strindberg.", note: "past -s passive: skriva → skrevs" },
+          ],
+          table: {
+            headers: ["Form", "Construction", "Example"],
+            rows: [
+              ["Present -s passive", "verb + -s", "läsa → läses"],
+              ["Past -s passive", "verb stem + -des/-tes", "läsa → lästes"],
+              ["Present bli passive", "bli + past participle", "boken blir skriven"],
+              ["Past bli passive", "blev + past participle", "boken blev skriven"],
+            ],
+          },
+          tip: "The easiest way to form the -s passive: take the active present tense and just add -s (or replace final -r with -s). Dricker → dricks. Säljer → säljs. For the bli form, think English 'The house gets built' — it's the same structure.",
+        },
         exercises: [
           { q: "Form the -s passive:\n'De säljer biljetter.' → 'Biljetter ___.'", options: ["säljas", "säljs", "sälja"], correct: 1, explanation: "Present -s passive: sälja → säljs. Remove the -a and add -s." },
           { q: "Which is correct passive?\n'Huset ___ (was built) 1920.'", options: ["byggdes", "byggdes av", "byggs"], correct: 0, explanation: "Past -s passive: bygga → byggdes. Preteritum passive." },
@@ -294,6 +660,26 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Particip",
         description: "Present (-ande) and past participles used as adjectives.",
         rule: "Present participles end in -ande (or -ende) and describe ongoing action: springande barn (running children). They don't change for gender or number. Past participles act as adjectives and do agree: en skriven text / ett skrivet brev / skrivna texter. Past participle forms: en-words (-ad), ett-words (-at), plural (-ade).",
+        learn: {
+          concept: "A participle is a verb form used as an adjective or as part of a verb phrase. Swedish has two main types. PRESENT PARTICIPLES describe ongoing action ('running', 'sleeping', 'singing') and end in -ande or -ende. They never change form regardless of gender or number — easy! PAST PARTICIPLES describe completed states ('written', 'broken', 'painted') and DO change to agree with the noun — similar to adjective agreement. Understanding participles lets you create more sophisticated descriptions.",
+          examples: [
+            { sv: "ett springande barn", en: "a running child", note: "present participle: spring + ande" },
+            { sv: "sjungande fåglar", en: "singing birds", note: "present participle never changes form" },
+            { sv: "en skriven text", en: "a written text", note: "past participle, en-word: -en form" },
+            { sv: "ett skrivet brev", en: "a written letter", note: "past participle, ett-word: -et form" },
+            { sv: "skrivna texter", en: "written texts", note: "past participle, plural: -a form" },
+          ],
+          table: {
+            headers: ["Type", "Formation", "Example", "Note"],
+            rows: [
+              ["Present participle", "stem + -ande", "springande, sovande", "never changes"],
+              ["Past participle (en-word)", "stem + -en", "skriven text", "like adjective -en form"],
+              ["Past participle (ett-word)", "stem + -et", "skrivet brev", "like adjective -et form"],
+              ["Past participle (plural)", "stem + -a", "skrivna brev", "like adjective -a form"],
+            ],
+          },
+          tip: "Present participle rule: take the infinitive, replace final -a with -ande (springa → springande). Easy! Past participles: they behave exactly like adjectives — remember the en/ett/plural agreement pattern you already know.",
+        },
         exercises: [
           { q: "Form the present participle of 'sjunga':\n'en ___ fågel'", options: ["sjungande", "sjungen", "sjungad"], correct: 0, explanation: "Present participle: sjunga → sjungande. Add -ande to the stem." },
           { q: "Choose the correct past participle:\n'ett ___ (broken) fönster'", options: ["bruten", "brutet", "brustet"], correct: 1, explanation: "ett-word: past participle adds -et → brutet fönster." },
@@ -308,6 +694,26 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Konditionalis",
         description: "'Skulle + infinitive' for wishes, hypotheticals, and polite requests.",
         rule: "Swedish conditional is formed with 'skulle' + infinitive (without att). Used for: hypothetical situations (Om jag hade tid, skulle jag...), polite requests (Skulle du kunna hjälpa mig?), and wishes. Past conditional: skulle ha + supinum (Om jag hade vetat, skulle jag ha kommit). Note: conditional is not used in the 'om' clause itself — that uses past tense.",
+        learn: {
+          concept: "The conditional mood expresses things that would happen under certain conditions — 'would', 'could', 'should' in English. In Swedish, the conditional is formed with 'skulle' + infinitive (like English 'would + verb'). It's used for hypotheticals ('if I had time, I would...'), polite requests ('would you be able to...?'), and wishes ('I would like...'). An important rule: in the 'om' (if) clause, you use past tense — NOT skulle. The conditional only goes in the result clause.",
+          examples: [
+            { sv: "Om jag hade tid, skulle jag hjälpa dig.", en: "If I had time, I would help you.", note: "om + past tense → result with skulle" },
+            { sv: "Jag skulle vilja ha ett kaffe.", en: "I would like a coffee.", note: "polite request" },
+            { sv: "Skulle du kunna hjälpa mig?", en: "Would you be able to help me?", note: "very polite question" },
+            { sv: "Om jag hade vetat, skulle jag ha kommit.", en: "If I had known, I would have come.", note: "past conditional: skulle ha + supinum" },
+          ],
+          table: {
+            headers: ["Type", "Pattern", "Example"],
+            rows: [
+              ["Present conditional", "skulle + infinitive", "jag skulle göra"],
+              ["Past conditional", "skulle ha + supinum", "jag skulle ha gjort"],
+              ["Polite request", "Skulle du kunna + inf.", "Skulle du kunna stänga dörren?"],
+              ["Wish", "Jag skulle vilja + inf.", "Jag skulle vilja äta."],
+              ["om-clause (NOT conditional)", "om + past tense", "Om jag hade pengar..."],
+            ],
+          },
+          tip: "The om-clause pattern: 'om + hade/var/etc.' → 'skulle + infinitive'. The key mistake to avoid: never put 'skulle' in the om-clause itself. 'Om jag SKULLE ha tid' is wrong in Swedish — it must be 'Om jag HADE tid'. The conditional lives in the RESULT clause only.",
+        },
         exercises: [
           { q: "Complete: 'Om jag hade pengar, ___ jag resa mer.'", options: ["ska", "skulle", "vill"], correct: 1, explanation: "Om + past tense → conditional clause with skulle. Skulle jag resa." },
           { q: "Polite request: '___ du kunna hjälpa mig?'", options: ["Ska", "Skulle", "Kan"], correct: 1, explanation: "Skulle is more polite than ska or kan for requests: Skulle du kunna...?" },
@@ -322,6 +728,24 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Relativsatser",
         description: "Using 'som', 'vars', and 'vilket' to add information about nouns.",
         rule: "The main relative pronoun in Swedish is 'som' (who/which/that). It's used for all genders and numbers: mannen som bor här / boken som jag läste. 'Som' can be subject or object in the clause but CANNOT be omitted (unlike English 'that'). 'Vars' = whose. 'Vilket' refers back to a whole clause: Han vann, vilket var fantastiskt.",
+        learn: {
+          concept: "A relative clause gives more information about a noun, introduced by a relative pronoun ('who', 'which', 'that'). In English: 'the man WHO lives here', 'the book THAT I read'. In Swedish, the word 'som' does all of this work — it means who/which/that for ALL genders and numbers. Unlike English, you can't drop 'som' in Swedish ('the book I read' works in English, but in Swedish you always need 'boken SOM jag läste'). There are two special relatives: 'vars' (whose) and 'vilket' (which, for whole clauses).",
+          examples: [
+            { sv: "mannen som bor här", en: "the man who lives here", note: "'som' = who/which/that" },
+            { sv: "boken som jag läste", en: "the book that I read", note: "som can't be omitted!" },
+            { sv: "flickan vars cykel stals", en: "the girl whose bike was stolen", note: "vars = whose" },
+            { sv: "Han vann, vilket var fantastiskt.", en: "He won, which was fantastic.", note: "vilket = refers to the whole clause" },
+          ],
+          table: {
+            headers: ["Pronoun", "Used for", "Example"],
+            rows: [
+              ["som", "people, things (subject or object)", "mannen som bor här"],
+              ["vars", "possession (whose)", "flickan vars bok"],
+              ["vilket", "reference to whole clause", "Han kom, vilket var bra."],
+            ],
+          },
+          tip: "Start with 'som' — it covers 95% of cases. Add 'vars' for 'whose' and 'vilket' for when you refer to an entire previous clause ('which was...', 'which meant...'). And remember: unlike English, som can NEVER be left out!",
+        },
         exercises: [
           { q: "Choose: 'Boken ___ jag läste var bra.'", options: ["som", "vilket", "vars"], correct: 0, explanation: "Som is the relative pronoun for all genders: boken som jag läste." },
           { q: "Which is correct?\n'Mannen ___ bor granne med oss heter Anders.'", options: ["som", "vars", "vilken"], correct: 0, explanation: "Som = who/which/that. Used for all nouns regardless of gender." },
@@ -336,6 +760,26 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Opersonligt 'man'",
         description: "How to say 'one', 'you', 'people' or 'they' in general statements.",
         rule: "'Man' (one/you/people) is used for general statements without a specific subject — equivalent to English 'one', 'you in general', or 'they say'. Man takes the same verb form as han/hon. Its object form is 'en' (not 'man'): Man kan lära sig svenska om man vill. Det kan göra en trött. Note: 'man' is very common in Swedish everyday speech — much more than 'one' in English. Also used to avoid passive voice: Man talar svenska här = Swedish is spoken here.",
+        learn: {
+          concept: "English uses several words for general statements: 'one should be careful', 'you can find it online', 'they say it's cold in Sweden', 'people do that here'. Swedish has one elegant solution: 'man'. It's like the French 'on' or German 'man'. Man is used ALL the time in everyday Swedish — far more than the English 'one' which sounds formal. It takes third-person singular verb forms (same as han/hon). Its object form is 'en' (not 'man'). It's also a great way to avoid passive voice.",
+          examples: [
+            { sv: "Man talar svenska här.", en: "Swedish is spoken here. / People speak Swedish here." },
+            { sv: "Man kan lära sig mycket.", en: "One can / You can learn a lot.", note: "general ability" },
+            { sv: "Det kan göra en trött.", en: "It can make you/one tired.", note: "object form: en (not man)" },
+            { sv: "Man borde träna mer.", en: "One should / People should exercise more.", note: "general advice" },
+            { sv: "Hur gör man det?", en: "How does one do that? / How do you do that?" },
+          ],
+          table: {
+            headers: ["Role", "Form", "Example"],
+            rows: [
+              ["Subject", "man", "Man äter middag kl 18."],
+              ["Object", "en", "Det hjälper en."],
+              ["Reflexive", "sig", "Man tvättar sig."],
+              ["Possessive", "sin/sitt/sina", "Man glömmer sin plånbok ibland."],
+            ],
+          },
+          tip: "'Man' is your friend for avoiding awkward passive constructions! Instead of 'Det är inte tillåtet att röka här' (formal), you can say 'Man får inte röka här' (natural). Also: in the object position, 'man' becomes 'en' — this trips up many learners.",
+        },
         exercises: [
           { q: "Which is correct?\n'___ kan lära sig svenska snabbt.'", options: ["Man", "En", "Det"], correct: 0, explanation: "Man = one/you/people in general statements. Man kan lära sig svenska snabbt." },
           { q: "Object form of 'man':\n'Det kan göra ___ trött.'", options: ["man", "en", "sig"], correct: 1, explanation: "Object form of man is 'en'. Det kan göra en trött = It can make one tired." },
@@ -351,6 +795,27 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Sammansatta substantiv",
         description: "Swedish combines words freely — busshållplats, körkort, dagmamma.",
         rule: "Swedish forms compound nouns by joining two or more words together (no space or hyphen usually). The gender and plural of the compound come from the LAST word: en buss + en hållplats = en busshållplats. A connecting -s- is often added between parts: arbete + dag = arbetsdag (not arbetedag). The stress falls on the FIRST part. This is very different from English which often keeps words separate ('bus stop', 'driving licence'). Tip: when you see a long Swedish word, try splitting it into parts.",
+        learn: {
+          concept: "Swedish loves combining words into long compound nouns — much more than English does. Where English says 'bus stop', Swedish says 'busshållplats' (one word). Where English says 'football player', Swedish says 'fotbollsspelare'. This can make Swedish words look intimidating, but once you learn to split them apart, they become much easier. The key rules: (1) write them as ONE word, (2) the gender and plural come from the LAST word, (3) stress the FIRST word. Often a connecting -s- or -e- joins the parts.",
+          examples: [
+            { sv: "busshållplats", en: "bus stop", note: "buss + hållplats" },
+            { sv: "körkort", en: "driving licence", note: "köra + kort" },
+            { sv: "sjukhus", en: "hospital", note: "sjuk (sick) + hus (house)" },
+            { sv: "arbetsdag", en: "working day", note: "arbete + dag, connecting -s-" },
+            { sv: "dagmamma", en: "childminder", note: "dag (day) + mamma (mum)" },
+            { sv: "fotbollsspelare", en: "football player", note: "fotboll + spel + are" },
+          ],
+          table: {
+            headers: ["Parts", "Compound", "Gender", "Meaning"],
+            rows: [
+              ["buss + hållplats", "busshållplats", "en (from hållplats)", "bus stop"],
+              ["arbete + dag", "arbetsdag", "en (from dag)", "working day"],
+              ["sjuk + hus", "sjukhus", "ett (from hus)", "hospital"],
+              ["kör + kort", "körkort", "ett (from kort)", "driving licence"],
+            ],
+          },
+          tip: "When you see a long Swedish word, look for the split point — there's usually a recognisable word at the end that tells you the gender and the basic category of the thing. Sjukh-US = it's a type of house/building. Busshållpl-ATS = it's a type of place. The first part tells you what KIND of that thing it is.",
+        },
         exercises: [
           { q: "What does 'busshållplats' mean?", options: ["bus driver", "bus stop", "bus ticket"], correct: 1, explanation: "Buss (bus) + hållplats (stopping place) = bus stop. The meaning comes from combining the parts." },
           { q: "What gender is 'en busshållplats'?", options: ["en (utrum)", "ett (neutrum)", "It depends"], correct: 0, explanation: "The gender comes from the LAST word: hållplats = en-word → en busshållplats." },
@@ -366,6 +831,25 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Konjunktiv & om-satser",
         description: "Expressing hypothetical and unreal conditions with om + past tense.",
         rule: "Swedish rarely uses the formal subjunctive (vore, vare, etc.) except in set phrases. Instead, hypothetical/counterfactual conditions use: om + past tense → skulle + infinitive. Om jag hade tid, skulle jag komma (If I had time, I would come). For past counterfactuals: om + pluperfect → skulle ha + supinum. Om jag hade vetat, skulle jag ha kommit. Note: in the om-clause you use past tense (hade), NOT conditional (skulle). Set phrases still using subjunctive: Vore det inte bättre? Leve kungen! Må du ha det bra!",
+        learn: {
+          concept: "The subjunctive mood is used for hypothetical, unreal, or wished-for situations. In English it survives in phrases like 'If I WERE you...' (not 'was'). In Swedish, the formal subjunctive (like 'vore') is mostly limited to set phrases and formal writing. For everyday hypotheticals, Swedish uses a very logical system: om + past tense in the if-clause, and skulle + infinitive in the result clause. Learning to recognise the handful of remaining subjunctive set phrases will make your Swedish sound very polished.",
+          examples: [
+            { sv: "Om jag hade tid, skulle jag komma.", en: "If I had time, I would come.", note: "om + past tense → skulle + inf." },
+            { sv: "Om jag vore rik, skulle jag resa.", en: "If I were rich, I would travel.", note: "vore = subjunctive of vara (formal/set)" },
+            { sv: "Om vi hade tränat, skulle vi ha vunnit.", en: "If we had trained, we would have won.", note: "past counterfactual: hade + supinum" },
+            { sv: "Leve Sverige!", en: "Long live Sweden!", note: "set phrase with subjunctive" },
+            { sv: "Om han kommer, ring mig.", en: "If he comes, call me.", note: "real condition: use present tense" },
+          ],
+          table: {
+            headers: ["Condition type", "Om-clause", "Result clause"],
+            rows: [
+              ["Present possible", "Om han kommer (present)", "ring mig. (imperative)"],
+              ["Hypothetical (present)", "Om jag hade tid (past)", "skulle jag komma (conditional)"],
+              ["Counterfactual (past)", "Om jag hade vetat (pluperfect)", "skulle jag ha kommit (past conditional)"],
+            ],
+          },
+          tip: "Three-level system: (1) real/possible → om + present tense, (2) hypothetical → om + simple past, (3) past counterfactual → om + pluperfect. The result clause always uses 'skulle' for hypotheticals. And crucially: never 'skulle' in the om-clause itself!",
+        },
         exercises: [
           { q: "Choose: 'Om jag ___ tid, skulle jag hjälpa dig.'", options: ["har", "hade", "skulle ha"], correct: 1, explanation: "In the om-clause, use past tense (hade), not conditional. Om jag hade tid = If I had time." },
           { q: "Which is correct?\n'If I were rich…'", options: ["Om jag är rik…", "Om jag vore rik…", "Om jag skulle vara rik…"], correct: 1, explanation: "Om jag vore rik = If I were rich. 'Vore' is the subjunctive of 'vara' — still used in this set phrase." },
@@ -381,6 +865,25 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Dubbel bestämdhet",
         description: "When you need BOTH 'den/det/de' AND the definite suffix together.",
         rule: "Swedish has 'double definiteness': when an adjective modifies a definite noun, you need BOTH the definite article (den/det/de) AND the -en/-et suffix on the noun. Example: bilen (the car) but den röda bilen (the red car — not 'den röd bil'). This is unique to Swedish and confuses many learners. Exception: possessives and demonstratives don't use the suffix: min bil, denna bil.",
+        learn: {
+          concept: "You already know that Swedish adds 'the' as a suffix: 'hund' → 'hunden'. You also know that definite nouns with adjectives use den/det/de. Double definiteness is when you need BOTH at the same time. In English: 'the big car'. In Swedish you need THREE markers: 'den' (the) + 'stor-a' (adjective with -a) + 'bil-en' (noun with -en) = 'den stora bilen'. It seems redundant — why mark 'the' twice? It's just how Swedish works, and all native speakers do it automatically. The exceptions are possessives (min bil, not min bilen) and demonstratives.",
+          examples: [
+            { sv: "bilen (the car)", en: "→ den röda bilen (the red car)", note: "both den AND -en needed" },
+            { sv: "huset (the house)", en: "→ det stora huset (the big house)", note: "det AND -et together" },
+            { sv: "böckerna (the books)", en: "→ de gamla böckerna (the old books)", note: "de AND -na together" },
+            { sv: "min bil (my car)", en: "NOT min bilen", note: "possessives: NO double definiteness" },
+            { sv: "den gamla mannen", en: "the old man", note: "den + gamla + mannen — all three!" },
+          ],
+          table: {
+            headers: ["Noun type", "Simple definite", "With adjective (double definite)"],
+            rows: [
+              ["en-word", "bilen", "den röda bilen"],
+              ["ett-word", "huset", "det stora huset"],
+              ["plural", "bilarna", "de röda bilarna"],
+            ],
+          },
+          tip: "The pattern is: den/det/de + adjective-a + noun-en/et/na. ALL three elements needed when adjective + definite noun. The only exception: after possessives (min, din, hans, hennes, vår, er, deras) — then you skip both the article AND the noun suffix: min stora bil (not den min stora bilen).",
+        },
         exercises: [
           { q: "Which is correct? 'the big house'", options: ["ett stort hus", "det stora huset", "den stora hus"], correct: 1, explanation: "Definite: det (ett-word) + stora (adj with -a) + huset (noun with -et). All three needed." },
           { q: "Choose: 'the red car'", options: ["en röd bil", "den röda bilen", "den röd bil"], correct: 1, explanation: "Double definiteness: den + röda + bilen. Both article and noun suffix required." },
@@ -395,6 +898,27 @@ export const GRAMMAR_CATEGORIES = [
         titleSv: "Komplex meningsbyggnad",
         description: "Fronting, multiple adverbials, and sentence-level word order at advanced level.",
         rule: "At advanced level, Swedish word order allows flexible fronting of different elements while maintaining V2. The slot before the verb (position 1) can hold: a time adverbial (Igår), a place adverbial (I Stockholm), an object (Den boken), or an entire clause (När han kom). After the verb: subject, then sentence adverbs (inte/redan/alltid/aldrig) in a fixed order, then other elements. Sentence adverbs follow a hierarchy: inte > aldrig > alltid > redan > fortfarande. In formal writing, participle constructions replace relative clauses: Kommande från Stockholm = Coming from Stockholm.",
+        learn: {
+          concept: "At an advanced level, Swedish word order becomes a tool for emphasis and style. You can 'front' almost any element — put it first to make it the topic of the sentence — while the V2 rule always keeps the verb in position 2. Multiple adverbials follow a priority order. And there's a hierarchy of sentence adverbs (inte, aldrig, alltid, redan, fortfarande) where their relative order is fixed. Mastering these nuances is what separates intermediate from advanced Swedish speakers — your sentences gain rhythm, emphasis, and precision.",
+          examples: [
+            { sv: "Den boken har jag redan läst.", en: "That book I have already read.", note: "fronting the object for emphasis" },
+            { sv: "Igår åt jag snabbt lunch hemma.", en: "Yesterday I quickly ate lunch at home.", note: "V2 maintained + adverb order" },
+            { sv: "När han kom, gick vi hem.", en: "When he came, we went home.", note: "fronting a whole clause" },
+            { sv: "Hon har fortfarande inte kommit.", en: "She still hasn't come.", note: "fortfarande before inte" },
+            { sv: "Mannen boende i Stockholm.", en: "The man living in Stockholm.", note: "formal participle construction" },
+          ],
+          table: {
+            headers: ["Sentence adverb", "Position (after auxiliary/modal)", "Example"],
+            rows: [
+              ["fortfarande (still)", "1st (closest to verb)", "har fortfarande inte kommit"],
+              ["redan (already)", "before inte", "har redan gjort det"],
+              ["alltid (always)", "before inte", "har alltid tränat"],
+              ["aldrig (never)", "before inte in main clause", "har aldrig sett det"],
+              ["inte (not)", "last in this group", "har inte gjort det"],
+            ],
+          },
+          tip: "For sentence adverb order, remember: fortfarande and redan come first (they feel 'heavier'), then aldrig/alltid, then inte last. A trick: 'STILL haven't = fortfarande inte'. In spoken Swedish the order is flexible, but in formal writing it matters. Fronting is mainly for EMPHASIS — put the most important/surprising information in position 1.",
+        },
         exercises: [
           { q: "Which is correct? (fronting the object)", options: ["Den boken har jag redan läst.", "Den boken jag har redan läst.", "Jag har redan läst den boken."], correct: 0, explanation: "Fronting the object (Den boken) triggers V2 inversion: Den boken har jag... Both first and third options are grammatically fine, but first is the fronted version." },
           { q: "Correct order of sentence adverbs:\n'Jag ___ ___ förstår det.'", options: ["inte alltid", "alltid inte", "inte aldrig"], correct: 0, explanation: "Inte comes before alltid in the adverb hierarchy: Jag förstår inte alltid det → Jag förstår det inte alltid." },
