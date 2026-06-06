@@ -8,6 +8,7 @@ import { supabase } from "@/api/supabaseClient";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { useGrammarProgress } from "@/hooks/useGrammarProgress";
+import { useAuth } from "@/lib/AuthContext";
 
 const COLOR = {
   green:  { bar: "bg-green-500",  badge: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",  ai: "bg-green-50 border-green-200 dark:bg-green-950/30 dark:border-green-800" },
@@ -50,6 +51,7 @@ export default function GrammarTopic() {
   const { categoryId, topicId } = useParams();
   const navigate = useNavigate();
   const { saveProgress } = useGrammarProgress();
+  const { isAuthenticated } = useAuth();
 
   // Static fallback while DB loads
   const staticCat = GRAMMAR_CATEGORIES.find(c => c.id === categoryId);
@@ -160,7 +162,7 @@ export default function GrammarTopic() {
     setAnswered(true);
     if (idx === ex.correct) {
       setScore(s => s + 1);
-      awardXP(base44, XP_REWARDS.quiz_correct || 5);
+      if (isAuthenticated) awardXP(base44, XP_REWARDS.quiz_correct, "Grammar correct");
     }
     // Save in-progress state
     saveProgress(topicId, current, total, score + (idx === ex.correct ? 1 : 0), false);
@@ -172,10 +174,10 @@ export default function GrammarTopic() {
     if (nextIdx >= total) {
       // Session complete
       saveProgress(topicId, total, total, finalScore, true);
-      if (!xpAwarded.current) {
+      if (!xpAwarded.current && isAuthenticated) {
         xpAwarded.current = true;
         const bonus = Math.round((finalScore / total) * 20);
-        if (bonus > 0) awardXP(base44, bonus);
+        if (bonus > 0) awardXP(base44, bonus, "🔤 Grammar session");
       }
       setView("result");
     } else {
