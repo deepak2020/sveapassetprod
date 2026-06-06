@@ -222,20 +222,17 @@ export default function Grammar() {
       .finally(() => setLoading(false));
   }, []);
 
-  const topicsRef = useRef(null);
+  const cardRefs = useRef({});
 
   const toggleCategory = (catId) => {
     const isOpening = selectedCategory !== catId;
     setSelectedCategory(prev => prev === catId ? null : catId);
     if (isOpening) {
-      // Small delay to let the section render before scrolling
       setTimeout(() => {
-        topicsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        cardRefs.current[catId]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }, 80);
     }
   };
-
-  const activeCat = categories.find(c => c.id === selectedCategory);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-10">
@@ -256,61 +253,52 @@ export default function Grammar() {
         </div>
       </div>
 
-      {/* 3 Category cards */}
       {loading && (
         <div className="flex items-center justify-center gap-2 py-6 text-muted-foreground text-sm">
           <Loader2 className="w-4 h-4 animate-spin" /> Loading grammar content…
         </div>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+
+      {/* Each category card + inline topic expansion below it */}
+      <div className="space-y-3">
         {categories.map(cat => (
-          <CategoryCard
-            key={cat.id}
-            category={cat}
-            isSelected={selectedCategory === cat.id}
-            onClick={() => toggleCategory(cat.id)}
-            allProgress={allProgress}
-          />
+          <div key={cat.id} ref={el => cardRefs.current[cat.id] = el}>
+            <CategoryCard
+              category={cat}
+              isSelected={selectedCategory === cat.id}
+              onClick={() => toggleCategory(cat.id)}
+              allProgress={allProgress}
+            />
+            <AnimatePresence>
+              {selectedCategory === cat.id && (
+                <motion.div
+                  key={cat.id}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  style={{ overflow: "hidden" }}
+                >
+                  <div className="pt-3 pb-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {cat.topics.map((topic, idx) => (
+                        <TopicCard
+                          key={topic.id}
+                          topic={topic}
+                          category={cat}
+                          index={idx}
+                          progress={allProgress[topic.id]}
+                          onClick={() => navigate(`/grammar/${cat.id}/${topic.id}`)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         ))}
       </div>
-
-      {/* Topic grid — shown below when category selected */}
-      <div ref={topicsRef} />
-      <AnimatePresence>
-        {activeCat && (
-          <motion.div
-            key={activeCat.id}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            {/* Section header */}
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-xl">{activeCat.emoji}</span>
-              <h2 className={`font-bold text-lg ${COLOR[activeCat.color].heading}`}>
-                {activeCat.label} Topics
-              </h2>
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${COLOR[activeCat.color].badge}`}>
-                {activeCat.topics.length} topics
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {activeCat.topics.map((topic, idx) => (
-                <TopicCard
-                  key={topic.id}
-                  topic={topic}
-                  category={activeCat}
-                  index={idx}
-                  progress={allProgress[topic.id]}
-                  onClick={() => navigate(`/grammar/${activeCat.id}/${topic.id}`)}
-                />
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Empty state — nothing selected */}
       {!selectedCategory && (
