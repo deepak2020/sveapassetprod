@@ -48,6 +48,11 @@
       "type": "boolean",
       "description": "Whether the user has completed onboarding",
       "default": false
+    },
+    "ai_chat_access": {
+      "type": "boolean",
+      "description": "Whether the user has access to the AI Conversation Practice feature",
+      "default": false
     }
   },
   "required": [
