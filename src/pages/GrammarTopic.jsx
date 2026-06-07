@@ -19,7 +19,7 @@ const COLOR = {
 const aiCache = new Map();
 
 async function getAIExplanation(question, correctAnswer, userAnswer, rule) {
-  const key = `${question}||${userAnswer}`;
+  const key = `${question}||${correctAnswer}||${userAnswer}`;
   if (aiCache.has(key)) return aiCache.get(key);
   try {
     const result = await base44.integrations.Core.InvokeLLM({
@@ -130,22 +130,25 @@ export default function GrammarTopic() {
     xpAwarded.current = false;
   }, [topicId]);
 
-  // Trigger AI explanation on wrong answer
-  useEffect(() => {
-    if (!answered || !ex || selected === ex.correct) return;
-    setAiLoading(true);
-    setAiText(null);
-    getAIExplanation(ex.q, ex.options[ex.correct], ex.options[selected], topic?.rule || "")
-      .then(txt => setAiText(txt))
-      .finally(() => setAiLoading(false));
-  }, [answered]);
-
   const c = COLOR[category?.color || "green"];
   // Use session exercises if loaded, fall back to static while DB loads
   const exercises = sessionExercises.length ? sessionExercises : (staticTopic?.exercises || []);
   const ex = exercises[current];
   const total = exercises.length;
   const bankSize = topic?.exercises?.length || total;
+
+  // Trigger AI explanation on wrong answer — guards against stale closures
+  // referencing the previous question when the user advances quickly.
+  useEffect(() => {
+    if (!answered || !ex || selected === ex.correct) return;
+    let cancelled = false;
+    setAiLoading(true);
+    setAiText(null);
+    getAIExplanation(ex.q, ex.options[ex.correct], ex.options[selected], topic?.rule || "")
+      .then(txt => { if (!cancelled) setAiText(txt); })
+      .finally(() => { if (!cancelled) setAiLoading(false); });
+    return () => { cancelled = true; };
+  }, [answered, current, selected, ex, topic]);
 
   if (!category || !topic) {
     return (

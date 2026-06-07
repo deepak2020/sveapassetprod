@@ -22,9 +22,12 @@ const DIFFICULTY_COLORS = {
 };
 
 async function generateExercises(topic, count = GENERATE_COUNT) {
-  const existing = topic.exercises?.slice(0, 3).map(e =>
-    `Q: ${e.q}\nOptions: ${e.options.join(" / ")}\nCorrect: ${e.options[e.correct]}`
-  ).join("\n\n");
+  const existing = topic.exercises
+    ?.filter(e => e.q && Array.isArray(e.options) && e.correct >= 0 && e.correct < e.options.length)
+    .slice(0, 3)
+    .map(e =>
+      `Q: ${e.q}\nOptions: ${e.options.join(" / ")}\nCorrect: ${e.options[e.correct]}`
+    ).join("\n\n");
 
   const result = await base44.integrations.Core.InvokeLLM({
     prompt: `You are a Swedish language teacher. Generate ${count} practice exercises for the grammar topic below.
@@ -110,8 +113,14 @@ export default function AdminGrammar() {
     setGenerating(g => ({ ...g, [topic.id]: true }));
     setResults(r => ({ ...r, [topic.id]: null }));
     try {
-      const exercises = await generateExercises(topic, GENERATE_COUNT);
-      if (!exercises.length) throw new Error("No exercises returned");
+      const generated = await generateExercises(topic, GENERATE_COUNT);
+      const exercises = generated.filter(e =>
+        e.question?.trim() &&
+        Array.isArray(e.options) && e.options.length >= 2 &&
+        Number.isInteger(e.correct_index) && e.correct_index >= 0 && e.correct_index < e.options.length &&
+        e.explanation?.trim()
+      );
+      if (!exercises.length) throw new Error("No valid exercises returned");
 
       const rows = exercises.map((e, i) => ({
         topic_id:      topic.id,
