@@ -17,7 +17,7 @@ const navItems = [
   { path: "/gym", label: "Träning", icon: Dumbbell },
   { path: "/grammar", label: "Grammatik", icon: PenSquare },
   { path: "/talk", label: "Talk", icon: MessageCircle },
-  { path: "/sveai", label: "SveAI", icon: Bot, requires: "ai_chat_access" },
+  { path: "/sveai", label: "Talk to SveAI", icon: Bot, requires: "ai_chat_access" },
 ];
 
 const bottomTabItems = [
