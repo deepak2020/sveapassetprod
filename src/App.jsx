@@ -22,6 +22,7 @@ import Privacy from './pages/Privacy';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Talk from './pages/Talk';
+import AIConversation from './pages/AIConversation';
 import ThemeSync from './components/ThemeSync';
 import XPToast from './components/shared/XPToast';
 import StreakMilestoneModal from './components/shared/StreakMilestoneModal';
@@ -73,6 +74,7 @@ const AuthenticatedApp = () => {
         <Route path="/grammar/:categoryId/:topicId" element={<GrammarTopic />} />
         <Route path="/admin/grammar" element={<AdminGrammar />} />
         <Route path="/talk" element={<Talk />} />
+        <Route path="/ai-conversation" element={<AIConversation />} />
         <Route path="/citizenship-test" element={<CitizenshipTest />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<About />} />
