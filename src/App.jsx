@@ -21,6 +21,8 @@ import CitizenshipTest from './pages/CitizenshipTest';
 import Privacy from './pages/Privacy';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Talk from './pages/Talk';
+import SveAI from './pages/SveAI';
 import ThemeSync from './components/ThemeSync';
 import XPToast from './components/shared/XPToast';
 import StreakMilestoneModal from './components/shared/StreakMilestoneModal';
@@ -71,6 +73,8 @@ const AuthenticatedApp = () => {
         <Route path="/grammar" element={<Grammar />} />
         <Route path="/grammar/:categoryId/:topicId" element={<GrammarTopic />} />
         <Route path="/admin/grammar" element={<AdminGrammar />} />
+        <Route path="/talk" element={<Talk />} />
+        <Route path="/sveai" element={<SveAI />} />
         <Route path="/citizenship-test" element={<CitizenshipTest />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<About />} />
