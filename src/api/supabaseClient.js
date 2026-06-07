@@ -137,6 +137,28 @@ export const supabase = {
     },
   },
 
+  sveai: {
+    async getConversation(userId, scenarioId) {
+      const { data } = await sbFetch(
+        `sveai_conversations?user_id=eq.${encodeURIComponent(userId)}&scenario_id=eq.${encodeURIComponent(scenarioId)}&select=messages`
+      );
+      return Array.isArray(data) && data[0]?.messages ? data[0].messages : [];
+    },
+
+    async saveConversation(userId, scenarioId, messages) {
+      return sbFetch('sveai_conversations', {
+        method: 'POST',
+        headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+        body: JSON.stringify({
+          user_id: userId,
+          scenario_id: scenarioId,
+          messages,
+          updated_at: new Date().toISOString(),
+        }),
+      });
+    },
+  },
+
   talkSentences: {
     async getTopics() {
       const { data } = await sbFetch(
