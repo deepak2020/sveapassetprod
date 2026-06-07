@@ -6,19 +6,27 @@ import { motion } from "framer-motion";
 import { useDailyReview } from "@/hooks/useDailyReview";
 import DailyReviewSession from "@/components/shared/DailyReviewSession";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function DailyReviewCard() {
   const [sessionOpen, setSessionOpen] = useState(false);
-  const { isDone, reviewItems, totalDue, showNudge, markDone, updateCard } = useDailyReview();
+  const { isDone, reviewItems, totalDue, showNudge, today, updateCard } = useDailyReview();
+  const { checkUserAuth } = useAuth();
   const queryClient = useQueryClient();
 
   if (isDone || !showNudge) return null;
 
   const handleComplete = async () => {
-    markDone();
-    await awardXP(base44, XP_REWARDS.daily_review_bonus, "🔥 Daily warm-up bonus");
+    // Guard against double-awarding (e.g. stale UI, concurrent tabs) by checking
+    // server state right before marking done — isDone above can be stale.
+    const freshUser = await base44.auth.me();
+    if (freshUser?.last_review_date !== today) {
+      await base44.auth.updateMe({ last_review_date: today });
+      await awardXP(base44, XP_REWARDS.daily_review_bonus, "🔥 Daily warm-up bonus");
+    }
+    await checkUserAuth();
     queryClient.invalidateQueries({ queryKey: ["me"] });
     setSessionOpen(false);
   };

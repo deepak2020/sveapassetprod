@@ -48,6 +48,11 @@
       "type": "boolean",
       "description": "Whether the user has completed onboarding",
       "default": false
+    },
+    "last_review_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Last date the user completed the Daily Warm-up vocabulary review"
     }
   },
   "required": [
