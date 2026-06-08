@@ -81,8 +81,6 @@ const REPLY_SCHEMA = {
   required: ["reply", "correction", "correction_note"],
 };
 
-const speechSupported = typeof window !== "undefined" && !!(window.SpeechRecognition || window.webkitSpeechRecognition);
-
 function LockedView() {
   const navigate = useNavigate();
   return (
@@ -240,7 +238,10 @@ Return JSON only.`,
     if (listening || sending) return;
     try {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRecognition) return;
+      if (!SpeechRecognition) {
+        alert("Speech recognition isn't supported in this browser — try Chrome, or type your reply instead.");
+        return;
+      }
 
       const recognition = new SpeechRecognition();
       recognition.lang = "sv-SE";
@@ -344,18 +345,16 @@ Return JSON only.`,
       </div>
 
       <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border/50">
-        {speechSupported && (
-          <Button
-            variant={listening ? "default" : "outline"}
-            size="icon"
-            onClick={handleMic}
-            disabled={sending}
-            className="flex-shrink-0"
-            title="Speak your reply in Swedish"
-          >
-            <Mic className={`w-4 h-4 ${listening ? "animate-pulse" : ""}`} />
-          </Button>
-        )}
+        <Button
+          variant={listening ? "default" : "outline"}
+          size="icon"
+          onClick={handleMic}
+          disabled={sending}
+          className="flex-shrink-0"
+          title="Speak your reply in Swedish"
+        >
+          <Mic className={`w-4 h-4 ${listening ? "animate-pulse" : ""}`} />
+        </Button>
         <input
           value={input}
           onChange={e => setInput(e.target.value)}
