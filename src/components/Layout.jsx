@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { BookOpen, Landmark, Home, Menu, X, LogIn, LogOut, User, FlaskConical, Flame, Zap, LayoutDashboard, Dumbbell, PenSquare, MessageCircle, Bot } from "lucide-react";
+import { BookOpen, Landmark, Home, Menu, X, LogIn, LogOut, User, FlaskConical, Flame, Zap, LayoutDashboard, Dumbbell, PenSquare, Bot } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/AuthContext";
@@ -16,8 +16,7 @@ const navItems = [
   { path: "/civic", label: "Samhälle", icon: Landmark },
   { path: "/gym", label: "Träning", icon: Dumbbell },
   { path: "/grammar", label: "Grammatik", icon: PenSquare },
-  { path: "/talk", label: "Talk", icon: MessageCircle },
-  { path: "/sveai", label: "Talk to SveAI", icon: Bot, requires: "ai_chat_access" },
+  { path: "/sveai", label: "Talk to SveAI", icon: Bot },
 ];
 
 const bottomTabItems = [
@@ -25,7 +24,7 @@ const bottomTabItems = [
   { path: "/language", label: "Lär dig", icon: BookOpen },
   { path: "/grammar", label: "Grammatik", icon: PenSquare },
   { path: "/gym", label: "Träning", icon: Dumbbell },
-  { path: "/talk", label: "Talk", icon: MessageCircle },
+  { path: "/sveai", label: "SveAI", icon: Bot },
 ];
 
 // Root path for each bottom tab
@@ -35,7 +34,7 @@ const TAB_ROOTS = {
   "/civic": "/civic",
   "/gym": "/gym",
   "/grammar": "/grammar",
-  "/talk": "/talk",
+  "/sveai": "/sveai",
 };
 
 function getActiveTab(pathname) {
@@ -113,7 +112,7 @@ export default function Layout() {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-1">
-              {navItems.filter(item => (isAuthenticated || item.path !== "/dashboard") && (!item.requires || userProfile?.[item.requires])).map((item) => {
+              {navItems.filter(item => isAuthenticated || item.path !== "/dashboard").map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.path || 
                   (item.path !== "/" && location.pathname.startsWith(item.path));
@@ -178,7 +177,7 @@ export default function Layout() {
         {mobileOpen && (
           <div className="md:hidden border-t border-border/50 bg-card/95 backdrop-blur-xl">
             <nav className="px-4 py-3 space-y-1">
-              {navItems.filter(item => (isAuthenticated || item.path !== "/dashboard") && (!item.requires || userProfile?.[item.requires])).map((item) => {
+              {navItems.filter(item => isAuthenticated || item.path !== "/dashboard").map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.path ||
                   (item.path !== "/" && location.pathname.startsWith(item.path));
