@@ -81,8 +81,6 @@ const REPLY_SCHEMA = {
   required: ["reply", "correction", "correction_note"],
 };
 
-const speechSupported = typeof window !== "undefined" && !!(window.SpeechRecognition || window.webkitSpeechRecognition);
-
 function LockedView() {
   const navigate = useNavigate();
   return (
@@ -210,7 +208,11 @@ function ChatView({ scenario, onExit }) {
 CONVERSATION SO FAR:
 ${transcript}
 
-Reply to the user's last message, staying in character as described. If their Swedish was awkward or incorrect, suggest a more natural phrasing — otherwise leave correction fields empty.
+Reply to the user's last message, staying in character as described.
+
+Then carefully review the user's LAST message (the Swedish they just wrote/said) for ANYTHING that could be improved — spelling, word order, verb tense, en/ett articles, missing words, or just a more natural/idiomatic way a native speaker would phrase it. Be a helpful, encouraging tutor: even small, minor improvements are worth pointing out, since that's exactly how the user gets better. Only leave the correction fields empty if the message was already a fully natural, native-sounding Swedish sentence with nothing to improve.
+- correction: the corrected/more natural full version of the user's message, in Swedish
+- correction_note: ONE short, encouraging sentence in English explaining the specific change and why (e.g. "Use 'har varit' instead of 'var' for something that started in the past and continues now.")
 
 Return JSON only.`,
         add_context_from_history: false,
@@ -240,7 +242,10 @@ Return JSON only.`,
     if (listening || sending) return;
     try {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRecognition) return;
+      if (!SpeechRecognition) {
+        alert("Speech recognition isn't supported in this browser — try Chrome, or type your reply instead.");
+        return;
+      }
 
       const recognition = new SpeechRecognition();
       recognition.lang = "sv-SE";
@@ -344,18 +349,16 @@ Return JSON only.`,
       </div>
 
       <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border/50">
-        {speechSupported && (
-          <Button
-            variant={listening ? "default" : "outline"}
-            size="icon"
-            onClick={handleMic}
-            disabled={sending}
-            className="flex-shrink-0"
-            title="Speak your reply in Swedish"
-          >
-            <Mic className={`w-4 h-4 ${listening ? "animate-pulse" : ""}`} />
-          </Button>
-        )}
+        <Button
+          variant={listening ? "default" : "outline"}
+          size="icon"
+          onClick={handleMic}
+          disabled={sending}
+          className="flex-shrink-0"
+          title="Speak your reply in Swedish"
+        >
+          <Mic className={`w-4 h-4 ${listening ? "animate-pulse" : ""}`} />
+        </Button>
         <input
           value={input}
           onChange={e => setInput(e.target.value)}
