@@ -208,7 +208,11 @@ function ChatView({ scenario, onExit }) {
 CONVERSATION SO FAR:
 ${transcript}
 
-Reply to the user's last message, staying in character as described. If their Swedish was awkward or incorrect, suggest a more natural phrasing — otherwise leave correction fields empty.
+Reply to the user's last message, staying in character as described.
+
+Then carefully review the user's LAST message (the Swedish they just wrote/said) for ANYTHING that could be improved — spelling, word order, verb tense, en/ett articles, missing words, or just a more natural/idiomatic way a native speaker would phrase it. Be a helpful, encouraging tutor: even small, minor improvements are worth pointing out, since that's exactly how the user gets better. Only leave the correction fields empty if the message was already a fully natural, native-sounding Swedish sentence with nothing to improve.
+- correction: the corrected/more natural full version of the user's message, in Swedish
+- correction_note: ONE short, encouraging sentence in English explaining the specific change and why (e.g. "Use 'har varit' instead of 'var' for something that started in the past and continues now.")
 
 Return JSON only.`,
         add_context_from_history: false,
