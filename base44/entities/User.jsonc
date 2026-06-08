@@ -53,11 +53,6 @@
       "type": "string",
       "format": "date",
       "description": "Last date the user completed the Daily Warm-up vocabulary review"
-    },
-    "ai_chat_access": {
-      "type": "boolean",
-      "description": "Whether the user has access to the AI Conversation Practice feature",
-      "default": false
     }
   },
   "required": [
