@@ -1,11 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, Lock, Sparkles, Send, Volume2, Loader2, RotateCcw, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/AuthContext";
 import { base44 } from "@/api/base44Client";
-import { supabase } from "@/api/supabaseClient";
 import { playAudio } from "@/lib/speech";
 
 const SCENARIOS = [
@@ -90,7 +89,7 @@ function LockedView() {
       <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
         <Lock className="w-7 h-7 text-primary" />
       </div>
-      <h1 className="text-xl font-bold mb-2">Talk to SveAI</h1>
+      <h1 className="text-xl font-bold mb-2">SveAI</h1>
       <p className="text-sm text-muted-foreground mb-6">
         Your daily Swedish speaking buddy — practice real conversations out loud with an AI tutor,
         anytime you don't have a friend handy to practice with. This feature is currently available
@@ -116,7 +115,7 @@ function ScenarioPicker({ onSelect }) {
             <Bot className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold">Talk to SveAI</h1>
+            <h1 className="text-2xl font-bold">SveAI</h1>
             <p className="text-sm text-muted-foreground">Your daily Swedish speaking buddy — talk it out, out loud</p>
           </div>
         </div>
@@ -159,39 +158,15 @@ function ScenarioPicker({ onSelect }) {
 }
 
 function ChatView({ scenario, onExit }) {
-  const { user } = useAuth();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [listening, setListening] = useState(false);
   const [autoSpeak, setAutoSpeak] = useState(true);
-  const [loadingHistory, setLoadingHistory] = useState(true);
   const listRef = useRef(null);
 
   const scrollToBottom = () => {
     setTimeout(() => listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" }), 50);
-  };
-
-  // Load previous conversation for this scenario, if any
-  useEffect(() => {
-    let cancelled = false;
-    setLoadingHistory(true);
-    setMessages([]);
-    (async () => {
-      if (!user?.id) { setLoadingHistory(false); return; }
-      const history = await supabase.sveai.getConversation(user.id, scenario.id);
-      if (!cancelled) {
-        setMessages(Array.isArray(history) ? history : []);
-        setLoadingHistory(false);
-        scrollToBottom();
-      }
-    })();
-    return () => { cancelled = true; };
-  }, [scenario.id, user?.id]);
-
-  // Persist conversation after each exchange
-  const persist = (nextMessages) => {
-    if (user?.id) supabase.sveai.saveConversation(user.id, scenario.id, nextMessages);
   };
 
   const sendMessage = async (overrideText) => {
@@ -217,19 +192,15 @@ Return JSON only.`,
         response_json_schema: REPLY_SCHEMA,
       });
       const replyText = result?.reply || "...";
-      const next = [...history, {
+      setMessages(h => [...h, {
         role: "assistant",
         text: replyText,
         correction: result?.correction || "",
         correctionNote: result?.correction_note || "",
-      }];
-      setMessages(next);
-      persist(next);
+      }]);
       if (autoSpeak) playAudio(replyText, "sv-SE", 0.95);
     } catch {
-      const next = [...history, { role: "assistant", text: "Hmm, something went wrong — try again?", error: true }];
-      setMessages(next);
-      persist(next);
+      setMessages(h => [...h, { role: "assistant", text: "Hmm, something went wrong — try again?", error: true }]);
     } finally {
       setSending(false);
       scrollToBottom();
@@ -291,12 +262,7 @@ Return JSON only.`,
       </div>
 
       <div ref={listRef} className="flex-1 overflow-y-auto space-y-3 pr-1">
-        {loadingHistory && (
-          <div className="flex justify-center py-10 text-muted-foreground">
-            <Loader2 className="w-5 h-5 animate-spin" />
-          </div>
-        )}
-        {!loadingHistory && messages.length === 0 && (
+        {messages.length === 0 && (
           <div className="text-center text-sm text-muted-foreground py-10">
             Say hello to get the conversation started 👋<br />
             <span className="text-xs">Type, or tap the mic and speak in Swedish</span>
