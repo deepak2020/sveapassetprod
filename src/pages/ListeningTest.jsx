@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { usePageView } from "@/hooks/usePageView";
 import { base44 } from "@/api/base44Client";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/api/supabaseClient";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { Headphones, Play, Square, ArrowRight, RotateCcw, Trophy, ChevronLeft, Volume2, CheckCircle2, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -115,12 +116,22 @@ function AudioPlayer({ item, playsLeft, onPlayStart }) {
 export default function ListeningTest() {
   usePageView("listening_test");
   const { course } = useParams();
-  const test = getListeningTest(course);
   const queryClient = useQueryClient();
+
+  // Tests live in Supabase (listening_tests table); the static data file is
+  // the fallback if the table doesn't exist yet or the fetch fails.
+  const { data: dbTest, isLoading: loadingTest } = useQuery({
+    queryKey: ["listeningTest", course],
+    queryFn: async () => {
+      const { data } = await supabase.listening.getTests(course?.toUpperCase());
+      return Array.isArray(data) && data.length > 0 ? data[0] : null;
+    },
+  });
+  const test = dbTest || getListeningTest(course);
 
   const [phase, setPhase] = useState("intro"); // intro | running | results
   const [itemIndex, setItemIndex] = useState(0);
-  const [answers, setAnswers] = useState({}); // "itemIdx-qIdx" -> selected option index
+  const [answers, setAnswers] = useState({}); // "itemIdx-qIdx" -> selected option index or open-answer text
   const [playsUsed, setPlaysUsed] = useState({}); // itemId -> count
   const [saved, setSaved] = useState(false);
 
@@ -128,6 +139,14 @@ export default function ListeningTest() {
   useEffect(() => {
     window.speechSynthesis?.getVoices();
   }, []);
+
+  if (loadingTest && !test) {
+    return (
+      <div className="flex justify-center py-24">
+        <div className="w-8 h-8 border-4 border-muted border-t-primary rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   if (!test) {
     return (

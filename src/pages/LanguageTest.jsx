@@ -5,6 +5,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { FlaskConical, ArrowRight, RotateCcw, Trophy, ChevronLeft, BookOpen, Headphones, PenSquare } from "lucide-react";
 import { getListeningTest } from "@/data/listeningTestsC";
+import { supabase } from "@/api/supabaseClient";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -35,6 +36,16 @@ export default function LanguageTest() {
     queryKey: ["lessons"],
     queryFn: () => base44.entities.Lesson.list("order", 200),
   });
+
+  // Courses that have a listening test in Supabase (static data as fallback)
+  const { data: listeningCourses = [] } = useQuery({
+    queryKey: ["listeningCourses"],
+    queryFn: async () => {
+      const { data } = await supabase.listening.getCourses();
+      return Array.isArray(data) ? data.map((r) => r.course) : [];
+    },
+  });
+  const hasListeningTest = (course) => listeningCourses.includes(course) || !!getListeningTest(course);
 
   const courseLessons = selectedCourse
     ? lessons.filter((l) => l.sfi_course === selectedCourse && l.quiz_questions?.length > 0)
@@ -286,7 +297,7 @@ export default function LanguageTest() {
               </div>
             </button>
 
-            {getListeningTest(selectedCourse) ? (
+            {hasListeningTest(selectedCourse) ? (
               <Link
                 to={`/listening/${selectedCourse.toLowerCase()}`}
                 className="text-left rounded-2xl border-2 border-border/50 bg-card p-6 hover:shadow-lg hover:border-primary/40 transition-all group block"
