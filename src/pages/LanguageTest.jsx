@@ -3,8 +3,9 @@ import { usePageView } from "@/hooks/usePageView";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
-import { FlaskConical, ArrowRight, RotateCcw, Trophy, ChevronLeft, BookOpen } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { FlaskConical, ArrowRight, RotateCcw, Trophy, ChevronLeft, BookOpen, Headphones, PenSquare } from "lucide-react";
+import { getListeningTest } from "@/data/listeningTestsC";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -21,6 +22,7 @@ const SFI_COURSES = [
 export default function LanguageTest() {
   usePageView("language_test");
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedSkill, setSelectedSkill] = useState(null); // null | "quiz"
   const [selectedLesson, setSelectedLesson] = useState(null);
   const [testState, setTestState] = useState("select"); // select | running | results
   const [currentQ, setCurrentQ] = useState(0);
@@ -83,6 +85,7 @@ export default function LanguageTest() {
     setShowFeedback(false);
     setTestState("select");
     setSelectedLesson(null);
+    setSelectedSkill(null);
   };
 
   // ── RESULTS SCREEN ───────────────────────────────────────────────
@@ -259,10 +262,59 @@ export default function LanguageTest() {
             })}
           </div>
         </>
-      ) : (
+      ) : !selectedSkill ? (
         <>
           <button onClick={() => setSelectedCourse(null)} className="text-sm text-muted-foreground hover:text-foreground mb-6 flex items-center gap-1">
             ← Alla kurser
+          </button>
+
+          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+            Kurs {selectedCourse} — välj vad du vill testa
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <button
+              onClick={() => setSelectedSkill("quiz")}
+              className="text-left rounded-2xl border-2 border-border/50 bg-card p-6 hover:shadow-lg hover:border-primary/40 transition-all group"
+            >
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                <PenSquare className="w-6 h-6 text-primary" />
+              </div>
+              <p className="font-semibold text-foreground mb-1">Ordkunskap & läsning</p>
+              <p className="text-sm text-muted-foreground mb-3">Quizfrågor från kursens lektioner — hela kursen eller ett enskilt ämne.</p>
+              <div className="flex items-center gap-1 text-sm font-semibold text-foreground group-hover:gap-2 transition-all">
+                Välj <ArrowRight className="w-4 h-4" />
+              </div>
+            </button>
+
+            {getListeningTest(selectedCourse) ? (
+              <Link
+                to={`/listening/${selectedCourse.toLowerCase()}`}
+                className="text-left rounded-2xl border-2 border-border/50 bg-card p-6 hover:shadow-lg hover:border-primary/40 transition-all group block"
+              >
+                <div className="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center mb-4">
+                  <Headphones className="w-6 h-6 text-violet-600 dark:text-violet-400" />
+                </div>
+                <p className="font-semibold text-foreground mb-1">Hörförståelse</p>
+                <p className="text-sm text-muted-foreground mb-3">Lyssna på samtal, telefonsamtal och meddelanden — som på det nationella provet.</p>
+                <div className="flex items-center gap-1 text-sm font-semibold text-foreground group-hover:gap-2 transition-all">
+                  Välj <ArrowRight className="w-4 h-4" />
+                </div>
+              </Link>
+            ) : (
+              <div className="text-left rounded-2xl border-2 border-border/30 bg-card p-6 opacity-50">
+                <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center mb-4">
+                  <Headphones className="w-6 h-6 text-muted-foreground" />
+                </div>
+                <p className="font-semibold text-foreground mb-1">Hörförståelse</p>
+                <p className="text-sm text-muted-foreground">Kommer snart för kurs {selectedCourse}.</p>
+              </div>
+            )}
+          </div>
+        </>
+      ) : (
+        <>
+          <button onClick={() => setSelectedSkill(null)} className="text-sm text-muted-foreground hover:text-foreground mb-6 flex items-center gap-1">
+            ← Kurs {selectedCourse}
           </button>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
