@@ -80,6 +80,11 @@ export const LISTENING_TESTS_C = [
             options: ["Sitt frikort", "Sin legitimation", "Tvåhundra kronor kontant", "Ett sjukintyg"],
             correctIndex: 1,
           },
+          {
+            type: "open",
+            q: "Hur mycket kostar besöket om man inte har frikort? Skriv ditt svar.",
+            accept: ["200 kronor", "200 kr", "200", "tvåhundra kronor", "tvåhundra", "det kostar 200 kronor", "det kostar tvåhundra kronor"],
+          },
         ],
       },
       {
@@ -107,6 +112,11 @@ export const LISTENING_TESTS_C = [
             q: "Vad händer på fredag?",
             options: ["Eleverna är lediga hela dagen", "Eleverna slutar klockan tolv", "Det är utvecklingssamtal", "Skolan börjar senare"],
             correctIndex: 1,
+          },
+          {
+            type: "open",
+            q: "Vilken dag är utvecklingssamtalet? Skriv ditt svar.",
+            accept: ["torsdag", "på torsdag", "torsdagen", "torsdag den fjortonde", "på torsdag den fjortonde", "den fjortonde"],
           },
         ],
       },
@@ -158,6 +168,70 @@ export const LISTENING_TESTS_C = [
             q: "Varför läser Fatima svenska på kvällarna?",
             options: ["Hon vill byta jobb till en skola", "Hon vill klara antagningen till högskolan", "Hon vill hjälpa sina barn med läxor", "Hennes chef kräver det"],
             correctIndex: 1,
+          },
+        ],
+      },
+      {
+        id: "c1-nyheter",
+        type: "news",
+        typeLabel: "Nyhetsinslag",
+        typeEmoji: "📻",
+        intro: "Ett kort nyhetsinslag på radion.",
+        audioUrl: null,
+        transcript: [
+          { speaker: "Nyhetsuppläsare", text: "Och så lite lokala nyheter. Från och med på måndag stängs Storgatan i centrum för biltrafik på grund av ett stort vägarbete. Arbetet beräknas pågå i sex veckor. Bussarna på linje fyra och linje nio får under tiden andra hållplatser. Resenärer hänvisas till hållplatsen vid stadsbiblioteket. Kommunen räknar med att gatan öppnar igen i mitten av augusti. Gående och cyklister kan passera som vanligt under hela perioden." },
+        ],
+        questions: [
+          {
+            q: "Varför stängs Storgatan?",
+            options: ["Det har hänt en olycka", "Det är ett vägarbete", "Det är en festival", "Gatan är översvämmad"],
+            correctIndex: 1,
+          },
+          {
+            q: "Hur länge beräknas arbetet pågå?",
+            options: ["Sex dagar", "Sex veckor", "Sex månader", "Till nästa år"],
+            correctIndex: 1,
+          },
+          {
+            type: "open",
+            q: "Vid vilken hållplats ska bussresenärerna gå på under vägarbetet? Skriv ditt svar.",
+            accept: ["stadsbiblioteket", "vid stadsbiblioteket", "hållplatsen vid stadsbiblioteket", "biblioteket", "vid biblioteket"],
+          },
+        ],
+      },
+      {
+        id: "c1-matchning",
+        type: "matching",
+        typeLabel: "Matchning",
+        typeEmoji: "🔗",
+        intro: "Fyra personer berättar vad de ska göra i helgen. Matcha varje person med rätt aktivitet. Två alternativ blir över.",
+        audioUrl: null,
+        transcript: [
+          { speaker: "Maria", text: "I helgen ska jag äntligen ta det lugnt. Jag ska stanna hemma, laga god mat och titta på en film med min familj." },
+          { speaker: "Johan", text: "På lördag fyller min brorsdotter fem år, så vi ska på kalas hos min bror i Göteborg. Vi åker tåg dit på morgonen." },
+          { speaker: "Aisha", text: "Jag har precis börjat träna inför ett lopp, så i helgen blir det en långpromenad på lördag och löpning på söndag." },
+          { speaker: "Erik", text: "Min lägenhet är ett kaos just nu. Hela helgen ska jag måla om sovrummet och bygga ihop nya möbler." },
+        ],
+        questions: [
+          {
+            q: "Vad ska Maria göra i helgen?",
+            options: ["Träna", "Gå på födelsedagskalas", "Renovera hemma", "Ta det lugnt hemma", "Jobba extra", "Resa utomlands"],
+            correctIndex: 3,
+          },
+          {
+            q: "Vad ska Johan göra i helgen?",
+            options: ["Träna", "Gå på födelsedagskalas", "Renovera hemma", "Ta det lugnt hemma", "Jobba extra", "Resa utomlands"],
+            correctIndex: 1,
+          },
+          {
+            q: "Vad ska Aisha göra i helgen?",
+            options: ["Träna", "Gå på födelsedagskalas", "Renovera hemma", "Ta det lugnt hemma", "Jobba extra", "Resa utomlands"],
+            correctIndex: 0,
+          },
+          {
+            q: "Vad ska Erik göra i helgen?",
+            options: ["Träna", "Gå på födelsedagskalas", "Renovera hemma", "Ta det lugnt hemma", "Jobba extra", "Resa utomlands"],
+            correctIndex: 2,
           },
         ],
       },

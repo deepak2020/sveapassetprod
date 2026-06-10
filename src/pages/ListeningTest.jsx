@@ -10,6 +10,14 @@ import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
 import { getListeningTest } from "@/data/listeningTestsC";
 import { getBestVoice } from "@/lib/speech";
+import { normalizeAnswer } from "@/lib/normalizeAnswer";
+
+function isCorrect(q, answer) {
+  if (q.type === "open") {
+    return q.accept.some((a) => normalizeAnswer(a) === normalizeAnswer(answer));
+  }
+  return answer === q.correctIndex;
+}
 
 const MAX_PLAYS = 2;
 
@@ -134,12 +142,15 @@ export default function ListeningTest() {
   const item = test.items[itemIndex];
   const isLastItem = itemIndex === test.items.length - 1;
   const allQuestions = test.items.flatMap((it, ii) => it.questions.map((q, qi) => ({ ...q, key: `${ii}-${qi}` })));
-  const score = allQuestions.filter((q) => answers[q.key] === q.correctIndex).length;
+  const score = allQuestions.filter((q) => isCorrect(q, answers[q.key])).length;
   const percentage = Math.round((score / allQuestions.length) * 100);
-  const itemAnswered = item?.questions.every((_, qi) => answers[`${itemIndex}-${qi}`] !== undefined);
+  const itemAnswered = item?.questions.every((q, qi) => {
+    const a = answers[`${itemIndex}-${qi}`];
+    return q.type === "open" ? typeof a === "string" && a.trim() !== "" : a !== undefined;
+  });
 
-  const selectAnswer = (qIdx, optIdx) => {
-    setAnswers((prev) => ({ ...prev, [`${itemIndex}-${qIdx}`]: optIdx }));
+  const selectAnswer = (qIdx, value) => {
+    setAnswers((prev) => ({ ...prev, [`${itemIndex}-${qIdx}`]: value }));
   };
 
   const handleNext = async () => {
@@ -246,7 +257,9 @@ export default function ListeningTest() {
               <div className="space-y-3">
                 {it.questions.map((q, qi) => {
                   const sel = answers[`${ii}-${qi}`];
-                  const correct = sel === q.correctIndex;
+                  const correct = isCorrect(q, sel);
+                  const userAnswer = q.type === "open" ? sel : sel !== undefined ? q.options[sel] : undefined;
+                  const correctAnswer = q.type === "open" ? q.accept[0] : q.options[q.correctIndex];
                   return (
                     <div key={qi} className="text-sm">
                       <p className="font-medium flex items-start gap-1.5">
@@ -256,8 +269,8 @@ export default function ListeningTest() {
                         {q.q}
                       </p>
                       <p className="text-xs text-muted-foreground ml-6 mt-0.5">
-                        {!correct && sel !== undefined && <>Ditt svar: <span className="text-destructive">{q.options[sel]}</span> · </>}
-                        Rätt svar: <span className="text-emerald-600 dark:text-emerald-400 font-medium">{q.options[q.correctIndex]}</span>
+                        {!correct && userAnswer !== undefined && <>Ditt svar: <span className="text-destructive">{userAnswer}</span> · </>}
+                        Rätt svar: <span className="text-emerald-600 dark:text-emerald-400 font-medium">{correctAnswer}</span>
                       </p>
                     </div>
                   );
@@ -313,6 +326,14 @@ export default function ListeningTest() {
             {item.questions.map((q, qi) => (
               <div key={qi}>
                 <p className="font-semibold text-sm mb-3">{qi + 1}. {q.q}</p>
+                {q.type === "open" ? (
+                  <input
+                    value={answers[`${itemIndex}-${qi}`] || ""}
+                    onChange={(e) => selectAnswer(qi, e.target.value)}
+                    placeholder="Skriv ditt svar här…"
+                    className="w-full rounded-xl border-2 border-border/50 bg-card px-4 py-3 text-sm focus:outline-none focus:border-primary/60"
+                  />
+                ) : (
                 <div className="space-y-2">
                   {q.options.map((opt, oi) => {
                     const isSelected = answers[`${itemIndex}-${qi}`] === oi;
@@ -336,6 +357,7 @@ export default function ListeningTest() {
                     );
                   })}
                 </div>
+                )}
               </div>
             ))}
           </div>
