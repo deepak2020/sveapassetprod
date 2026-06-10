@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bot, Send, Volume2, Loader2, RotateCcw, Mic } from "lucide-react";
+import { Bot, Lock, Sparkles, Send, Volume2, Loader2, RotateCcw, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/AuthContext";
 import { base44 } from "@/api/base44Client";
@@ -79,6 +80,29 @@ const REPLY_SCHEMA = {
   },
   required: ["reply", "correction", "correction_note"],
 };
+
+function LockedView() {
+  const navigate = useNavigate();
+  return (
+    <div className="max-w-lg mx-auto px-4 py-16 text-center">
+      <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+        <Lock className="w-7 h-7 text-primary" />
+      </div>
+      <h1 className="text-xl font-bold mb-2">Talk to SveAI</h1>
+      <p className="text-sm text-muted-foreground mb-6">
+        Your daily Swedish speaking buddy — practice real conversations out loud with an AI tutor,
+        anytime you don't have a friend handy to practice with. This feature is currently available
+        to a limited group of users while we test it. Reach out and we'll be happy to enable it for you.
+      </p>
+      <div className="flex items-center justify-center gap-3">
+        <Button variant="outline" onClick={() => navigate("/dashboard")}>Back to dashboard</Button>
+        <Button onClick={() => navigate("/contact")} className="gap-2">
+          <Sparkles className="w-4 h-4" /> Request access
+        </Button>
+      </div>
+    </div>
+  );
+}
 
 function ScenarioPicker({ onSelect }) {
   const todays = getTodaysScenario();
@@ -351,7 +375,12 @@ Return JSON only.`,
 }
 
 export default function SveAI() {
+  const { user, isAuthenticated } = useAuth();
   const [scenario, setScenario] = useState(null);
+
+  const hasAccess = isAuthenticated && user?.ai_chat_access;
+
+  if (!hasAccess) return <LockedView />;
 
   return scenario
     ? <ChatView scenario={scenario} onExit={() => setScenario(null)} />
