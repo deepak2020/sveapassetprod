@@ -136,31 +136,4 @@ export const supabase = {
       return sbFetch('user_feedback?order=created_at.desc&limit=200');
     },
   },
-
-  talkSentences: {
-    async getTopics() {
-      const { data } = await sbFetch(
-        'talk_sentences?select=topic_id,topic_title,topic_title_en,topic_emoji,topic_color_class,topic_icon_bg&order=topic_id'
-      );
-      if (!Array.isArray(data)) return [];
-      // Deduplicate by topic_id
-      const seen = new Set();
-      return data.filter(r => { if (seen.has(r.topic_id)) return false; seen.add(r.topic_id); return true; });
-    },
-
-    async getByTopicAndLevel(topicId, level) {
-      const { data } = await sbFetch(
-        `talk_sentences?topic_id=eq.${topicId}&level=eq.${level}&order=sort_order&select=english,swedish`
-      );
-      return Array.isArray(data) ? data.map(r => ({ en: r.english, sv: r.swedish })) : [];
-    },
-
-    async getLevelCounts(topicId) {
-      const { data } = await sbFetch(
-        `talk_sentences?topic_id=eq.${topicId}&select=level`
-      );
-      if (!Array.isArray(data)) return {};
-      return data.reduce((acc, r) => { acc[r.level] = (acc[r.level] || 0) + 1; return acc; }, {});
-    },
-  },
 };

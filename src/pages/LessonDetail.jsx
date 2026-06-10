@@ -19,7 +19,6 @@ import WritingExercise from "../components/lesson/WritingExercise";
 import SpeakingPractice from "../components/lesson/SpeakingPractice";
 import QuizRunner from "../components/shared/QuizRunner";
 import SentenceTranslation from "../components/lesson/SentenceTranslation";
-import SpeakTranslate from "../components/lesson/SpeakTranslate";
 import MatchingExercise from "../components/lesson/MatchingExercise";
 import ListeningExercise from "../components/lesson/ListeningExercise";
 import LessonBottomNav from "../components/lesson/LessonBottomNav";
@@ -34,7 +33,6 @@ const TAB_LABELS = {
   speaking: "🗣️ Speaking",
   listening: "👂 Listening",
   translate: "✍️ Translate",
-  speaktranslate: "🎤 Speak",
   review: "🔁 Review",
   quiz: "🎯 Quiz",
 };
@@ -47,7 +45,6 @@ const TAB_SHORT = {
   speaking: "Speaking",
   listening: "Listening",
   translate: "Translate",
-  speaktranslate: "Speak",
   review: "Review",
   quiz: "Quiz",
 };
@@ -142,7 +139,7 @@ export default function LessonDetail() {
     const keys = [
       hasVocabCheck && "learn", hasBlanksCheck && "practice", hasMatchCheck && "match",
       hasWritingCheck && "writing", hasSpeakingCheck && "speaking", hasListeningCheck && "listening",
-      hasTranslateCheck && "translate", hasTranslateCheck && "speaktranslate", hasReviewCheck && "review", hasQuizCheck && "quiz",
+      hasTranslateCheck && "translate", hasReviewCheck && "review", hasQuizCheck && "quiz",
     ].filter(Boolean);
     if (keys.length === 0 || !keys.every(k => completed.includes(k))) return;
     planSyncFired.current = true;
@@ -195,7 +192,6 @@ export default function LessonDetail() {
   const hasSpeaking = lesson.speaking_phrases?.length > 0;
   const hasListening = lesson.listening_phrases?.length > 0;
   const hasTranslate = lesson.word_pairs?.some(wp => wp.example_en && wp.example_sv);
-  const hasSpeakTranslate = hasTranslate;
   const hasMatch = lesson.match_pairs?.length > 0;
 
   const availableKeys = [
@@ -206,7 +202,6 @@ export default function LessonDetail() {
     hasSpeaking && "speaking",
     hasListening && "listening",
     hasTranslate && "translate",
-    hasSpeakTranslate && "speaktranslate",
     hasReview && "review",
     hasQuiz && "quiz",
   ].filter(Boolean);
@@ -228,7 +223,6 @@ export default function LessonDetail() {
     review: lesson.review_questions?.length ?? 0,
     match: lesson.match_pairs?.length ?? 0,
     translate: lesson.word_pairs?.filter(wp => wp.example_en && wp.example_sv).length ?? 0,
-    speaktranslate: lesson.word_pairs?.filter(wp => wp.example_en && wp.example_sv).length ?? 0,
     writing: lesson.writing_prompts?.length ?? 0,
     speaking: lesson.speaking_phrases?.length ?? 0,
     listening: lesson.listening_phrases?.length ?? 0,
@@ -420,11 +414,6 @@ export default function LessonDetail() {
           {hasTranslate && (
             <TabsTrigger value="translate" aria-label={`Translate${completed.includes("translate") ? " — completed" : tabProgress["translate"] ? " — in progress" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
               ✍️ Translate{tabStatus("translate")}
-            </TabsTrigger>
-          )}
-          {hasSpeakTranslate && (
-            <TabsTrigger value="speaktranslate" aria-label={`Speak${completed.includes("speaktranslate") ? " — completed" : tabProgress["speaktranslate"] ? " — in progress" : ""}`} className="shrink-0 text-sm data-[state=active]:bg-background">
-              🎤 Speak{tabStatus("speaktranslate")}
             </TabsTrigger>
           )}
           {hasReview && (
@@ -633,33 +622,6 @@ export default function LessonDetail() {
               lessonId={lessonId}
               tab="translate"
               initialProgress={remoteProgress["translate"]}
-            />
-            {nextTabKey && (
-              <div className="mt-4 flex justify-end">
-                <Button onClick={() => goToTab(nextTabKey)} variant="outline" className="gap-2">
-                  Next: {TAB_LABELS[nextTabKey]} <ArrowRight className="w-4 h-4" />
-                </Button>
-              </div>
-            )}
-          </TabsContent>
-        )}
-
-        {/* Speak & Translate */}
-        {hasSpeakTranslate && (
-          <TabsContent value="speaktranslate">
-            <div className="space-y-2 mb-4">
-              <h2 className="font-semibold text-lg">🎤 Speak in Swedish</h2>
-              <p className="text-sm text-muted-foreground">Read the English sentence, listen to the Swedish, then say it aloud.</p>
-            </div>
-            <SpeakTranslate
-              wordPairs={lesson.word_pairs}
-              onComplete={(score, total) => markComplete("speaktranslate", { score, total })}
-              previousResult={scores["speaktranslate"]}
-              storageKey={`${lessonId}-speaktranslate`}
-              userId={user?.id}
-              lessonId={lessonId}
-              tab="speaktranslate"
-              initialProgress={remoteProgress["speaktranslate"]}
             />
             {nextTabKey && (
               <div className="mt-4 flex justify-end">
