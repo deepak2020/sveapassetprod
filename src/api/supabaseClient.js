@@ -138,11 +138,11 @@ export const supabase = {
   },
 
   listening: {
-    async getTests(course) {
-      return sbFetch(`listening_tests?course=eq.${encodeURIComponent(course)}&order=sort_order`);
+    async getItems(course) {
+      return sbFetch(`listening_bank?course=eq.${encodeURIComponent(course)}&order=type,sort_order`);
     },
     async getCourses() {
-      return sbFetch('listening_tests?select=course');
+      return sbFetch('listening_bank?select=course');
     },
   },
 };

@@ -4,7 +4,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { FlaskConical, ArrowRight, RotateCcw, Trophy, ChevronLeft, BookOpen, Headphones, PenSquare } from "lucide-react";
-import { getListeningTest } from "@/data/listeningTestsC";
+import { getListeningBank } from "@/data/listeningBankC";
 import { supabase } from "@/api/supabaseClient";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,7 @@ export default function LanguageTest() {
       return Array.isArray(data) ? data.map((r) => r.course) : [];
     },
   });
-  const hasListeningTest = (course) => listeningCourses.includes(course) || !!getListeningTest(course);
+  const hasListeningTest = (course) => listeningCourses.includes(course) || !!getListeningBank(course);
 
   const courseLessons = selectedCourse
     ? lessons.filter((l) => l.sfi_course === selectedCourse && l.quiz_questions?.length > 0)
