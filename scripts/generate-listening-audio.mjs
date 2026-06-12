@@ -44,7 +44,9 @@ const AZURE_VOICES = [
   "sv-SE-SofieNeural",
   "sv-SE-MattiasNeural",
   "sv-SE-HilleviNeural",
-  "sv-SE-NilsNeural",
+  // Azure only ships three sv-SE voices; a 4th speaker gets a male
+  // multilingual voice that handles Swedish.
+  "en-US-AndrewMultilingualNeural",
 ];
 
 // ElevenLabs voice cast. These are premade multilingual voices; replace with
