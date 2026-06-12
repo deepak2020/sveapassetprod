@@ -1,22 +1,24 @@
 #!/usr/bin/env node
 // Generate audio for listening_bank items and store it in Supabase.
 //
-// Routing: "official" clip types are rendered with Azure Speech (clean,
-// announcer-style delivery suits them); conversational types use ElevenLabs
-// (lifelike, per-speaker voices). Only rows with audio_url = null are
-// processed, so the script is safe to re-run; null a row's audio_url to
-// regenerate it.
+// Routing: everything is rendered with Azure Speech by default — multi-voice
+// SSML (<voice name="...">) handles conversations with several speakers in
+// a single API call, which covers all clip types for free (up to 0.5M
+// chars/month). Types listed in ELEVEN_TYPES (none by default) fall back to
+// ElevenLabs for extra-lifelike delivery if you want to mix engines later.
+// Only rows with audio_url = null are processed, so the script is safe to
+// re-run; null a row's audio_url to regenerate it.
 //
 // Usage:
 //   export SUPABASE_SERVICE_KEY=...          (service role key — never commit)
 //   export AZURE_SPEECH_KEY=... AZURE_SPEECH_REGION=swedencentral
-//   export ELEVENLABS_API_KEY=...
+//   export ELEVENLABS_API_KEY=...            (only needed if ELEVEN_TYPES is non-empty)
 //   node scripts/generate-listening-audio.mjs [--dry-run] [--only=c-tel-001]
 //        [--type=phone] [--limit=5]
 //
 // Requirements: Node 18+ (built-in fetch). ffmpeg is optional — used to add
-// natural pauses between dialogue turns; without it, segments are joined
-// directly.
+// natural pauses between dialogue turns when ElevenLabs is used; without it,
+// segments are joined directly.
 
 import { execFileSync } from "node:child_process";
 import { writeFileSync, readFileSync, mkdtempSync, rmSync } from "node:fs";
@@ -31,12 +33,19 @@ const ELEVEN_KEY = process.env.ELEVENLABS_API_KEY;
 
 const BUCKET = "listening-audio";
 
-// Which engine renders which clip type
-const AZURE_TYPES = new Set(["voicemail", "announcement", "news"]);
-const ELEVEN_TYPES = new Set(["dialogue", "phone", "monologue", "matching"]);
+// Which engine renders which clip type. Azure handles everything by
+// default via multi-voice SSML; list a type here to render it with
+// ElevenLabs instead.
+const ELEVEN_TYPES = new Set([]);
 
-// Azure voice cast — rotated per speaker within a clip
-const AZURE_VOICES = ["sv-SE-SofieNeural", "sv-SE-MattiasNeural", "sv-SE-HilleviNeural"];
+// Azure voice cast — rotated per speaker within a clip. Mix of female/male
+// neural voices so multi-person conversations sound distinct.
+const AZURE_VOICES = [
+  "sv-SE-SofieNeural",
+  "sv-SE-MattiasNeural",
+  "sv-SE-HilleviNeural",
+  "sv-SE-NilsNeural",
+];
 
 // ElevenLabs voice cast. These are premade multilingual voices; replace with
 // voice IDs from your Voice Library (pick native Swedish voices for best
@@ -227,7 +236,7 @@ async function main() {
   const plan = items.map((it) => ({
     id: it.id,
     type: it.type,
-    engine: AZURE_TYPES.has(it.type) ? "azure" : "elevenlabs",
+    engine: ELEVEN_TYPES.has(it.type) ? "elevenlabs" : "azure",
     chars: it.transcript.reduce((s, l) => s + l.text.length, 0),
   }));
 
@@ -243,14 +252,14 @@ async function main() {
 
   const needsAzure = plan.some((p) => p.engine === "azure");
   const needsEleven = plan.some((p) => p.engine === "elevenlabs");
-  if (needsAzure && !AZURE_KEY) fail("AZURE_SPEECH_KEY is not set (needed for voicemail/announcement/news items)");
-  if (needsEleven && !ELEVEN_KEY) fail("ELEVENLABS_API_KEY is not set (needed for dialogue/phone/monologue/matching items)");
+  if (needsAzure && !AZURE_KEY) fail("AZURE_SPEECH_KEY is not set");
+  if (needsEleven && !ELEVEN_KEY) fail("ELEVENLABS_API_KEY is not set (needed for ELEVEN_TYPES items)");
 
   await ensureBucket();
 
   let done = 0;
   for (const item of items) {
-    const engine = AZURE_TYPES.has(item.type) ? "azure" : "elevenlabs";
+    const engine = ELEVEN_TYPES.has(item.type) ? "elevenlabs" : "azure";
     process.stdout.write(`[${++done}/${items.length}] ${item.id} (${engine})… `);
     try {
       const buffer = engine === "azure" ? await generateAzure(item) : await generateEleven(item);
