@@ -136,4 +136,13 @@ export const supabase = {
       return sbFetch('user_feedback?order=created_at.desc&limit=200');
     },
   },
+
+  listening: {
+    async getItems(course) {
+      return sbFetch(`listening_bank?course=eq.${encodeURIComponent(course)}&order=type,sort_order`);
+    },
+    async getCourses() {
+      return sbFetch('listening_bank?select=course');
+    },
+  },
 };

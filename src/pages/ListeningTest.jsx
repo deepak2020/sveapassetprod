@@ -2,16 +2,26 @@ import { useState, useRef, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { usePageView } from "@/hooks/usePageView";
 import { base44 } from "@/api/base44Client";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/api/supabaseClient";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
-import { Headphones, Play, Square, ArrowRight, RotateCcw, Trophy, ChevronLeft, Volume2, CheckCircle2, XCircle } from "lucide-react";
+import { Headphones, Play, Square, ArrowRight, RotateCcw, Trophy, ChevronLeft, Volume2, CheckCircle2, XCircle, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
-import { getListeningTest } from "@/data/listeningTestsC";
+import { getListeningBank, buildMockTest, buildCategorySession } from "@/data/listeningBankC";
 import { getBestVoice } from "@/lib/speech";
+import { normalizeAnswer } from "@/lib/normalizeAnswer";
 
 const MAX_PLAYS = 2;
+const CATEGORY_SESSION_SIZE = 5;
+
+function isCorrect(q, answer) {
+  if (q.type === "open") {
+    return q.accept.some((a) => normalizeAnswer(a) === normalizeAnswer(answer));
+  }
+  return answer === q.correctIndex;
+}
 
 // Read a transcript aloud with the browser's speech synthesis, using a
 // different voice (or pitch) per speaker so dialogues sound like two people.
@@ -29,8 +39,6 @@ function speakTranscript(item, { onEnd } = {}) {
     const u = new SpeechSynthesisUtterance(line.text);
     u.lang = "sv-SE";
     const speakerIdx = speakers.indexOf(line.speaker);
-    // Give each speaker a distinct voice when several Swedish voices exist;
-    // otherwise vary the pitch so turns are still distinguishable.
     if (svVoices.length > 1) {
       u.voice = svVoices[speakerIdx % svVoices.length];
     } else if (best) {
@@ -51,7 +59,6 @@ function AudioPlayer({ item, playsLeft, onPlayStart }) {
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef(null);
 
-  // Stop any ongoing playback when the item changes or on unmount
   useEffect(() => {
     return () => {
       stopSpeech();
@@ -104,42 +111,28 @@ function AudioPlayer({ item, playsLeft, onPlayStart }) {
   );
 }
 
-export default function ListeningTest() {
-  usePageView("listening_test");
-  const { course } = useParams();
-  const test = getListeningTest(course);
+// A practice session: a sequence of items (either a mock test, one item per
+// category, or a category drill). Handles answering, scoring and results.
+function Session({ course, title, sourceId, items, onExit }) {
   const queryClient = useQueryClient();
-
-  const [phase, setPhase] = useState("intro"); // intro | running | results
+  const [phase, setPhase] = useState("running"); // running | results
   const [itemIndex, setItemIndex] = useState(0);
-  const [answers, setAnswers] = useState({}); // "itemIdx-qIdx" -> selected option index
-  const [playsUsed, setPlaysUsed] = useState({}); // itemId -> count
+  const [answers, setAnswers] = useState({}); // "itemIdx-qIdx" -> option index or text
+  const [playsUsed, setPlaysUsed] = useState({});
   const [saved, setSaved] = useState(false);
 
-  // Warm up the voice list (Chrome loads voices asynchronously)
-  useEffect(() => {
-    window.speechSynthesis?.getVoices();
-  }, []);
-
-  if (!test) {
-    return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-4">
-        <Headphones className="w-12 h-12 text-muted-foreground mx-auto" />
-        <h2 className="text-xl font-semibold">Det finns inget hörförståelsetest för den här kursen än.</h2>
-        <Button asChild variant="outline"><Link to="/language-test">Tillbaka till Språktest</Link></Button>
-      </div>
-    );
-  }
-
-  const item = test.items[itemIndex];
-  const isLastItem = itemIndex === test.items.length - 1;
-  const allQuestions = test.items.flatMap((it, ii) => it.questions.map((q, qi) => ({ ...q, key: `${ii}-${qi}` })));
-  const score = allQuestions.filter((q) => answers[q.key] === q.correctIndex).length;
+  const item = items[itemIndex];
+  const isLastItem = itemIndex === items.length - 1;
+  const allQuestions = items.flatMap((it, ii) => it.questions.map((q, qi) => ({ ...q, key: `${ii}-${qi}` })));
+  const score = allQuestions.filter((q) => isCorrect(q, answers[q.key])).length;
   const percentage = Math.round((score / allQuestions.length) * 100);
-  const itemAnswered = item?.questions.every((_, qi) => answers[`${itemIndex}-${qi}`] !== undefined);
+  const itemAnswered = item?.questions.every((q, qi) => {
+    const a = answers[`${itemIndex}-${qi}`];
+    return q.type === "open" ? typeof a === "string" && a.trim() !== "" : a !== undefined;
+  });
 
-  const selectAnswer = (qIdx, optIdx) => {
-    setAnswers((prev) => ({ ...prev, [`${itemIndex}-${qIdx}`]: optIdx }));
+  const selectAnswer = (qIdx, value) => {
+    setAnswers((prev) => ({ ...prev, [`${itemIndex}-${qIdx}`]: value }));
   };
 
   const handleNext = async () => {
@@ -152,8 +145,8 @@ export default function ListeningTest() {
       setSaved(true);
       await base44.entities.QuizResult.create({
         quiz_type: "listening",
-        source_id: test.id,
-        source_title: test.title,
+        source_id: sourceId,
+        source_title: title,
         sfi_course: course.toUpperCase(),
         skill: "listening",
         score,
@@ -165,52 +158,6 @@ export default function ListeningTest() {
     }
     setPhase("results");
   };
-
-  const resetTest = () => {
-    stopSpeech();
-    setPhase("intro");
-    setItemIndex(0);
-    setAnswers({});
-    setPlaysUsed({});
-    setSaved(false);
-  };
-
-  // ── INTRO ────────────────────────────────────────────────────────
-  if (phase === "intro") {
-    return (
-      <div className="max-w-2xl mx-auto px-4 py-12 pb-24 md:pb-12">
-        <Link to="/language-test" className="text-sm text-muted-foreground hover:text-foreground mb-6 flex items-center gap-1">
-          <ChevronLeft className="w-4 h-4" /> Språktest
-        </Link>
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-            <Headphones className="w-6 h-6 text-primary" />
-          </div>
-          <div>
-            <h1 className="font-display text-2xl font-bold">{test.title}</h1>
-            <p className="text-sm text-muted-foreground">Mock listening test · SFI kurs {course.toUpperCase()}</p>
-          </div>
-        </div>
-
-        <div className="rounded-2xl border-2 border-border/50 bg-card p-6 mt-6 space-y-4">
-          <h2 className="font-semibold">Så här fungerar det · <span className="italic font-normal text-muted-foreground">How it works</span></h2>
-          <ul className="text-sm text-muted-foreground space-y-2 list-disc pl-5">
-            <li>Testet har {test.items.length} ljudklipp och {allQuestions.length} frågor.</li>
-            <li>Du kan lyssna på varje klipp högst {MAX_PLAYS} gånger — precis som på det nationella provet.</li>
-            <li>Läs frågorna innan du lyssnar. Du kan svara medan du lyssnar.</li>
-            <li>Du kan inte gå tillbaka till ett tidigare klipp.</li>
-          </ul>
-          <p className="text-xs text-muted-foreground italic">
-            The test has {test.items.length} audio clips and {allQuestions.length} questions. You may listen to each clip at most {MAX_PLAYS} times. Read the questions before you listen — you can answer while listening, but you can't go back to a previous clip.
-          </p>
-        </div>
-
-        <Button className="w-full mt-6 gap-2" size="lg" onClick={() => setPhase("running")}>
-          Starta testet <ArrowRight className="w-4 h-4" />
-        </Button>
-      </div>
-    );
-  }
 
   // ── RESULTS ──────────────────────────────────────────────────────
   if (phase === "results") {
@@ -224,7 +171,7 @@ export default function ListeningTest() {
             <h2 className="font-display text-3xl font-bold mb-2">{msg}</h2>
             <p className="text-muted-foreground mb-6">{score} / {allQuestions.length} rätt · {percentage}%</p>
             <div className="flex gap-3 justify-center">
-              <Button onClick={resetTest} variant="outline" className="gap-2"><RotateCcw className="w-4 h-4" /> Försök igen</Button>
+              <Button onClick={onExit} variant="outline" className="gap-2"><RotateCcw className="w-4 h-4" /> Tillbaka</Button>
               <Button asChild className="gap-2"><Link to="/language-test"><Trophy className="w-4 h-4" /> Fler test</Link></Button>
             </div>
           </motion.div>
@@ -232,7 +179,7 @@ export default function ListeningTest() {
 
         <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">Genomgång · Review</h3>
         <div className="space-y-6">
-          {test.items.map((it, ii) => (
+          {items.map((it, ii) => (
             <div key={it.id} className="rounded-2xl border-2 border-border/50 bg-card p-5">
               <p className="font-semibold text-sm mb-1">{it.typeEmoji} {it.typeLabel}: {it.intro}</p>
               <details className="mb-3">
@@ -246,7 +193,9 @@ export default function ListeningTest() {
               <div className="space-y-3">
                 {it.questions.map((q, qi) => {
                   const sel = answers[`${ii}-${qi}`];
-                  const correct = sel === q.correctIndex;
+                  const correct = isCorrect(q, sel);
+                  const userAnswer = q.type === "open" ? sel : sel !== undefined ? q.options[sel] : undefined;
+                  const correctAnswer = q.type === "open" ? q.accept[0] : q.options[q.correctIndex];
                   return (
                     <div key={qi} className="text-sm">
                       <p className="font-medium flex items-start gap-1.5">
@@ -256,8 +205,8 @@ export default function ListeningTest() {
                         {q.q}
                       </p>
                       <p className="text-xs text-muted-foreground ml-6 mt-0.5">
-                        {!correct && sel !== undefined && <>Ditt svar: <span className="text-destructive">{q.options[sel]}</span> · </>}
-                        Rätt svar: <span className="text-emerald-600 dark:text-emerald-400 font-medium">{q.options[q.correctIndex]}</span>
+                        {!correct && userAnswer !== undefined && <>Ditt svar: <span className="text-destructive">{userAnswer}</span> · </>}
+                        Rätt svar: <span className="text-emerald-600 dark:text-emerald-400 font-medium">{correctAnswer}</span>
                       </p>
                     </div>
                   );
@@ -274,11 +223,11 @@ export default function ListeningTest() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-8 pb-24 md:pb-12">
       <div className="flex items-center justify-between mb-6">
-        <Button variant="ghost" size="sm" onClick={resetTest} className="gap-1">
+        <Button variant="ghost" size="sm" onClick={() => { stopSpeech(); onExit(); }} className="gap-1">
           <ChevronLeft className="w-4 h-4" /> Avsluta
         </Button>
         <span className="text-sm text-muted-foreground font-medium">
-          Klipp {itemIndex + 1} av {test.items.length}
+          Klipp {itemIndex + 1} av {items.length}
         </span>
         <Badge variant="outline">SFI {course.toUpperCase()}</Badge>
       </div>
@@ -286,7 +235,7 @@ export default function ListeningTest() {
       <div className="h-2 bg-muted rounded-full mb-8 overflow-hidden">
         <div
           className="h-full bg-primary rounded-full transition-all duration-300"
-          style={{ width: `${(itemIndex / test.items.length) * 100}%` }}
+          style={{ width: `${(itemIndex / items.length) * 100}%` }}
         />
       </div>
 
@@ -313,6 +262,14 @@ export default function ListeningTest() {
             {item.questions.map((q, qi) => (
               <div key={qi}>
                 <p className="font-semibold text-sm mb-3">{qi + 1}. {q.q}</p>
+                {q.type === "open" ? (
+                  <input
+                    value={answers[`${itemIndex}-${qi}`] || ""}
+                    onChange={(e) => selectAnswer(qi, e.target.value)}
+                    placeholder="Skriv ditt svar här…"
+                    className="w-full rounded-xl border-2 border-border/50 bg-card px-4 py-3 text-sm focus:outline-none focus:border-primary/60"
+                  />
+                ) : (
                 <div className="space-y-2">
                   {q.options.map((opt, oi) => {
                     const isSelected = answers[`${itemIndex}-${qi}`] === oi;
@@ -336,6 +293,7 @@ export default function ListeningTest() {
                     );
                   })}
                 </div>
+                )}
               </div>
             ))}
           </div>
@@ -348,6 +306,137 @@ export default function ListeningTest() {
           )}
         </motion.div>
       </AnimatePresence>
+    </div>
+  );
+}
+
+export default function ListeningTest() {
+  usePageView("listening_test");
+  const { course } = useParams();
+  const [session, setSession] = useState(null); // { title, sourceId, items }
+
+  // Items live in Supabase (listening_bank table); the static data file is
+  // the fallback if the table doesn't exist yet or the fetch fails.
+  const { data: dbItems, isLoading } = useQuery({
+    queryKey: ["listeningBank", course],
+    queryFn: async () => {
+      const { data } = await supabase.listening.getItems(course?.toUpperCase());
+      return Array.isArray(data) ? data : [];
+    },
+  });
+
+  // Merge: static categories give the structure (labels, order); DB items
+  // replace a category's pool when present.
+  const staticBank = getListeningBank(course);
+  const categories = staticBank?.map((cat) => {
+    const fromDb = (dbItems || [])
+      .filter((r) => r.type === cat.type)
+      .map((r) => ({ id: r.id, intro: r.intro, audioUrl: r.audio_url, transcript: r.transcript, questions: r.questions }));
+    return { ...cat, items: fromDb.length > 0 ? fromDb : cat.items };
+  });
+
+  // Warm up the voice list (Chrome loads voices asynchronously)
+  useEffect(() => {
+    window.speechSynthesis?.getVoices();
+  }, []);
+
+  if (isLoading && !staticBank) {
+    return (
+      <div className="flex justify-center py-24">
+        <div className="w-8 h-8 border-4 border-muted border-t-primary rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!categories) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-4">
+        <Headphones className="w-12 h-12 text-muted-foreground mx-auto" />
+        <h2 className="text-xl font-semibold">Det finns inget hörförståelsetest för den här kursen än.</h2>
+        <Button asChild variant="outline"><Link to="/language-test">Tillbaka till Språktest</Link></Button>
+      </div>
+    );
+  }
+
+  if (session) {
+    return (
+      <Session
+        course={course}
+        title={session.title}
+        sourceId={session.sourceId}
+        items={session.items}
+        onExit={() => setSession(null)}
+      />
+    );
+  }
+
+  const totalItems = categories.reduce((sum, c) => sum + c.items.length, 0);
+
+  // ── HUB ──────────────────────────────────────────────────────────
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-8 pb-24 md:pb-12">
+      <Link to="/language-test" className="text-sm text-muted-foreground hover:text-foreground mb-6 flex items-center gap-1">
+        <ChevronLeft className="w-4 h-4" /> Språktest
+      </Link>
+      <div className="flex items-center gap-3 mb-2">
+        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+          <Headphones className="w-6 h-6 text-primary" />
+        </div>
+        <div>
+          <h1 className="font-display text-2xl font-bold">Hörförståelse — kurs {course.toUpperCase()}</h1>
+          <p className="text-sm text-muted-foreground">{totalItems} ljudklipp · övning som det nationella provet</p>
+        </div>
+      </div>
+
+      {/* Mock test */}
+      <button
+        onClick={() => setSession({
+          title: `Hörförståelse ${course.toUpperCase()} — Prov`,
+          sourceId: `listening-mock-${course.toLowerCase()}`,
+          items: buildMockTest(categories),
+        })}
+        className="w-full text-left rounded-2xl border-2 border-primary/40 bg-primary/5 p-5 mt-6 mb-8 hover:shadow-md transition-all flex items-center gap-4"
+      >
+        <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
+          <GraduationCap className="w-6 h-6 text-primary-foreground" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <span className="text-[10px] font-bold uppercase tracking-wide text-primary">✨ Gör ett prov</span>
+          <h3 className="font-bold text-sm mt-0.5">Slumpat prov — ett klipp från varje kategori</h3>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            {categories.filter((c) => c.items.length > 0).length} klipp · nya klipp varje gång · du kan lyssna {MAX_PLAYS} gånger per klipp
+          </p>
+        </div>
+        <ArrowRight className="w-5 h-5 text-primary flex-shrink-0" />
+      </button>
+
+      {/* Category practice */}
+      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Eller öva en kategori i taget</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {categories.map((cat) => (
+          <motion.button
+            key={cat.type}
+            onClick={() => setSession({
+              title: `Hörförståelse ${course.toUpperCase()} — ${cat.label}`,
+              sourceId: `listening-${cat.type}-${course.toLowerCase()}`,
+              items: buildCategorySession(cat, CATEGORY_SESSION_SIZE),
+            })}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            disabled={cat.items.length === 0}
+            className="text-left rounded-2xl border-2 border-border/50 bg-card p-5 hover:shadow-md hover:border-primary/40 transition-all disabled:opacity-40"
+          >
+            <div className="flex items-start justify-between gap-2 mb-2">
+              <div className="text-3xl">{cat.emoji}</div>
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                {cat.items.length} klipp
+              </span>
+            </div>
+            <h3 className="font-bold text-sm">{cat.label}</h3>
+            <p className="text-xs text-muted-foreground mt-1">{cat.description}</p>
+          </motion.button>
+        ))}
+      </div>
     </div>
   );
 }
