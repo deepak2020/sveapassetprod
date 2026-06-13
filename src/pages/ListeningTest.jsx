@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/api/supabaseClient";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
-import { Headphones, Play, Square, ArrowRight, RotateCcw, Trophy, ChevronLeft, Volume2, CheckCircle2, XCircle, GraduationCap } from "lucide-react";
+import { Headphones, Play, Pause, ArrowRight, RotateCcw, Trophy, ChevronLeft, Volume2, CheckCircle2, XCircle, GraduationCap, Gauge } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,7 +26,7 @@ function isCorrect(q, answer) {
 // Read a transcript aloud with the browser's speech synthesis, using a
 // different voice (or pitch) per speaker so dialogues sound like two people.
 // Used as fallback until pre-generated audio files (audioUrl) exist.
-function speakTranscript(item, { onEnd } = {}) {
+function speakTranscript(item, { onEnd, rate = 0.9 } = {}) {
   const ss = window.speechSynthesis;
   if (!ss) { onEnd?.(); return; }
   ss.cancel();
@@ -45,58 +45,154 @@ function speakTranscript(item, { onEnd } = {}) {
       u.voice = best;
     }
     u.pitch = speakerIdx % 2 === 0 ? 1 : 0.82;
-    u.rate = 0.9;
+    u.rate = rate;
     if (i === item.transcript.length - 1) u.onend = () => onEnd?.();
     ss.speak(u);
   });
+}
+
+function formatTime(s) {
+  if (!isFinite(s) || s < 0) return "0:00";
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${String(sec).padStart(2, "0")}`;
 }
 
 function stopSpeech() {
   window.speechSynthesis?.cancel();
 }
 
-function AudioPlayer({ item, playsLeft, onPlayStart }) {
+// In practice mode the player has full transport controls (scrub, −5s,
+// speed, pause/resume) and unlimited replays. In test mode it stays
+// exam-like: play/pause only, no scrubbing or speed, capped at MAX_PLAYS.
+function AudioPlayer({ item, mode, playsLeft, onPlayStart }) {
+  const isPractice = mode === "practice";
+  const hasAudio = !!item.audioUrl;
   const [playing, setPlaying] = useState(false);
+  const [current, setCurrent] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [speed, setSpeed] = useState(1);
   const audioRef = useRef(null);
 
+  // (Re)build the audio element whenever the clip changes.
   useEffect(() => {
+    setPlaying(false);
+    setCurrent(0);
+    setDuration(0);
+    if (!hasAudio) {
+      audioRef.current = null;
+      return () => stopSpeech();
+    }
+    const audio = new Audio(item.audioUrl);
+    audio.playbackRate = speed;
+    audioRef.current = audio;
+    const onTime = () => setCurrent(audio.currentTime);
+    const onMeta = () => setDuration(audio.duration || 0);
+    const onEnd = () => setPlaying(false);
+    audio.addEventListener("timeupdate", onTime);
+    audio.addEventListener("loadedmetadata", onMeta);
+    audio.addEventListener("ended", onEnd);
+    audio.addEventListener("error", onEnd);
     return () => {
+      audio.pause();
+      audio.removeEventListener("timeupdate", onTime);
+      audio.removeEventListener("loadedmetadata", onMeta);
+      audio.removeEventListener("ended", onEnd);
+      audio.removeEventListener("error", onEnd);
       stopSpeech();
-      audioRef.current?.pause();
     };
   }, [item.id]);
 
-  const handlePlay = () => {
-    if (playing || playsLeft <= 0) return;
-    onPlayStart();
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.playbackRate = speed;
+  }, [speed]);
+
+  const atStart = current <= 0.05;
+  const canStartFresh = isPractice || playsLeft > 0;
+
+  // Play counts as a fresh "listen" (and consumes a play) only when starting
+  // from the beginning or after the clip ended — resuming a pause does not.
+  const play = () => {
+    const a = audioRef.current;
+    const fresh = !a || atStart || a.ended;
+    if (fresh && !canStartFresh) return;
+    if (fresh) onPlayStart();
     setPlaying(true);
-    if (item.audioUrl) {
-      const audio = new Audio(item.audioUrl);
-      audioRef.current = audio;
-      audio.onended = () => setPlaying(false);
-      audio.onerror = () => setPlaying(false);
-      audio.play();
+    if (hasAudio && a) {
+      if (a.ended) a.currentTime = 0;
+      a.play();
     } else {
-      speakTranscript(item, { onEnd: () => setPlaying(false) });
+      speakTranscript(item, { rate: 0.9 * speed, onEnd: () => setPlaying(false) });
     }
   };
 
-  const handleStop = () => {
-    stopSpeech();
-    audioRef.current?.pause();
+  const pause = () => {
+    if (hasAudio && audioRef.current) audioRef.current.pause();
+    else stopSpeech();
     setPlaying(false);
   };
 
+  const seek = (t) => {
+    const a = audioRef.current;
+    if (!a) return;
+    a.currentTime = Math.max(0, Math.min(t, duration || 0));
+    setCurrent(a.currentTime);
+  };
+
+  // ── PRACTICE: full controls, unlimited replays, sticky ──────────
+  if (isPractice) {
+    return (
+      <div className="sticky top-2 z-10 rounded-2xl border-2 border-primary/30 bg-primary/5 backdrop-blur p-4 shadow-sm">
+        <div className="flex items-center gap-3">
+          <Button size="icon" className="w-11 h-11 rounded-full flex-shrink-0" onClick={playing ? pause : play} title={playing ? "Pausa" : "Spela upp"}>
+            {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
+          </Button>
+          {hasAudio ? (
+            <div className="flex-1 min-w-0">
+              <input
+                type="range" min={0} max={duration || 0} step={0.1} value={Math.min(current, duration || 0)}
+                onChange={(e) => seek(Number(e.target.value))}
+                className="w-full accent-primary cursor-pointer"
+                aria-label="Spola i klippet"
+              />
+              <div className="flex justify-between text-[11px] text-muted-foreground tabular-nums mt-0.5">
+                <span>{formatTime(current)}</span>
+                <span>{formatTime(duration)}</span>
+              </div>
+            </div>
+          ) : (
+            <p className="flex-1 text-sm font-medium flex items-center gap-1.5">
+              <Volume2 className="w-4 h-4 text-primary" />{playing ? "Spelar upp…" : "Lyssna på klippet"}
+            </p>
+          )}
+        </div>
+        <div className="flex items-center gap-2 mt-3">
+          {hasAudio && (
+            <Button variant="outline" size="sm" className="gap-1 h-8" onClick={() => seek(current - 5)} title="Tillbaka 5 sekunder">
+              <RotateCcw className="w-3.5 h-3.5" /> 5s
+            </Button>
+          )}
+          <Button variant="outline" size="sm" className="gap-1 h-8" onClick={() => setSpeed((s) => (s === 1 ? 0.75 : 1))} title="Ändra hastighet">
+            <Gauge className="w-3.5 h-3.5" /> {speed === 1 ? "Normal hastighet" : "Långsam"}
+          </Button>
+          <span className="ml-auto text-[11px] text-muted-foreground">Lyssna obegränsat</span>
+        </div>
+      </div>
+    );
+  }
+
+  // ── TEST: exam-like (limited plays, no scrubbing/speed) ─────────
+  const noPlaysLeft = playsLeft <= 0 && !playing;
   return (
     <div className="rounded-2xl border-2 border-primary/30 bg-primary/5 p-5 flex items-center gap-4">
       <Button
         size="icon"
         className="w-12 h-12 rounded-full flex-shrink-0"
-        onClick={playing ? handleStop : handlePlay}
-        disabled={!playing && playsLeft <= 0}
-        title={playing ? "Stoppa" : "Spela upp"}
+        onClick={playing ? pause : play}
+        disabled={noPlaysLeft}
+        title={playing ? "Pausa" : "Spela upp"}
       >
-        {playing ? <Square className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
+        {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
       </Button>
       <div className="min-w-0">
         <p className="font-semibold text-sm flex items-center gap-1.5">
@@ -113,11 +209,13 @@ function AudioPlayer({ item, playsLeft, onPlayStart }) {
 
 // A practice session: a sequence of items (either a mock test, one item per
 // category, or a category drill). Handles answering, scoring and results.
-function Session({ course, title, sourceId, items, onExit }) {
+function Session({ course, title, sourceId, items, mode, onExit }) {
+  const isPractice = mode === "practice";
   const queryClient = useQueryClient();
   const [phase, setPhase] = useState("running"); // running | results
   const [itemIndex, setItemIndex] = useState(0);
   const [answers, setAnswers] = useState({}); // "itemIdx-qIdx" -> option index or text
+  const [revealed, setRevealed] = useState({}); // practice: which questions have been checked
   const [playsUsed, setPlaysUsed] = useState({});
   const [saved, setSaved] = useState(false);
 
@@ -131,8 +229,23 @@ function Session({ course, title, sourceId, items, onExit }) {
     return q.type === "open" ? typeof a === "string" && a.trim() !== "" : a !== undefined;
   });
 
-  const selectAnswer = (qIdx, value) => {
-    setAnswers((prev) => ({ ...prev, [`${itemIndex}-${qIdx}`]: value }));
+  // Multiple choice: in practice mode a click locks the question and reveals
+  // the answer immediately; in test mode it just records the selection.
+  const selectMcq = (qIdx, value) => {
+    const key = `${itemIndex}-${qIdx}`;
+    if (isPractice && revealed[key]) return;
+    setAnswers((prev) => ({ ...prev, [key]: value }));
+    if (isPractice) setRevealed((prev) => ({ ...prev, [key]: true }));
+  };
+
+  const setOpenAnswer = (qIdx, value) => {
+    const key = `${itemIndex}-${qIdx}`;
+    if (revealed[key]) return;
+    setAnswers((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const revealQuestion = (qIdx) => {
+    setRevealed((prev) => ({ ...prev, [`${itemIndex}-${qIdx}`]: true }));
   };
 
   const handleNext = async () => {
@@ -254,34 +367,75 @@ function Session({ course, title, sourceId, items, onExit }) {
 
           <AudioPlayer
             item={item}
-            playsLeft={MAX_PLAYS - (playsUsed[item.id] || 0)}
+            mode={mode}
+            playsLeft={isPractice ? Infinity : MAX_PLAYS - (playsUsed[item.id] || 0)}
             onPlayStart={() => setPlaysUsed((prev) => ({ ...prev, [item.id]: (prev[item.id] || 0) + 1 }))}
           />
 
+          {isPractice && (
+            <details className="mt-3">
+              <summary className="text-xs text-primary cursor-pointer hover:underline">Visa utskrift · Show transcript</summary>
+              <div className="mt-2 space-y-1 text-sm text-muted-foreground border-l-2 border-border pl-3">
+                {item.transcript.map((line, li) => (
+                  <p key={li}><span className="font-semibold text-foreground">{line.speaker}:</span> {line.text}</p>
+                ))}
+              </div>
+            </details>
+          )}
+
           <div className="space-y-6 mt-6">
-            {item.questions.map((q, qi) => (
+            {item.questions.map((q, qi) => {
+              const key = `${itemIndex}-${qi}`;
+              const ans = answers[key];
+              const isRevealed = isPractice && revealed[key];
+              const wasCorrect = isRevealed && isCorrect(q, ans);
+              return (
               <div key={qi}>
-                <p className="font-semibold text-sm mb-3">{qi + 1}. {q.q}</p>
+                <p className="font-semibold text-sm mb-3 flex items-start gap-1.5">
+                  {isRevealed && (wasCorrect
+                    ? <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    : <XCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />)}
+                  <span>{qi + 1}. {q.q}</span>
+                </p>
                 {q.type === "open" ? (
-                  <input
-                    value={answers[`${itemIndex}-${qi}`] || ""}
-                    onChange={(e) => selectAnswer(qi, e.target.value)}
-                    placeholder="Skriv ditt svar här…"
-                    className="w-full rounded-xl border-2 border-border/50 bg-card px-4 py-3 text-sm focus:outline-none focus:border-primary/60"
-                  />
+                  <div className="space-y-2">
+                    <div className="flex gap-2">
+                      <input
+                        value={ans || ""}
+                        disabled={isRevealed}
+                        onChange={(e) => setOpenAnswer(qi, e.target.value)}
+                        onKeyDown={(e) => { if (e.key === "Enter" && isPractice && ans?.trim()) revealQuestion(qi); }}
+                        placeholder="Skriv ditt svar här…"
+                        className="flex-1 rounded-xl border-2 border-border/50 bg-card px-4 py-3 text-sm focus:outline-none focus:border-primary/60 disabled:opacity-70"
+                      />
+                      {isPractice && !isRevealed && (
+                        <Button variant="outline" onClick={() => revealQuestion(qi)} disabled={!ans || !ans.trim()}>Kontrollera</Button>
+                      )}
+                    </div>
+                    {isRevealed && !wasCorrect && (
+                      <p className="text-xs text-muted-foreground ml-1">Rätt svar: <span className="text-emerald-600 dark:text-emerald-400 font-medium">{q.accept[0]}</span></p>
+                    )}
+                  </div>
                 ) : (
                 <div className="space-y-2">
                   {q.options.map((opt, oi) => {
-                    const isSelected = answers[`${itemIndex}-${qi}`] === oi;
+                    const isSelected = ans === oi;
+                    const showCorrect = isRevealed && oi === q.correctIndex;
+                    const showWrong = isRevealed && isSelected && oi !== q.correctIndex;
                     return (
                       <button
                         key={oi}
-                        onClick={() => selectAnswer(qi, oi)}
+                        onClick={() => selectMcq(qi, oi)}
+                        disabled={isRevealed}
                         className={`w-full text-left p-3 rounded-xl border-2 text-sm font-medium transition-all ${
-                          isSelected
-                            ? "border-primary bg-primary/10 text-primary"
-                            : "border-border/50 bg-card hover:border-primary/40 hover:bg-muted/50"
-                        }`}
+                          showCorrect
+                            ? "border-emerald-500 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                            : showWrong
+                              ? "border-destructive bg-destructive/10 text-destructive"
+                              : isSelected
+                                ? "border-primary bg-primary/10 text-primary"
+                                : "border-border/50 bg-card hover:border-primary/40 hover:bg-muted/50"
+                        } ${isRevealed ? "cursor-default" : ""}`}
                       >
                         <span className="inline-flex items-center gap-2.5">
                           <span className="w-6 h-6 rounded-full border-2 border-current flex items-center justify-center text-xs shrink-0">
@@ -295,7 +449,8 @@ function Session({ course, title, sourceId, items, onExit }) {
                 </div>
                 )}
               </div>
-            ))}
+              );
+            })}
           </div>
 
           <Button className="w-full mt-8 gap-2" onClick={handleNext} disabled={!itemAnswered}>
@@ -365,6 +520,7 @@ export default function ListeningTest() {
         title={session.title}
         sourceId={session.sourceId}
         items={session.items}
+        mode={session.mode}
         onExit={() => setSession(null)}
       />
     );
@@ -393,6 +549,7 @@ export default function ListeningTest() {
         onClick={() => setSession({
           title: `Hörförståelse ${course.toUpperCase()} — Prov`,
           sourceId: `listening-mock-${course.toLowerCase()}`,
+          mode: "test",
           items: buildMockTest(categories),
         })}
         className="w-full text-left rounded-2xl border-2 border-primary/40 bg-primary/5 p-5 mt-6 mb-8 hover:shadow-md transition-all flex items-center gap-4"
@@ -419,6 +576,7 @@ export default function ListeningTest() {
             onClick={() => setSession({
               title: `Hörförståelse ${course.toUpperCase()} — ${cat.label}`,
               sourceId: `listening-${cat.type}-${course.toLowerCase()}`,
+              mode: "practice",
               items: buildCategorySession(cat, CATEGORY_SESSION_SIZE),
             })}
             whileHover={{ scale: 1.02 }}
