@@ -1,0 +1,482 @@
+[
+  {
+    "id": "c-utrop-035",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på en busstation om en perrongändring.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Information till resenärer som ska åka med expressbussen mot Kalmar klockan tretton och tjugo. Bussen avgår i dag från läge fyra, inte från läge nio som det står på skärmen. Var vänliga och gå till läge fyra i god tid. Resenärer med bokad plats ska visa biljetten för chauffören vid påstigning. Bussen gör ett uppehåll i Nybro på vägen. Vi önskar er en trevlig resa."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Från vilket läge avgår bussen i dag?",
+        "options": ["Läge nio", "Läge fyra", "Läge fjorton", "Läge tre"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vart ska bussen åka?",
+        "options": ["Till Växjö", "Till Nybro", "Till Kalmar", "Till Karlskrona"],
+        "correctIndex": 2
+      },
+      {
+        "q": "I vilken stad gör bussen ett uppehåll?",
+        "options": ["I Kalmar", "I Växjö", "I Karlskrona", "I Nybro"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 35
+  },
+  {
+    "id": "c-utrop-036",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på ett gym om ett gruppträningspass.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej alla medlemmar! Om tio minuter, klockan sjutton, börjar dagens spinningpass i sal två på nedre plan. Passet leds av instruktören Sara och varar i fyrtiofem minuter. Det finns några platser kvar, men kom ihåg att boka din cykel i appen eller i receptionen först. Ta med en vattenflaska och en handduk. Glöm inte att torka av cykeln när du är klar. Välkommen ner till sal två!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket träningspass börjar klockan sjutton?",
+        "options": ["Yoga", "Spinning", "Styrka", "Dans"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad heter instruktören?",
+        "options": ["Sara", "Sofia", "Stina", "Sandra"],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Hur lång är passet? Skriv ditt svar.",
+        "accept": ["45 minuter", "fyrtiofem minuter", "45 min", "fyrtiofem", "en trekvart", "tre kvart"]
+      }
+    ],
+    "sort_order": 36
+  },
+  {
+    "id": "c-utrop-037",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på en fotbollsarena före matchen.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Välkomna till arenan och kvällens match! Avsparken sker klockan nitton. Vi ber er att ha era biljetter framme vid insläppet och att gå till rätt sektion. Sektion A och B finns på den norra läktaren, och sektion C och D på den södra. Det är förbjudet att ta med glasflaskor och paraplyer in på arenan. Kiosken vid huvudentrén har öppet hela matchen. Heja laget!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När är avsparken?",
+        "options": ["Klockan arton", "Klockan tjugo", "Klockan nitton", "Klockan halv åtta"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Var finns sektion C och D?",
+        "options": ["På den norra läktaren", "På den östra läktaren", "Vid huvudentrén", "På den södra läktaren"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad är förbjudet att ta med in?",
+        "options": ["Glasflaskor och paraplyer", "Mat och dryck", "Flaggor", "Kameror"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 37
+  },
+  {
+    "id": "c-utrop-038",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på en zoologisk avdelning, nämligen ett akvarium.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Kära besökare på akvariet! Om en kvart, klockan fjorton, börjar dagens dykarshow i det stora hajakvariet på plan ett. En dykare går ner till hajarna och berättar om dem via en mikrofon. Showen tar ungefär tjugo minuter och passar både barn och vuxna. Vi rekommenderar att ni kommer i god tid eftersom det brukar bli fullt. Akvariet stänger klockan sjutton i dag. Välkomna till hajakvariet!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När börjar dykarshowen?",
+        "options": ["Klockan fjorton", "Klockan femton", "Klockan tretton", "Klockan sjutton"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Var äger showen rum?",
+        "options": ["Vid entrén", "I caféet", "I det stora hajakvariet på plan ett", "På plan två"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur lång är showen ungefär?",
+        "options": ["Tio minuter", "En timme", "Fem minuter", "Tjugo minuter"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 38
+  },
+  {
+    "id": "c-utrop-039",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på ett tåg under resan.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "God morgon och välkomna ombord på snabbtåget mot Stockholm. Nästa stopp är Linköping, där vi stannar i två minuter. Bistron i vagn fyra är öppen och säljer kaffe, smörgåsar och kaffe med påtår. Vi påminner om att vagn ett är en tyst vagn, där man inte ska prata i telefon. Beräknad ankomst till Stockholm är klockan elva och tio. Tack för att ni reser med oss."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket är nästa stopp?",
+        "options": ["Stockholm", "Linköping", "Norrköping", "Nyköping"],
+        "correctIndex": 1
+      },
+      {
+        "q": "I vilken vagn finns bistron?",
+        "options": ["Vagn ett", "Vagn två", "Vagn fyra", "Vagn fem"],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "När beräknas tåget vara framme i Stockholm? Skriv ditt svar.",
+        "accept": ["11.10", "11:10", "klockan 11.10", "elva och tio", "klockan elva och tio", "tio över elva"]
+      }
+    ],
+    "sort_order": 39
+  },
+  {
+    "id": "c-utrop-040",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på en restaurang med bordsnummer.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej och välkomna till lunchrestaurangen! I dag serverar vi dagens rätt, som är köttbullar med potatismos och lingon, för nittionio kronor. I priset ingår sallad, bröd och kaffe. Beställ och betala i kassan vid entrén, ta sedan en bricka med ett nummer och sätt er. Vi kommer ut med maten till ert bord. Lunchen serveras till klockan fjorton. Smaklig måltid!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är dagens rätt?",
+        "options": ["Fiskgratäng", "Pannkakor", "Köttbullar med potatismos", "Pastasallad"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad kostar dagens rätt?",
+        "options": ["89 kronor", "99 kronor", "109 kronor", "119 kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Till vilken tid serveras lunchen?",
+        "options": ["Till klockan tolv", "Till klockan tretton", "Till klockan femton", "Till klockan fjorton"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 40
+  },
+  {
+    "id": "c-utrop-041",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på ett hotell om frukosten.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "God morgon, kära hotellgäster! Vi vill påminna om att frukosten serveras i restaurangen på bottenvåningen mellan klockan sex och klockan tio. Visa ert rumskort i entrén till restaurangen. I dag mellan elva och tolv kommer vi att städa lobbyn, så vi ber er använda hissarna i den bakre korridoren. Utcheckning sker senast klockan tolv. Vi önskar er en trevlig dag i staden."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var serveras frukosten?",
+        "options": ["I restaurangen på bottenvåningen", "På rummen", "I lobbyn", "På takterrassen"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Till vilken tid serveras frukosten?",
+        "options": ["Till klockan nio", "Till klockan tio", "Till klockan elva", "Till klockan åtta"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När senast ska man checka ut?",
+        "options": ["Klockan tio", "Klockan elva", "Klockan tretton", "Klockan tolv"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 41
+  },
+  {
+    "id": "c-utrop-042",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på en marknad om ett borttappat barn.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till alla besökare på julmarknaden. En liten flicka som heter Nora och är ungefär tre år har kommit bort från sina föräldrar. Hon har röd jacka och vita vantar. Nora väntar nu hos personalen i informationstältet bredvid scenen mitt på torget. Föräldrar eller anhöriga till Nora, kom till informationstältet så fort ni kan. Tack för er hjälp."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad heter flickan?",
+        "options": ["Nora", "Nina", "Nelly", "Nova"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad har flickan på sig?",
+        "options": ["Blå jacka och röda vantar", "Röd jacka och vita vantar", "Vit jacka och röda vantar", "Grön jacka och vita vantar"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Var väntar flickan? Skriv ditt svar.",
+        "accept": ["informationstältet", "i informationstältet", "vid informationstältet", "i tältet", "informationstältet bredvid scenen", "vid scenen"]
+      }
+    ],
+    "sort_order": 42
+  },
+  {
+    "id": "c-utrop-043",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på en skidanläggning om en stängd lift.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Information till alla skidåkare. På grund av kraftig vind är stollift nummer tre på toppen stängd tills vidare. Vi hoppas kunna öppna liften igen senare i eftermiddag om vinden lägger sig. Övriga liftar är öppna som vanligt till klockan sexton. Tänk på att åka försiktigt eftersom det är hårt väder på toppen. Värmestugan vid liftstationen är öppen om ni vill vila. Ha en fin dag i backen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför är liften stängd?",
+        "options": ["Det är för kallt", "Det är ett tekniskt fel", "På grund av kraftig vind", "Det är för få åkare"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilken lift är stängd?",
+        "options": ["Stollift nummer ett", "Stollift nummer tre", "Stollift nummer två", "Alla liftar"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Till vilken tid är de andra liftarna öppna?",
+        "options": ["Till klockan femton", "Till klockan sjutton", "Till klockan fjorton", "Till klockan sexton"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 43
+  },
+  {
+    "id": "c-utrop-044",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på en vårdcentral om en försenad läkare.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Information till patienter i väntrummet. Doktor Andersson är tyvärr försenad i dag på grund av ett akut ärende. Alla tider efter klockan tio blir cirka trettio minuter försenade. Vi beklagar väntetiden och ber er ha tålamod. Ni som har bråttom kan boka om er tid i receptionen utan extra kostnad. Vatten finns vid automaten bredvid toaletten. Tack för er förståelse."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför är läkaren försenad?",
+        "options": ["På grund av ett akut ärende", "Läkaren är sjuk", "Det är personalbrist", "Datorerna är trasiga"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur mycket försenade blir tiderna efter klockan tio?",
+        "options": ["Cirka tio minuter", "Cirka trettio minuter", "Cirka femton minuter", "Cirka en timme"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad kan man göra om man har bråttom?",
+        "options": ["Gå till sjukhuset", "Vänta hemma", "Ringa 112", "Boka om tiden i receptionen utan extra kostnad"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 44
+  },
+  {
+    "id": "c-utrop-045",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på en flygplats om ett inställt flyg.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Viktig information till passagerare på flyg BA tvåhundra till London. Flyget är tyvärr inställt på grund av tekniska problem. Alla passagerare ombeds gå till incheckningsdisk nummer tolv, där personalen bokar om er till nästa flyg klockan sjutton. Ni som behöver hotell över natten får hjälp vid samma disk. Ta med ert boardingkort och ert pass. Vi beklagar verkligen detta."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför är flyget inställt?",
+        "options": ["Dåligt väder", "Strejk", "Tekniska problem", "Brist på personal"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vart ska passagerarna gå?",
+        "options": ["Till gate tolv", "Till incheckningsdisk nummer tolv", "Till bagagehallen", "Till gate tjugo"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "När går nästa flyg? Skriv ditt svar.",
+        "accept": ["17.00", "17", "klockan sjutton", "sjutton", "klockan 17", "fem"]
+      }
+    ],
+    "sort_order": 45
+  },
+  {
+    "id": "c-utrop-046",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på ett bibliotek om en författarträff.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Kära besökare, vi vill påminna om kvällens program. Klockan arton kommer författaren Eva Holm hit och berättar om sin nya bok. Träffen hålls i hörsalen på plan två och är gratis. Efteråt går det att köpa boken och få den signerad. Antalet platser är begränsat, så kom i god tid. Vanlig låneverksamhet pågår som vanligt i resten av biblioteket. Varmt välkomna till hörsalen!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När börjar författarträffen?",
+        "options": ["Klockan sjutton", "Klockan nitton", "Klockan arton", "Klockan tjugo"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Var hålls träffen?",
+        "options": ["I hörsalen på plan två", "Vid lånedisken", "I caféet", "Utanför entrén"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad heter författaren?",
+        "options": ["Eva Holm", "Emma Hed", "Eva Holst", "Elin Holm"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 46
+  },
+  {
+    "id": "c-utrop-047",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på ett tivoli om en stängd attraktion.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej alla besökare på nöjesfältet! Vi vill informera om att berg- och dalbanan är stängd just nu för en teknisk kontroll. Vi hoppas kunna öppna den igen klockan femton. Under tiden kan ni gärna prova pariserhjulet eller spökhuset, som båda är öppna. Glöm inte att nöjesfältet stänger klockan tjugotvå i kväll. Det blir fyrverkeri vid stora scenen klockan tjugoett. Ha en härlig dag!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken attraktion är stängd?",
+        "options": ["Pariserhjulet", "Spökhuset", "Berg- och dalbanan", "Karusellen"],
+        "correctIndex": 2
+      },
+      {
+        "q": "När hoppas man kunna öppna den igen?",
+        "options": ["Klockan fjorton", "Klockan femton", "Klockan sexton", "Klockan sjutton"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När är det fyrverkeri?",
+        "options": ["Klockan tjugotvå", "Klockan tjugo", "Klockan nitton", "Klockan tjugoett"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 47
+  },
+  {
+    "id": "c-utrop-048",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på en byggarbetsplats vid en gata.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Information till alla som passerar arbetsplatsen. Inom kort kommer vi att spränga berg i området. En lång signal betyder att sprängning sker om fem minuter, och då måste alla hålla sig bakom de röda avspärrningarna. Tre korta signaler betyder att det är klart och att ni kan gå förbi igen. Följ alltid vakternas anvisningar. Vi tackar för ert tålamod under arbetet."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad betyder en lång signal?",
+        "options": ["Att sprängning sker om fem minuter", "Att arbetet är klart", "Att man kan gå förbi", "Att det är lunchrast"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Var ska man hålla sig vid sprängning?",
+        "options": ["På gatan", "Bakom de röda avspärrningarna", "Inne i tältet", "Vid maskinerna"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad betyder tre korta signaler?",
+        "options": ["Att sprängning börjar", "Att man ska springa", "Att man ska ringa polisen", "Att det är klart och man kan gå förbi"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 48
+  },
+  {
+    "id": "c-utrop-049",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på en parkeringsplats vid ett köpcentrum om laddstolpar.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Information till er som har elbil. De nya snabbladdarna på parkeringens nedre plan är nu i drift. Det finns sex laddstolpar bredvid hissen. Laddning kostar fem kronor per kilowattimme och betalas med kort eller i appen. Tänk på att flytta bilen när den är färdigladdad, så att fler får plats. En bil får stå högst två timmar vid laddstolpen. Tack för att ni kör miljövänligt!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var finns de nya snabbladdarna?",
+        "options": ["På parkeringens nedre plan", "Vid huvudentrén", "På taket", "Vid lastkajen"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur många laddstolpar finns det?",
+        "options": ["Fyra", "Sex", "Åtta", "Tio"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur länge får en bil högst stå vid laddstolpen?",
+        "options": ["En timme", "Tre timmar", "En halvtimme", "Två timmar"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 49
+  },
+  {
+    "id": "c-utrop-050",
+    "course": "C",
+    "type": "announcement",
+    "intro": "Ett utrop på en posttjänst eller ett ombud om paketutlämning.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Välkomna till paketombudet. För att hämta ut ett paket behöver ni visa en giltig legitimation och den kod ni har fått i ett sms. Ni som ska skicka ett paket tar en nummerlapp i automaten till vänster om dörren. Just nu betjänar vi nummer fyrtiosex. Tänk på att vi stänger klockan nitton i kväll och att paket som inte hämtas inom sju dagar skickas tillbaka. Tack för att ni väntar."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad behöver man för att hämta ut ett paket?",
+        "options": ["Legitimation och en kod från ett sms", "Bara ett kvitto", "En nyckel", "Pengar i kontanter"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilket nummer betjänas just nu?",
+        "options": ["64", "46", "44", "66"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad händer med paket som inte hämtas inom sju dagar?",
+        "options": ["De kastas", "De säljs", "De flyttas till lagret", "De skickas tillbaka"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 50
+  }
+]
