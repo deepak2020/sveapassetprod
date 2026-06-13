@@ -1,0 +1,872 @@
+[
+  {
+    "id": "c-rost-002",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från tandläkaren till en patient.",
+    "transcript": [
+      {
+        "speaker": "Tandläkarmottagningen",
+        "text": "Hej! Det här är ett meddelande från Folktandvården i Solna till Amir Hassan. Vi vill påminna dig om att du har en tid hos tandläkare Eva Lindgren på torsdag den tjugonde mars klockan kvart i tre på eftermiddagen. Kom gärna tio minuter innan och anmäl dig i receptionen på plan två. Om du inte kan komma måste du avboka senast tjugofyra timmar innan, annars får du betala fyrahundra kronor. Du når oss på telefon vardagar mellan åtta och fem. Tack och hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vem är meddelandet till?",
+        "options": ["Eva Lindgren", "Amir Hassan", "Tandläkaren", "Receptionisten"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När är tiden hos tandläkaren?",
+        "options": ["Torsdag klockan kvart i tre", "Tisdag klockan tre", "Torsdag klockan kvart över tre", "Fredag klockan kvart i tre"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad händer om Amir inte avbokar i tid?",
+        "options": ["Han får en ny tid", "Han måste byta tandläkare", "Han får betala fyrahundra kronor", "Ingenting händer"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "c-rost-003",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från en bilverkstad till en kund.",
+    "transcript": [
+      {
+        "speaker": "Johan på verkstaden",
+        "text": "Hej, det är Johan från Bergs bilverkstad. Jag ringer för att säga att din bil är klar nu. Vi har bytt bromsarna och gjort en service, och allt fungerar bra. Det kostar totalt tretusen femhundra kronor, lite billigare än vi sa från början. Du kan hämta bilen i dag fram till klockan sex, eller i morgon från klockan sju på morgonen. Ta med körkortet när du kommer, och du kan betala med kort eller Swish här på verkstaden. Ring gärna om du har frågor. Hej så länge!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför ringer Johan?",
+        "options": ["Bilen är sönder", "Bilen är klar", "Han behöver mer tid", "Han vill sälja en bil"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Hur mycket kostar reparationen? Skriv ditt svar.",
+        "accept": ["3500 kronor", "3500 kr", "3500", "tretusen femhundra kronor", "tretusenfemhundra kronor", "tretusen femhundra"]
+      },
+      {
+        "q": "Vad ska kunden ta med sig?",
+        "options": ["Bilnycklarna", "Kontanter", "Passet", "Körkortet"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "c-rost-004",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från apoteket till en kund.",
+    "transcript": [
+      {
+        "speaker": "Sara på apoteket",
+        "text": "Hej! Det här är ett meddelande till Maria Petrov från Apoteket Hjärtat på Storgatan. Jag heter Sara och jag ringer för att berätta att medicinen du beställde har kommit nu. Du kan hämta den när du vill, vi har öppet vardagar mellan klockan nio och sju och på lördagar mellan tio och fyra. Kom ihåg att ta med legitimation när du hämtar medicinen. Den kostar etthundratjugo kronor med ditt högkostnadsskydd. Om du inte hämtar den inom två veckor skickar vi tillbaka den. Välkommen och hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har hänt?",
+        "options": ["Medicinen är slut", "Apoteket har stängt", "Receptet har gått ut", "Medicinen har kommit"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När har apoteket öppet på lördagar?",
+        "options": ["Mellan nio och sju", "Mellan tio och fyra", "Mellan åtta och fem", "Lördagar är stängt"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad händer om Maria inte hämtar medicinen inom två veckor?",
+        "options": ["Apoteket skickar tillbaka den", "Hon får betala mer", "Apoteket ringer igen", "Medicinen skickas hem till henne"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "c-rost-005",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från en vän som vill ändra mötesplats.",
+    "transcript": [
+      {
+        "speaker": "Fatima",
+        "text": "Hej, det är Fatima! Jag ringer om i morgon. Vi sa ju att vi skulle ses på kaféet vid stationen klockan elva, men det har stängt för renovering. Kan vi träffas på biblioteket i stället? De har ett litet kafé på andra våningen där man kan sitta och prata. Samma tid, alltså klockan elva. Om det inte passar dig kan vi också ses hemma hos mig, jag bor ju på Rosengatan fem. Skicka ett sms och säg vad du tycker. Jag längtar efter att se dig! Puss och kram, hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför kan de inte ses på kaféet vid stationen?",
+        "options": ["Det är för dyrt", "Det är fullt med folk", "Det har stängt för renovering", "Fatima hittar inte dit"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Var vill Fatima träffas i stället?",
+        "options": ["Hemma hos vännen", "På stationen", "På ett annat kafé i stan", "På biblioteket"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilken tid ska de ses?",
+        "options": ["Klockan tio", "Klockan elva", "Klockan tolv", "Klockan ett"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "c-rost-006",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från hyresvärden om vattenavstängning.",
+    "transcript": [
+      {
+        "speaker": "Hyresvärden",
+        "text": "Hej! Det här är ett meddelande från Ekbacka Fastigheter till alla hyresgäster på Björkvägen tolv. Vi måste laga ett trasigt rör i källaren, och därför stänger vi av vattnet i hela huset på onsdag den femtonde, från klockan nio på morgonen till ungefär klockan två på eftermiddagen. Fyll gärna vatten i flaskor eller kastruller innan, så att ni har vatten att dricka och laga mat med. Tvätta inte och använd inte diskmaskinen under tiden. Vi beklagar besväret. Har ni frågor kan ni ringa vår felanmälan. Hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför stängs vattnet av?",
+        "options": ["Huset ska målas om", "Ett rör i källaren ska lagas", "Hyresgästerna använder för mycket vatten", "Tvättstugan ska renoveras"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vilken dag stängs vattnet av? Skriv ditt svar.",
+        "accept": ["onsdag", "på onsdag", "onsdag den femtonde", "onsdag den 15", "den femtonde", "den 15"]
+      },
+      {
+        "q": "Vad ska hyresgästerna göra innan vattnet stängs av?",
+        "options": ["Ringa felanmälan", "Tvätta kläder", "Gå till källaren", "Fylla vatten i flaskor"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "c-rost-007",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från chefen om ett ändrat arbetspass.",
+    "transcript": [
+      {
+        "speaker": "Chefen Karin",
+        "text": "Hej Ali, det är Karin, din chef på restaurangen. Jag ringer för att fråga om du kan byta arbetspass nästa vecka. Du skulle ju jobba på måndag kväll, men jag behöver dig på lördag i stället, från klockan tio på förmiddagen till klockan sex på kvällen. Vi har ett stort sällskap som har bokat hela övervåningen, så det blir mycket att göra. Du får självklart extra betalt för helgen, etthundrasextio kronor i timmen. Ring mig eller skicka ett sms senast i morgon kväll så jag vet om det fungerar. Tack på förhand, hej!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad vill Karin?",
+        "options": ["Att Ali byter arbetspass", "Att Ali slutar tidigare", "Att Ali jobbar mindre", "Att Ali tar semester"],
+        "correctIndex": 0
+      },
+      {
+        "q": "När vill Karin att Ali ska jobba?",
+        "options": ["Måndag kväll", "Lördag mellan tio och sex", "Söndag mellan tio och sex", "Lördag kväll"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur mycket får Ali betalt i timmen på helgen?",
+        "options": ["Etthundra kronor", "Etthundratrettio kronor", "Etthundrasextio kronor", "Tvåhundra kronor"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "c-rost-008",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från biblioteket om en reserverad bok.",
+    "transcript": [
+      {
+        "speaker": "Biblioteket",
+        "text": "Hej! Det här är ett meddelande från stadsbiblioteket till Elena Popescu. Boken som du har reserverat, en svensk grammatikbok för nybörjare, finns nu att hämta hos oss. Den står på hyllan för reserverade böcker, direkt till höger när du kommer in. Du behöver ditt lånekort eller legitimation för att låna den. Boken finns kvar i sju dagar, alltså till och med nästa torsdag. Om du inte hämtar den går den vidare till nästa person i kön. Vi har öppet alla dagar utom söndagar. Välkommen in!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad handlar meddelandet om?",
+        "options": ["En bok som Elena ska lämna tillbaka", "En försenad bok som kostar pengar", "En bokklubb på biblioteket", "En reserverad bok som kan hämtas"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur länge finns boken kvar på hyllan?",
+        "options": ["Tre dagar", "Sju dagar", "Tio dagar", "Fjorton dagar"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilken dag har biblioteket stängt?",
+        "options": ["Lördagar", "Måndagar", "Söndagar", "Fredagar"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "c-rost-009",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från förskolan om en utflykt.",
+    "transcript": [
+      {
+        "speaker": "Förskolläraren Lisa",
+        "text": "Hej! Det är Lisa från förskolan Solrosen, avdelning Fjärilen. Jag ringer för att berätta att vi ska göra en utflykt till skogen på fredag den nionde maj. Vi går från förskolan klockan halv tio, så det är viktigt att alla barn är här senast klockan nio. Barnen behöver ha kläder efter väder, bra skor och en liten ryggsäck med vattenflaska. Vi bjuder på frukt och smörgås i skogen, så ni behöver inte skicka med mat. Vi är tillbaka på förskolan vid klockan två. Hör av er om ni har frågor. Hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vart ska barnen åka på utflykt?",
+        "options": ["Till museet", "Till skogen", "Till en bondgård", "Till simhallen"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När måste barnen senast vara på förskolan?",
+        "options": ["Klockan halv nio", "Klockan halv tio", "Klockan nio", "Klockan tio"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad behöver föräldrarna INTE skicka med?",
+        "options": ["Mat", "Vattenflaska", "Bra skor", "Ryggsäck"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "c-rost-010",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från frisören som måste omboka en tid.",
+    "transcript": [
+      {
+        "speaker": "Linda",
+        "text": "Hej! Det är Linda från salongen Saxen på Kungsgatan. Det här är ett meddelande till Daniela Costa. Jag måste tyvärr omboka din tid för klippning på tisdag klockan fyra, eftersom jag har blivit sjuk. Jag kan i stället erbjuda dig en tid på fredag klockan halv elva på förmiddagen, eller nästa måndag klockan fem. Ring eller skicka ett sms till salongen och berätta vilken tid som passar dig bäst. Jag är ledsen för besväret. Hej så länge!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför måste Linda omboka tiden?",
+        "options": ["Salongen ska renoveras", "Hon ska resa bort", "Hon har blivit sjuk", "Hon har för många kunder"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilka nya tider erbjuder Linda?",
+        "options": ["Fredag halv elva eller måndag klockan fem", "Tisdag klockan fyra eller fredag klockan fem", "Fredag klockan elva eller tisdag klockan fem", "Måndag halv elva eller fredag klockan fyra"],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad ska Daniela göra nu? Skriv ditt svar.",
+        "accept": ["ringa eller skicka ett sms", "ringa eller smsa", "skicka ett sms", "ringa salongen", "ringa eller sms:a", "svara vilken tid som passar"]
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "c-rost-011",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från en kurslärare om en inställd lektion.",
+    "transcript": [
+      {
+        "speaker": "Hassan",
+        "text": "Hej! Det är Hassan, er lärare på svenskkursen. Det här är ett meddelande till alla i grupp B. Lektionen i morgon kväll är tyvärr inställd, eftersom det är fel på värmen i skolan och lokalen är för kall. Ni behöver alltså inte komma i morgon. I stället ses vi som vanligt på torsdag klockan sex i sal tolv. Gör gärna övningarna på sidan fyrtio i boken hemma, så går vi igenom dem tillsammans på torsdag. Hör av er om ni har frågor. Vi ses, hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför är lektionen i morgon inställd?",
+        "options": ["Läraren är sjuk", "Det är ett lov", "Skolan ska städas", "Det är fel på värmen i skolan"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När ses gruppen nästa gång?",
+        "options": ["I morgon klockan sex", "Torsdag klockan sex", "Torsdag klockan tolv", "Fredag klockan sex"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad ska eleverna göra hemma?",
+        "options": ["Skriva en text", "Läsa hela boken", "Göra övningarna på sidan fyrtio", "Titta på en film"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "c-rost-012",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från mormor som bjuder på middag.",
+    "transcript": [
+      {
+        "speaker": "Mormor Britta",
+        "text": "Hej hjärtat, det är mormor! Jag ringer för att bjuda dig och barnen på middag på söndag. Jag tänkte laga köttbullar med potatismos, det vet jag ju att barnen älskar. Kom vid klockan fyra, så hinner vi prata lite innan vi äter. Ni behöver inte ta med någonting, men om du vill kan du köpa lite glass till efterrätten. Morfar hämtar er gärna med bilen om det regnar, säg bara till. Ring mig när du har hört det här. Stora kramar, hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad vill mormor?",
+        "options": ["Bjuda familjen på middag", "Låna bilen", "Att barnen hälsar på morfar", "Ha hjälp med maten"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad ska mormor laga?",
+        "options": ["Fisk med potatis", "Pannkakor", "Soppa och smörgås", "Köttbullar med potatismos"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad kan familjen ta med om de vill?",
+        "options": ["Bröd", "Glass till efterrätten", "Potatis", "Blommor"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "c-rost-013",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från postombudet om ett paket.",
+    "transcript": [
+      {
+        "speaker": "Marcus",
+        "text": "Hej! Det här är ett meddelande till Selam Tesfay från postombudet i Ica-butiken på Älvgatan. Jag heter Marcus och jobbar i kassan. Du har ett paket att hämta hos oss. Det är ganska stort och tungt, så ta gärna med en kasse eller en vagn. Du behöver visa legitimation och den kod som du har fått i ett sms. Paketet ligger kvar hos oss i fjorton dagar, sedan skickas det tillbaka till avsändaren. Vi har öppet alla dagar mellan klockan åtta och nio på kvällen. Välkommen!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför ringer Marcus?",
+        "options": ["Paketet är försenat", "Paketet har skickats tillbaka", "Selam har ett paket att hämta", "Paketet är borttappat"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad behöver Selam visa när hon hämtar paketet?",
+        "options": ["Bara ett kvitto", "Legitimation och en kod från ett sms", "Bara sin legitimation", "Ett brev från posten"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur länge ligger paketet kvar?",
+        "options": ["Sju dagar", "Tio dagar", "En månad", "Fjorton dagar"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "c-rost-014",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från optikern om nya glasögon.",
+    "transcript": [
+      {
+        "speaker": "Sofia",
+        "text": "Hej! Det är Sofia från Optik City i gallerian. Det här är ett meddelande till Pavel Novak. Dina nya glasögon är klara nu och du kan hämta dem när det passar dig. När du kommer provar vi dem tillsammans, så att de sitter bra. Det tar ungefär en kvart. Du har redan betalat hälften, så det är ettusen tvåhundra kronor kvar att betala när du hämtar dem. Vi har öppet vardagar mellan tio och sju och lördagar mellan tio och tre. Välkommen in, hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är klart att hämta?",
+        "options": ["Pavels nya glasögon", "Pavels solglasögon", "Pavels linser", "Pavels hörapparat"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur mycket är kvar att betala?",
+        "options": ["Tvåhundra kronor", "Ettusen kronor", "Ettusen tvåhundra kronor", "Tvåtusen fyrahundra kronor"],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Hur länge har butiken öppet på lördagar? Skriv ditt svar.",
+        "accept": ["mellan tio och tre", "tio till tre", "10-15", "från tio till tre", "klockan tio till tre", "10 till 15"]
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "c-rost-015",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från fotbollstränaren om en ändrad matchtid.",
+    "transcript": [
+      {
+        "speaker": "Tobias",
+        "text": "Hej! Det är Tobias, tränare för pojklaget i Sunda IF. Det här är ett meddelande till alla föräldrar i laget. Matchen på lördag har flyttats. Vi spelar inte klockan elva som det stod i schemat, utan klockan ett på eftermiddagen, fortfarande på Sundavallen. Samling vid omklädningsrummen klockan tolv. Barnen ska ha med sig benskydd, vattenflaska och gärna en varm tröja, eftersom det kan bli kallt. Kontakta mig om ert barn inte kan spela. Vi ses på lördag, hej!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har hänt med matchen?",
+        "options": ["Den är inställd", "Den spelas på en annan plan", "Den spelas på söndag i stället", "Den har flyttats till klockan ett"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När är samling?",
+        "options": ["Klockan tolv", "Klockan elva", "Klockan ett", "Klockan halv ett"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad ska barnen ha med sig?",
+        "options": ["Matsäck och regnkläder", "Boll och skor", "Benskydd, vattenflaska och en varm tröja", "Bara en vattenflaska"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "c-rost-016",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från vårdcentralen om provsvar.",
+    "transcript": [
+      {
+        "speaker": "Gunilla",
+        "text": "Hej! Det här är ett meddelande till Samira Karimi. Jag heter Gunilla och är sjuksköterska på vårdcentralen Eken. Jag ringer angående de prover som du lämnade förra veckan. Provsvaren har kommit nu, men jag kan inte lämna dem på telefonsvararen. Jag vill därför att du ringer tillbaka till oss på telefonnummer noll trettiio, tolv tjugo trettio. Vi har telefontid vardagar mellan klockan åtta och halv elva på förmiddagen. Det är inget akut, men ring gärna så snart du kan. Hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför ringer Gunilla?",
+        "options": ["Samira har missat en tid", "Provsvaren har kommit", "Samira ska lämna nya prover", "Vårdcentralen har stängt"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför berättar Gunilla inte provsvaren i meddelandet?",
+        "options": ["Hon har inte fått dem än", "Hon har glömt dem", "Svaren är inte klara", "Hon kan inte lämna dem på telefonsvararen"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När har vårdcentralen telefontid?",
+        "options": ["Vardagar mellan åtta och halv elva", "Alla dagar mellan åtta och fem", "Vardagar mellan tio och tolv", "Bara på eftermiddagar"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "c-rost-017",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från en granne som har tagit emot ett paket.",
+    "transcript": [
+      {
+        "speaker": "Olle",
+        "text": "Hej, det är Olle, din granne på våning tre. Jag ringer för att säga att jag har tagit emot ett paket till dig i dag. Budet ringde på hos mig när du inte var hemma, och jag skrev under åt dig. Det är en ganska stor kartong, jag tror det är något från en möbelaffär. Du kan hämta paketet hos mig i kväll efter klockan sju, eller i morgon på förmiddagen, då är jag också hemma. Ring bara på dörren, lägenhet trettiotvå. Hej så länge!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför ringer Olle?",
+        "options": ["Han vill låna verktyg", "Han har tagit emot ett paket åt grannen", "Han väntar på ett paket", "Han vill bjuda på kaffe"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var bor Olle?",
+        "options": ["På våning två", "I huset bredvid", "På våning tre, lägenhet trettiotvå", "På bottenvåningen"],
+        "correctIndex": 2
+      },
+      {
+        "q": "När kan grannen hämta paketet i kväll?",
+        "options": ["Före klockan sju", "Klockan sex", "När som helst", "Efter klockan sju"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "c-rost-018",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från städfirman om en ändrad tid.",
+    "transcript": [
+      {
+        "speaker": "Marija",
+        "text": "Hej! Det är Marija från städfirman Rent och Fint. Det här är ett meddelande till familjen Eriksson. Vi skulle komma och städa hos er på torsdag klockan nio, men vår bil har gått sönder, så vi måste tyvärr ändra tiden. Vi kan komma på torsdag klockan ett i stället, eller på fredag klockan nio som vanligt. Priset är detsamma, sexhundra kronor. Skicka gärna ett sms och berätta vilken tid som passar er, så bekräftar jag. Ursäkta besväret! Hej då."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför måste städfirman ändra tiden?",
+        "options": ["De har för många kunder", "En städare är sjuk", "Deras bil har gått sönder", "Familjen är inte hemma"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad kostar städningen?",
+        "options": ["Femhundra kronor", "Sjuhundra kronor", "Åttahundra kronor", "Sexhundra kronor"],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vilka två nya tider föreslår Marija? Skriv ditt svar.",
+        "accept": ["torsdag klockan ett eller fredag klockan nio", "torsdag ett eller fredag nio", "torsdag kl 13 eller fredag kl 9", "torsdag klockan ett och fredag klockan nio", "torsdag 13 eller fredag 9"]
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "c-rost-019",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från en kompis som behöver hjälp med en flytt.",
+    "transcript": [
+      {
+        "speaker": "Erik",
+        "text": "Tjena, det är Erik! Du vet ju att jag ska flytta till min nya lägenhet, och nu undrar jag om du kan hjälpa mig på lördag. Vi börjar klockan tio hemma hos mig på Tallvägen åtta. Min kusin kommer med en stor skåpbil, så vi behöver bara bära kartonger och några möbler. Det tar nog tre eller fyra timmar. Jag bjuder såklart på pizza och dricka efteråt! Ta på dig sköna skor och gamla kläder. Hör av dig och säg om du kan, det vore guld värt. Hej!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad behöver Erik hjälp med?",
+        "options": ["Att flytta", "Att måla om", "Att köpa möbler", "Att köra skåpbilen"],
+        "correctIndex": 0
+      },
+      {
+        "q": "När börjar de på lördag?",
+        "options": ["Klockan åtta", "Klockan tio", "Klockan elva", "Klockan tolv"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad bjuder Erik på efteråt?",
+        "options": ["Middag på restaurang", "Kaffe och bullar", "Grillat i parken", "Pizza och dricka"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "c-rost-020",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från körskolan om en ledig lektionstid.",
+    "transcript": [
+      {
+        "speaker": "Petra",
+        "text": "Hej! Det är Petra från Citytrafikskolan. Det här är ett meddelande till Joseph Okafor. En annan elev har avbokat, så vi har fått en ledig körlektion i morgon, onsdag, klockan kvart över två. Jag vet att du ville köra mer innan ditt prov, så jag tänkte att tiden kanske passar dig. Lektionen är åttio minuter och kostar sjuhundra kronor. Om du vill ha tiden måste du ringa oss före klockan fem i dag, annars går den till nästa elev på listan. Hej så länge!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför finns det en ledig lektionstid?",
+        "options": ["Skolan har fler lärare", "Petra har bytt schema", "En lektion blev inställd", "En annan elev har avbokat"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När är den lediga lektionen?",
+        "options": ["I dag klockan fem", "Onsdag klockan kvart i två", "Onsdag klockan kvart över två", "Torsdag klockan två"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad måste Joseph göra om han vill ha tiden?",
+        "options": ["Ringa före klockan fem i dag", "Skicka ett mejl", "Komma till körskolan", "Betala i förväg"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "c-rost-021",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från veterinären med en vaccinationspåminnelse.",
+    "transcript": [
+      {
+        "speaker": "Cecilia",
+        "text": "Hej! Det är Cecilia från djurkliniken Fyra Tassar. Det här är ett meddelande till Magnus Åberg. Jag ringer för att påminna dig om att din katt Misse behöver förnya sin vaccination. Det har gått ett år sedan förra sprutan. Vaccinationen kostar fyrahundrafemtio kronor och tar bara ungefär tio minuter. Du kan boka en tid på vår hemsida eller ringa oss på vardagar mellan åtta och fyra. Kom ihåg att ta med Misse i en bur när ni kommer. Hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför ringer Cecilia?",
+        "options": ["Katten är sjuk", "Katten behöver förnya sin vaccination", "Magnus har glömt en tid", "Kliniken har flyttat"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur mycket kostar vaccinationen?",
+        "options": ["Fyrahundrafemtio kronor", "Fyrahundra kronor", "Femhundrafemtio kronor", "Trehundrafemtio kronor"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad ska Magnus komma ihåg?",
+        "options": ["Att lämna katten hemma", "Att betala i förväg", "Att ta med katten i en bur", "Att ta med kattens mat"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "c-rost-022",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från elektrikern som kommer i morgon.",
+    "transcript": [
+      {
+        "speaker": "Stefan",
+        "text": "Hej! Det är Stefan, elektrikern från Elteamet. Det här är ett meddelande till Rana Haddad. Jag ringer om jobbet hemma hos dig, lamporna i köket som inte fungerar. Jag kan komma i morgon förmiddag, mellan klockan nio och tolv. Det är viktigt att någon är hemma och kan öppna dörren. Jobbet tar ungefär två timmar och kostar nittonhundra kronor inklusive material. Om tiden inte passar, ring mig på noll sjuttio, fem fem, sex sex, sju sju. Annars ses vi i morgon. Hej!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad ska Stefan laga?",
+        "options": ["Lamporna i köket", "Spisen", "Elementet i sovrummet", "Tvättmaskinen"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad är viktigt i morgon?",
+        "options": ["Att Rana ringer först", "Att köket är tomt", "Att Rana betalar kontant", "Att någon är hemma och öppnar"],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Hur mycket kostar jobbet? Skriv ditt svar.",
+        "accept": ["1900 kronor", "1900 kr", "1900", "nittonhundra kronor", "nittonhundra", "ettusen niohundra kronor"]
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "c-rost-023",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande med en inbjudan till en födelsedagsfest.",
+    "transcript": [
+      {
+        "speaker": "Amina",
+        "text": "Hej, det är Amina! Jag ringer för att bjuda in dig till min födelsedagsfest. Jag fyller trettio år och firar lördagen den åttonde, hemma hos mig på Solgatan femton. Festen börjar klockan sex på kvällen och vi kommer att äta, dansa och ha jättekul. Du behöver inte ta med någon mat, men kläderna får gärna vara lite festliga! Säg till om du inte äter kött, så fixar jag vegetarisk mat. Svara senast på onsdag om du kan komma. Hoppas vi ses, kram, hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför har Amina fest?",
+        "options": ["Hon har fått ett nytt jobb", "Hon har flyttat", "Hon fyller trettio år", "Hon har tagit examen"],
+        "correctIndex": 2
+      },
+      {
+        "q": "När börjar festen?",
+        "options": ["Lördag klockan sex", "Lördag klockan åtta", "Onsdag klockan sex", "Fredag klockan sju"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad ska gästen göra senast på onsdag?",
+        "options": ["Köpa en present", "Ta med mat", "Komma till Solgatan", "Svara om hen kan komma"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "c-rost-024",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från bokklubben om nästa träff.",
+    "transcript": [
+      {
+        "speaker": "Ingrid",
+        "text": "Hej! Det är Ingrid från bokklubben på Folkets hus. Det här är ett meddelande till alla medlemmar. Vår nästa träff är på tisdag den tredje klockan halv sju på kvällen, i det lilla rummet bredvid kaféet. Då pratar vi om boken vi har läst, en roman som heter Sommarboken. Läs gärna klart den innan träffen, men kom även om du inte har hunnit. Vi bjuder på te och kakor. Nya medlemmar är också välkomna, så ta gärna med en vän. Vi ses på tisdag, hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När är nästa träff?",
+        "options": ["Tisdag klockan sju", "Torsdag klockan halv sju", "Tisdag klockan halv sex", "Tisdag klockan halv sju"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad ska medlemmarna göra innan träffen?",
+        "options": ["Baka kakor", "Läsa klart boken", "Köpa en ny bok", "Betala medlemsavgiften"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad bjuder bokklubben på?",
+        "options": ["Te och kakor", "Kaffe och smörgås", "Middag", "Frukt"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "c-rost-025",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från ett företag om en ny tid för en jobbintervju.",
+    "transcript": [
+      {
+        "speaker": "Anders",
+        "text": "Hej! Det här är ett meddelande till Aisha Mohammed. Jag heter Anders Holm och ringer från Nordcafé, där du har sökt jobb som barista. Vi skulle ha en intervju på måndag klockan tio, men jag måste tyvärr resa bort den dagen. Kan vi i stället ses på onsdag klockan nio på vårt kontor på Hamngatan tre? Intervjun tar ungefär fyrtiofem minuter. Ring eller mejla mig och bekräfta att den nya tiden fungerar. Jag ser fram emot att träffa dig. Hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför ringer Anders?",
+        "options": ["Han vill ändra tiden för intervjun", "Aisha har fått jobbet", "Intervjun är inställd helt", "Han vill ställa fler frågor"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför kan Anders inte ses på måndag?",
+        "options": ["Han är sjuk", "Kontoret är stängt", "Han måste resa bort", "Han har en annan intervju"],
+        "correctIndex": 2
+      },
+      {
+        "q": "När är den nya tiden?",
+        "options": ["Måndag klockan tio", "Onsdag klockan nio", "Onsdag klockan tio", "Tisdag klockan nio"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 24
+  },
+  {
+    "id": "c-rost-026",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från en second hand-butik om en donation.",
+    "transcript": [
+      {
+        "speaker": "Rosa",
+        "text": "Hej! Det är Rosa från second hand-butiken Återbruket på Industrigatan. Det här är ett meddelande till Tarek Aziz. Du ringde oss om möblerna och kläderna som du vill skänka. Vi tar gärna emot allt! Du kan lämna sakerna vid vår bakdörr på vardagar mellan klockan tio och fyra. Om soffan är för tung kan vi hämta den hemma hos dig, det kostar ingenting, men då måste du boka en hämtning minst tre dagar innan. Tack för att du tänker på miljön! Hej då."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad vill Tarek göra?",
+        "options": ["Köpa en soffa", "Jobba i butiken", "Skänka möbler och kläder", "Sälja sina möbler"],
+        "correctIndex": 2
+      },
+      {
+        "q": "När kan man lämna saker vid bakdörren?",
+        "options": ["Alla dagar mellan tio och fyra", "Vardagar mellan åtta och fem", "Bara på helger", "Vardagar mellan tio och fyra"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad kostar det att få soffan hämtad?",
+        "options": ["Ingenting", "Etthundra kronor", "Trehundra kronor", "Det beror på vikten"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 25
+  },
+  {
+    "id": "c-rost-027",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från simskolan om kursstart.",
+    "transcript": [
+      {
+        "speaker": "Jenny",
+        "text": "Hej! Det är Jenny från simskolan i Badhuset. Det här är ett meddelande till Amals föräldrar. Amal har fått en plats i nybörjargruppen som börjar på söndag. Vi ses i den lilla bassängen klockan kvart över nio, och lektionen är trettio minuter. Amal behöver badkläder, handduk och badmössa, en mössa kan ni köpa i kassan för fyrtio kronor. Kursen har tio tillfällen och kostar åttahundra kronor, ni får en faktura. Duscha alltid innan lektionen. Välkomna på söndag, hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad handlar meddelandet om?",
+        "options": ["Amal har fått en plats i simskolan", "Simskolan är inställd", "Amal har glömt sina badkläder", "Badhuset har stängt"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur lång är varje lektion?",
+        "options": ["En timme", "Fyrtiofem minuter", "En kvart", "Trettio minuter"],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vad kostar hela kursen? Skriv ditt svar.",
+        "accept": ["800 kronor", "800 kr", "800", "åttahundra kronor", "åttahundra"]
+      }
+    ],
+    "sort_order": 26
+  },
+  {
+    "id": "c-rost-028",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från fritids om en stängningsdag.",
+    "transcript": [
+      {
+        "speaker": "Mikael",
+        "text": "Hej! Det är Mikael från fritidshemmet Kotten på Bergaskolan. Det här är ett meddelande till alla föräldrar. På fredag den sjuttonde har personalen planeringsdag, och då är fritids stängt hela dagen. Skolan slutar som vanligt klockan ett, så ni måste hämta era barn direkt efter skolan. Om ni absolut inte kan ordna hämtning, kontakta rektorn senast på onsdag, så försöker vi hitta en lösning. Tack för att ni hjälper till! Hej då."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför är fritids stängt på fredag?",
+        "options": ["Det är ett lov", "Personalen är sjuk", "Lokalen ska städas", "Personalen har planeringsdag"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När slutar skolan på fredag?",
+        "options": ["Klockan tolv", "Klockan ett", "Klockan två", "Klockan tre"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad ska föräldrar göra om de inte kan hämta?",
+        "options": ["Ringa Mikael på fredag", "Låta barnet gå hem själv", "Kontakta rektorn senast på onsdag", "Hämta barnet på torsdag"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 27
+  },
+  {
+    "id": "c-rost-029",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från en hantverkare om en offert.",
+    "transcript": [
+      {
+        "speaker": "Bo",
+        "text": "Hej! Det är Bo Nilsson, snickaren som var hemma hos er förra veckan och tittade på badrummet. Det här är ett meddelande till familjen Ahmadi. Nu har jag räknat på jobbet, och min offert är fyrtiotvåtusen kronor för arbete och material. Då ingår nytt golv, ny dusch och målning av taket. Jobbet tar ungefär två veckor, och jag kan börja i mitten av augusti. Jag har skickat offerten med mejl också. Svara gärna inom två veckor, så bokar vi in jobbet. Hej så länge!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket rum handlar offerten om?",
+        "options": ["Köket", "Badrummet", "Sovrummet", "Hallen"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur mycket kostar jobbet enligt offerten?",
+        "options": ["Tjugofyratusen kronor", "Trettiotvåtusen kronor", "Fyrtiotvåtusen kronor", "Femtiotvåtusen kronor"],
+        "correctIndex": 2
+      },
+      {
+        "q": "När kan Bo börja jobbet?",
+        "options": ["I mitten av augusti", "Om två veckor", "I början av augusti", "I september"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 28
+  },
+  {
+    "id": "c-rost-030",
+    "course": "C",
+    "type": "voicemail",
+    "intro": "Ett röstmeddelande från resebyrån om en ändrad avgångstid.",
+    "transcript": [
+      {
+        "speaker": "Camilla",
+        "text": "Hej! Det här är ett meddelande till Hiba Mansour från resebyrån Solresor. Jag heter Camilla och ringer om er resa till Spanien på lördag. Flygbolaget har ändrat avgångstiden. Planet lyfter inte klockan sju på morgonen som det stod på biljetten, utan klockan tio. Ni ska ändå vara på flygplatsen två timmar innan, alltså senast klockan åtta. Incheckningen är vid disk trettiofyra. Ni behöver inte göra någonting, era biljetter gäller fortfarande. Trevlig resa, hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har hänt med resan?",
+        "options": ["Resan är inställd", "Avgångstiden har ändrats", "Hotellet är fullbokat", "Biljetterna gäller inte"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När lyfter planet nu?",
+        "options": ["Klockan sju", "Klockan åtta", "Klockan nio", "Klockan tio"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När ska familjen senast vara på flygplatsen?",
+        "options": ["Klockan sex", "Klockan sju", "Klockan åtta", "Klockan nio"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 29
+  }
+]

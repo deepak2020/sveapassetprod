@@ -1,0 +1,999 @@
+[
+  {
+    "id": "c-nyh-002",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett kort nyhetsinslag på radion om ett nytt bibliotek.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På lördag öppnar det nya biblioteket på Storgatan i Björkstad. Biblioteket har varit stängt i två år för ombyggnad. Det nya biblioteket har en stor barnavdelning, tjugo datorer och ett kafé. Invigningen börjar klockan tio på förmiddagen, och kommunen bjuder alla besökare på kaffe och tårta. Under hela helgen blir det sagostunder för barn och visningar av de nya lokalerna. Biblioteket kommer att ha öppet alla dagar i veckan, även på söndagar."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När öppnar det nya biblioteket?",
+        "options": ["På fredag", "På lördag", "På söndag", "På måndag"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur länge har biblioteket varit stängt?",
+        "options": ["Ett år", "Sex månader", "Två år", "Tre år"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad bjuder kommunen besökarna på?",
+        "options": ["Kaffe och tårta", "Saft och bullar", "Lunch", "Glass"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "c-nyh-003",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om simhallen i kommunen.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Simhallen i Ekköping stänger för renovering den första oktober. Renoveringen kommer att ta ungefär åtta månader, och simhallen öppnar igen i juni nästa år. Under tiden kan kommunens invånare bada gratis i simhallen i grannkommunen Aspnäs, om de visar sitt busskort eller legitimation. Kommunen renoverar både den stora bassängen och omklädningsrummen. Dessutom byggs en ny barnpool med rutschkana. Renoveringen kostar trettio miljoner kronor."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger simhallen?",
+        "options": ["Den första september", "Den första oktober", "Den första november", "I juni"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur lång tid tar renoveringen ungefär?",
+        "options": ["Sex månader", "Ett år", "Åtta månader", "Tre månader"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad kan invånarna göra under renoveringen?",
+        "options": ["Bada i havet", "Bada gratis i grannkommunen", "Få pengar tillbaka", "Simma i skolans bassäng"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "c-nyh-004",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om nya busstider.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Från och med måndag den femtonde augusti får busslinje fyra nya tider i Lindbyholm. Bussen kommer att gå var tionde minut i rusningstid, i stället för var tjugonde minut som i dag. På kvällar och helger går bussen varje halvtimme. Den sista bussen från centrum går klockan halv tolv på natten, en timme senare än tidigare. Förändringen görs eftersom allt fler resenärer åker med linjen. Tidtabellen finns på kommunens webbplats och i appen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur ofta går bussen i rusningstid efter förändringen?",
+        "options": ["Var tjugonde minut", "Varje halvtimme", "Varje timme", "Var tionde minut"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När går den sista bussen från centrum?",
+        "options": ["Klockan halv elva", "Klockan halv tolv", "Klockan tolv", "Klockan elva"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför ändras tidtabellen?",
+        "options": ["Bussarna är gamla", "Fler resenärer åker med linjen", "Det är billigare", "Vägen byggs om"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "c-nyh-005",
+    "course": "C",
+    "type": "news",
+    "intro": "En vädernyhet på lokalradion.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "SMHI varnar för ett kraftigt snöoväder i länet under onsdagen. Det kan komma upp till tre decimeter snö mellan klockan sex på morgonen och klockan åtta på kvällen. Trafiken kan bli mycket långsam, och kommunen rekommenderar alla som kan att arbeta hemifrån eller åka kollektivt. Bussarna kan bli försenade, så res ut i god tid. Skolorna håller öppet som vanligt. På torsdag väntas vädret bli lugnare med sol och några minusgrader."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken dag väntas snöovädret?",
+        "options": ["På tisdag", "På onsdag", "På torsdag", "På fredag"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur mycket snö kan det komma?",
+        "options": ["Upp till en decimeter", "Upp till två decimeter", "Upp till tre decimeter", "Upp till fem decimeter"],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Vad rekommenderar kommunen att man gör? Skriv ditt svar.",
+        "accept": [
+          "arbeta hemifrån",
+          "jobba hemifrån",
+          "åka kollektivt",
+          "arbeta hemifrån eller åka kollektivt",
+          "jobba hemma",
+          "ta bussen"
+        ]
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "c-nyh-006",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om vattnet i en del av staden.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Vattnet stängs av i området Solhöjden på torsdag mellan klockan nio på förmiddagen och klockan tre på eftermiddagen. Kommunen byter en gammal vattenledning under Parkvägen. Ungefär fyrahundra hushåll påverkas av avstängningen. Kommunen ställer ut en vattentank på parkeringen vid Björkskolan, där boende kan hämta dricksvatten gratis. Ta med egna flaskor eller dunkar. När vattnet kommer tillbaka kan det vara lite brunt i början – låt då kranen rinna några minuter."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur länge är vattnet avstängt?",
+        "options": ["Från nio till tre", "Från åtta till fyra", "Från tio till två", "Hela dagen"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur många hushåll påverkas?",
+        "options": ["Ungefär hundra", "Ungefär fyrahundra", "Ungefär fyrtio", "Ungefär tusen"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var kan boende hämta dricksvatten?",
+        "options": ["I simhallen", "På biblioteket", "Vid Björkskolan", "I rådhuset"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "c-nyh-007",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om en ny park.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På söndag invigs den nya parken vid ån i centrala Granvik. Parken har fått namnet Åparken och har kostat tolv miljoner kronor att bygga. I parken finns en stor lekplats, grillplatser, en scen och hundratals nya träd och blommor. Invigningen börjar klockan ett på eftermiddagen med musik och tal av kommunens representanter. Barnkören från Granviks skola sjunger, och det blir gratis korv och saft till alla besökare. Parken är öppen dygnet runt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad heter den nya parken?",
+        "options": ["Granviksparken", "Stadsparken", "Centralparken", "Åparken"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När börjar invigningen?",
+        "options": ["Klockan tolv", "Klockan ett", "Klockan två", "Klockan tre"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur mycket har parken kostat?",
+        "options": ["Tio miljoner kronor", "Tjugo miljoner kronor", "Tolv miljoner kronor", "Två miljoner kronor"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "c-nyh-008",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om sommarjobb i kommunen.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Kommunen anställer i år tvåhundra ungdomar som sommarjobbare. Det är femtio fler än förra året. Ungdomar mellan sexton och nitton år kan söka jobben, som finns inom äldreomsorgen, parkskötseln och på kommunens utebad. Sommarjobben pågår i tre veckor under juni och juli, och lönen är cirka sjuttio kronor i timmen. Ansökan görs på kommunens webbplats och måste skickas in senast den trettioförsta mars. Förra året sökte över femhundra ungdomar."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många ungdomar anställer kommunen i år?",
+        "options": ["Hundra", "Hundrafemtio", "Femhundra", "Tvåhundra"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur gamla ska ungdomarna vara?",
+        "options": ["Mellan femton och arton år", "Mellan sexton och nitton år", "Mellan arton och tjugo år", "Mellan fjorton och sexton år"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När måste ansökan skickas in senast?",
+        "options": ["Den trettioförsta mars", "Den första mars", "Den trettionde april", "Den första juni"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "c-nyh-009",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om en ny cykelbana.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Nästa vecka börjar kommunen bygga en ny cykelbana mellan Tallbacken och centrum. Cykelbanan blir fyra kilometer lång och får belysning hela vägen. Bygget beräknas vara klart i november. Under byggtiden kan gående och cyklister använda en tillfällig väg genom skogen, som är skyltad med orange skyltar. Kommunen hoppas att fler ska välja cykeln i stället för bilen när banan är klar. I dag cyklar ungefär tusen personer sträckan varje dag."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur lång blir cykelbanan?",
+        "options": ["Två kilometer", "Tre kilometer", "Fyra kilometer", "Fem kilometer"],
+        "correctIndex": 2
+      },
+      {
+        "q": "När beräknas bygget vara klart?",
+        "options": ["I september", "I oktober", "I december", "I november"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilken färg har skyltarna till den tillfälliga vägen?",
+        "options": ["Orange", "Gula", "Blå", "Röda"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "c-nyh-010",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om en stor loppis.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Den stora loppisen på Furuvallens idrottsplats slog rekord i helgen. Över tretusen besökare kom under lördagen och söndagen, vilket är dubbelt så många som förra året. Hundratjugo personer sålde kläder, möbler, leksaker och böcker från sina bord. Pengarna från bordshyran, ungefär fyrtiotusen kronor, går till den lokala idrottsföreningens barnverksamhet. Arrangörerna berättar att nästa loppis blir den första helgen i september, och att man kan boka bord redan nu."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många besökare kom till loppisen?",
+        "options": ["Över tusen", "Över tvåtusen", "Över tretusen", "Över femtusen"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vart går pengarna från bordshyran?",
+        "options": ["Till skolan", "Till idrottsföreningens barnverksamhet", "Till biblioteket", "Till kommunen"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När blir nästa loppis?",
+        "options": ["Den första helgen i september", "Den sista helgen i augusti", "Den första helgen i oktober", "Nästa helg"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "c-nyh-011",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om en skola som vunnit ett pris.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Björkskolan i Almedal har vunnit länets miljöpris. Skolan får priset för sitt arbete med återvinning och sin skolträdgård, där eleverna odlar grönsaker som sedan används i skolmatsalen. Eleverna har också halverat skolans matsvinn på två år. Priset är på tjugofemtusen kronor, och pengarna ska användas till ett nytt växthus. Priset delas ut vid en ceremoni i stadshuset på fredag, och tre elever från årskurs fem ska ta emot det."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket pris har Björkskolan vunnit?",
+        "options": ["Länets idrottspris", "Länets kulturpris", "Länets lärarpris", "Länets miljöpris"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad ska prispengarna användas till?",
+        "options": ["Nya datorer", "Ett nytt växthus", "En skolresa", "Nya böcker"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vad odlar eleverna i skolträdgården? Skriv ditt svar.",
+        "accept": [
+          "grönsaker",
+          "de odlar grönsaker",
+          "grönsaker som används i skolmatsalen",
+          "grönsaker till skolmatsalen"
+        ]
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "c-nyh-012",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om återvinning i kommunen.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Kommunen öppnar fem nya återvinningsstationer under hösten. De nya stationerna placeras vid Storgatan, Hamnplan, Björkskolan, Tallvägen och vid stationen. Där kan invånarna lämna glas, papper, plast och metall. Den första stationen, vid Hamnplan, öppnar redan nästa måndag. Kommunen tömmer stationerna två gånger i veckan. Samtidigt stängs den gamla stationen vid industriområdet, eftersom få personer använder den. Mer information finns på kommunens webbplats."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många nya återvinningsstationer öppnar?",
+        "options": ["Tre", "Fyra", "Fem", "Sex"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilken station öppnar först?",
+        "options": ["Vid Storgatan", "Vid Hamnplan", "Vid Tallvägen", "Vid stationen"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur ofta töms stationerna?",
+        "options": ["Varje dag", "En gång i veckan", "En gång i månaden", "Två gånger i veckan"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "c-nyh-013",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om en brandövning.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På tisdag förmiddag håller räddningstjänsten en stor brandövning i hamnen i Vikabo. Övningen pågår mellan klockan nio och tolv. Under övningen kommer det att synas rök och höras sirener i området, men det är alltså ingen riktig brand. Räddningstjänsten vill att allmänheten håller avstånd och inte ringer larmnumret om röken. Ungefär femtio brandmän och tio fordon deltar i övningen. Vägen ner till hamnen är stängd för biltrafik under hela övningen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När pågår brandövningen?",
+        "options": ["Mellan nio och tolv", "Mellan åtta och elva", "Mellan tio och två", "Hela dagen"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur många brandmän deltar ungefär?",
+        "options": ["Femton", "Tjugofem", "Femtio", "Hundra"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad ska allmänheten INTE göra?",
+        "options": ["Gå till jobbet", "Ringa larmnumret om röken", "Åka buss", "Titta på övningen"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "c-nyh-014",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om elpriserna.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Elpriserna i regionen sjunker kraftigt den här veckan. Priset är nu ungefär femtio öre per kilowattimme, vilket är hälften så mycket som för en månad sedan. Anledningen är det milda vädret och att det har blåst mycket, så vindkraften har producerat mer el än vanligt. Experter tror att de låga priserna håller i sig till helgen, men att priserna kan stiga igen nästa vecka när det blir kallare. Billigast är elen mitt på dagen och på natten."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar elen ungefär nu?",
+        "options": ["Femtio öre per kilowattimme", "En krona per kilowattimme", "Femton öre per kilowattimme", "Fem kronor per kilowattimme"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför sjunker elpriserna?",
+        "options": ["Folk använder mindre el", "Det är milt och blåsigt", "Kommunen betalar", "Det är sommar"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När är elen billigast?",
+        "options": ["På morgonen och kvällen", "Bara på helgen", "Mitt på dagen och på natten", "På eftermiddagen"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "c-nyh-015",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om årets äppelskörd.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Årets äppelskörd i kommunen ser ut att bli den största på tjugo år. Odlarna räknar med ungefär trettio procent fler äpplen än ett normalt år. Den varma våren och den regniga sommaren har varit perfekt för äppelträden, säger odlarna. På lördag ordnas en äppelmarknad på torget, där man kan köpa äpplen, must och äppelkakor direkt från odlarna. Den som har egna äpplen hemma kan lämna dem till musteriet på Kvarnvägen och få egen must tillbaka."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur stor blir skörden jämfört med ett normalt år?",
+        "options": ["Tjugo procent mindre", "Lika stor", "Tio procent större", "Trettio procent större"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Var hålls äppelmarknaden?",
+        "options": ["På torget", "I parken", "Vid musteriet", "I hamnen"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad kan man göra med egna äpplen?",
+        "options": ["Sälja dem på torget", "Lämna dem till musteriet och få must", "Ge dem till skolan", "Slänga dem på återvinningen"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "c-nyh-016",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om utebadet.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Utebadet i Strandlunda öppnar för säsongen på lördag den första juni. Badet har öppet varje dag mellan klockan nio och nitton, hela sommaren fram till sista augusti. Entrén kostar fyrtio kronor för vuxna och tjugo kronor för barn, och barn under fyra år badar gratis. Nytt för i år är en längre vattenrutschkana och ett nytt utomhusgym. Badet söker fortfarande badvakter för juli månad – den som är intresserad kan kontakta kommunens fritidskontor."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När öppnar utebadet?",
+        "options": ["Den första maj", "Den första juli", "Den första juni", "Den sista augusti"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad kostar entrén för vuxna?",
+        "options": ["Tjugo kronor", "Trettio kronor", "Femtio kronor", "Fyrtio kronor"],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vad är nytt på badet i år? Skriv ditt svar.",
+        "accept": [
+          "en längre vattenrutschkana",
+          "vattenrutschkana",
+          "ett nytt utomhusgym",
+          "utomhusgym",
+          "en längre vattenrutschkana och ett nytt utomhusgym",
+          "rutschkana och utomhusgym"
+        ]
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "c-nyh-017",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om julgranen i centrum.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På söndag, första advent, tänds julgranen på Stora torget. Granen är arton meter hög och kommer från en skog strax utanför staden. Granen tänds klockan fyra på eftermiddagen, och innan dess blir det luciatåg med barn från kulturskolan och försäljning av glögg och pepparkakor. Kommunen meddelar också att julbelysningen på Storgatan tänds samma kväll. Granen står kvar på torget till tjugondag Knut, den trettonde januari, då den tas ner."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur hög är julgranen?",
+        "options": ["Femton meter", "Arton meter", "Tjugo meter", "Tio meter"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När tänds granen?",
+        "options": ["Klockan tre", "Klockan fem", "Klockan fyra", "Klockan sex"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur länge står granen kvar?",
+        "options": ["Till nyår", "Till julafton", "Till första februari", "Till den trettonde januari"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "c-nyh-018",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om midsommarfirandet.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På midsommarafton blir det traditionellt firande i Stadsparken i Lönneberga. Festen börjar klockan elva på förmiddagen, då alla som vill kan hjälpa till att klä midsommarstången med blommor och björklöv. Klockan ett reses stången, och sedan blir det dans och lekar med spelmän från den lokala folkmusikföreningen. Det finns kaféer och food trucks i parken, men många tar med egen picknick. Firandet är gratis och pågår till klockan fem på eftermiddagen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var hålls midsommarfirandet?",
+        "options": ["På torget", "I Stadsparken", "Vid stranden", "På skolgården"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När reses midsommarstången?",
+        "options": ["Klockan elva", "Klockan tolv", "Klockan ett", "Klockan två"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad kostar firandet?",
+        "options": ["Det är gratis", "Fyrtio kronor", "Tjugo kronor", "Hundra kronor"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "c-nyh-019",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om sporthallen.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Kommunen har beslutat att bygga ut sporthallen vid Tallskolan. Hallen får en ny del med plats för gymnastik och kampsport, samt fyra nya omklädningsrum. Bygget startar i april och beräknas vara klart om ett och ett halvt år. Utbyggnaden kostar fyrtiofem miljoner kronor. Under byggtiden kan föreningarna träna som vanligt i den gamla delen av hallen, men parkeringen blir mindre. Kommunen uppmanar därför besökare att cykla eller gå till hallen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad får sporthallen i utbyggnaden?",
+        "options": ["En ny simbassäng", "En ishall", "En löparbana", "Plats för gymnastik och kampsport"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur lång tid tar bygget?",
+        "options": ["Ett år", "Ett och ett halvt år", "Två år", "Sex månader"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad händer med parkeringen under byggtiden?",
+        "options": ["Den stängs helt", "Den blir större", "Den blir mindre", "Den blir gratis"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "c-nyh-020",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om en löpartävling.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På lördag arrangeras löpartävlingen Sjöloppet för femtonde året i rad. Ungefär åttahundra löpare är anmälda, och man kan välja mellan fem och tio kilometer runt Stensjön. Starten går klockan tio från badplatsen. Det finns också ett barnlopp på en kilometer som startar klockan nio. Flera vägar runt sjön är avstängda för biltrafik mellan klockan åtta och tretton. Den som vill anmäla sig i sista minuten kan göra det på plats fram till en halvtimme före start."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många löpare är anmälda ungefär?",
+        "options": ["Femhundra", "Åttahundra", "Tusen", "Trehundra"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När startar barnloppet?",
+        "options": ["Klockan nio", "Klockan tio", "Klockan åtta", "Klockan elva"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilka sträckor kan vuxna välja mellan?",
+        "options": ["Tre och sex kilometer", "Fem och femton kilometer", "En och fem kilometer", "Fem och tio kilometer"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "c-nyh-021",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om teater för barn.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Under sportlovsveckan bjuder kommunen på gratis teater för barn. Teatergruppen Måsen spelar föreställningen Den magiska skogen i kulturhuset, varje dag från måndag till fredag klockan två på eftermiddagen. Föreställningen passar barn mellan fyra och tio år och är ungefär fyrtio minuter lång. Det finns hundra platser per föreställning, och biljetter hämtas gratis på biblioteket eller bokas på kulturhusets webbplats. Förra året var alla föreställningar fullsatta."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad heter föreställningen?",
+        "options": ["Måsen", "Den magiska skogen", "Sportlovet", "Den magiska sjön"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur lång är föreställningen?",
+        "options": ["Ungefär tjugo minuter", "Ungefär en timme", "Ungefär fyrtio minuter", "Ungefär två timmar"],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Var kan man hämta gratisbiljetter? Skriv ditt svar.",
+        "accept": [
+          "på biblioteket",
+          "biblioteket",
+          "på biblioteket eller på kulturhusets webbplats",
+          "på kulturhusets webbplats",
+          "biblioteket eller webbplatsen"
+        ]
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "c-nyh-022",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om språkkafé på biblioteket.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Biblioteket i Hagalund startar ett språkkafé för alla som vill träna på att prata svenska. Språkkaféet träffas varje onsdag klockan fem på eftermiddagen, med start nästa vecka. Det kostar ingenting att delta, och biblioteket bjuder på kaffe och te. Frivilliga från pensionärsföreningen och studieförbundet leder samtalen, som handlar om vardagliga ämnen som mat, jobb och fritid. Man behöver inte anmäla sig i förväg – det är bara att komma. Alla nivåer är välkomna."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När träffas språkkaféet?",
+        "options": ["Varje måndag klockan fem", "Varje onsdag klockan fem", "Varje onsdag klockan sex", "Varje fredag klockan fyra"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad kostar det att delta?",
+        "options": ["Tjugo kronor", "Femtio kronor", "Tio kronor", "Det är gratis"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur anmäler man sig?",
+        "options": ["På webbplatsen", "Man behöver inte anmäla sig", "Per telefon", "Hos studieförbundet"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "c-nyh-023",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om en vaccinationsbuss.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Regionens vaccinationsbuss kommer till kommunen nästa vecka. Bussen står på torget i Ekebro på tisdag och vid köpcentret i Sandvalla på torsdag, båda dagarna mellan klockan tio och sjutton. I bussen kan alla över sextiofem år och personer i riskgrupp ta årets influensavaccin gratis. Övriga betalar hundrafemtio kronor. Man behöver inte boka tid, men ta med legitimation. Sjuksköterskorna i bussen svarar också gärna på frågor om vaccinationer."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var står bussen på tisdag?",
+        "options": ["Vid köpcentret i Sandvalla", "Vid vårdcentralen", "På torget i Ekebro", "Vid stationen"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilka kan vaccinera sig gratis?",
+        "options": ["Alla", "Alla över sextiofem år och riskgrupper", "Bara barn", "Alla över femtio år"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad ska man ta med sig?",
+        "options": ["Legitimation", "Busskort", "Recept", "Kontanter"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "c-nyh-024",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om en matmarknad.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "I helgen förvandlas Hamnplan till en stor matmarknad med mat från hela världen. Ett fyrtiotal matstånd säljer rätter från bland annat Thailand, Italien, Syrien och Peru. Marknaden har öppet lördag och söndag mellan klockan elva och tjugo. Det blir också livemusik på en scen båda kvällarna från klockan sex. Inträdet är fritt, men arrangörerna rekommenderar besökare att åka kollektivt eftersom det finns få parkeringsplatser. Förra året kom omkring femtusen besökare."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var hålls matmarknaden?",
+        "options": ["På torget", "I Stadsparken", "Vid stationen", "På Hamnplan"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur många matstånd finns det ungefär?",
+        "options": ["Ett tjugotal", "Ett fyrtiotal", "Ett sextiotal", "Ett hundratal"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför ska besökare åka kollektivt?",
+        "options": ["Bussarna är gratis", "Vägen är avstängd", "Det finns få parkeringsplatser", "Det är miljövänligare"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "c-nyh-025",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om en konstutställning.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På fredag öppnar en ny konstutställning i konsthallen vid Stora torget. Utställningen heter Ljus över slätten och visar målningar och fotografier av tolv konstnärer från regionen. Utställningen pågår i sex veckor, fram till mitten av maj. Konsthallen har öppet tisdag till söndag mellan klockan elva och sjutton, och inträdet är gratis. Varje lördag klockan tretton finns en guide på plats som visar runt och berättar om konstverken. Visningen tar ungefär en timme."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad heter utställningen?",
+        "options": ["Ljus över slätten", "Ljus över havet", "Konst från regionen", "Stora torget"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur länge pågår utställningen?",
+        "options": ["Fyra veckor", "Två månader", "Sex veckor", "Hela sommaren"],
+        "correctIndex": 2
+      },
+      {
+        "q": "När finns guiden på plats?",
+        "options": ["Varje dag klockan elva", "Varje söndag klockan tolv", "Varje fredag klockan femton", "Varje lördag klockan tretton"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 24
+  },
+  {
+    "id": "c-nyh-026",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om skridskobanan.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Skridskobanan på torget i Norrlid öppnar för säsongen på lördag. Banan är gratis att använda och har öppet varje dag mellan klockan tio och tjugoett, fram till slutet av februari. Den som inte har egna skridskor kan låna gratis i kiosken vid banan, som har skridskor i alla storlekar. På onsdagskvällar mellan sex och åtta spelas musik vid banan. Kommunen påminner om att hjälm rekommenderas, särskilt för barn, och att hjälmar också finns att låna."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilka tider har skridskobanan öppet?",
+        "options": ["Mellan nio och tjugo", "Mellan tio och tjugoett", "Mellan elva och tjugotvå", "Mellan tio och arton"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad kan man göra om man inte har skridskor?",
+        "options": ["Köpa i kiosken", "Hyra för femtio kronor", "Låna gratis i kiosken", "Ta med från skolan"],
+        "correctIndex": 2
+      },
+      {
+        "q": "När spelas musik vid banan?",
+        "options": ["På onsdagskvällar", "På fredagskvällar", "Varje kväll", "På helgerna"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 25
+  },
+  {
+    "id": "c-nyh-027",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om kommunens nya app.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Kommunen lanserar i dag en ny app för invånarna. I appen kan man bland annat felanmäla trasig gatubelysning och hål i vägen, se bibliotekets öppettider och boka tid i sporthallen. Appen är gratis och finns på svenska, engelska och arabiska. Fler språk kommer under nästa år. Kommunen hoppas att appen ska göra det enklare att kontakta kommunen – i dag kommer över hälften av alla felanmälningar in per telefon. Appen kan laddas ner där appar finns."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kan man göra i appen?",
+        "options": ["Betala skatt", "Felanmäla trasig gatubelysning", "Söka jobb", "Beställa busskort"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilka språk finns appen på i dag?",
+        "options": ["Bara svenska", "Svenska och engelska", "Svenska, engelska och spanska", "Svenska, engelska och arabiska"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad kostar appen?",
+        "options": ["Den är gratis", "Tio kronor", "Femtio kronor i månaden", "Hundra kronor"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 26
+  },
+  {
+    "id": "c-nyh-028",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om nya parkbänkar.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Kommunen sätter ut åttio nya parkbänkar runt om i staden under våren. Bänkarna placeras längs gångvägar, vid busshållplatser och i parker. Idén kom från pensionärsrådet, som påpekat att äldre behöver kunna vila på vägen till affären eller vårdcentralen. De nya bänkarna är gjorda av återvunnen plast och behöver inte målas. Invånarna har kunnat lämna förslag på platser via kommunens webbplats, och över trehundra förslag kom in. De första bänkarna sätts ut redan nästa vecka."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många nya bänkar sätts ut?",
+        "options": ["Sextio", "Åttio", "Hundra", "Trehundra"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vem kom med idén?",
+        "options": ["Skolbarnen", "Politikerna", "Pensionärsrådet", "Idrottsföreningen"],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Vad är bänkarna gjorda av? Skriv ditt svar.",
+        "accept": [
+          "återvunnen plast",
+          "av återvunnen plast",
+          "plast",
+          "de är gjorda av återvunnen plast"
+        ]
+      }
+    ],
+    "sort_order": 27
+  },
+  {
+    "id": "c-nyh-029",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om blomsterplantering i staden.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Den här veckan planterar kommunens trädgårdsarbetare tjugotusen blommor i stadens rabatter och krukor. Årets färgtema är gult och lila, med bland annat penséer och tulpaner. Mest blommor blir det på Stora torget, vid stationen och längs Strandpromenaden. Kommunen planterar också en ny äng med vilda blommor vid Kvarnparken, som ska hjälpa bin och fjärilar. Arbetet pågår måndag till fredag, och trädgårdsarbetarna svarar gärna på frågor från nyfikna förbipasserande."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många blommor planteras?",
+        "options": ["Tvåtusen", "Tiotusen", "Tjugotusen", "Femtiotusen"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilket är årets färgtema?",
+        "options": ["Rött och vitt", "Gult och lila", "Blått och gult", "Rosa och vitt"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför planteras en äng med vilda blommor?",
+        "options": ["Den är billigare", "För att hjälpa bin och fjärilar", "Barnen önskade det", "Den ser finare ut"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 28
+  },
+  {
+    "id": "c-nyh-030",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om studentfirandet.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På fredag tar ungefär trehundra elever studenten på gymnasiet i Åkerslund. Utspringet börjar klockan tolv, och eleverna springer ut klassvis med tio minuters mellanrum. Anhöriga samlas på skolgården, som öppnar klockan elva. Polisen och kommunen påminner om att flera gator runt skolan stängs av för trafik mellan klockan elva och femton, eftersom många människor rör sig i området. Studentflaken kör sedan en runda genom centrum under eftermiddagen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många elever tar studenten?",
+        "options": ["Ungefär hundra", "Ungefär tvåhundra", "Ungefär femhundra", "Ungefär trehundra"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När börjar utspringet?",
+        "options": ["Klockan elva", "Klockan tolv", "Klockan ett", "Klockan tio"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad händer med gatorna runt skolan?",
+        "options": ["De stängs av för trafik", "De får ny asfalt", "De blir enkelriktade", "Ingenting"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 29
+  },
+  {
+    "id": "c-nyh-031",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om kanotuthyrning vid sjön.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Från och med i helgen kan man hyra kanoter och kajaker vid Lillsjöns badplats. Uthyrningen drivs av den lokala friluftsföreningen och har öppet alla dagar mellan klockan tio och arton under hela sommaren. Att hyra en kanot kostar åttio kronor i timmen, och flytväst ingår alltid. Barn under femton år måste paddla tillsammans med en vuxen. Föreningen ordnar också gratis prova-på-kvällar för nybörjare varje torsdag klockan sex, med instruktör."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar det att hyra en kanot?",
+        "options": ["Femtio kronor i timmen", "Hundra kronor i timmen", "Åttio kronor i timmen", "Åttio kronor per dag"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad ingår alltid i hyran?",
+        "options": ["Fika", "Flytväst", "Instruktör", "Paddelkurs"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När är prova-på-kvällarna?",
+        "options": ["Varje tisdag klockan sex", "Varje torsdag klockan sju", "Varje lördag klockan tio", "Varje torsdag klockan sex"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 30
+  },
+  {
+    "id": "c-nyh-032",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om ett bondgårdsbesök för skolbarn.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Under maj månad bjuder Sörgårdens bondgård utanför Vretaby in alla kommunens förskolor och lågstadieklasser på gratis studiebesök. Barnen får träffa kor, får, grisar och höns, och lära sig var mjölk och ägg kommer ifrån. Besöken tar två timmar och bokas via kommunens kulturkontor. Gården har redan tagit emot bokningar från tjugo klasser. På lördagar i maj är gården dessutom öppen för familjer, då inträdet kostar femtio kronor per person och barn under tre år går in gratis."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilka bjuds in på gratis studiebesök?",
+        "options": ["Alla familjer", "Förskolor och lågstadieklasser", "Pensionärer", "Gymnasieelever"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur länge varar ett besök?",
+        "options": ["En timme", "Tre timmar", "Två timmar", "En halv dag"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad kostar inträdet för familjer på lördagar?",
+        "options": ["Femtio kronor per person", "Det är gratis", "Hundra kronor per person", "Femtio kronor per familj"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 31
+  },
+  {
+    "id": "c-nyh-033",
+    "course": "C",
+    "type": "news",
+    "intro": "Ett nyhetsinslag om stadsodling.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Kommunen öppnar ett nytt område för stadsodling vid Solängens bostadsområde. Där finns sextio odlingslådor som invånarna kan hyra för tvåhundra kronor per säsong. I hyran ingår jord, vatten och tillgång till redskap i ett gemensamt förråd. Intresset är stort – redan första dagen bokades fyrtio av lådorna. Den som vill hyra en låda anmäler sig på kommunens webbplats. I april ordnas en kurs i odling för nybörjare, ledd av en trädgårdsmästare. Kursen är gratis för dem som hyr en låda."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många odlingslådor finns det?",
+        "options": ["Fyrtio", "Femtio", "Åttio", "Sextio"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad kostar det att hyra en låda?",
+        "options": ["Hundra kronor per säsong", "Tvåhundra kronor per säsong", "Tvåhundra kronor per månad", "Det är gratis"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vad ingår i hyran? Nämn en sak. Skriv ditt svar.",
+        "accept": [
+          "jord",
+          "vatten",
+          "redskap",
+          "tillgång till redskap",
+          "jord, vatten och redskap",
+          "jord och vatten"
+        ]
+      }
+    ],
+    "sort_order": 32
+  }
+]

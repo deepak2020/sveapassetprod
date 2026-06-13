@@ -1,0 +1,645 @@
+[
+  {
+    "id": "c-ber-002",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Ahmed berättar om sitt arbete som busschaufför.",
+    "transcript": [
+      {
+        "speaker": "Ahmed",
+        "text": "Jag heter Ahmed och jag arbetar som busschaufför i Göteborg. Jag har kört buss i fem år nu. Jag börjar ofta klockan fem på morgonen, så jag måste gå och lägga mig tidigt på kvällen. Det bästa med jobbet är att jag träffar många människor varje dag. Många passagerare säger hej och tack, och det gör mig glad. Det svåraste är trafiken på vintern när det är halt och mörkt. Innan jag kom till Sverige arbetade jag som lastbilschaufför i Irak. I framtiden vill jag ta körkort för spårvagn, för då kan jag få lite högre lön."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur länge har Ahmed kört buss?",
+        "options": ["I fem år", "I tre år", "I tio år", "I ett år"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad är det bästa med jobbet enligt Ahmed?",
+        "options": ["Lönen", "Att han träffar många människor", "Arbetstiderna", "Att han får köra spårvagn"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad vill Ahmed göra i framtiden?",
+        "options": ["Flytta till Irak", "Bli lastbilschaufför", "Ta körkort för spårvagn", "Byta jobb till taxi"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "c-ber-003",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Maria berättar om sitt jobb som kock.",
+    "transcript": [
+      {
+        "speaker": "Maria",
+        "text": "Jag heter Maria och kommer från Colombia. Jag jobbar som kock på en skolrestaurang i Malmö. Varje dag lagar vi mat till ungefär fyrahundra barn. Jag börjar klockan sju och slutar klockan tre, så jag har tid med min familj på kvällen. Jag älskar att laga mat, det har jag gjort sedan jag var liten och hjälpte min mormor i köket. Det svåraste med jobbet är att det är mycket stress före lunch. Min favoriträtt att laga är fisksoppa. Nästa år vill jag gå en kurs och lära mig mer om specialkost, till exempel mat för barn med allergier."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var arbetar Maria?",
+        "options": ["På ett hotell", "På en skolrestaurang", "På ett café", "På ett sjukhus"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vem lärde Maria att laga mat när hon var liten?",
+        "options": ["Hennes pappa", "Hennes lärare", "Hennes mormor", "Hennes granne"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad vill Maria lära sig mer om?",
+        "options": ["Att baka bröd", "Italiensk mat", "Att jobba på restaurang", "Specialkost för barn med allergier"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "c-ber-004",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Yusuf berättar om sitt arbete som lokalvårdare.",
+    "transcript": [
+      {
+        "speaker": "Yusuf",
+        "text": "Jag heter Yusuf och jag arbetar som lokalvårdare på ett stort kontor i Stockholm. Jag har haft jobbet i två år. Jag jobbar på kvällarna, från klockan fem till klockan tio, när alla har gått hem. Då är det lugnt och jag kan lyssna på musik medan jag städar. På dagarna läser jag svenska på SFI. Det är inte alltid lätt att hinna med både jobb och studier, och ibland är jag mycket trött. Men jag tycker om mitt jobb, för min chef är snäll och mina kollegor kommer från hela världen. Min dröm är att en dag starta ett eget städföretag tillsammans med min bror."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gör Yusuf på dagarna?",
+        "options": ["Han sover", "Han jobbar på kontoret", "Han tränar", "Han läser svenska på SFI"],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vilka tider jobbar Yusuf på kvällen? Skriv ditt svar.",
+        "accept": [
+          "från fem till tio",
+          "klockan fem till tio",
+          "från klockan fem till klockan tio",
+          "fem till tio",
+          "17-22",
+          "mellan fem och tio"
+        ]
+      },
+      {
+        "q": "Vad är Yusufs dröm?",
+        "options": ["Att starta ett eget städföretag", "Att bli lärare", "Att flytta till ett annat land", "Att köpa ett hus"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "c-ber-005",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Lan berättar om sin flytt till Sverige.",
+    "transcript": [
+      {
+        "speaker": "Lan",
+        "text": "Jag heter Lan och jag kommer från Vietnam. Jag flyttade till Sverige för fyra år sedan, eftersom min man redan bodde här och arbetade som ingenjör. I början var allt svårt. Jag förstod inte språket, och jag kände ingen i staden. Jag minns att jag grät den första veckan. Men sedan började jag på SFI och fick nya vänner från många olika länder. Nu jobbar jag deltid på en restaurang och studerar på kvällarna. Det jag saknar mest från Vietnam är min mamma och maten på gatumarknaderna. Nästa sommar ska hon komma hit och hälsa på oss för första gången."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför flyttade Lan till Sverige?",
+        "options": ["Hon fick ett jobb här", "Hennes man bodde redan här", "Hon ville studera på universitet", "Hennes föräldrar flyttade hit"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad saknar Lan mest från Vietnam?",
+        "options": ["Vädret och stranden", "Sitt gamla jobb", "Sin mamma och maten", "Sina husdjur"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad ska hända nästa sommar?",
+        "options": ["Lan ska resa till Vietnam", "Lan ska börja ett nytt jobb", "Lan ska flytta till en ny stad", "Lans mamma ska komma och hälsa på"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "c-ber-006",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Carlos berättar om sin första vinter i Sverige.",
+    "transcript": [
+      {
+        "speaker": "Carlos",
+        "text": "Jag heter Carlos och jag kommer från Chile. Jag kom till Sverige i augusti för tre år sedan, och min första vinter glömmer jag aldrig. I november blev det mörkt redan klockan fyra på eftermiddagen, och jag blev väldigt trött och lite ledsen. I januari var det minus femton grader! Jag hade aldrig sett snö förut, så första gången det snöade gick jag ut och fotograferade i en timme. Mina grannar lärde mig att man måste ha varma skor och en riktig vinterjacka. Nu tycker jag faktiskt om vintern. Jag har börjat åka skridskor med mina barn, och vi dricker varm choklad efteråt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur kallt var det i januari under Carlos första vinter?",
+        "options": ["Minus femton grader", "Minus fem grader", "Minus tjugofem grader", "Noll grader"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad gjorde Carlos första gången det snöade?",
+        "options": ["Han stannade inomhus", "Han gick ut och fotograferade", "Han ringde sin familj i Chile", "Han åkte skridskor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad gör Carlos med sina barn på vintern nu?",
+        "options": ["De åker skidor", "De bygger snögubbar", "De åker skridskor", "De reser till Chile"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "c-ber-007",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Amina berättar om att lära sig svenska.",
+    "transcript": [
+      {
+        "speaker": "Amina",
+        "text": "Jag heter Amina och kommer från Somalia. Jag har bott i Sverige i två och ett halvt år och jag studerar svenska på SFI fyra dagar i veckan. I början tyckte jag att svenskan var jättesvår, särskilt uttalet. Orden sju och sjuk var nästan omöjliga att säga! Det som hjälper mig mest är att titta på svenska barnprogram med mina barn och att prata med grannarna i tvättstugan. Grammatiken är fortfarande svår, speciellt ordföljden. Min lärare säger att jag har blivit mycket bättre. Mitt mål är att klara kurs D nästa år, för jag vill utbilda mig till barnskötare och arbeta på en förskola."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad tyckte Amina var svårast i början?",
+        "options": ["Att läsa", "Att skriva", "Grammatiken", "Uttalet"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad hjälper Amina mest att lära sig svenska?",
+        "options": ["Svenska barnprogram och att prata med grannar", "Att läsa tidningen varje dag", "En app i telefonen", "Att lyssna på radio"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad vill Amina arbeta som?",
+        "options": ["Lärare på SFI", "Barnskötare på en förskola", "Undersköterska", "Tolk"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "c-ber-008",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Sergei berättar om sitt arbete som snickare.",
+    "transcript": [
+      {
+        "speaker": "Sergei",
+        "text": "Jag heter Sergei och jag är snickare. Jag kommer från Ukraina och har arbetat med trä i över tjugo år. I Sverige har jag jobbat i tre år på ett byggföretag i Uppsala. Just nu bygger vi nya radhus utanför staden. Jag älskar mitt yrke eftersom jag ser resultatet av mitt arbete varje dag. Det svåraste i början var alla nya ord på svenska, som hammare, såg och skruvdragare. Mina kollegor hjälpte mig och nu går det bra. På helgerna bygger jag möbler hemma i garaget. Förra månaden gjorde jag en bokhylla till min dotter. Min plan är att ta svenskt yrkesbevis i höst."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad bygger Sergeis företag just nu?",
+        "options": ["En skola", "Ett köpcentrum", "Nya radhus", "En sporthall"],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Vad byggde Sergei till sin dotter förra månaden? Skriv ditt svar.",
+        "accept": [
+          "en bokhylla",
+          "bokhylla",
+          "en bokhylla till sin dotter",
+          "han byggde en bokhylla",
+          "han gjorde en bokhylla"
+        ]
+      },
+      {
+        "q": "Vad var svårast för Sergei i början?",
+        "options": ["Att hitta ett jobb", "Alla nya ord på svenska", "Att vakna tidigt", "Det kalla vädret"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "c-ber-009",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Hassan berättar om sitt liv som taxichaufför.",
+    "transcript": [
+      {
+        "speaker": "Hassan",
+        "text": "Jag heter Hassan och jag kör taxi i Stockholm. Jag har kört taxi i åtta år, mest på nätterna. Jag börjar klockan tio på kvällen och slutar klockan sex på morgonen. Det bästa med jobbet är alla samtal med kunderna, jag har lärt mig mycket svenska i bilen. Det svåra är att jag sover på dagen och ser min familj för lite. Min fru arbetar på dagarna, så vi ses mest på helgerna. Nästa år vill jag börja köra på dagtid i stället, även om lönen kanske blir lite lägre. Familjen är viktigare än pengar."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur länge har Hassan kört taxi?",
+        "options": ["I tre år", "I fem år", "I tio år", "I åtta år"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad tycker Hassan är det bästa med jobbet?",
+        "options": ["Samtalen med kunderna", "Den höga lönen", "Att köra fort", "Att arbeta ensam"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad vill Hassan göra nästa år?",
+        "options": ["Köpa en ny bil", "Sluta köra taxi", "Börja köra på dagtid", "Flytta från Stockholm"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "c-ber-010",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Aisha berättar om sitt jobb i en matbutik.",
+    "transcript": [
+      {
+        "speaker": "Aisha",
+        "text": "Jag heter Aisha och jag arbetar som butiksbiträde i en stor matbutik i Linköping. Jag började för två år sedan som praktikant, och efter tre månader fick jag en riktig anställning. Jag sitter i kassan och fyller på varor i hyllorna. Jag tycker om mina kollegor, vi skrattar mycket tillsammans i fikarummet. Det svåraste är när kunder är otåliga och arga. Jag arbetar varannan helg, och det är inte alltid roligt. Min plan är att utbilda mig och bli butikschef en dag, för jag är bra på att organisera."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur fick Aisha sitt jobb?",
+        "options": ["Hon började som praktikant", "Genom en annons", "Hennes syster arbetade där", "Hon ringde till chefen"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad tycker Aisha är svårast på jobbet?",
+        "options": ["Att sitta i kassan", "När kunder är otåliga och arga", "Att fylla på varor", "Att vakna tidigt"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur ofta arbetar Aisha på helgen?",
+        "options": ["Aldrig", "Varje helg", "En helg i månaden", "Varannan helg"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "c-ber-011",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Pavel berättar om sitt arbete som brevbärare.",
+    "transcript": [
+      {
+        "speaker": "Pavel",
+        "text": "Jag heter Pavel och jag kommer från Ryssland. Jag arbetar som brevbärare i Västerås sedan fyra år tillbaka. Jag börjar klockan sju på morgonen med att sortera post, och sedan cyklar jag min runda i ungefär fem timmar. Jag gillar att arbeta utomhus och röra på mig, jag går och cyklar nästan två mil varje dag. Det jobbigaste är regniga dagar i november. Många äldre på min runda känner igen mig och vinkar. I framtiden vill jag bli gruppledare på terminalen, och därför läser jag svenska på kvällarna."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gör Pavel först på morgonen?",
+        "options": ["Han cyklar sin runda", "Han dricker kaffe med kollegorna", "Han sorterar post", "Han träffar sin chef"],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "I vilken stad arbetar Pavel? Skriv ditt svar.",
+        "accept": ["Västerås", "i Västerås", "han arbetar i Västerås", "vasteras"]
+      },
+      {
+        "q": "Vad vill Pavel bli i framtiden?",
+        "options": ["Chaufför", "Lärare", "Cykelreparatör", "Gruppledare på terminalen"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "c-ber-012",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Zainab berättar om sitt arbete som frisör.",
+    "transcript": [
+      {
+        "speaker": "Zainab",
+        "text": "Jag heter Zainab och jag är frisör. I mitt hemland Irak hade jag en egen salong i tio år. När jag kom till Sverige för fem år sedan var jag tvungen att börja om från början. Först praktiserade jag på en salong i Borås, och nu hyr jag en egen stol där. Jag klipper både kvinnor och män, och mina kunder kommer från många olika länder. Det bästa är när en kund ler i spegeln efter klippningen. Det svåra är att kunderna är färre på vintern. Min dröm är att öppna en egen salong igen, kanske om tre år."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad hade Zainab i Irak?",
+        "options": ["En restaurang", "En egen salong", "En klädbutik", "Ett bageri"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad tycker Zainab är det bästa med jobbet?",
+        "options": ["Lönen", "Arbetstiderna", "När en kund ler i spegeln", "Att prata med kollegorna"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad är Zainabs dröm?",
+        "options": ["Att öppna en egen salong igen", "Att flytta tillbaka till Irak", "Att byta yrke", "Att arbeta mindre"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "c-ber-013",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Mehmet berättar om sitt arbete som svetsare.",
+    "transcript": [
+      {
+        "speaker": "Mehmet",
+        "text": "Jag heter Mehmet och jag kommer från Turkiet. Jag arbetar som svetsare på en verkstad i Eskilstuna. Jag utbildade mig till svetsare här i Sverige, på en yrkesutbildning som tog ett och ett halvt år. Jag har jobbat på verkstaden i två år nu. Vi tillverkar delar till lastbilar. Jobbet kräver att man är noggrann, en liten miss kan bli dyr. Jag tycker om att lönen är bra och att jag lär mig nya tekniker hela tiden. Det jobbiga är värmen och de tunga skyddskläderna på sommaren. Om några år vill jag bli arbetsledare."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur lång var Mehmets yrkesutbildning?",
+        "options": ["Sex månader", "Tre år", "Ett och ett halvt år", "Fyra år"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad tillverkar verkstaden där Mehmet jobbar?",
+        "options": ["Möbler", "Cyklar", "Båtar", "Delar till lastbilar"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad tycker Mehmet är jobbigt på sommaren?",
+        "options": ["Värmen och de tunga skyddskläderna", "Att kollegorna är på semester", "Att det är mycket övertid", "Resan till jobbet"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "c-ber-014",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Sara berättar om sitt jobb som personlig assistent.",
+    "transcript": [
+      {
+        "speaker": "Sara",
+        "text": "Jag heter Sara och jag arbetar som personlig assistent i Jönköping. Jag hjälper en man som heter Erik och som sitter i rullstol. Jag har arbetat hos honom i tre år. Jag hjälper honom med maten, kläderna och inköpen, och vi går ofta på bio tillsammans, för han älskar film. Jobbet är ibland tungt för ryggen, men det känns viktigt och meningsfullt. Jag arbetar i ett schema med dag- och kvällspass. Nästa höst ska jag börja läsa till undersköterska på komvux, två dagar i veckan, samtidigt som jag jobbar."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gör Sara och Erik ofta tillsammans?",
+        "options": ["De spelar schack", "De går på bio", "De lagar mat till gäster", "De åker till badhuset"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Hur länge har Sara arbetat hos Erik? Skriv ditt svar.",
+        "accept": ["i tre år", "tre år", "3 år", "i 3 år", "hon har arbetat där i tre år"]
+      },
+      {
+        "q": "Vad ska Sara göra nästa höst?",
+        "options": ["Byta jobb", "Flytta till en annan stad", "Börja läsa till undersköterska", "Arbeta heltid"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "c-ber-015",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Daniel berättar om sitt arbete på ett lager.",
+    "transcript": [
+      {
+        "speaker": "Daniel",
+        "text": "Jag heter Daniel och jag kommer från Eritrea. Jag arbetar på ett stort lager utanför Norrköping, där vi packar varor som folk har beställt på internet. Jag har jobbat där i ett år. Jag kör truck, och truckkortet tog jag genom jobbet förra våren. Vi arbetar i skift, en vecka dag och en vecka kväll. Det bästa är mina arbetskamrater, vi spelar fotboll ihop efter jobbet på torsdagar. Det tråkiga är att arbetet ibland är enformigt. Min plan är att spara pengar i två år och sedan ta körkort för lastbil."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gör man på lagret där Daniel arbetar?",
+        "options": ["Bygger möbler", "Reparerar bilar", "Bakar bröd", "Packar varor som folk beställt på internet"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När tog Daniel sitt truckkort?",
+        "options": ["Förra våren", "För fem år sedan", "Förra veckan", "I Eritrea"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad gör Daniel och hans arbetskamrater på torsdagar?",
+        "options": ["De går på restaurang", "De spelar fotboll", "De pluggar svenska", "De arbetar övertid"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "c-ber-016",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Leyla berättar om sitt arbete som tolk.",
+    "transcript": [
+      {
+        "speaker": "Leyla",
+        "text": "Jag heter Leyla och jag arbetar som tolk i arabiska och svenska. Jag kom till Sverige från Libanon för sju år sedan. Jag tolkar mest på vårdcentraler och hos Arbetsförmedlingen, ofta via telefon. Jag arbetar som frilans, så vissa veckor har jag många uppdrag och andra veckor få. Det bästa är att jag hjälper människor att förstå varandra i viktiga situationer. Det svåraste är medicinska ord, så jag pluggar nya ord varje kväll. Nästa år vill jag ta tolktestet för att bli auktoriserad tolk, för då får man fler uppdrag och bättre betalt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var tolkar Leyla oftast?",
+        "options": ["I skolor och på bibliotek", "I domstolar", "På vårdcentraler och hos Arbetsförmedlingen", "På polisstationen"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad tycker Leyla är svårast?",
+        "options": ["Medicinska ord", "Att tolka via telefon", "Att hitta uppdrag", "Att prata fort"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför vill Leyla bli auktoriserad tolk?",
+        "options": ["Hon vill arbeta utomlands", "Hon vill byta språk", "Hennes chef kräver det", "Man får fler uppdrag och bättre betalt"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "c-ber-017",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Elena berättar om sitt arbete i skolan.",
+    "transcript": [
+      {
+        "speaker": "Elena",
+        "text": "Jag heter Elena och jag kommer från Ukraina. I mitt hemland arbetade jag som matematiklärare i tolv år. Nu arbetar jag som lärarassistent på en grundskola i Umeå. Jag hjälper barn som behöver extra stöd, framför allt i matte. Jag tycker mycket om barnen, de lär mig nya svenska ord varje dag och skrattar snällt när jag säger fel. Det som är svårt är att jag inte får undervisa själv än, eftersom jag saknar svensk lärarlegitimation. Därför läser jag en kurs på universitetet på kvällarna. Om tre år hoppas jag stå i ett eget klassrum igen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad arbetade Elena med i Ukraina?",
+        "options": ["Hon var matematiklärare", "Hon var sjuksköterska", "Hon var ekonom", "Hon var tolk"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför får Elena inte undervisa själv än?",
+        "options": ["Hon talar för lite svenska", "Hon saknar svensk lärarlegitimation", "Hon arbetar deltid", "Skolan har inga lediga tjänster"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad gör Elena på kvällarna?",
+        "options": ["Hon arbetar extra i en butik", "Hon rättar prov", "Hon tränar på gym", "Hon läser en kurs på universitetet"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "c-ber-018",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Rosa berättar om vad hon saknar från sitt hemland.",
+    "transcript": [
+      {
+        "speaker": "Rosa",
+        "text": "Jag heter Rosa och jag kommer från Peru. Jag har bott i Sverige i sex år och trivs bra här, men ibland saknar jag mitt hemland mycket. Mest av allt saknar jag min familj, särskilt mina två systrar. Vi ringer varandra varje söndag, men det är inte samma sak som att ses. Jag saknar också värmen, maten och musiken på gatorna. När jag känner mig ledsen lagar jag peruansk mat och bjuder hem mina vänner. Vartannat år reser jag till Peru på semester. Nästa resa blir i december, då ska jag fira jul med hela familjen för första gången på fyra år."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad saknar Rosa mest av allt?",
+        "options": ["Maten", "Musiken", "Sin familj", "Vädret"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad gör Rosa när hon känner sig ledsen?",
+        "options": ["Hon lagar peruansk mat och bjuder hem vänner", "Hon tittar på film", "Hon går en promenad", "Hon ringer sin chef"],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Hur ofta ringer Rosa och hennes systrar varandra? Skriv ditt svar.",
+        "accept": ["varje söndag", "på söndagar", "varje vecka", "en gång i veckan", "de ringer varje söndag"]
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "c-ber-019",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Tariq berättar om svensk mat.",
+    "transcript": [
+      {
+        "speaker": "Tariq",
+        "text": "Jag heter Tariq och jag kommer från Pakistan. När jag kom till Sverige för tre år sedan tyckte jag att svensk mat var konstig. Första gången jag åt sill ville jag spotta ut den! Men med tiden har jag börjat tycka om många svenska rätter. Min favorit är köttbullar med potatismos och lingonsylt, det lagar jag hemma varje fredag. Jag älskar också kanelbullar, och fika är en tradition jag verkligen har tagit till mig. Det enda jag fortfarande inte kan äta är surströmming, lukten är för stark. Nästa sommar ska jag lära min mamma att baka kanelbullar när hon hälsar på."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad tyckte Tariq om sill första gången?",
+        "options": ["Han älskade den", "Han ville spotta ut den", "Han tyckte den var för dyr", "Han åt upp allt"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad lagar Tariq hemma varje fredag?",
+        "options": ["Pannkakor", "Fisksoppa", "Pizza", "Köttbullar med potatismos"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad kan Tariq fortfarande inte äta?",
+        "options": ["Surströmming", "Kanelbullar", "Lingonsylt", "Sill"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "c-ber-020",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Olga berättar om svenska traditioner.",
+    "transcript": [
+      {
+        "speaker": "Olga",
+        "text": "Jag heter Olga och jag kommer från Belarus. Jag har bott i Sverige i fem år, och jag har tagit till mig flera svenska traditioner. Min favorit är midsommar. Första gången blev jag förvånad när alla dansade som grodor runt en stång! Nu firar vi midsommar varje år hos våra grannar på landet, med sill, färskpotatis och jordgubbstårta. Jag tycker också mycket om lucia i december, när barnen sjunger i kyrkan med ljus i håret. Min dotter var lucia i skolan förra året, och jag grät av glädje. Hemma firar vi både svenska och belarusiska högtider, det bästa av två världar."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken svensk tradition är Olgas favorit?",
+        "options": ["Lucia", "Påsk", "Midsommar", "Valborg"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Var firar Olga midsommar varje år?",
+        "options": ["Hos sina grannar på landet", "I Belarus", "I en park i stan", "Hemma i lägenheten"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad hände förra året i december?",
+        "options": ["Olga reste till Belarus", "Familjen flyttade", "Olga började ett nytt jobb", "Olgas dotter var lucia i skolan"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "c-ber-021",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Samir berättar om sin fotboll på fritiden.",
+    "transcript": [
+      {
+        "speaker": "Samir",
+        "text": "Jag heter Samir och jag spelar fotboll i ett korplag i Helsingborg. Vi tränar en gång i veckan, på tisdagskvällar, och har match på söndagar. Laget startades av några kollegor på mitt jobb för fyra år sedan, och nu är vi spelare från åtta olika länder. Jag spelar mittfältare. Vi är inte så bra, förra säsongen vann vi bara tre matcher, men det viktigaste är att ha roligt tillsammans. Efter matcherna fikar vi alltid ihop. Genom fotbollen har jag fått mina bästa vänner i Sverige. Nästa år ska jag bli tränare för mitt barns lag också."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När tränar Samirs lag?",
+        "options": ["På söndagar", "På tisdagskvällar", "På lördagsmorgnar", "Varje dag"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur många matcher vann laget förra säsongen?",
+        "options": ["Tre", "Åtta", "Ingen", "Tio"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad ska Samir göra nästa år?",
+        "options": ["Sluta spela fotboll", "Byta lag", "Bli tränare för sitt barns lag", "Börja spela i en högre division"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "c-ber-022",
+    "course": "C",
+    "type": "monologue",
+    "intro": "Minh berättar om sitt fiskeintresse.",
+    "transcript": [
+      {
+        "speaker": "Minh",
+        "text": "Jag heter Minh och jag älskar att fiska. I Vietnam fiskade jag med min pappa när jag var barn, och här i Sverige har jag fortsatt. Jag bor i Karlstad, nära Vänern, och nästan varje lördagsmorgon åker jag ut med mitt fiskespö. Jag fiskar mest gädda och abborre. Min största fisk hittills var en gädda på sex kilo, den tog jag förra sommaren. På vintern fiskar jag genom isen, det kallas pimpelfiske, och det hade jag aldrig provat innan jag kom hit. Det bästa med fisket är lugnet vid vattnet. Nästa år vill jag köpa en liten båt tillsammans med min granne."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När åker Minh oftast ut och fiskar?",
+        "options": ["På onsdagskvällar", "På söndagar", "Varje morgon", "På lördagsmorgnar"],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Hur stor var Minhs största fisk? Skriv ditt svar.",
+        "accept": ["sex kilo", "6 kilo", "en gädda på sex kilo", "6 kg", "sex kg"]
+      },
+      {
+        "q": "Vad vill Minh göra nästa år?",
+        "options": ["Köpa en liten båt med sin granne", "Flytta närmare havet", "Tävla i fiske", "Lära sina barn att fiska"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 21
+  }
+]
