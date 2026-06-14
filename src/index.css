@@ -108,6 +108,25 @@
     -webkit-user-select: text;
   }
 
+  /* Bordered, readable tables for markdown lesson/civic content */
+  .lesson-prose table {
+    @apply w-full border-collapse text-sm;
+  }
+  .lesson-prose th,
+  .lesson-prose td {
+    @apply border border-border px-3 py-2 text-left align-top;
+  }
+  .lesson-prose thead th {
+    @apply bg-muted font-semibold;
+  }
+  .lesson-prose tbody tr:nth-child(even) {
+    @apply bg-muted/40;
+  }
+  /* The "## In English" divider (---) reads as a clear section break */
+  .lesson-prose hr {
+    @apply border-border;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * {
       @apply !transition-none !animate-none;
