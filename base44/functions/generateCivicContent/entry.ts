@@ -309,7 +309,7 @@ content: Rich markdown (6-8 paragraphs) covering:
 - Specific practical information (numbers, agency names, laws, years, percentages)
 - A real-life scenario or example
 - Cultural context where relevant
-Use ## headers, **bold**, bullet lists. Write in English but include Swedish terms in *italics* with translations.
+Structure the content in TWO clearly separated sections: FIRST the full topic in Swedish (## headers, **bold**, bullet lists), THEN a "---" divider and a "## In English" section giving the full English version of the same material. Do NOT alternate languages paragraph by paragraph — all Swedish first, then all English. Keep institution/law names in Swedish in both sections (e.g. *Riksdagen*, *Skatteverket*).
 Stay closely aligned to what is in the Sverige i Fokus material — this is a citizenship test, accuracy is essential.
 
 key_facts: 6-8 concise, memorable facts a citizenship test candidate MUST know. Use concrete specifics from Sverige i Fokus (exact agency names, numbers, percentages, ages, laws, years).

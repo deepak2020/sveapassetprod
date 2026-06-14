@@ -55,7 +55,7 @@ ALL content must be 100% about the topic "${title}". Be generous — quantity AN
 
 === CONTENT REQUIREMENTS ===
 
-content: 6-8 paragraphs of thorough markdown in the **Hermods style** — structured with clear sections, grammar rules explained formally with Swedish examples + English translations in parentheses, cultural/practical notes about life in Sweden, common learner pitfalls, and a summary. Use ## headers, **bold**, *italic*, and bullet lists. Include at least one realistic dialogue or situational example in the **Babbel style** (natural, conversational, set in a real Swedish context like a shop, workplace, or phone call).
+content: thorough markdown in the **Hermods style**, organised in TWO clearly separated sections. FIRST the entire lesson in Swedish (## headers, **bold**, bullet lists, and a markdown table for grammar patterns) — clear sections, grammar rules explained formally with Swedish examples, cultural/practical notes about life in Sweden, common learner pitfalls, at least one realistic dialogue or situational example in the **Babbel style** (set in a real Swedish context like a shop, workplace, or phone call), and a summary. THEN a "---" divider and a "## In English" section giving the full English translation/explanation of the same material. Do NOT alternate languages paragraph by paragraph — all Swedish first, then all English.
 
 word_pairs: 18-22 items in the **Babbel style** — prioritize words a new arrival in Sweden genuinely needs TODAY. Include core vocabulary, compound words, collocations, and real phrases heard in daily Swedish life. Every item MUST have example_sv and example_en showing the word used naturally in context.
 
