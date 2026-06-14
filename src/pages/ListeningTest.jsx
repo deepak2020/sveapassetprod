@@ -5,11 +5,11 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/api/supabaseClient";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
-import { Headphones, Play, Pause, ArrowRight, RotateCcw, Trophy, ChevronLeft, Volume2, CheckCircle2, XCircle, GraduationCap, Gauge } from "lucide-react";
+import { Headphones, Play, Pause, ArrowRight, RotateCcw, Trophy, ChevronLeft, Volume2, CheckCircle2, XCircle, Gauge } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
-import { getListeningBank, buildMockTest, buildCategorySession } from "@/data/listeningBankC";
+import { getListeningBank, buildCategorySession } from "@/data/listeningBankC";
 import { getBestVoice } from "@/lib/speech";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
 
@@ -284,8 +284,7 @@ function Session({ course, title, sourceId, items, mode, onExit }) {
             <h2 className="font-display text-3xl font-bold mb-2">{msg}</h2>
             <p className="text-muted-foreground mb-6">{score} / {allQuestions.length} rätt · {percentage}%</p>
             <div className="flex gap-3 justify-center">
-              <Button onClick={onExit} variant="outline" className="gap-2"><RotateCcw className="w-4 h-4" /> Tillbaka</Button>
-              <Button asChild className="gap-2"><Link to="/language-test"><Trophy className="w-4 h-4" /> Fler test</Link></Button>
+              <Button onClick={onExit} className="gap-2"><RotateCcw className="w-4 h-4" /> Fler ämnen</Button>
             </div>
           </motion.div>
         </div>
@@ -508,7 +507,7 @@ export default function ListeningTest() {
       <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-4">
         <Headphones className="w-12 h-12 text-muted-foreground mx-auto" />
         <h2 className="text-xl font-semibold">Det finns inget hörförståelsetest för den här kursen än.</h2>
-        <Button asChild variant="outline"><Link to="/language-test">Tillbaka till Språktest</Link></Button>
+        <Button asChild variant="outline"><Link to="/dashboard">Tillbaka</Link></Button>
       </div>
     );
   }
@@ -531,9 +530,6 @@ export default function ListeningTest() {
   // ── HUB ──────────────────────────────────────────────────────────
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 pb-24 md:pb-12">
-      <Link to="/language-test" className="text-sm text-muted-foreground hover:text-foreground mb-6 flex items-center gap-1">
-        <ChevronLeft className="w-4 h-4" /> Språktest
-      </Link>
       <div className="flex items-center gap-3 mb-2">
         <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
           <Headphones className="w-6 h-6 text-primary" />
@@ -544,31 +540,8 @@ export default function ListeningTest() {
         </div>
       </div>
 
-      {/* Mock test */}
-      <button
-        onClick={() => setSession({
-          title: `Hörförståelse ${course.toUpperCase()} — Prov`,
-          sourceId: `listening-mock-${course.toLowerCase()}`,
-          mode: "test",
-          items: buildMockTest(categories),
-        })}
-        className="w-full text-left rounded-2xl border-2 border-primary/40 bg-primary/5 p-5 mt-6 mb-8 hover:shadow-md transition-all flex items-center gap-4"
-      >
-        <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-          <GraduationCap className="w-6 h-6 text-primary-foreground" />
-        </div>
-        <div className="flex-1 min-w-0">
-          <span className="text-[10px] font-bold uppercase tracking-wide text-primary">✨ Gör ett prov</span>
-          <h3 className="font-bold text-sm mt-0.5">Slumpat prov — ett klipp från varje kategori</h3>
-          <p className="text-xs text-muted-foreground mt-0.5">
-            {categories.filter((c) => c.items.length > 0).length} klipp · nya klipp varje gång · du kan lyssna {MAX_PLAYS} gånger per klipp
-          </p>
-        </div>
-        <ArrowRight className="w-5 h-5 text-primary flex-shrink-0" />
-      </button>
-
-      {/* Category practice */}
-      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Eller öva en kategori i taget</p>
+      {/* Topic selection */}
+      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 mt-6">Välj ett ämne att lyssna på</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {categories.map((cat) => (
           <motion.button

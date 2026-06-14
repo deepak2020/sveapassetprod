@@ -141,7 +141,7 @@ export default function Progress() {
             <Card className="border-border/50 mb-10">
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="text-lg font-semibold">Språkprov per SFI-kurs <span className="text-sm font-normal italic text-muted-foreground">· Language Tests by SFI Course</span></CardTitle>
-                <Link to="/language-test">
+                <Link to="/listening/c">
                   <Badge variant="outline" className="gap-1 cursor-pointer hover:bg-muted">
                     <FlaskConical className="w-3 h-3" /> Ta ett prov · Take a test
                   </Badge>
