@@ -1,0 +1,51 @@
+{
+  "name": "ChallengeQuestion",
+  "type": "object",
+  "properties": {
+    "q": {
+      "type": "string",
+      "description": "Swedish question"
+    },
+    "a": {
+      "type": "string",
+      "description": "Correct answer"
+    },
+    "choices": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "en": {
+      "type": "string",
+      "description": "English translation"
+    },
+    "category": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "q",
+    "a",
+    "choices",
+    "en"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

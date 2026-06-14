@@ -1,9 +1,11 @@
 import { useState, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CalendarCheck, CheckCircle2, ChevronLeft, ChevronRight, RefreshCw, Lock, Volume2 } from "lucide-react";
 import { playAudio } from "@/lib/speech";
+import { base44 } from "@/api/base44Client";
 
 const QUESTION_POOL = [
   // --- Civics & institutions ---
@@ -185,7 +187,8 @@ function getTodayKey() {
 }
 
 // Pick QUESTIONS_PER_SLOT unique questions for a given slot, seeded by date + slot index
-function getSlotQuestions(slotIndex) {
+function getSlotQuestions(slotIndex, pool) {
+  if (!pool || pool.length === 0) return [];
   const today = getTodayKey();
   // Mix date digits with slot to get a varied seed each day per slot
   const dateParts = today.replace(/-/g, "");
@@ -193,12 +196,13 @@ function getSlotQuestions(slotIndex) {
   const seed = (base ^ (slotIndex * 0x9e3779b9)) >>> 0;
   const indices = [];
   let n = seed >>> 0;
-  while (indices.length < QUESTIONS_PER_SLOT) {
+  const need = Math.min(QUESTIONS_PER_SLOT, pool.length);
+  while (indices.length < need) {
     n = ((n * 1664525 + 1013904223) >>> 0);
-    const idx = n % QUESTION_POOL.length;
+    const idx = n % pool.length;
     if (!indices.includes(idx)) indices.push(idx);
   }
-  return indices.map((i) => QUESTION_POOL[i]);
+  return indices.map((i) => pool[i]);
 }
 
 function loadSlotState(slotKey) {
@@ -281,7 +285,14 @@ function NextSlotHint({ currentSlot, allSlotsDone }) {
 }
 
 export default function DailyChallenge() {
-  const allQuestions = useMemo(() => TIME_SLOTS.map((_, i) => getSlotQuestions(i)), []);
+  // Load the 1000+ question pool from the database; fall back to built-in pool while loading.
+  const { data: dbPool } = useQuery({
+    queryKey: ["challenge-questions"],
+    queryFn: () => base44.entities.ChallengeQuestion.list("-created_date", 2000),
+    staleTime: 24 * 60 * 60 * 1000,
+  });
+  const pool = dbPool && dbPool.length > 0 ? dbPool : QUESTION_POOL;
+  const allQuestions = useMemo(() => TIME_SLOTS.map((_, i) => getSlotQuestions(i, pool)), [pool]);
 
   const [activeSlot, setActiveSlot] = useState(() => getActiveSlotKey());
   const [slotStates, setSlotStates] = useState(() =>
