@@ -8,7 +8,9 @@
 
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from "@/api/supabaseClient";
 
-const FN_URL = `${SUPABASE_URL}/functions/v1/tts`;
+// Name of the deployed Supabase edge function that does Azure TTS.
+const TTS_FUNCTION = "clever-function";
+const FN_URL = `${SUPABASE_URL}/functions/v1/${TTS_FUNCTION}`;
 const SS_PREFIX = "tts:url:";
 const mem = new Map(); // key -> url | Promise<url|null>
 
