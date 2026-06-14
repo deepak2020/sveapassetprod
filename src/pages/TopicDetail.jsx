@@ -10,6 +10,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import CategoryBadge from "../components/shared/CategoryBadge";
 import CivicQuizRunner from "../components/civic/CivicQuizRunner";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
 
 export default function TopicDetail() {
   usePageView("civic_topic_detail");
@@ -75,8 +77,8 @@ export default function TopicDetail() {
 
         <TabsContent value="content">
           {topic.content ? (
-            <div className="prose prose-slate max-w-none">
-              <ReactMarkdown>{topic.content}</ReactMarkdown>
+            <div className="prose prose-slate dark:prose-invert max-w-none prose-table:my-3">
+              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{topic.content}</ReactMarkdown>
             </div>
           ) : (
             <p className="text-muted-foreground">No content available yet.</p>
