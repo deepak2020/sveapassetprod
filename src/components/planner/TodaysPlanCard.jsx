@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { CalendarDays, CheckCircle2, Circle, Trash2, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgress, getTodaysLessons }) {
@@ -26,6 +25,9 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
     },
     enabled: todayLessonIds.length > 0,
   });
+
+  // A lesson to anchor speaking/writing practice on (first of today's).
+  const practiceId = todayLessons[0]?.id || todayLessonIds[0];
 
   return (
     <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
@@ -100,6 +102,24 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
             </div>
           )}
         </div>
+
+        {/* Daily practice — the skills the lesson schedule doesn't cover */}
+        {practiceId && (
+          <div className="space-y-2">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Daglig övning · Daily practice</p>
+            <div className="grid grid-cols-3 gap-2">
+              <Link to={`/language/${practiceId}?tab=speaking`} className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-border bg-background hover:border-primary/50 transition-all text-center">
+                <span className="text-lg">🗣️</span><span className="text-xs font-medium">Tala</span>
+              </Link>
+              <Link to={`/language/${practiceId}?tab=writing`} className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-border bg-background hover:border-primary/50 transition-all text-center">
+                <span className="text-lg">✍️</span><span className="text-xs font-medium">Skriva</span>
+              </Link>
+              <Link to={`/listening/${(plan.course || "C").toLowerCase()}`} className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-border bg-background hover:border-primary/50 transition-all text-center">
+                <span className="text-lg">🎧</span><span className="text-xs font-medium">Lyssna</span>
+              </Link>
+            </div>
+          </div>
+        )}
 
       </CardContent>
     </Card>
