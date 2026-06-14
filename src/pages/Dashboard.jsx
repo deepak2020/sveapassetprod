@@ -25,6 +25,7 @@ import {
 import EmptyState from "../components/shared/EmptyState";
 import SkillBreakdown from "../components/dashboard/SkillBreakdown";
 import WeakAreaCard from "../components/dashboard/WeakAreaCard";
+import MasteryCard from "../components/dashboard/MasteryCard";
 import DailyChallenge from "../components/dashboard/DailyChallenge";
 import DailyReviewCard from "../components/dashboard/DailyReviewCard";
 import QuickRevision from "../components/dashboard/QuickRevision";
@@ -283,6 +284,9 @@ export default function Dashboard() {
 
       {/* Quick revision — completed lessons */}
       <QuickRevision />
+
+      {/* Mastery per skill + overall test readiness */}
+      <MasteryCard results={results} targetCourse={user.sfi_level} />
 
       {/* Weak area recommendations — shows after ≥3 quizzes in any skill */}
       <WeakAreaCard results={results} userSfiLevel={user.sfi_level} />

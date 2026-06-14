@@ -3,10 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 // analytics: lesson tab clicks tracked via base44.analytics.track
 import confetti from "canvas-confetti";
-import { ArrowLeft, ArrowRight, BookOpen, Pen, Mic, Trophy } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Trophy } from "lucide-react";
 import { useLessonCompletion, setLastLesson } from "@/hooks/useLessonProgress";
 import { addVocabSRSCards } from "@/hooks/useVocabSRS";
 import { awardXP } from "@/lib/xp";
@@ -161,7 +161,9 @@ export default function LessonDetail() {
   const defaultTab = lesson
     ? (lesson.word_pairs?.length > 0 ? "learn" : lesson.fill_in_blanks?.length > 0 ? "practice" : "content")
     : "content";
-  const [activeTab, setActiveTab] = useState(defaultTab);
+  // Allow deep-linking to a tab via ?tab=speaking (used by the study planner).
+  const [searchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState(searchParams.get("tab") || defaultTab);
 
   if (isLoading) {
     return (
@@ -287,6 +289,10 @@ export default function LessonDetail() {
 
   const allTabs = ["content", ...availableKeys];
 
+  // If a ?tab= deep-link points to a tab this lesson doesn't have, fall back
+  // (computed, not stateful, to avoid a hook after the early returns above).
+  const effectiveTab = allTabs.includes(activeTab) ? activeTab : defaultTab;
+
   const goToTab = (key) => {
     setActiveTab(key);
     tabsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -296,7 +302,7 @@ export default function LessonDetail() {
     });
   };
 
-  const nextTabKey = allTabs[allTabs.indexOf(activeTab) + 1] ?? null;
+  const nextTabKey = allTabs[allTabs.indexOf(effectiveTab) + 1] ?? null;
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-40 md:pb-28">
@@ -375,7 +381,7 @@ export default function LessonDetail() {
       {/* Tabs */}
       <div ref={tabsRef}>
       <Tabs
-        value={activeTab}
+        value={effectiveTab}
         onValueChange={goToTab}
         className="space-y-6"
       >
