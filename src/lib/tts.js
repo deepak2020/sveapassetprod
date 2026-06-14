@@ -53,3 +53,22 @@ export async function getAzureTtsUrl(text) {
   mem.set(key, pending); // dedupe concurrent requests for the same phrase
   return pending;
 }
+
+// Synchronous lookup — returns a ready URL from cache, or null. Lets callers
+// start playback inside a user gesture (important for iOS autoplay rules).
+export function getCachedTtsUrl(text) {
+  const key = (text || "").trim();
+  if (!key) return null;
+  const m = mem.get(key);
+  if (typeof m === "string") return m;
+  const cached = ssGet(key);
+  if (cached) { mem.set(key, cached); return cached; }
+  return null;
+}
+
+// Fire-and-forget warm-up so the clip is cached before the user taps.
+export function prefetchTts(text) {
+  if (!text) return;
+  if (getCachedTtsUrl(text)) return;
+  getAzureTtsUrl(text);
+}

@@ -1,6 +1,7 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
 import { getBestVoice } from "@/lib/speech";
-import { getAzureTtsUrl } from "@/lib/tts";
+import { getAzureTtsUrl, getCachedTtsUrl } from "@/lib/tts";
+import { playTtsUrl, stopTts } from "@/lib/audioPlayer";
 
 const isSafari =
   typeof window !== "undefined" &&
@@ -51,35 +52,37 @@ function browserSpeak(text, lang, onStart, onEnd) {
 
 export function useSpeech() {
   const [speaking, setSpeaking] = useState(false);
-  const audioRef = useRef(null);
 
-  const speak = useCallback(async (text, lang = "sv-SE") => {
+  const speak = useCallback((text, lang = "sv-SE") => {
     if (!text) return;
 
     // Stop anything currently playing.
     window.speechSynthesis?.cancel();
-    if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
+    stopTts();
 
     const onStart = () => setSpeaking(true);
     const onEnd = () => setSpeaking(false);
+
+    const playUrl = (url) => {
+      const p = playTtsUrl(url, { onEnd });
+      if (p && p.catch) p.catch(() => browserSpeak(text, lang, onStart, onEnd));
+    };
 
     // Prefer Azure audio (generated on demand and cached) for Swedish; fall
     // back to the browser's speech synthesis if it is unavailable.
     if (lang.startsWith("sv")) {
       setSpeaking(true);
-      try {
-        const url = await getAzureTtsUrl(text);
-        if (url) {
-          const audio = new Audio(url);
-          audioRef.current = audio;
-          audio.onended = onEnd;
-          audio.onerror = () => browserSpeak(text, lang, onStart, onEnd);
-          await audio.play();
-          return;
-        }
-      } catch {
-        // fall through to browser TTS
-      }
+
+      // If the clip is already cached, play it SYNCHRONOUSLY so it stays
+      // inside the user gesture (required for iOS autoplay).
+      const cached = getCachedTtsUrl(text);
+      if (cached) { playUrl(cached); return; }
+
+      // Otherwise fetch it, then play (or fall back).
+      getAzureTtsUrl(text)
+        .then((url) => { if (url) playUrl(url); else browserSpeak(text, lang, onStart, onEnd); })
+        .catch(() => browserSpeak(text, lang, onStart, onEnd));
+      return;
     }
 
     browserSpeak(text, lang, onStart, onEnd);
