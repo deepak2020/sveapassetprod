@@ -82,7 +82,7 @@ RULES
 - Grammar examples should illustrate Kurs C grammar focus.
 - For skill = "grammar": content MUST clearly explain the grammar with a pattern table and 3+ examples.
 - For skill = "reading": include a 150–250 word bilingual text inside "content" (Swedish first, then English).
-- content: 300–500 words bilingual markdown. Each Swedish paragraph followed by English in *italics*. Include 2–4 example sentences with translations. End with a "Kom ihåg / Remember" bullet list of 3–5 takeaways.
+- content: 300–500 words bilingual markdown in TWO clearly separated sections. FIRST the entire lesson in Swedish (use ## headers, **bold**, bullet lists, and a markdown table when it helps), including 2–4 Swedish example sentences and ending with a "## Kom ihåg" bullet list of 3–5 takeaways. THEN a "---" divider, followed by a "## In English" section that gives the full English translation/explanation of the same material (mirroring the structure, ending with a "Remember" list). Do NOT alternate languages paragraph by paragraph — all Swedish first, then all English.
 
 COUNTS (strict)
 - word_pairs: exactly 12 items

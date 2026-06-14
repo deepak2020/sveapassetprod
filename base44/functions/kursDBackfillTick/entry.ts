@@ -131,7 +131,7 @@ RULES
 - For skill = "writing": prompts require structured, formal output — CV, personligt brev, formell e-post, klagomål, debattartikel, sammanfattning.
 - For skill = "speaking": phrases include opinion-giving, argumentation, professional small talk, meetings.
 - For skill = "listening": realistic scenarios — radio nyheter, möten, intervjuer, instruktioner.
-- content: 350–600 words bilingual markdown. Each Swedish paragraph followed by English in *italics*. 3–5 example sentences with translations. End with "Kom ihåg / Remember" bullet list of 4–6 takeaways.
+- content: 350–600 words bilingual markdown in TWO clearly separated sections. FIRST the entire lesson in Swedish (## headers, **bold**, bullet lists, and a markdown table when it helps), with 3–5 Swedish example sentences, ending with a "## Kom ihåg" bullet list of 4–6 takeaways. THEN a "---" divider and a "## In English" section giving the full English translation/explanation of the same material (ending with a "Remember" list). Do NOT alternate languages paragraph by paragraph — all Swedish first, then all English.
 
 COUNTS (strict)
 - word_pairs: exactly 12 items

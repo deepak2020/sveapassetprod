@@ -10,6 +10,7 @@ import LevelBadge from "../components/shared/LevelBadge";
 import EmptyState from "../components/shared/EmptyState";
 import TopicCard from "../components/language/TopicCard";
 import CleanupLessonsModal from "../components/language/CleanupLessonsModal";
+import ReformatContentButton from "../components/language/ReformatContentButton";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/AuthContext";
 import AdBanner from "../components/shared/AdBanner";
@@ -127,6 +128,8 @@ export default function LanguageLessons() {
           )}
         </div>
       </div>
+
+      {isAdmin && !activeCourse && <ReformatContentButton />}
 
       {!activeCourse ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

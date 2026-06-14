@@ -1,10 +1,13 @@
 import { useState, useCallback } from "react";
 import { getBestVoice } from "@/lib/speech";
+import { getAzureTtsUrl, getCachedTtsUrl } from "@/lib/tts";
+import { playTtsUrl, stopTts } from "@/lib/audioPlayer";
 
 const isSafari =
   typeof window !== "undefined" &&
   /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
+// ── Browser speech synthesis (fallback when Azure audio is unavailable) ──
 function doSpeak(text, lang, onStart, onEnd) {
   const ss = window.speechSynthesis;
 
@@ -23,45 +26,66 @@ function doSpeak(text, lang, onStart, onEnd) {
   ss.speak(utterance);
 }
 
+function browserSpeak(text, lang, onStart, onEnd) {
+  const ss = window.speechSynthesis;
+  if (!ss) { onEnd(); return; }
+  ss.cancel();
+
+  const voices = ss.getVoices();
+  if (voices.length > 0) {
+    if (isSafari) setTimeout(() => doSpeak(text, lang, onStart, onEnd), 50);
+    else doSpeak(text, lang, onStart, onEnd);
+  } else {
+    // Voices load asynchronously in Chrome; Safari may never fire the event.
+    let fired = false;
+    const go = () => {
+      if (fired) return;
+      fired = true;
+      doSpeak(text, lang, onStart, onEnd);
+    };
+    ss.addEventListener("voiceschanged", go, { once: true });
+    setTimeout(() => {
+      if (!fired) { ss.removeEventListener("voiceschanged", go); go(); }
+    }, 300);
+  }
+}
+
 export function useSpeech() {
   const [speaking, setSpeaking] = useState(false);
 
   const speak = useCallback((text, lang = "sv-SE") => {
-    const ss = window.speechSynthesis;
-    if (!ss) return;
+    if (!text) return;
+
+    // Stop anything currently playing.
+    window.speechSynthesis?.cancel();
+    stopTts();
 
     const onStart = () => setSpeaking(true);
     const onEnd = () => setSpeaking(false);
 
-    ss.cancel();
+    const playUrl = (url) => {
+      const p = playTtsUrl(url, { onEnd });
+      if (p && p.catch) p.catch(() => browserSpeak(text, lang, onStart, onEnd));
+    };
 
-    const voices = ss.getVoices();
+    // Prefer Azure audio (generated on demand and cached) for Swedish; fall
+    // back to the browser's speech synthesis if it is unavailable.
+    if (lang.startsWith("sv")) {
+      setSpeaking(true);
 
-    if (voices.length > 0) {
-      // Voices ready — Safari needs a small delay after cancel()
-      if (isSafari) {
-        setTimeout(() => doSpeak(text, lang, onStart, onEnd), 50);
-      } else {
-        doSpeak(text, lang, onStart, onEnd);
-      }
-    } else {
-      // Chrome: voices load async, wait for voiceschanged
-      // Safari: voiceschanged may not fire — fall back to a short timeout
-      let fired = false;
-      const go = () => {
-        if (fired) return;
-        fired = true;
-        doSpeak(text, lang, onStart, onEnd);
-      };
-      ss.addEventListener("voiceschanged", go, { once: true });
-      // Safari fallback: if voiceschanged never fires, try after 300ms
-      setTimeout(() => {
-        if (!fired) {
-          ss.removeEventListener("voiceschanged", go);
-          go();
-        }
-      }, 300);
+      // If the clip is already cached, play it SYNCHRONOUSLY so it stays
+      // inside the user gesture (required for iOS autoplay).
+      const cached = getCachedTtsUrl(text);
+      if (cached) { playUrl(cached); return; }
+
+      // Otherwise fetch it, then play (or fall back).
+      getAzureTtsUrl(text)
+        .then((url) => { if (url) playUrl(url); else browserSpeak(text, lang, onStart, onEnd); })
+        .catch(() => browserSpeak(text, lang, onStart, onEnd));
+      return;
     }
+
+    browserSpeak(text, lang, onStart, onEnd);
   }, []);
 
   return { speak, speaking };

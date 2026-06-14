@@ -23,6 +23,8 @@ import MatchingExercise from "../components/lesson/MatchingExercise";
 import ListeningExercise from "../components/lesson/ListeningExercise";
 import LessonBottomNav from "../components/lesson/LessonBottomNav";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
 
 const TAB_LABELS = {
   content: "Lesson",
@@ -431,8 +433,8 @@ export default function LessonDetail() {
         {/* Lesson content */}
         <TabsContent value="content">
           {lesson.content ? (
-            <div className="prose prose-slate max-w-none bg-card rounded-xl border border-border/50 p-6 lesson-text">
-              <ReactMarkdown>{lesson.content}</ReactMarkdown>
+            <div className="prose prose-slate dark:prose-invert max-w-none bg-card rounded-xl border border-border/50 p-6 lesson-text lesson-prose prose-headings:font-bold prose-h1:text-2xl prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-3 prose-h3:text-lg prose-strong:text-foreground prose-strong:font-semibold prose-hr:my-8 prose-hr:border-t-2 prose-table:my-4 prose-li:my-1">
+              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{lesson.content}</ReactMarkdown>
             </div>
           ) : (
             <div className="text-center py-12 text-muted-foreground">
