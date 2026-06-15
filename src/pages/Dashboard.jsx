@@ -26,6 +26,7 @@ import EmptyState from "../components/shared/EmptyState";
 import SkillBreakdown from "../components/dashboard/SkillBreakdown";
 import WeakAreaCard from "../components/dashboard/WeakAreaCard";
 import MasteryCard from "../components/dashboard/MasteryCard";
+import DailyQuizCard from "../components/dashboard/DailyQuizCard";
 import DailyChallenge from "../components/dashboard/DailyChallenge";
 import DailyReviewCard from "../components/dashboard/DailyReviewCard";
 import QuickRevision from "../components/dashboard/QuickRevision";
@@ -280,6 +281,9 @@ export default function Dashboard() {
 
       {/* Daily warm-up review nudge */}
       <DailyReviewCard />
+
+      {/* Four short quiz check-ins through the day */}
+      <DailyQuizCard results={results} />
 
       {/* Daily challenge */}
       <DailyChallenge />
