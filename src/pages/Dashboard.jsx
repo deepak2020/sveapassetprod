@@ -259,6 +259,7 @@ export default function Dashboard() {
           getDayNumber={getDayNumber}
           getProgress={getProgress}
           getBehindCount={getBehindCount}
+          results={results}
         />
       ) : (
         <button
