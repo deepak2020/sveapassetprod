@@ -244,7 +244,7 @@ export default function Grammar() {
           </div>
           <div>
             <h1 className="text-2xl font-bold">Grammar · <span className="italic font-normal text-muted-foreground">Grammatik</span></h1>
-            <p className="text-sm text-muted-foreground">AI-powered exercises with instant explanations</p>
+            <p className="text-sm text-muted-foreground">Exercises with instant explanations from Svea</p>
           </div>
         </div>
         <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground bg-muted/50 rounded-xl px-4 py-2 border border-border/50">

@@ -19,6 +19,8 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
   });
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
+  const [aiExplain, setAiExplain] = useState(null);   // LLM teach-on-mistake
+  const [explaining, setExplaining] = useState(false);
   const [score, setScore] = useState(() => {
     if (previousResult) return previousResult.score ?? 0;
     return initialProgress?.score ?? load()?.score ?? 0;
@@ -87,7 +89,26 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
       setCurrentQ(nextQ);
       setSelected(null);
       setAnswered(false);
+      setAiExplain(null);
+      setExplaining(false);
     }
+  };
+
+  // Teach-on-mistake: ask the LLM tutor why the correct answer is right.
+  const explainMistake = async () => {
+    if (explaining || aiExplain) return;
+    setExplaining(true);
+    try {
+      const q = questionPool[currentQ];
+      const res = await base44.functions.invoke("coach", {
+        kind: "explain",
+        question: q.question_sv || q.question_en || q.question,
+        userAnswer: q.options?.[selected],
+        correctAnswer: q.options?.[q.correct_index],
+      });
+      if (res.data?.text) setAiExplain(res.data.text);
+    } catch { /* non-critical */ }
+    setExplaining(false);
   };
 
   const handleRestart = () => {
@@ -261,6 +282,21 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
                   )}
                   {question.explanation && (
                     <p className="text-muted-foreground mt-2 leading-relaxed">{question.explanation}</p>
+                  )}
+                  {!isCorrect && (
+                    aiExplain ? (
+                      <p className="text-foreground/90 mt-2 leading-relaxed flex items-start gap-1.5">
+                        <span>🦉</span><span>{aiExplain}</span>
+                      </p>
+                    ) : (
+                      <button
+                        onClick={explainMistake}
+                        disabled={explaining}
+                        className="mt-2 text-xs font-semibold text-primary hover:underline disabled:opacity-60"
+                      >
+                        {explaining ? "Svea tänker…" : "🦉 Fråga Svea · Why is this the answer?"}
+                      </button>
+                    )
                   )}
                 </div>
               </div>
