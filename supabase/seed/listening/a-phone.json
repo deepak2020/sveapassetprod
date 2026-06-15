@@ -1,0 +1,477 @@
+[
+  {
+    "id": "a-tel-001",
+    "course": "A",
+    "type": "phone",
+    "intro": "Anna ringer sin kompis Erik.",
+    "transcript": [
+      { "speaker": "Erik", "text": "Hej, det är Erik." },
+      { "speaker": "Anna", "text": "Hej Erik, det är Anna." },
+      { "speaker": "Anna", "text": "Vill du fika idag?" },
+      { "speaker": "Erik", "text": "Ja, gärna! När då?" },
+      { "speaker": "Anna", "text": "Klockan två på kaféet." },
+      { "speaker": "Erik", "text": "Bra, vi ses då. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vem ringer?", "options": ["Erik", "Anna", "Maria"], "correctIndex": 1 },
+      { "q": "När ska de fika?", "options": ["Klockan två", "Klockan tre", "Klockan fem"], "correctIndex": 0 }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "a-tel-002",
+    "course": "A",
+    "type": "phone",
+    "intro": "Sara beställer en pizza.",
+    "transcript": [
+      { "speaker": "Pizzeria", "text": "Hej, Pizzeria Roma." },
+      { "speaker": "Sara", "text": "Hej, jag vill beställa en pizza." },
+      { "speaker": "Pizzeria", "text": "Vilken pizza vill du ha?" },
+      { "speaker": "Sara", "text": "En pizza med skinka, tack." },
+      { "speaker": "Pizzeria", "text": "Den kostar nittio kronor." },
+      { "speaker": "Sara", "text": "Bra, tack så mycket!" }
+    ],
+    "questions": [
+      { "q": "Vad beställer Sara?", "options": ["En sallad", "En pizza", "En kaffe"], "correctIndex": 1 },
+      { "q": "Vad kostar pizzan?", "options": ["Femtio kronor", "Nittio kronor", "Tio kronor"], "correctIndex": 1 }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "a-tel-003",
+    "course": "A",
+    "type": "phone",
+    "intro": "Omar frågar om öppettider.",
+    "transcript": [
+      { "speaker": "Butik", "text": "Hej, ICA Centrum." },
+      { "speaker": "Omar", "text": "Hej, när öppnar ni?" },
+      { "speaker": "Butik", "text": "Vi öppnar klockan åtta." },
+      { "speaker": "Omar", "text": "Och när stänger ni?" },
+      { "speaker": "Butik", "text": "Vi stänger klockan nio." },
+      { "speaker": "Omar", "text": "Tack så mycket! Hej då." }
+    ],
+    "questions": [
+      { "q": "När öppnar butiken?", "options": ["Klockan sju", "Klockan åtta", "Klockan nio"], "correctIndex": 1 },
+      { "q": "När stänger butiken?", "options": ["Klockan nio", "Klockan tio", "Klockan åtta"], "correctIndex": 0 }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "a-tel-004",
+    "course": "A",
+    "type": "phone",
+    "intro": "Lena bokar tid hos frisören.",
+    "transcript": [
+      { "speaker": "Frisör", "text": "Hej, Salong Klipp." },
+      { "speaker": "Lena", "text": "Hej, jag vill boka en tid." },
+      { "speaker": "Frisör", "text": "Vill du komma på fredag?" },
+      { "speaker": "Lena", "text": "Ja, det passar bra." },
+      { "speaker": "Frisör", "text": "Då säger vi klockan tre." },
+      { "speaker": "Lena", "text": "Perfekt, tack så mycket!" }
+    ],
+    "questions": [
+      { "q": "Vilken dag bokar Lena?", "options": ["Måndag", "Fredag", "Söndag"], "correctIndex": 1 },
+      { "q": "Vilken tid får hon?", "options": ["Klockan tre", "Klockan två", "Klockan ett"], "correctIndex": 0 }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "a-tel-005",
+    "course": "A",
+    "type": "phone",
+    "intro": "Karim frågar om Lisa är hemma.",
+    "transcript": [
+      { "speaker": "Mamma", "text": "Hej, det är familjen Berg." },
+      { "speaker": "Karim", "text": "Hej, är Lisa hemma?" },
+      { "speaker": "Mamma", "text": "Nej, hon är på skolan." },
+      { "speaker": "Karim", "text": "När kommer hon hem?" },
+      { "speaker": "Mamma", "text": "Hon kommer klockan fyra." },
+      { "speaker": "Karim", "text": "Okej, tack! Hej då." }
+    ],
+    "questions": [
+      { "q": "Var är Lisa?", "options": ["Hemma", "På skolan", "På jobbet"], "correctIndex": 1 },
+      { "q": "När kommer Lisa hem?", "options": ["Klockan tre", "Klockan fem", "Klockan fyra"], "correctIndex": 2 }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "a-tel-006",
+    "course": "A",
+    "type": "phone",
+    "intro": "Eva frågar vad en biljett kostar.",
+    "transcript": [
+      { "speaker": "Bio", "text": "Hej, Bio Stjärnan." },
+      { "speaker": "Eva", "text": "Hej, vad kostar en biljett?" },
+      { "speaker": "Bio", "text": "En biljett kostar hundra kronor." },
+      { "speaker": "Eva", "text": "När börjar filmen?" },
+      { "speaker": "Bio", "text": "Filmen börjar klockan sju." },
+      { "speaker": "Eva", "text": "Tack så mycket! Hej då." }
+    ],
+    "questions": [
+      { "q": "Vad kostar en biljett?", "options": ["Hundra kronor", "Femtio kronor", "Tjugo kronor"], "correctIndex": 0 },
+      { "q": "När börjar filmen?", "options": ["Klockan åtta", "Klockan sju", "Klockan sex"], "correctIndex": 1 }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "a-tel-007",
+    "course": "A",
+    "type": "phone",
+    "intro": "Johan ringer sin lärare.",
+    "transcript": [
+      { "speaker": "Lärare", "text": "Hej, det är Maria." },
+      { "speaker": "Johan", "text": "Hej Maria, det är Johan." },
+      { "speaker": "Johan", "text": "Jag är sjuk idag." },
+      { "speaker": "Lärare", "text": "Okej, krya på dig!" },
+      { "speaker": "Johan", "text": "Tack, vi ses imorgon." },
+      { "speaker": "Lärare", "text": "Ja, hej då Johan!" }
+    ],
+    "questions": [
+      { "q": "Varför ringer Johan?", "options": ["Han är glad", "Han är sjuk", "Han är hungrig"], "correctIndex": 1 },
+      { "q": "När ses de igen?", "options": ["Imorgon", "På fredag", "Idag"], "correctIndex": 0 }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "a-tel-008",
+    "course": "A",
+    "type": "phone",
+    "intro": "Fatima bokar bord på restaurang.",
+    "transcript": [
+      { "speaker": "Restaurang", "text": "Hej, Restaurang Sol." },
+      { "speaker": "Fatima", "text": "Hej, jag vill boka ett bord." },
+      { "speaker": "Restaurang", "text": "För hur många personer?" },
+      { "speaker": "Fatima", "text": "För fyra personer, tack." },
+      { "speaker": "Restaurang", "text": "Bra, klockan sex då." },
+      { "speaker": "Fatima", "text": "Tack så mycket! Hej då." }
+    ],
+    "questions": [
+      { "q": "Hur många personer?", "options": ["Två", "Fyra", "Sex"], "correctIndex": 1 },
+      { "q": "Vilken tid är bordet?", "options": ["Klockan sex", "Klockan fem", "Klockan sju"], "correctIndex": 0 }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "a-tel-009",
+    "course": "A",
+    "type": "phone",
+    "intro": "Peter frågar om bussen.",
+    "transcript": [
+      { "speaker": "Info", "text": "Hej, Bussinfo." },
+      { "speaker": "Peter", "text": "Hej, när går bussen?" },
+      { "speaker": "Info", "text": "Bussen går klockan tio." },
+      { "speaker": "Peter", "text": "Vilken buss är det?" },
+      { "speaker": "Info", "text": "Det är buss nummer fem." },
+      { "speaker": "Peter", "text": "Tack så mycket! Hej då." }
+    ],
+    "questions": [
+      { "q": "När går bussen?", "options": ["Klockan nio", "Klockan elva", "Klockan tio"], "correctIndex": 2 },
+      { "q": "Vilken buss är det?", "options": ["Buss fem", "Buss tre", "Buss sju"], "correctIndex": 0 }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "a-tel-010",
+    "course": "A",
+    "type": "phone",
+    "intro": "Nadia ringer sin syster.",
+    "transcript": [
+      { "speaker": "Syster", "text": "Hej, det är Hana." },
+      { "speaker": "Nadia", "text": "Hej Hana, det är Nadia." },
+      { "speaker": "Nadia", "text": "Kommer du på middag?" },
+      { "speaker": "Syster", "text": "Ja, jag kommer klockan sex." },
+      { "speaker": "Nadia", "text": "Vad bra! Vi ses då." },
+      { "speaker": "Syster", "text": "Ja, hej då Nadia!" }
+    ],
+    "questions": [
+      { "q": "Vem ringer Nadia?", "options": ["Sin mamma", "Sin syster", "Sin kompis"], "correctIndex": 1 },
+      { "q": "När kommer Hana?", "options": ["Klockan sju", "Klockan fem", "Klockan sex"], "correctIndex": 2 }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "a-tel-011",
+    "course": "A",
+    "type": "phone",
+    "intro": "Ali frågar om tröjan kostar.",
+    "transcript": [
+      { "speaker": "Butik", "text": "Hej, Modebutiken." },
+      { "speaker": "Ali", "text": "Hej, vad kostar tröjan?" },
+      { "speaker": "Butik", "text": "Den kostar tvåhundra kronor." },
+      { "speaker": "Ali", "text": "Har ni den i blått?" },
+      { "speaker": "Butik", "text": "Ja, vi har den i blått." },
+      { "speaker": "Ali", "text": "Tack, jag kommer snart." }
+    ],
+    "questions": [
+      { "q": "Vad kostar tröjan?", "options": ["Hundra kronor", "Tvåhundra kronor", "Tjugo kronor"], "correctIndex": 1 },
+      { "q": "Vilken färg vill Ali ha?", "options": ["Röd", "Grön", "Blå"], "correctIndex": 2 }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "a-tel-012",
+    "course": "A",
+    "type": "phone",
+    "intro": "Greta ringer doktorn.",
+    "transcript": [
+      { "speaker": "Vårdcentral", "text": "Hej, Vårdcentralen." },
+      { "speaker": "Greta", "text": "Hej, jag vill boka en tid." },
+      { "speaker": "Vårdcentral", "text": "Kan du komma på måndag?" },
+      { "speaker": "Greta", "text": "Ja, det går bra." },
+      { "speaker": "Vårdcentral", "text": "Bra, klockan nio då." },
+      { "speaker": "Greta", "text": "Tack så mycket! Hej då." }
+    ],
+    "questions": [
+      { "q": "Vilken dag bokar Greta?", "options": ["Måndag", "Tisdag", "Fredag"], "correctIndex": 0 },
+      { "q": "Vilken tid får hon?", "options": ["Klockan tio", "Klockan nio", "Klockan åtta"], "correctIndex": 1 }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "a-tel-013",
+    "course": "A",
+    "type": "phone",
+    "intro": "Hugo frågar var festen är.",
+    "transcript": [
+      { "speaker": "Klara", "text": "Hej, det är Klara." },
+      { "speaker": "Hugo", "text": "Hej Klara, var är festen?" },
+      { "speaker": "Klara", "text": "Festen är hemma hos mig." },
+      { "speaker": "Hugo", "text": "När börjar den?" },
+      { "speaker": "Klara", "text": "Den börjar klockan åtta." },
+      { "speaker": "Hugo", "text": "Vad kul! Vi ses då." }
+    ],
+    "questions": [
+      { "q": "Var är festen?", "options": ["Hos Klara", "På skolan", "På kaféet"], "correctIndex": 0 },
+      { "q": "När börjar festen?", "options": ["Klockan sju", "Klockan nio", "Klockan åtta"], "correctIndex": 2 }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "a-tel-014",
+    "course": "A",
+    "type": "phone",
+    "intro": "Mona beställer en taxi.",
+    "transcript": [
+      { "speaker": "Taxi", "text": "Hej, Taxi Stockholm." },
+      { "speaker": "Mona", "text": "Hej, jag vill beställa en taxi." },
+      { "speaker": "Taxi", "text": "Var är du nu?" },
+      { "speaker": "Mona", "text": "Jag är på Storgatan." },
+      { "speaker": "Taxi", "text": "Taxin kommer om tio minuter." },
+      { "speaker": "Mona", "text": "Tack så mycket! Hej då." }
+    ],
+    "questions": [
+      { "q": "Var är Mona?", "options": ["På Storgatan", "På Kungsgatan", "Hemma"], "correctIndex": 0 },
+      { "q": "När kommer taxin?", "options": ["Om fem minuter", "Om tio minuter", "Om en timme"], "correctIndex": 1 }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "a-tel-015",
+    "course": "A",
+    "type": "phone",
+    "intro": "David frågar om biblioteket.",
+    "transcript": [
+      { "speaker": "Bibliotek", "text": "Hej, Stadsbiblioteket." },
+      { "speaker": "David", "text": "Hej, är ni öppna idag?" },
+      { "speaker": "Bibliotek", "text": "Ja, vi är öppna till sex." },
+      { "speaker": "David", "text": "Kan jag låna böcker?" },
+      { "speaker": "Bibliotek", "text": "Ja, det kan du göra." },
+      { "speaker": "David", "text": "Tack så mycket! Hej då." }
+    ],
+    "questions": [
+      { "q": "Till när är biblioteket öppet?", "options": ["Till fem", "Till sex", "Till sju"], "correctIndex": 1 },
+      { "q": "Vad vill David göra?", "options": ["Låna böcker", "Köpa mat", "Dricka kaffe"], "correctIndex": 0 }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "a-tel-016",
+    "course": "A",
+    "type": "phone",
+    "intro": "Yasmin ringer sin granne.",
+    "transcript": [
+      { "speaker": "Granne", "text": "Hej, det är Sven." },
+      { "speaker": "Yasmin", "text": "Hej Sven, det är Yasmin." },
+      { "speaker": "Yasmin", "text": "Kan jag låna lite mjölk?" },
+      { "speaker": "Granne", "text": "Ja, kom över nu." },
+      { "speaker": "Yasmin", "text": "Tack, jag kommer direkt." },
+      { "speaker": "Granne", "text": "Bra, vi ses snart!" }
+    ],
+    "questions": [
+      { "q": "Vad vill Yasmin låna?", "options": ["Mjölk", "Bröd", "Smör"], "correctIndex": 0 },
+      { "q": "Vem ringer hon?", "options": ["Sin mamma", "Sin granne", "Sin lärare"], "correctIndex": 1 }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "a-tel-017",
+    "course": "A",
+    "type": "phone",
+    "intro": "Tomas frågar om tåget.",
+    "transcript": [
+      { "speaker": "Station", "text": "Hej, Centralstationen." },
+      { "speaker": "Tomas", "text": "Hej, när går tåget till Lund?" },
+      { "speaker": "Station", "text": "Tåget går klockan elva." },
+      { "speaker": "Tomas", "text": "Vad kostar en biljett?" },
+      { "speaker": "Station", "text": "Den kostar trehundra kronor." },
+      { "speaker": "Tomas", "text": "Tack så mycket! Hej då." }
+    ],
+    "questions": [
+      { "q": "När går tåget?", "options": ["Klockan tio", "Klockan elva", "Klockan tolv"], "correctIndex": 1 },
+      { "q": "Vad kostar biljetten?", "options": ["Hundra kronor", "Tvåhundra kronor", "Trehundra kronor"], "correctIndex": 2 }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "a-tel-018",
+    "course": "A",
+    "type": "phone",
+    "intro": "Sofia frågar om kaffet kostar.",
+    "transcript": [
+      { "speaker": "Kafé", "text": "Hej, Kafé Hörnan." },
+      { "speaker": "Sofia", "text": "Hej, vad kostar en kaffe?" },
+      { "speaker": "Kafé", "text": "En kaffe kostar tjugofem kronor." },
+      { "speaker": "Sofia", "text": "Har ni bullar också?" },
+      { "speaker": "Kafé", "text": "Ja, en bulle kostar femton kronor." },
+      { "speaker": "Sofia", "text": "Tack, jag kommer snart!" }
+    ],
+    "questions": [
+      { "q": "Vad kostar en kaffe?", "options": ["Tjugofem kronor", "Femton kronor", "Tio kronor"], "correctIndex": 0 },
+      { "q": "Vad kostar en bulle?", "options": ["Tjugo kronor", "Femton kronor", "Trettio kronor"], "correctIndex": 1 }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "a-tel-019",
+    "course": "A",
+    "type": "phone",
+    "intro": "Mehmet ringer sin chef.",
+    "transcript": [
+      { "speaker": "Chef", "text": "Hej, det är Per." },
+      { "speaker": "Mehmet", "text": "Hej Per, det är Mehmet." },
+      { "speaker": "Mehmet", "text": "Jag kommer sent idag." },
+      { "speaker": "Chef", "text": "Okej, när kommer du?" },
+      { "speaker": "Mehmet", "text": "Jag kommer klockan nio." },
+      { "speaker": "Chef", "text": "Bra, vi ses då. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vem ringer Mehmet?", "options": ["Sin chef", "Sin kompis", "Sin bror"], "correctIndex": 0 },
+      { "q": "När kommer Mehmet?", "options": ["Klockan åtta", "Klockan tio", "Klockan nio"], "correctIndex": 2 }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "a-tel-020",
+    "course": "A",
+    "type": "phone",
+    "intro": "Linnea bokar tid hos tandläkaren.",
+    "transcript": [
+      { "speaker": "Tandläkare", "text": "Hej, Tandvården." },
+      { "speaker": "Linnea", "text": "Hej, jag vill boka en tid." },
+      { "speaker": "Tandläkare", "text": "Kan du komma på torsdag?" },
+      { "speaker": "Linnea", "text": "Ja, det passar bra." },
+      { "speaker": "Tandläkare", "text": "Då säger vi klockan ett." },
+      { "speaker": "Linnea", "text": "Tack så mycket! Hej då." }
+    ],
+    "questions": [
+      { "q": "Vilken dag bokar Linnea?", "options": ["Onsdag", "Torsdag", "Fredag"], "correctIndex": 1 },
+      { "q": "Vilken tid får hon?", "options": ["Klockan ett", "Klockan två", "Klockan tre"], "correctIndex": 0 }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "a-tel-021",
+    "course": "A",
+    "type": "phone",
+    "intro": "Amir frågar om museet.",
+    "transcript": [
+      { "speaker": "Museum", "text": "Hej, Stadsmuseet." },
+      { "speaker": "Amir", "text": "Hej, vad kostar en biljett?" },
+      { "speaker": "Museum", "text": "En biljett kostar femtio kronor." },
+      { "speaker": "Amir", "text": "När öppnar ni?" },
+      { "speaker": "Museum", "text": "Vi öppnar klockan tio." },
+      { "speaker": "Amir", "text": "Tack så mycket! Hej då." }
+    ],
+    "questions": [
+      { "q": "Vad kostar biljetten?", "options": ["Tjugo kronor", "Femtio kronor", "Hundra kronor"], "correctIndex": 1 },
+      { "q": "När öppnar museet?", "options": ["Klockan tio", "Klockan nio", "Klockan elva"], "correctIndex": 0 }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "a-tel-022",
+    "course": "A",
+    "type": "phone",
+    "intro": "Ingrid ringer sin son.",
+    "transcript": [
+      { "speaker": "Son", "text": "Hej mamma, det är Lukas." },
+      { "speaker": "Ingrid", "text": "Hej Lukas, var är du?" },
+      { "speaker": "Son", "text": "Jag är på jobbet nu." },
+      { "speaker": "Ingrid", "text": "När kommer du hem?" },
+      { "speaker": "Son", "text": "Jag kommer klockan fem." },
+      { "speaker": "Ingrid", "text": "Bra, vi ses då. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Var är Lukas?", "options": ["Hemma", "På jobbet", "På skolan"], "correctIndex": 1 },
+      { "q": "När kommer han hem?", "options": ["Klockan fyra", "Klockan sex", "Klockan fem"], "correctIndex": 2 }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "a-tel-023",
+    "course": "A",
+    "type": "phone",
+    "intro": "Hassan beställer mat hemma.",
+    "transcript": [
+      { "speaker": "Restaurang", "text": "Hej, Thai Food." },
+      { "speaker": "Hassan", "text": "Hej, jag vill beställa mat." },
+      { "speaker": "Restaurang", "text": "Vad vill du ha?" },
+      { "speaker": "Hassan", "text": "En nudelrätt, tack." },
+      { "speaker": "Restaurang", "text": "Den kostar åttio kronor." },
+      { "speaker": "Hassan", "text": "Bra, tack så mycket!" }
+    ],
+    "questions": [
+      { "q": "Vad beställer Hassan?", "options": ["En nudelrätt", "En pizza", "En sallad"], "correctIndex": 0 },
+      { "q": "Vad kostar maten?", "options": ["Femtio kronor", "Åttio kronor", "Hundra kronor"], "correctIndex": 1 }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "a-tel-024",
+    "course": "A",
+    "type": "phone",
+    "intro": "Elin frågar om simhallen.",
+    "transcript": [
+      { "speaker": "Simhall", "text": "Hej, Simhallen." },
+      { "speaker": "Elin", "text": "Hej, är ni öppna nu?" },
+      { "speaker": "Simhall", "text": "Ja, vi är öppna till åtta." },
+      { "speaker": "Elin", "text": "Vad kostar en biljett?" },
+      { "speaker": "Simhall", "text": "Den kostar sextio kronor." },
+      { "speaker": "Elin", "text": "Tack så mycket! Hej då." }
+    ],
+    "questions": [
+      { "q": "Till när är simhallen öppen?", "options": ["Till sju", "Till åtta", "Till nio"], "correctIndex": 1 },
+      { "q": "Vad kostar biljetten?", "options": ["Sextio kronor", "Femtio kronor", "Sjuttio kronor"], "correctIndex": 0 }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "a-tel-025",
+    "course": "A",
+    "type": "phone",
+    "intro": "Robin ringer sin kompis Maja.",
+    "transcript": [
+      { "speaker": "Maja", "text": "Hej, det är Maja." },
+      { "speaker": "Robin", "text": "Hej Maja, det är Robin." },
+      { "speaker": "Robin", "text": "Vill du spela fotboll?" },
+      { "speaker": "Maja", "text": "Ja, gärna! När då?" },
+      { "speaker": "Robin", "text": "Imorgon klockan tre." },
+      { "speaker": "Maja", "text": "Bra, vi ses då. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad vill Robin göra?", "options": ["Spela fotboll", "Fika", "Simma"], "correctIndex": 0 },
+      { "q": "När ska de spela?", "options": ["Klockan två", "Klockan fyra", "Klockan tre"], "correctIndex": 2 }
+    ],
+    "sort_order": 24
+  }
+]

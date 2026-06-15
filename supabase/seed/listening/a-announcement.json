@@ -1,0 +1,627 @@
+[
+  {
+    "id": "a-utrop-001",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är i en affär.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej och välkommen! Affären stänger klockan sex. Tack för i dag."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger affären?",
+        "options": ["Klockan fem", "Klockan sex", "Klockan sju"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var är du?",
+        "options": ["I en affär", "På en buss", "I skolan"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "a-utrop-002",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du väntar på en buss.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Bussen till centrum kommer klockan tre. Vänta vid hållplatsen, tack."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När kommer bussen?",
+        "options": ["Klockan två", "Klockan tre", "Klockan fyra"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vart går bussen?",
+        "options": ["Till centrum", "Till skolan", "Till affären"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "a-utrop-003",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är i skolan.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "God morgon! Lektionen börjar klockan nio. Gå till sal två, tack."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När börjar lektionen?",
+        "options": ["Klockan åtta", "Klockan nio", "Klockan tio"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilken sal?",
+        "options": ["Sal ett", "Sal två", "Sal tre"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "a-utrop-004",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på en marknad.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Köp äpplen i dag! Äpplen kostar tio kronor. Varsågod och köp."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar äpplen?",
+        "options": ["Tio kronor", "Tjugo kronor", "Trettio kronor"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad säljer de?",
+        "options": ["Bröd", "Äpplen", "Mjölk"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "a-utrop-005",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på ett bibliotek.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Biblioteket stänger klockan åtta. Lämna böckerna nu, tack."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger biblioteket?",
+        "options": ["Klockan sju", "Klockan åtta", "Klockan nio"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad ska du lämna?",
+        "options": ["Böckerna", "Pengarna", "Maten"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "a-utrop-006",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på en station.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Tåget till Stockholm går klockan fyra. Spår ett, tack."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När går tåget?",
+        "options": ["Klockan tre", "Klockan fyra", "Klockan fem"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilket spår?",
+        "options": ["Spår ett", "Spår två", "Spår tre"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "a-utrop-007",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är i en mataffär.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "I dag är bröd billigt. Ett bröd kostar fem kronor. Köp nu!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar ett bröd?",
+        "options": ["Fem kronor", "Tio kronor", "Femton kronor"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad är billigt i dag?",
+        "options": ["Mjölk", "Bröd", "Ost"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "a-utrop-008",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på ett kafé.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Välkommen! Kaffe kostar femton kronor. Kaféet öppnar klockan sju."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar kaffe?",
+        "options": ["Tio kronor", "Femton kronor", "Tjugo kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När öppnar kaféet?",
+        "options": ["Klockan sex", "Klockan sju", "Klockan åtta"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "a-utrop-009",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på en flygplats.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Flyget till Oslo går klockan tolv. Gå till gate fem nu, tack."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När går flyget?",
+        "options": ["Klockan elva", "Klockan tolv", "Klockan tio"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilken gate?",
+        "options": ["Gate tre", "Gate fyra", "Gate fem"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "a-utrop-010",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är i en klädaffär.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej! En tröja kostar hundra kronor i dag. Affären stänger klockan nio."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar en tröja?",
+        "options": ["Femtio kronor", "Hundra kronor", "Tvåhundra kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När stänger affären?",
+        "options": ["Klockan åtta", "Klockan nio", "Klockan tio"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "a-utrop-011",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på en simhall.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Simhallen stänger klockan sju. Ett bad kostar tjugo kronor."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar ett bad?",
+        "options": ["Tio kronor", "Tjugo kronor", "Trettio kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När stänger simhallen?",
+        "options": ["Klockan sex", "Klockan sju", "Klockan åtta"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "a-utrop-012",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på en buss.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Nästa hållplats är torget. En biljett kostar tjugofem kronor."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar en biljett?",
+        "options": ["Tjugo kronor", "Tjugofem kronor", "Trettio kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilken är nästa hållplats?",
+        "options": ["Torget", "Skolan", "Affären"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "a-utrop-013",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är i en park.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Parken stänger klockan tio. Gå hem nu, tack. Ha en bra kväll!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger parken?",
+        "options": ["Klockan nio", "Klockan tio", "Klockan elva"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad ska du göra?",
+        "options": ["Gå hem", "Sova här", "Äta mat"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "a-utrop-014",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på en bensinstation.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "En kaffe kostar tio kronor här. Stationen öppnar klockan sex."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar en kaffe?",
+        "options": ["Fem kronor", "Tio kronor", "Femton kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När öppnar stationen?",
+        "options": ["Klockan fem", "Klockan sex", "Klockan sju"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "a-utrop-015",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är i en skola.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Rasten börjar klockan elva. Gå ut och ät, tack. Lektionen är slut."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När börjar rasten?",
+        "options": ["Klockan tio", "Klockan elva", "Klockan tolv"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad ska du göra?",
+        "options": ["Sova", "Läsa", "Gå ut och äta"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "a-utrop-016",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på ett torg.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Köp blommor här! En blomma kostar tjugo kronor. Varsågod!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar en blomma?",
+        "options": ["Tio kronor", "Tjugo kronor", "Trettio kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad säljer de?",
+        "options": ["Blommor", "Bröd", "Böcker"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "a-utrop-017",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på en tunnelbana.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Tåget kommer klockan två. Stå bakom linjen, tack. Var försiktig."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När kommer tåget?",
+        "options": ["Klockan ett", "Klockan två", "Klockan tre"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var ska du stå?",
+        "options": ["Framför linjen", "Bakom linjen", "På tåget"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "a-utrop-018",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är i en apotek.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Apoteket öppnar klockan nio. Vänta utanför, tack. God morgon!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När öppnar apoteket?",
+        "options": ["Klockan åtta", "Klockan nio", "Klockan tio"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var ska du vänta?",
+        "options": ["Inne", "Utanför", "På bussen"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "a-utrop-019",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på en restaurang.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "I dag kostar lunch sextio kronor. Restaurangen öppnar klockan elva."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar lunch?",
+        "options": ["Femtio kronor", "Sextio kronor", "Sjuttio kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När öppnar restaurangen?",
+        "options": ["Klockan tio", "Klockan elva", "Klockan tolv"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "a-utrop-020",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på en station.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Bussen till skolan går klockan åtta. Glöm inte din biljett, tack."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När går bussen?",
+        "options": ["Klockan sju", "Klockan åtta", "Klockan nio"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vart går bussen?",
+        "options": ["Till skolan", "Till torget", "Till parken"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "a-utrop-021",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är i en affär.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Mjölk kostar tolv kronor i dag. Affären öppnar klockan åtta."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar mjölk?",
+        "options": ["Tio kronor", "Tolv kronor", "Femton kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När öppnar affären?",
+        "options": ["Klockan sju", "Klockan åtta", "Klockan nio"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "a-utrop-022",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på en bio.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Filmen börjar klockan sju. En biljett kostar hundra kronor. Välkommen!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När börjar filmen?",
+        "options": ["Klockan sex", "Klockan sju", "Klockan åtta"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad kostar en biljett?",
+        "options": ["Femtio kronor", "Hundra kronor", "Hundrafemtio kronor"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "a-utrop-023",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på ett sjukhus.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Doktorn kommer klockan tio. Vänta i rum tre, tack. Ha tålamod."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När kommer doktorn?",
+        "options": ["Klockan nio", "Klockan tio", "Klockan elva"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilket rum?",
+        "options": ["Rum ett", "Rum två", "Rum tre"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "a-utrop-024",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är på en marknad.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Fisk är billig i dag! Fisk kostar fyrtio kronor. Köp nu, tack."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar fisk?",
+        "options": ["Trettio kronor", "Fyrtio kronor", "Femtio kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad är billigt i dag?",
+        "options": ["Kött", "Fisk", "Bröd"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "a-utrop-025",
+    "course": "A",
+    "type": "announcement",
+    "intro": "Du är i ett köpcentrum.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Köpcentret stänger klockan nio. Tack för i dag och välkommen åter!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger köpcentret?",
+        "options": ["Klockan åtta", "Klockan nio", "Klockan tio"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var är du?",
+        "options": ["I ett köpcentrum", "På en buss", "I en park"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 24
+  }
+]

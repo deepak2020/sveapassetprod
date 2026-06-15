@@ -125,6 +125,7 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
                   <Link
                     key={lesson.id}
                     to={`/language/${lesson.id}`}
+                    state={{ from: "/dashboard" }}
                     className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${isDone ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800" : isPrereq ? "bg-background border-blue-300/70 dark:border-blue-700/60 hover:border-blue-400" : isWeak ? "bg-background border-amber-300/70 dark:border-amber-700/60 hover:border-amber-400" : "bg-background border-border hover:border-primary/50"}`}
                   >
                     {isDone
@@ -154,10 +155,10 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
           <div className="space-y-2">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Daglig övning · Daily practice</p>
             <div className="grid grid-cols-3 gap-2">
-              <Link to={`/language/${practiceId}?tab=speaking`} className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-border bg-background hover:border-primary/50 transition-all text-center">
+              <Link to={`/language/${practiceId}?tab=speaking`} state={{ from: "/dashboard" }} className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-border bg-background hover:border-primary/50 transition-all text-center">
                 <span className="text-lg">🗣️</span><span className="text-xs font-medium">Tala</span>
               </Link>
-              <Link to={`/language/${practiceId}?tab=writing`} className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-border bg-background hover:border-primary/50 transition-all text-center">
+              <Link to={`/language/${practiceId}?tab=writing`} state={{ from: "/dashboard" }} className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-border bg-background hover:border-primary/50 transition-all text-center">
                 <span className="text-lg">✍️</span><span className="text-xs font-medium">Skriva</span>
               </Link>
               <Link to={`/listening/${(plan.course || "C").toLowerCase()}`} className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-border bg-background hover:border-primary/50 transition-all text-center">
