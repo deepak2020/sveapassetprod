@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { Link } from "react-router-dom";
 import { CalendarDays, CheckCircle2, Circle, Trash2, ArrowRight, History, Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -42,7 +43,13 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
   const todayStr = new Date().toISOString().slice(0, 10);
   const planKey = `svenska:dayplan:${plan.id || "p"}:${todayStr}`;
 
+  // Prefer the server-stored set (cross-device) when the today_plan column
+  // exists and is for today; otherwise fall back to this device's localStorage.
+  const hasServerCol = plan && Object.prototype.hasOwnProperty.call(plan, "today_plan");
+  const serverToday = hasServerCol && plan.today_plan?.date === todayStr ? plan.today_plan.lesson_ids : null;
+
   const [todayIds, setTodayIds] = useState(() => {
+    if (Array.isArray(serverToday) && serverToday.length) return serverToday;
     try { const s = JSON.parse(localStorage.getItem(planKey) || "null"); return Array.isArray(s) ? s : null; } catch { return null; }
   });
 
@@ -57,7 +64,12 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
     const ids = seedSelection.map((l) => l.id);
     setTodayIds(ids);
     try { localStorage.setItem(planKey, JSON.stringify(ids)); } catch { /* ignore */ }
-  }, [todayIds, isLoading, catalog, seedSelection, planKey]);
+    // Persist to the plan row for cross-device consistency (no-op if the
+    // today_plan column hasn't been added yet).
+    if (hasServerCol && plan.id) {
+      supabase.from("study_plans").update(plan.id, { today_plan: { date: todayStr, lesson_ids: ids } });
+    }
+  }, [todayIds, isLoading, catalog, seedSelection, planKey, hasServerCol, plan.id, todayStr]);
 
   // Resolve the fixed set into lessons (preserving completed ones, shown done).
   const byId = new Map(catalog.map((l) => [l.id, l]));
