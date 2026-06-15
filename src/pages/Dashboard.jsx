@@ -21,9 +21,7 @@ import WeakAreaCard from "../components/dashboard/WeakAreaCard";
 import MasteryCard from "../components/dashboard/MasteryCard";
 import CoachCard from "../components/dashboard/CoachCard";
 import DailyQuizCard from "../components/dashboard/DailyQuizCard";
-import DailyChallenge from "../components/dashboard/DailyChallenge";
 import DailyReviewCard from "../components/dashboard/DailyReviewCard";
-import QuickRevision from "../components/dashboard/QuickRevision";
 import TodaysPlanCard from "../components/planner/TodaysPlanCard";
 import CreateStudyPlanModal from "../components/planner/CreateStudyPlanModal";
 import { useStudyPlan } from "@/hooks/useStudyPlan";
@@ -237,12 +235,6 @@ export default function Dashboard() {
 
       {/* Four short quiz check-ins through the day */}
       <DailyQuizCard results={results} />
-
-      {/* Daily challenge */}
-      <DailyChallenge />
-
-      {/* Quick revision — completed lessons */}
-      <QuickRevision />
 
       {/* Personalised LLM coaching message */}
       <CoachCard results={results} />

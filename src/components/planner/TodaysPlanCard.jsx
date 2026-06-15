@@ -46,8 +46,6 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
   // Insert any unmet prerequisites (foundation lessons) before their dependents.
   const planned = applyPrerequisites(orderedLessons, catalog, completed, dailyTarget);
 
-  const practiceId = planned[0]?.id;
-
   return (
     <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
       <CardContent className="p-5 space-y-4">
@@ -149,24 +147,6 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
             </div>
           )}
         </div>
-
-        {/* Daily practice — the skills the lesson schedule doesn't cover */}
-        {practiceId && (
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Daglig övning · Daily practice</p>
-            <div className="grid grid-cols-3 gap-2">
-              <Link to={`/language/${practiceId}?tab=speaking`} state={{ from: "/dashboard" }} className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-border bg-background hover:border-primary/50 transition-all text-center">
-                <span className="text-lg">🗣️</span><span className="text-xs font-medium">Tala</span>
-              </Link>
-              <Link to={`/language/${practiceId}?tab=writing`} state={{ from: "/dashboard" }} className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-border bg-background hover:border-primary/50 transition-all text-center">
-                <span className="text-lg">✍️</span><span className="text-xs font-medium">Skriva</span>
-              </Link>
-              <Link to={`/listening/${(plan.course || "C").toLowerCase()}`} className="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-border bg-background hover:border-primary/50 transition-all text-center">
-                <span className="text-lg">🎧</span><span className="text-xs font-medium">Lyssna</span>
-              </Link>
-            </div>
-          </div>
-        )}
 
       </CardContent>
     </Card>
