@@ -1,0 +1,352 @@
+[
+  {
+    "id": "a-ber-001",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Anna", "text": "Hej! Jag heter Anna. Jag kommer från Sverige. Jag bor i Stockholm. Jag är 25 år. Jag har en katt. Jag gillar kaffe."}
+    ],
+    "questions": [
+      {"q": "Var bor Anna?", "options": ["Göteborg", "Stockholm", "Malmö"], "correctIndex": 1},
+      {"q": "Vad gillar Anna?", "options": ["Kaffe", "Te", "Vatten"], "correctIndex": 0}
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "a-ber-002",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Omar", "text": "Hej! Jag heter Omar. Jag kommer från Syrien. Jag bor i Malmö. Jag har två barn. Jag är lärare. Jag gillar te."}
+    ],
+    "questions": [
+      {"q": "Var kommer Omar från?", "options": ["Irak", "Syrien", "Iran"], "correctIndex": 1},
+      {"q": "Hur många barn har Omar?", "options": ["Ett", "Tre", "Två"], "correctIndex": 2}
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "a-ber-003",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Fatima", "text": "Hej! Jag heter Fatima. Jag är 30 år. Jag bor i Göteborg. Jag har en man. Jag är sjuksköterska. Jag gillar röd färg."}
+    ],
+    "questions": [
+      {"q": "Hur gammal är Fatima?", "options": ["20 år", "30 år", "40 år"], "correctIndex": 1},
+      {"q": "Vilken färg gillar Fatima?", "options": ["Blå", "Grön", "Röd"], "correctIndex": 2}
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "a-ber-004",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Erik", "text": "Hej! Jag heter Erik. Jag kommer från Norge. Jag bor i Uppsala. Jag är student. Jag har en hund. Jag gillar pizza."}
+    ],
+    "questions": [
+      {"q": "Var kommer Erik från?", "options": ["Norge", "Sverige", "Danmark"], "correctIndex": 0},
+      {"q": "Vad gillar Erik?", "options": ["Soppa", "Pizza", "Sallad"], "correctIndex": 1}
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "a-ber-005",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Maria", "text": "Hej! Jag heter Maria. Jag är 22 år. Jag kommer från Polen. Jag bor i Lund. Jag har en syster. Jag gillar musik."}
+    ],
+    "questions": [
+      {"q": "Var kommer Maria från?", "options": ["Tyskland", "Polen", "Spanien"], "correctIndex": 1},
+      {"q": "Vad gillar Maria?", "options": ["Musik", "Film", "Sport"], "correctIndex": 0}
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "a-ber-006",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Ahmed", "text": "Hej! Jag heter Ahmed. Jag bor i Stockholm. Jag är 40 år. Jag har tre barn. Jag är taxichaufför. Jag gillar fotboll."}
+    ],
+    "questions": [
+      {"q": "Hur många barn har Ahmed?", "options": ["Två", "Tre", "Fyra"], "correctIndex": 1},
+      {"q": "Vad gillar Ahmed?", "options": ["Tennis", "Hockey", "Fotboll"], "correctIndex": 2}
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "a-ber-007",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Sara", "text": "Hej! Jag heter Sara. Jag är 28 år. Jag kommer från Finland. Jag bor i Umeå. Jag har en katt. Jag äter frukost klockan sju."}
+    ],
+    "questions": [
+      {"q": "Var kommer Sara från?", "options": ["Finland", "Sverige", "Norge"], "correctIndex": 0},
+      {"q": "När äter Sara frukost?", "options": ["Klockan sex", "Klockan sju", "Klockan åtta"], "correctIndex": 1}
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "a-ber-008",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Lucas", "text": "Hej! Jag heter Lucas. Jag kommer från Brasilien. Jag bor i Borås. Jag är 35 år. Jag har en fru. Jag gillar grön färg."}
+    ],
+    "questions": [
+      {"q": "Var kommer Lucas från?", "options": ["Brasilien", "Portugal", "Mexiko"], "correctIndex": 0},
+      {"q": "Vilken färg gillar Lucas?", "options": ["Röd", "Gul", "Grön"], "correctIndex": 2}
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "a-ber-009",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Aisha", "text": "Hej! Jag heter Aisha. Jag är 19 år. Jag kommer från Somalia. Jag bor i Örebro. Jag är student. Jag gillar te."}
+    ],
+    "questions": [
+      {"q": "Hur gammal är Aisha?", "options": ["19 år", "29 år", "39 år"], "correctIndex": 0},
+      {"q": "Vad gillar Aisha?", "options": ["Kaffe", "Te", "Juice"], "correctIndex": 1}
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "a-ber-010",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Johan", "text": "Hej! Jag heter Johan. Jag kommer från Sverige. Jag bor i Kiruna. Jag är 50 år. Jag har två hundar. Jag gillar fisk."}
+    ],
+    "questions": [
+      {"q": "Var bor Johan?", "options": ["Kiruna", "Stockholm", "Lund"], "correctIndex": 0},
+      {"q": "Vad gillar Johan?", "options": ["Kött", "Fisk", "Bröd"], "correctIndex": 1}
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "a-ber-011",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Elena", "text": "Hej! Jag heter Elena. Jag kommer från Rumänien. Jag bor i Helsingborg. Jag är 33 år. Jag har en son. Jag gillar blå färg."}
+    ],
+    "questions": [
+      {"q": "Var kommer Elena från?", "options": ["Bulgarien", "Rumänien", "Ungern"], "correctIndex": 1},
+      {"q": "Vilken färg gillar Elena?", "options": ["Blå", "Röd", "Grön"], "correctIndex": 0}
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "a-ber-012",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Hassan", "text": "Hej! Jag heter Hassan. Jag är 45 år. Jag kommer från Afghanistan. Jag bor i Västerås. Jag är kock. Jag gillar ris."}
+    ],
+    "questions": [
+      {"q": "Vad jobbar Hassan med?", "options": ["Lärare", "Kock", "Läkare"], "correctIndex": 1},
+      {"q": "Vad gillar Hassan?", "options": ["Pasta", "Potatis", "Ris"], "correctIndex": 2}
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "a-ber-013",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Linnea", "text": "Hej! Jag heter Linnea. Jag kommer från Sverige. Jag bor i Visby. Jag är 27 år. Jag har en bror. Jag dricker kaffe på morgonen."}
+    ],
+    "questions": [
+      {"q": "Var bor Linnea?", "options": ["Visby", "Umeå", "Borås"], "correctIndex": 0},
+      {"q": "Vad dricker Linnea på morgonen?", "options": ["Te", "Juice", "Kaffe"], "correctIndex": 2}
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "a-ber-014",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Mei", "text": "Hej! Jag heter Mei. Jag kommer från Kina. Jag bor i Linköping. Jag är 31 år. Jag har en dotter. Jag gillar nudlar."}
+    ],
+    "questions": [
+      {"q": "Var kommer Mei från?", "options": ["Japan", "Kina", "Korea"], "correctIndex": 1},
+      {"q": "Vad gillar Mei?", "options": ["Nudlar", "Bröd", "Soppa"], "correctIndex": 0}
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "a-ber-015",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Karim", "text": "Hej! Jag heter Karim. Jag är 38 år. Jag kommer från Marocko. Jag bor i Jönköping. Jag är busschaufför. Jag gillar gul färg."}
+    ],
+    "questions": [
+      {"q": "Var kommer Karim från?", "options": ["Egypten", "Tunisien", "Marocko"], "correctIndex": 2},
+      {"q": "Vilken färg gillar Karim?", "options": ["Gul", "Röd", "Blå"], "correctIndex": 0}
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "a-ber-016",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Ingrid", "text": "Hej! Jag heter Ingrid. Jag kommer från Sverige. Jag bor i Falun. Jag är 62 år. Jag har fyra barnbarn. Jag gillar att läsa."}
+    ],
+    "questions": [
+      {"q": "Hur gammal är Ingrid?", "options": ["52 år", "62 år", "72 år"], "correctIndex": 1},
+      {"q": "Hur många barnbarn har Ingrid?", "options": ["Två", "Tre", "Fyra"], "correctIndex": 2}
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "a-ber-017",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Diego", "text": "Hej! Jag heter Diego. Jag kommer från Chile. Jag bor i Gävle. Jag är 29 år. Jag har en katt. Jag gillar att sjunga."}
+    ],
+    "questions": [
+      {"q": "Var kommer Diego från?", "options": ["Chile", "Peru", "Argentina"], "correctIndex": 0},
+      {"q": "Vad gillar Diego?", "options": ["Att dansa", "Att sjunga", "Att simma"], "correctIndex": 1}
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "a-ber-018",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Priya", "text": "Hej! Jag heter Priya. Jag kommer från Indien. Jag bor i Sundsvall. Jag är 34 år. Jag är läkare. Jag gillar varm mat."}
+    ],
+    "questions": [
+      {"q": "Vad jobbar Priya med?", "options": ["Lärare", "Kock", "Läkare"], "correctIndex": 2},
+      {"q": "Var bor Priya?", "options": ["Sundsvall", "Stockholm", "Malmö"], "correctIndex": 0}
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "a-ber-019",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Nils", "text": "Hej! Jag heter Nils. Jag kommer från Sverige. Jag bor i Karlstad. Jag är 18 år. Jag är student. Jag spelar fotboll på fredag."}
+    ],
+    "questions": [
+      {"q": "Hur gammal är Nils?", "options": ["18 år", "28 år", "38 år"], "correctIndex": 0},
+      {"q": "Vilken dag spelar Nils fotboll?", "options": ["Måndag", "Onsdag", "Fredag"], "correctIndex": 2}
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "a-ber-020",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Zara", "text": "Hej! Jag heter Zara. Jag kommer från Iran. Jag bor i Norrköping. Jag är 26 år. Jag har en syster. Jag gillar att måla."}
+    ],
+    "questions": [
+      {"q": "Var kommer Zara från?", "options": ["Irak", "Iran", "Turkiet"], "correctIndex": 1},
+      {"q": "Vad gillar Zara?", "options": ["Att måla", "Att läsa", "Att springa"], "correctIndex": 0}
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "a-ber-021",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Pablo", "text": "Hej! Jag heter Pablo. Jag kommer från Spanien. Jag bor i Halmstad. Jag är 41 år. Jag har två barn. Jag gillar att laga mat."}
+    ],
+    "questions": [
+      {"q": "Hur många barn har Pablo?", "options": ["Ett", "Två", "Tre"], "correctIndex": 1},
+      {"q": "Vad gillar Pablo?", "options": ["Att städa", "Att laga mat", "Att sova"], "correctIndex": 1}
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "a-ber-022",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Amina", "text": "Hej! Jag heter Amina. Jag kommer från Eritrea. Jag bor i Eskilstuna. Jag är 23 år. Jag är student. Jag gillar att gå på promenad."}
+    ],
+    "questions": [
+      {"q": "Var kommer Amina från?", "options": ["Etiopien", "Eritrea", "Somalia"], "correctIndex": 1},
+      {"q": "Hur gammal är Amina?", "options": ["23 år", "33 år", "43 år"], "correctIndex": 0}
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "a-ber-023",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Gustav", "text": "Hej! Jag heter Gustav. Jag kommer från Sverige. Jag bor i Lund. Jag är 55 år. Jag har en fru. Jag dricker te på kvällen."}
+    ],
+    "questions": [
+      {"q": "Var bor Gustav?", "options": ["Lund", "Kiruna", "Gävle"], "correctIndex": 0},
+      {"q": "Vad dricker Gustav på kvällen?", "options": ["Kaffe", "Vatten", "Te"], "correctIndex": 2}
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "a-ber-024",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Tuan", "text": "Hej! Jag heter Tuan. Jag kommer från Vietnam. Jag bor i Trollhättan. Jag är 37 år. Jag är frisör. Jag gillar att fiska."}
+    ],
+    "questions": [
+      {"q": "Var kommer Tuan från?", "options": ["Thailand", "Vietnam", "Kina"], "correctIndex": 1},
+      {"q": "Vad jobbar Tuan med?", "options": ["Frisör", "Kock", "Lärare"], "correctIndex": 0}
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "a-ber-025",
+    "course": "A",
+    "type": "monologue",
+    "intro": "En person berättar om sig själv.",
+    "transcript": [
+      {"speaker": "Sofia", "text": "Hej! Jag heter Sofia. Jag kommer från Grekland. Jag bor i Kalmar. Jag är 32 år. Jag har en son. Jag gillar vit färg."}
+    ],
+    "questions": [
+      {"q": "Var kommer Sofia från?", "options": ["Italien", "Grekland", "Spanien"], "correctIndex": 1},
+      {"q": "Vilken färg gillar Sofia?", "options": ["Svart", "Röd", "Vit"], "correctIndex": 2}
+    ],
+    "sort_order": 24
+  }
+]
