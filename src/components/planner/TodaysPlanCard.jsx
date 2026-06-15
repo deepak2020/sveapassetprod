@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { CalendarDays, CheckCircle2, Circle, Trash2, ArrowRight, History, Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useDailyReview } from "@/hooks/useDailyReview";
-import { skillMastery, weakestSkills, selectDailyLessons } from "@/lib/planner";
+import { skillMastery, weakestSkills, selectDailyLessons, applyPrerequisites } from "@/lib/planner";
 
 export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgress, getBehindCount, getDailyTarget, results = [] }) {
   const dayNumber = getDayNumber();
@@ -43,7 +43,10 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
     perDay: dailyTarget,
   });
 
-  const practiceId = orderedLessons[0]?.id;
+  // Insert any unmet prerequisites (foundation lessons) before their dependents.
+  const planned = applyPrerequisites(orderedLessons, catalog, completed, dailyTarget);
+
+  const practiceId = planned[0]?.id;
 
   return (
     <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
@@ -113,15 +116,16 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
             <p className="text-sm text-muted-foreground italic">You've finished everything in your plan 🎉</p>
           ) : (
             <div className="space-y-2">
-              {orderedLessons.map(lesson => {
+              {planned.map(lesson => {
                 const isDone = completed.includes(lesson.id);
                 const lessonSkill = lesson.skill || lesson.category;
-                const isWeak = weakestKey && lessonSkill === weakestKey && !isDone;
+                const isWeak = weakestKey && lessonSkill === weakestKey && !isDone && !lesson.prereqFor;
+                const isPrereq = !!lesson.prereqFor && !isDone;
                 return (
                   <Link
                     key={lesson.id}
                     to={`/language/${lesson.id}`}
-                    className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${isDone ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800" : isWeak ? "bg-background border-amber-300/70 dark:border-amber-700/60 hover:border-amber-400" : "bg-background border-border hover:border-primary/50"}`}
+                    className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${isDone ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800" : isPrereq ? "bg-background border-blue-300/70 dark:border-blue-700/60 hover:border-blue-400" : isWeak ? "bg-background border-amber-300/70 dark:border-amber-700/60 hover:border-amber-400" : "bg-background border-border hover:border-primary/50"}`}
                   >
                     {isDone
                       ? <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 shrink-0" />
@@ -133,6 +137,7 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
                       </p>
                       <p className="text-xs text-muted-foreground">
                         {lessonSkill} · Kurs {lesson.sfi_course}
+                        {isPrereq && <span className="ml-1.5 text-[10px] font-bold text-blue-600 dark:text-blue-400">🔗 foundation first</span>}
                         {isWeak && <span className="ml-1.5 text-[10px] font-bold text-amber-600 dark:text-amber-400">· weakest skill</span>}
                       </p>
                     </div>
