@@ -53,14 +53,56 @@ export function useStudyPlan(userId) {
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   };
 
-  const getTodaysLessons = () => {
+  const getSchedule = () => {
     if (!plan?.daily_schedule) return [];
-    const today = getLocalDate();
-    const schedule = typeof plan.daily_schedule === 'string'
+    return typeof plan.daily_schedule === 'string'
       ? JSON.parse(plan.daily_schedule)
       : plan.daily_schedule;
-    const todayEntry = schedule.find(d => d.date === today);
-    return todayEntry?.lesson_ids || [];
+  };
+
+  // Intended daily pace = average lessons per scheduled day.
+  const getPerDay = () => {
+    const schedule = getSchedule();
+    if (!schedule.length) return 3;
+    const total = schedule.reduce((s, d) => s + (d.lesson_ids?.length || 0), 0);
+    return Math.max(1, Math.ceil(total / schedule.length));
+  };
+
+  // Lessons scheduled on or before today that aren't done yet, oldest first.
+  const getDueQueue = () => {
+    const today = getLocalDate();
+    const completed = plan?.completed_lesson_ids || [];
+    return getSchedule()
+      .filter(d => d.date <= today)
+      .flatMap(d => d.lesson_ids || [])
+      .filter(id => !completed.includes(id));
+  };
+
+  // Today's plan: the next `perDay` unfinished lessons from the due queue, so
+  // missed days carry forward (capped so a long absence isn't overwhelming).
+  // When fully caught up, offer the next upcoming lessons to study ahead.
+  const getTodaysLessons = () => {
+    const perDay = getPerDay();
+    const due = getDueQueue();
+    if (due.length) return due.slice(0, perDay);
+    const today = getLocalDate();
+    const completed = plan?.completed_lesson_ids || [];
+    const upcoming = getSchedule()
+      .filter(d => d.date > today)
+      .flatMap(d => d.lesson_ids || [])
+      .filter(id => !completed.includes(id));
+    return upcoming.slice(0, perDay);
+  };
+
+  // How many lessons are overdue (scheduled strictly before today, not done).
+  const getBehindCount = () => {
+    const today = getLocalDate();
+    const completed = plan?.completed_lesson_ids || [];
+    return getSchedule()
+      .filter(d => d.date < today)
+      .flatMap(d => d.lesson_ids || [])
+      .filter(id => !completed.includes(id))
+      .length;
   };
 
   const getDayNumber = () => {
@@ -78,5 +120,5 @@ export function useStudyPlan(userId) {
     return total > 0 ? Math.round((completed / total) * 100) : 0;
   };
 
-  return { plan, loading, createPlan, deletePlan, markLessonComplete, getTodaysLessons, getDayNumber, getProgress, refetch: fetchPlan };
+  return { plan, loading, createPlan, deletePlan, markLessonComplete, getTodaysLessons, getDayNumber, getProgress, getBehindCount, refetch: fetchPlan };
 }

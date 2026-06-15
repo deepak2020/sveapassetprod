@@ -1,13 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
-import { CalendarDays, CheckCircle2, Circle, Trash2, ArrowRight } from "lucide-react";
+import { CalendarDays, CheckCircle2, Circle, Trash2, ArrowRight, History, Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useDailyReview } from "@/hooks/useDailyReview";
+import { skillMastery, weakestSkills } from "@/lib/planner";
 
-export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgress, getTodaysLessons }) {
+export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgress, getTodaysLessons, getBehindCount, results = [] }) {
   const todayLessonIds = getTodaysLessons();
   const dayNumber = getDayNumber();
   const progress = getProgress();
+  const behind = getBehindCount ? getBehindCount() : 0;
   const completed = plan.completed_lesson_ids || [];
 
   const allCourses = [plan.course, ...(plan.include_courses || [])];
@@ -26,8 +29,19 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
     enabled: todayLessonIds.length > 0,
   });
 
+  // ── Adaptive layer: lead with the weakest skill + the warm-up ──────────
+  const { totalDue, isDone } = useDailyReview();
+  const weak = weakestSkills(skillMastery((results || []).filter(r => r.skill && typeof r.percentage === "number")), 2);
+  const weakKeys = new Set(weak.map(s => s.key));
+  const weakestKey = weak[0]?.key;
+
+  // Mastery-driven ordering: weakest-skill lessons first.
+  const orderedLessons = [...todayLessons].sort(
+    (a, b) => (weakKeys.has(b.skill || b.category) ? 1 : 0) - (weakKeys.has(a.skill || a.category) ? 1 : 0)
+  );
+
   // A lesson to anchor speaking/writing practice on (first of today's).
-  const practiceId = todayLessons[0]?.id || todayLessonIds[0];
+  const practiceId = orderedLessons[0]?.id || todayLessonIds[0];
 
   return (
     <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
@@ -64,9 +78,31 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
           </div>
         </div>
 
-        {/* Today's lessons */}
+        {/* Catch-up notice — unfinished lessons carry forward, never lost */}
+        {behind > 0 && (
+          <div className="flex items-start gap-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 px-3 py-2">
+            <History className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <p className="text-xs text-amber-800 dark:text-amber-300">
+              {behind} {behind === 1 ? "lektion" : "lektioner"} att komma ikapp · <span className="italic">{behind} lesson{behind === 1 ? "" : "s"} to catch up — added to today's plan first, at your own pace.</span>
+            </p>
+          </div>
+        )}
+
+        {/* Warm-up first — spaced-repetition review before new material */}
+        {totalDue > 0 && !isDone && (
+          <div className="flex items-start gap-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 px-3 py-2">
+            <Flame className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <p className="text-xs text-amber-800 dark:text-amber-300">
+              <span className="font-semibold">Warm up first</span> · {Math.min(totalDue, 10)} word{totalDue === 1 ? "" : "s"} due — do your Daily Warm-up below before new lessons.
+            </p>
+          </div>
+        )}
+
+        {/* Today's lessons — ordered by your weakest skill */}
         <div className="space-y-2">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Today's lessons</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            {behind > 0 ? "Today's lessons · incl. catch-up" : "Today's lessons"}
+          </p>
           {todayLessonIds.length === 0 ? (
             <p className="text-sm text-muted-foreground italic">No lessons scheduled for today 🎉</p>
           ) : todayLessons.length === 0 ? (
@@ -77,13 +113,15 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
             </div>
           ) : (
             <div className="space-y-2">
-              {todayLessons.map(lesson => {
+              {orderedLessons.map(lesson => {
                 const isDone = completed.includes(lesson.id);
+                const lessonSkill = lesson.skill || lesson.category;
+                const isWeak = weakestKey && lessonSkill === weakestKey && !isDone;
                 return (
                   <Link
                     key={lesson.id}
                     to={`/language/${lesson.id}`}
-                    className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${isDone ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800" : "bg-background border-border hover:border-primary/50"}`}
+                    className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${isDone ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800" : isWeak ? "bg-background border-amber-300/70 dark:border-amber-700/60 hover:border-amber-400" : "bg-background border-border hover:border-primary/50"}`}
                   >
                     {isDone
                       ? <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 shrink-0" />
@@ -93,7 +131,10 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
                       <p className={`text-sm font-medium truncate ${isDone ? "line-through text-muted-foreground" : ""}`}>
                         {lesson.title}
                       </p>
-                      <p className="text-xs text-muted-foreground">{lesson.skill || lesson.category} · Kurs {lesson.sfi_course}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {lessonSkill} · Kurs {lesson.sfi_course}
+                        {isWeak && <span className="ml-1.5 text-[10px] font-bold text-amber-600 dark:text-amber-400">· weakest skill</span>}
+                      </p>
                     </div>
                     {!isDone && <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0" />}
                   </Link>
