@@ -26,6 +26,7 @@ import EmptyState from "../components/shared/EmptyState";
 import SkillBreakdown from "../components/dashboard/SkillBreakdown";
 import WeakAreaCard from "../components/dashboard/WeakAreaCard";
 import MasteryCard from "../components/dashboard/MasteryCard";
+import CoachCard from "../components/dashboard/CoachCard";
 import DailyQuizCard from "../components/dashboard/DailyQuizCard";
 import DailyChallenge from "../components/dashboard/DailyChallenge";
 import DailyReviewCard from "../components/dashboard/DailyReviewCard";
@@ -290,6 +291,9 @@ export default function Dashboard() {
 
       {/* Quick revision — completed lessons */}
       <QuickRevision />
+
+      {/* Personalised LLM coaching message */}
+      <CoachCard results={results} />
 
       {/* Mastery per skill + overall test readiness */}
       <MasteryCard results={results} targetCourse={user.sfi_level} />
