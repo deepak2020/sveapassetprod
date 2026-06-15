@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
@@ -35,16 +36,34 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
   const weak = weakestSkills(mastery, 2);
   const weakestKey = weak[0]?.key;
 
-  const orderedLessons = selectDailyLessons({
-    lessons: catalog,
-    completedIds: completed,
-    focusSkills: plan.focus_skills || [],
-    mastery,
-    perDay: dailyTarget,
+  // Today's plan is a FIXED set, chosen once per day and remembered — so it
+  // doesn't refill endlessly as you finish lessons. Seeded from the intelligent
+  // selection; completed lessons stay in the list (checked off).
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const planKey = `svenska:dayplan:${plan.id || "p"}:${todayStr}`;
+
+  const [todayIds, setTodayIds] = useState(() => {
+    try { const s = JSON.parse(localStorage.getItem(planKey) || "null"); return Array.isArray(s) ? s : null; } catch { return null; }
   });
 
-  // Insert any unmet prerequisites (foundation lessons) before their dependents.
-  const planned = applyPrerequisites(orderedLessons, catalog, completed, dailyTarget);
+  // Fresh selection used only to seed today's set the first time.
+  const seedSelection = applyPrerequisites(
+    selectDailyLessons({ lessons: catalog, completedIds: completed, focusSkills: plan.focus_skills || [], mastery, perDay: dailyTarget }),
+    catalog, completed, dailyTarget
+  );
+
+  useEffect(() => {
+    if (todayIds || isLoading || catalog.length === 0 || seedSelection.length === 0) return;
+    const ids = seedSelection.map((l) => l.id);
+    setTodayIds(ids);
+    try { localStorage.setItem(planKey, JSON.stringify(ids)); } catch { /* ignore */ }
+  }, [todayIds, isLoading, catalog, seedSelection, planKey]);
+
+  // Resolve the fixed set into lessons (preserving completed ones, shown done).
+  const byId = new Map(catalog.map((l) => [l.id, l]));
+  const planned = (todayIds || seedSelection.map((l) => l.id)).map((id) => byId.get(id)).filter(Boolean);
+  const doneToday = planned.filter((l) => completed.includes(l.id)).length;
+  const allDoneToday = planned.length > 0 && doneToday === planned.length;
 
   return (
     <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
@@ -101,16 +120,26 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
           </div>
         )}
 
-        {/* Today's lessons — ordered by your weakest skill */}
+        {/* Today's lessons — a fixed set, picked by your weakest skill */}
         <div className="space-y-2">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            {behind > 0 ? "Today's lessons · picked for you (incl. catch-up)" : "Today's lessons · picked for you"}
-          </p>
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              {behind > 0 ? "Today's lessons · incl. catch-up" : "Today's lessons · picked for you"}
+            </p>
+            {!isLoading && planned.length > 0 && (
+              <span className="text-xs font-semibold text-muted-foreground">{doneToday}/{planned.length} klart idag</span>
+            )}
+          </div>
+          {allDoneToday && (
+            <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 px-3 py-2 text-sm text-emerald-800 dark:text-emerald-300 font-medium">
+              🎉 Klart för idag! · Done for today — kom tillbaka imorgon för nästa pass.
+            </div>
+          )}
           {isLoading ? (
             <div className="space-y-2">
               {[0, 1, 2].map(i => <div key={i} className="h-10 bg-muted animate-pulse rounded-lg" />)}
             </div>
-          ) : orderedLessons.length === 0 ? (
+          ) : planned.length === 0 ? (
             <p className="text-sm text-muted-foreground italic">You've finished everything in your plan 🎉</p>
           ) : (
             <div className="space-y-2">
