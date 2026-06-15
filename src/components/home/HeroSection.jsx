@@ -18,7 +18,7 @@ export default function HeroSection() {
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#006AA7]/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 md:pt-28 md:pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 md:pt-20 md:pb-12">
         <div className="max-w-4xl mx-auto text-center">
 
           {/* Swedish flag icon */}
@@ -82,7 +82,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-12 grid grid-cols-3 gap-3 max-w-lg mx-auto"
+            className="mt-8 grid grid-cols-3 gap-3 max-w-lg mx-auto"
           >
             {stats.map((s) => (
               <div key={s.value} className="text-center p-3 rounded-2xl bg-card/70 border border-border/50 backdrop-blur-sm">
@@ -95,7 +95,7 @@ export default function HeroSection() {
       </div>
 
       {/* Swedish Level Strip */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

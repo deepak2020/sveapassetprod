@@ -32,17 +32,17 @@ const steps = [
 
 export default function QuickStartSection() {
   return (
-    <section className="relative overflow-hidden py-20">
+    <section className="relative overflow-hidden py-12">
       {/* Swedish blue background accent */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#006AA7]/5 via-muted/40 to-[#FECC02]/5 -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
+        <div className="text-center mb-10">
           <h2 className="font-display text-3xl font-bold text-foreground">Your Path to Swedish Fluency</h2>
           <p className="mt-3 text-muted-foreground text-base">Four simple steps to confident Swedish fluency and integration</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
           {steps.map((step, index) => (
             <motion.div
               key={step.number}

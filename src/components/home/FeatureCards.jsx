@@ -1,65 +1,75 @@
 import { Link } from "react-router-dom";
-import { BookOpen, Users, Zap, ArrowRight, Lightbulb, TrendingUp } from "lucide-react";
+import { BookOpen, Sparkles, Headphones, Zap, Users, ArrowRight, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
 const features = [
   {
+    icon: Sparkles,
+    emoji: "🦉",
+    title: "Svea — din AI-tutor",
+    description: "A personal daily plan that picks lessons by your weakest skills, schedules spaced reviews, and explains your mistakes — like a tutor who knows you.",
+    link: "/dashboard",
+    gradient: "from-violet-500/10 to-violet-600/5",
+    border: "hover:border-violet-300/60",
+    iconColor: "bg-violet-100 text-violet-600",
+  },
+  {
     icon: BookOpen,
     emoji: "📖",
     title: "Structured Swedish Courses",
-    description: "Comprehensive lessons covering vocabulary, grammar, reading, writing, and listening — from beginner to advanced levels.",
+    description: "Lessons across vocabulary, grammar, reading, writing, speaking and listening — from Kurs A to D.",
     link: "/language",
     gradient: "from-blue-500/10 to-blue-600/5",
     border: "hover:border-blue-300/60",
     iconColor: "bg-blue-100 text-blue-600",
   },
   {
+    icon: Headphones,
+    emoji: "🎧",
+    title: "Hörförståelse — Listening",
+    description: "Practise with real audio — phone calls, announcements, news and dialogues — just like the national SFI test.",
+    link: "/listening/c",
+    gradient: "from-sky-500/10 to-sky-600/5",
+    border: "hover:border-sky-300/60",
+    iconColor: "bg-sky-100 text-sky-600",
+  },
+  {
     icon: Zap,
     emoji: "💪",
-    title: "Daily Practice Gym",
-    description: "Reinforce your learning with spaced repetition exercises. Practice sentences with gaps, guided by intelligent scheduling that optimizes retention.",
+    title: "Daily Practice & Quizzes",
+    description: "Lock in words with spaced repetition and quick daily quizzes that focus on exactly what you keep getting wrong.",
     link: "/gym",
     gradient: "from-amber-500/10 to-amber-600/5",
     border: "hover:border-amber-300/60",
     iconColor: "bg-amber-100 text-amber-600",
   },
   {
-    icon: Lightbulb,
-    emoji: "🗣️",
-    title: "Conversation & Pronunciation",
-    description: "Learn everyday phrases and natural conversation patterns you'll need in Swedish life — with voice practice and real-world scenarios.",
-    link: "/language",
-    gradient: "from-green-500/10 to-green-600/5",
-    border: "hover:border-green-300/60",
-    iconColor: "bg-green-100 text-green-600",
-  },
-  {
     icon: Users,
     emoji: "🏛️",
     title: "Swedish Culture & Society",
-    description: "Understand Swedish history, government, values, and culture. Build knowledge about how Swedish society works and what connects people here.",
+    description: "Understand Swedish history, government, values and everyday life — the knowledge that connects people here.",
     link: "/civic",
-    gradient: "from-violet-500/10 to-violet-600/5",
-    border: "hover:border-violet-300/60",
-    iconColor: "bg-violet-100 text-violet-600",
+    gradient: "from-rose-500/10 to-rose-600/5",
+    border: "hover:border-rose-300/60",
+    iconColor: "bg-rose-100 text-rose-600",
   },
   {
     icon: TrendingUp,
     emoji: "📊",
-    title: "Track Your Progress",
-    description: "Monitor your practice stats, quiz scores, daily streaks, and overall growth. Stay motivated and celebrate your improvements.",
+    title: "Progress & Test Readiness",
+    description: "See your mastery per skill, a test-readiness score, streaks and weak areas — so you always know what to do next.",
     link: "/dashboard",
-    gradient: "from-chart-3/10 to-chart-3/5",
-    border: "hover:border-chart-3/30",
-    iconColor: "bg-chart-3/10 text-chart-3",
+    gradient: "from-emerald-500/10 to-emerald-600/5",
+    border: "hover:border-emerald-300/60",
+    iconColor: "bg-emerald-100 text-emerald-600",
   },
 ];
 
 export default function FeatureCards() {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div className="text-center mb-12">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="text-center mb-8">
         <div className="inline-flex items-center gap-2 bg-[#FECC02]/20 border border-[#FECC02]/40 rounded-full px-4 py-1.5 text-sm font-medium text-foreground mb-4">
           🇸🇪 Built for your Swedish journey
         </div>
