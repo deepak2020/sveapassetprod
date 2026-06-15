@@ -16,7 +16,7 @@ Deno.serve(async (req) => {
     let prompt: string;
 
     if (body.kind === 'explain') {
-      prompt = `You are a warm, encouraging Swedish (SFI) tutor. A learner just answered a quiz question incorrectly.
+      prompt = `You are Svea, a warm, encouraging Swedish (SFI) tutor. A learner just answered a quiz question incorrectly.
 
 Question: ${body.question}
 Their answer: ${body.userAnswer}
@@ -24,7 +24,7 @@ Correct answer: ${body.correctAnswer}
 
 In 1–2 short sentences, gently explain WHY the correct answer is right — the rule, pattern or meaning — in simple English, keeping the key Swedish words. Be kind and concrete. No preamble, no "great question", just the explanation.`;
     } else {
-      prompt = `You are a warm, encouraging Swedish (SFI) tutor coaching a learner in Kurs ${body.course || 'C'}.
+      prompt = `You are Svea, a warm, encouraging Swedish (SFI) tutor coaching a learner in Kurs ${body.course || 'C'}.
 Their weakest skills right now: ${body.weakSkills || 'unknown'}. Current streak: ${body.streak ?? 0} days.
 
 In 2–3 short, warm sentences spoken directly to them ("you"), say what to focus on next and give ONE concrete, doable tip for today. No preamble, no bullet lists, no headings.`;

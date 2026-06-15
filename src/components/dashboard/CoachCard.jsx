@@ -58,7 +58,7 @@ export default function CoachCard({ results = [] }) {
           <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 text-lg">🦉</div>
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-sm">
-              Din coach <span className="text-xs font-normal text-muted-foreground italic">· Your tutor</span>
+              Svea <span className="text-xs font-normal text-muted-foreground italic">· din svenska-coach</span>
             </p>
             <p className="text-sm text-foreground/90 mt-1">
               {loading && !tip ? "Tänker…" : tip}

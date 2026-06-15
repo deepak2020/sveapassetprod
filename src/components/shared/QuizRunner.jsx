@@ -294,7 +294,7 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
                         disabled={explaining}
                         className="mt-2 text-xs font-semibold text-primary hover:underline disabled:opacity-60"
                       >
-                        {explaining ? "Tänker…" : "🦉 Varför? · Why is this the answer?"}
+                        {explaining ? "Svea tänker…" : "🦉 Fråga Svea · Why is this the answer?"}
                       </button>
                     )
                   )}
