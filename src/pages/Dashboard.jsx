@@ -66,7 +66,7 @@ export default function Dashboard() {
 
   useEffect(() => { healStreak(base44); }, []);
 
-  const { plan, createPlan, deletePlan, getTodaysLessons, getDayNumber, getProgress } = useStudyPlan(user?.id);
+  const { plan, createPlan, deletePlan, getTodaysLessons, getDayNumber, getProgress, getBehindCount } = useStudyPlan(user?.id);
 
   const { data: quizResults } = useQuery({
     queryKey: ["quiz-results-recent"],
@@ -258,6 +258,7 @@ export default function Dashboard() {
           getTodaysLessons={getTodaysLessons}
           getDayNumber={getDayNumber}
           getProgress={getProgress}
+          getBehindCount={getBehindCount}
         />
       ) : (
         <button
