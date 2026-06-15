@@ -6,51 +6,51 @@ import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
 
 // Bump this string with every release to re-show the dialog to all users
-const CURRENT_VERSION = "2025-05-v3";
+const CURRENT_VERSION = "2026-06-v1";
 const STORAGE_KEY = "svenska:whats_new_seen";
 
 const FEATURES = [
   {
+    emoji: "✨",
+    title: "Svea — din AI-tutor",
+    titleEn: "Svea — your AI tutor",
+    desc: "En personlig coach som planerar din dag, väljer rätt övningar och förklarar dina misstag.",
+    descEn: "A personal coach that plans your day, picks the right exercises, and explains your mistakes.",
+  },
+  {
+    emoji: "📋",
+    title: "Smart studieplan",
+    titleEn: "Smart study planner",
+    desc: "Väljer lektioner efter dina svagaste färdigheter, med repetition och ikapp-läsning om du missar en dag.",
+    descEn: "Picks lessons by your weakest skills, with spaced repetition and catch-up if you miss a day.",
+  },
+  {
     emoji: "🎧",
-    title: "Lyssna & skriv",
-    titleEn: "Listen & Write",
-    desc: "Tryck på högtalaren för att höra det rätta svaret — skriv sedan från minnet. Diktat-stil!",
-    descEn: "Tap the speaker to hear the correct answer, then write it from memory. Dictation-style learning.",
+    title: "Hörförståelse",
+    titleEn: "Listening practice",
+    desc: "Riktiga ljudklipp — samtal, telefonsamtal, nyheter och meddelanden — för Kurs A och C.",
+    descEn: "Real audio clips — dialogues, phone calls, news and messages — for Kurs A and C, like the national test.",
   },
   {
-    emoji: "💡",
-    title: "Progressiva ledtrådar",
-    titleEn: "Progressive Hints",
-    desc: "Avslöja svaret ett ord i taget istället för att se allt på en gång. Håller hjärnan igång.",
-    descEn: "Reveal the answer one word at a time instead of seeing it all at once. Keeps your brain working.",
+    emoji: "🧠",
+    title: "Dagens quiz",
+    titleEn: "Daily quizzes",
+    desc: "Korta quiz vid fyra tillfällen under dagen som håller minnet färskt.",
+    descEn: "Short quiz check-ins at four points in the day to keep recall fresh.",
   },
   {
-    emoji: "✏️",
-    title: "Grammatiklektioner",
-    titleEn: "Grammar Mini-Lessons",
-    desc: "Varje rättelse förklarar VARFÖR — grammatikregeln bakom felet, t.ex. \"svenska verb slutar på -r i presens\".",
-    descEn: "Every correction explains WHY — the grammar rule behind it, e.g. 'Swedish verbs end in -r in present tense'.",
+    emoji: "📊",
+    title: "Nivå & provberedskap",
+    titleEn: "Mastery & test readiness",
+    desc: "Se din nivå per färdighet och hur redo du är för det nationella provet.",
+    descEn: "See your mastery per skill and how ready you are for the national test.",
   },
   {
-    emoji: "🔄",
-    title: "Revisionsköa",
-    titleEn: "Revision Queue",
-    desc: "Fel svar sparas automatiskt och visas igen tills du behärskar dem.",
-    descEn: "Wrong answers are saved automatically and re-shown until you master them.",
-  },
-  {
-    emoji: "🏛️",
-    title: "Samhällskunskap",
-    titleEn: "Civic Knowledge",
-    desc: "Förbered dig för medborgarskapsprovet med ämnen från Sverige i Fokus.",
-    descEn: "Prepare for the Swedish citizenship test with topics from Sverige i Fokus.",
-  },
-  {
-    emoji: "⚡",
-    title: "Snabb repetition",
-    titleEn: "Quick Revision",
-    desc: "Gör ett snabbt vokabulärquiz på avklarade lektioner direkt från instrumentpanelen.",
-    descEn: "Do a quick vocabulary quiz on completed lessons directly from your dashboard.",
+    emoji: "🔊",
+    title: "Naturligt uttal",
+    titleEn: "Natural pronunciation",
+    desc: "Tydligare, naturliga svenska röster i hela appen.",
+    descEn: "Clearer, natural Swedish voices across the whole app.",
   },
 ];
 
