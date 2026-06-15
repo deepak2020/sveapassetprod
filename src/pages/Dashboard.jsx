@@ -66,7 +66,7 @@ export default function Dashboard() {
 
   useEffect(() => { healStreak(base44); }, []);
 
-  const { plan, createPlan, deletePlan, getTodaysLessons, getDayNumber, getProgress, getBehindCount } = useStudyPlan(user?.id);
+  const { plan, createPlan, deletePlan, getDayNumber, getProgress, getBehindCount, getDailyTarget } = useStudyPlan(user?.id);
 
   const { data: quizResults } = useQuery({
     queryKey: ["quiz-results-recent"],
@@ -255,10 +255,10 @@ export default function Dashboard() {
         <TodaysPlanCard
           plan={plan}
           onDelete={() => { if (window.confirm("Delete your study plan? This cannot be undone.")) { deletePlan(); base44.analytics.track({ eventName: "study_plan_deleted" }); } }}
-          getTodaysLessons={getTodaysLessons}
           getDayNumber={getDayNumber}
           getProgress={getProgress}
           getBehindCount={getBehindCount}
+          getDailyTarget={getDailyTarget}
           results={results}
         />
       ) : (

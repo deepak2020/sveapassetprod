@@ -87,6 +87,39 @@ export function dueReviews(items = [], now = new Date()) {
 // ── Daily plan ──────────────────────────────────────────────────────────────
 const TASK_MIN = { review: 5, lesson: 8, mistakes: 3, speaking: 4, writing: 3 };
 
+const COURSE_RANK = { A: 0, B: 1, C: 2, D: 3 };
+
+// Intelligently SELECT today's lessons from the whole available catalog, rather
+// than reading a fixed pre-generated schedule. Priority: weakest skill first
+// (lower mastery = higher priority; mastered skills sink), then foundation
+// course first (A before B…), then lesson order. Skips completed lessons and,
+// when focusSkills is given, restricts to those skills.
+export function selectDailyLessons({ lessons = [], completedIds = [], focusSkills = [], mastery = {}, perDay = 3 } = {}) {
+  const done = new Set(completedIds);
+  const focus = new Set(focusSkills);
+  const pool = lessons.filter((l) => {
+    if (done.has(l.id)) return false;
+    if (!(l.quiz_questions?.length || l.word_pairs?.length || l.content)) return false;
+    const skill = l.skill || l.category;
+    if (focus.size && !focus.has(skill)) return false;
+    return true;
+  });
+
+  // Unknown skills (no attempts) get a medium priority so they still surface.
+  const skillPriority = (skill) => (mastery[skill]?.attempts ? mastery[skill].score : 50);
+
+  return pool
+    .map((l) => ({
+      lesson: l,
+      s: skillPriority(l.skill || l.category),
+      c: COURSE_RANK[l.sfi_course] ?? 9,
+      o: l.order ?? 9999,
+    }))
+    .sort((a, b) => a.s - b.s || a.c - b.c || a.o - b.o)
+    .slice(0, perDay)
+    .map((x) => x.lesson);
+}
+
 // Sequence today's tasks from resolved facts, trimmed to the time budget.
 // Keeps the review warm-up first; always tries to include speaking + writing
 // (the skills the existing lesson-only plan under-trains).
