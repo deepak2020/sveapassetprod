@@ -9,7 +9,7 @@ import { Headphones, Play, Pause, ArrowRight, RotateCcw, Trophy, ChevronLeft, Vo
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
-import { getListeningBank, buildCategorySession } from "@/data/listeningBankC";
+import { getListeningBank, buildCategorySession, LISTENING_COURSES } from "@/data/listeningBankC";
 import { getBestVoice } from "@/lib/speech";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
 
@@ -538,6 +538,28 @@ export default function ListeningTest() {
           <h1 className="font-display text-2xl font-bold">Hörförståelse — kurs {course.toUpperCase()}</h1>
           <p className="text-sm text-muted-foreground">{totalItems} ljudklipp · övning som det nationella provet</p>
         </div>
+      </div>
+
+      {/* Course switcher */}
+      <div className="flex items-center gap-2 mt-4">
+        <span className="text-xs text-muted-foreground">Kurs:</span>
+        {["A", "B", "C", "D"].map((c) => {
+          const available = LISTENING_COURSES.includes(c);
+          const active = c === course.toUpperCase();
+          return available ? (
+            <Link
+              key={c}
+              to={`/listening/${c.toLowerCase()}`}
+              className={`px-3 py-1 rounded-lg text-sm font-semibold border transition-colors ${active ? "bg-primary text-primary-foreground border-primary" : "border-border hover:border-primary/50"}`}
+            >
+              {c}
+            </Link>
+          ) : (
+            <span key={c} title="Kommer snart" className="px-3 py-1 rounded-lg text-sm font-semibold border border-border/40 text-muted-foreground/40 cursor-not-allowed">
+              {c}
+            </span>
+          );
+        })}
       </div>
 
       {/* Topic selection */}

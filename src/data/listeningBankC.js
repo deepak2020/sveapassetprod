@@ -551,10 +551,25 @@ export const LISTENING_CATEGORIES_C = [
   },
 ];
 
+// Kurs A category structure (items come from Supabase listening_bank).
+// Simpler, beginner-appropriate set; no static fallback items.
+export const LISTENING_CATEGORIES_A = [
+  { type: "dialogue",     label: "Samtal",        emoji: "💬", description: "Enkla samtal mellan två personer", items: [] },
+  { type: "phone",        label: "Telefonsamtal", emoji: "📞", description: "Korta, enkla telefonsamtal", items: [] },
+  { type: "announcement", label: "Utrop",         emoji: "📢", description: "Korta meddelanden i affären, på bussen och i skolan", items: [] },
+  { type: "monologue",    label: "Berättelse",    emoji: "🎙️", description: "Personer berättar enkelt om sig själva", items: [] },
+  { type: "matching",     label: "Matchning",     emoji: "🔗", description: "Lyssna på fyra korta klipp och matcha rätt", items: [] },
+];
+
 export function getListeningBank(course) {
-  if (course?.toUpperCase() !== "C") return null;
-  return LISTENING_CATEGORIES_C;
+  const c = course?.toUpperCase();
+  if (c === "C") return LISTENING_CATEGORIES_C;
+  if (c === "A") return LISTENING_CATEGORIES_A;
+  return null;
 }
+
+// Which SFI courses currently have a listening bank (for the course switcher).
+export const LISTENING_COURSES = ["A", "C"];
 
 // Build a mock test: one random item from each category, in exam order.
 export function buildMockTest(categories) {
