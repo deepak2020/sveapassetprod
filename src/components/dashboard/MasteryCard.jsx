@@ -1,6 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
+import { base44 } from "@/api/base44Client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Gauge } from "lucide-react";
 import { skillMastery, testReadiness, SKILLS } from "@/lib/planner";
+
+const SKILL_KEYS = new Set(SKILLS.map((s) => s.key));
 
 const barColor = (v) => (v >= 80 ? "bg-emerald-500" : v >= 60 ? "bg-amber-500" : "bg-red-500");
 const textColor = (v) =>
@@ -11,7 +15,25 @@ const textColor = (v) =>
 // Mastery per skill + an overall test-readiness ring, computed from the
 // learner's quiz history (same `results` the weak-area card already uses).
 export default function MasteryCard({ results = [], targetCourse }) {
-  const scored = (results || []).filter((r) => r.skill && typeof r.percentage === "number");
+  // Map lesson id -> the lesson's SFI skill, so lesson-completion records
+  // (whose `skill` is the TAB name, e.g. "learn"/"quiz") count toward the
+  // right mastery skill.
+  const { data: lessons = [] } = useQuery({
+    queryKey: ["lessons"],
+    queryFn: () => base44.entities.Lesson.list("order", 500),
+  });
+  const skillById = {};
+  for (const l of lessons) skillById[l.id] = l.skill || l.category;
+
+  const scored = (results || [])
+    .filter((r) => typeof r.percentage === "number")
+    .map((r) => ({
+      ...r,
+      // keep records already tagged with a real skill; otherwise resolve from the lesson.
+      skill: SKILL_KEYS.has(r.skill) ? r.skill : (skillById[r.source_id] || r.skill),
+    }))
+    .filter((r) => SKILL_KEYS.has(r.skill));
+
   const mastery = skillMastery(scored);
   const known = SKILLS.filter((s) => mastery[s.key]?.attempts);
   if (known.length === 0) return null; // nothing to show until the learner has scores
