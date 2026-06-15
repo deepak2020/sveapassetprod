@@ -4,44 +4,46 @@ import { Link } from "react-router-dom";
 import { CalendarDays, CheckCircle2, Circle, Trash2, ArrowRight, History, Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useDailyReview } from "@/hooks/useDailyReview";
-import { skillMastery, weakestSkills } from "@/lib/planner";
+import { skillMastery, weakestSkills, selectDailyLessons } from "@/lib/planner";
 
-export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgress, getTodaysLessons, getBehindCount, results = [] }) {
-  const todayLessonIds = getTodaysLessons();
+export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgress, getBehindCount, getDailyTarget, results = [] }) {
   const dayNumber = getDayNumber();
   const progress = getProgress();
   const behind = getBehindCount ? getBehindCount() : 0;
+  const dailyTarget = getDailyTarget ? getDailyTarget() : 3;
   const completed = plan.completed_lesson_ids || [];
 
   const allCourses = [plan.course, ...(plan.include_courses || [])];
 
-  const { data: todayLessons = [] } = useQuery({
-    queryKey: ["planner-today-lessons", todayLessonIds],
+  // Pull the whole catalog for the plan's courses, then SELECT today's lessons
+  // intelligently (weakest skill / foundation first) instead of a fixed schedule.
+  const { data: catalog = [], isLoading } = useQuery({
+    queryKey: ["planner-catalog", allCourses.join(",")],
     queryFn: async () => {
-      if (!todayLessonIds.length) return [];
       let all = [];
       for (const c of allCourses) {
         const lessons = await base44.entities.Lesson.filter({ sfi_course: c }, "order", 500);
         all = [...all, ...lessons];
       }
-      return all.filter(l => todayLessonIds.includes(l.id));
+      return all;
     },
-    enabled: todayLessonIds.length > 0,
   });
 
-  // ── Adaptive layer: lead with the weakest skill + the warm-up ──────────
+  // ── Adaptive layer ─────────────────────────────────────────────────────
   const { totalDue, isDone } = useDailyReview();
-  const weak = weakestSkills(skillMastery((results || []).filter(r => r.skill && typeof r.percentage === "number")), 2);
-  const weakKeys = new Set(weak.map(s => s.key));
+  const mastery = skillMastery((results || []).filter(r => r.skill && typeof r.percentage === "number"));
+  const weak = weakestSkills(mastery, 2);
   const weakestKey = weak[0]?.key;
 
-  // Mastery-driven ordering: weakest-skill lessons first.
-  const orderedLessons = [...todayLessons].sort(
-    (a, b) => (weakKeys.has(b.skill || b.category) ? 1 : 0) - (weakKeys.has(a.skill || a.category) ? 1 : 0)
-  );
+  const orderedLessons = selectDailyLessons({
+    lessons: catalog,
+    completedIds: completed,
+    focusSkills: plan.focus_skills || [],
+    mastery,
+    perDay: dailyTarget,
+  });
 
-  // A lesson to anchor speaking/writing practice on (first of today's).
-  const practiceId = orderedLessons[0]?.id || todayLessonIds[0];
+  const practiceId = orderedLessons[0]?.id;
 
   return (
     <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
@@ -83,7 +85,7 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
           <div className="flex items-start gap-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 px-3 py-2">
             <History className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
             <p className="text-xs text-amber-800 dark:text-amber-300">
-              {behind} {behind === 1 ? "lektion" : "lektioner"} att komma ikapp · <span className="italic">{behind} lesson{behind === 1 ? "" : "s"} to catch up — added to today's plan first, at your own pace.</span>
+              {behind} {behind === 1 ? "lektion" : "lektioner"} efter din takt · <span className="italic">{behind} lesson{behind === 1 ? "" : "s"} behind pace — do a few extra when you can.</span>
             </p>
           </div>
         )}
@@ -101,16 +103,14 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
         {/* Today's lessons — ordered by your weakest skill */}
         <div className="space-y-2">
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            {behind > 0 ? "Today's lessons · incl. catch-up" : "Today's lessons"}
+            {behind > 0 ? "Today's lessons · picked for you (incl. catch-up)" : "Today's lessons · picked for you"}
           </p>
-          {todayLessonIds.length === 0 ? (
-            <p className="text-sm text-muted-foreground italic">No lessons scheduled for today 🎉</p>
-          ) : todayLessons.length === 0 ? (
+          {isLoading ? (
             <div className="space-y-2">
-              {todayLessonIds.map(id => (
-                <div key={id} className="h-10 bg-muted animate-pulse rounded-lg" />
-              ))}
+              {[0, 1, 2].map(i => <div key={i} className="h-10 bg-muted animate-pulse rounded-lg" />)}
             </div>
+          ) : orderedLessons.length === 0 ? (
+            <p className="text-sm text-muted-foreground italic">You've finished everything in your plan 🎉</p>
           ) : (
             <div className="space-y-2">
               {orderedLessons.map(lesson => {

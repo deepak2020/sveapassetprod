@@ -26,6 +26,7 @@ import EmptyState from "../components/shared/EmptyState";
 import SkillBreakdown from "../components/dashboard/SkillBreakdown";
 import WeakAreaCard from "../components/dashboard/WeakAreaCard";
 import MasteryCard from "../components/dashboard/MasteryCard";
+import DailyQuizCard from "../components/dashboard/DailyQuizCard";
 import DailyChallenge from "../components/dashboard/DailyChallenge";
 import DailyReviewCard from "../components/dashboard/DailyReviewCard";
 import QuickRevision from "../components/dashboard/QuickRevision";
@@ -66,7 +67,7 @@ export default function Dashboard() {
 
   useEffect(() => { healStreak(base44); }, []);
 
-  const { plan, createPlan, deletePlan, getTodaysLessons, getDayNumber, getProgress, getBehindCount } = useStudyPlan(user?.id);
+  const { plan, createPlan, deletePlan, getDayNumber, getProgress, getBehindCount, getDailyTarget } = useStudyPlan(user?.id);
 
   const { data: quizResults } = useQuery({
     queryKey: ["quiz-results-recent"],
@@ -255,10 +256,10 @@ export default function Dashboard() {
         <TodaysPlanCard
           plan={plan}
           onDelete={() => { if (window.confirm("Delete your study plan? This cannot be undone.")) { deletePlan(); base44.analytics.track({ eventName: "study_plan_deleted" }); } }}
-          getTodaysLessons={getTodaysLessons}
           getDayNumber={getDayNumber}
           getProgress={getProgress}
           getBehindCount={getBehindCount}
+          getDailyTarget={getDailyTarget}
           results={results}
         />
       ) : (
@@ -280,6 +281,9 @@ export default function Dashboard() {
 
       {/* Daily warm-up review nudge */}
       <DailyReviewCard />
+
+      {/* Four short quiz check-ins through the day */}
+      <DailyQuizCard results={results} />
 
       {/* Daily challenge */}
       <DailyChallenge />

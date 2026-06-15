@@ -94,15 +94,12 @@ export function useStudyPlan(userId) {
     return upcoming.slice(0, perDay);
   };
 
-  // How many lessons are overdue (scheduled strictly before today, not done).
+  // How many lessons behind the intended pace (perDay × days elapsed).
   const getBehindCount = () => {
-    const today = getLocalDate();
-    const completed = plan?.completed_lesson_ids || [];
-    return getSchedule()
-      .filter(d => d.date < today)
-      .flatMap(d => d.lesson_ids || [])
-      .filter(id => !completed.includes(id))
-      .length;
+    const total = getSchedule().reduce((s, d) => s + (d.lesson_ids?.length || 0), 0);
+    const doneCount = (plan?.completed_lesson_ids || []).length;
+    const expected = getPerDay() * getDayNumber();
+    return Math.max(0, Math.min(total - doneCount, expected - doneCount));
   };
 
   const getDayNumber = () => {
@@ -120,5 +117,5 @@ export function useStudyPlan(userId) {
     return total > 0 ? Math.round((completed / total) * 100) : 0;
   };
 
-  return { plan, loading, createPlan, deletePlan, markLessonComplete, getTodaysLessons, getDayNumber, getProgress, getBehindCount, refetch: fetchPlan };
+  return { plan, loading, createPlan, deletePlan, markLessonComplete, getTodaysLessons, getDayNumber, getProgress, getBehindCount, getDailyTarget: getPerDay, refetch: fetchPlan };
 }
