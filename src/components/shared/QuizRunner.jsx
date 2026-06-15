@@ -6,6 +6,7 @@ import { base44 } from "@/api/base44Client";
 import { motion, AnimatePresence } from "framer-motion";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import SpeakButton from "@/components/shared/SpeakButton";
+import SveaLogo from "@/components/shared/SveaLogo";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
 export default function QuizRunner({ questions, quizType, sourceId, sourceTitle, onComplete, previousResult, storageKey, userId, tab, initialProgress }) {
@@ -285,16 +286,16 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
                   )}
                   {!isCorrect && (
                     aiExplain ? (
-                      <p className="text-foreground/90 mt-2 leading-relaxed flex items-start gap-1.5">
-                        <span>🦉</span><span>{aiExplain}</span>
+                      <p className="text-foreground/90 mt-2 leading-relaxed">
+                        <SveaLogo className="text-xs mr-1.5" />{aiExplain}
                       </p>
                     ) : (
                       <button
                         onClick={explainMistake}
                         disabled={explaining}
-                        className="mt-2 text-xs font-semibold text-primary hover:underline disabled:opacity-60"
+                        className="mt-2 text-xs font-semibold text-primary hover:underline disabled:opacity-60 inline-flex items-center gap-1"
                       >
-                        {explaining ? "Svea tänker…" : "🦉 Fråga Svea · Why is this the answer?"}
+                        {explaining ? (<><SveaLogo className="text-xs" /> tänker…</>) : (<>Fråga <SveaLogo className="text-xs" /> · Why is this the answer?</>)}
                       </button>
                     )
                   )}

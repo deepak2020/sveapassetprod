@@ -4,6 +4,7 @@ import { useAuth } from "@/lib/AuthContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { RefreshCw } from "lucide-react";
 import { skillMastery, weakestSkills } from "@/lib/planner";
+import SveaLogo from "@/components/shared/SveaLogo";
 
 const today = () => new Date().toISOString().slice(0, 10);
 const cacheKey = () => `svenska:coach_tip:${today()}`;
@@ -55,10 +56,9 @@ export default function CoachCard({ results = [] }) {
     <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
       <CardContent className="p-5">
         <div className="flex items-start gap-3">
-          <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 text-lg">🦉</div>
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-sm">
-              Svea <span className="text-xs font-normal text-muted-foreground italic">· din svenska-coach</span>
+            <p className="font-semibold text-sm flex items-center gap-1.5">
+              <SveaLogo className="text-base" /> <span className="text-xs font-normal text-muted-foreground italic">· din svenska-coach</span>
             </p>
             <p className="text-sm text-foreground/90 mt-1">
               {loading && !tip ? "Tänker…" : tip}
