@@ -120,6 +120,26 @@ export function selectDailyLessons({ lessons = [], completedIds = [], focusSkill
     .map((x) => x.lesson);
 }
 
+// Insert any unmet prerequisites before the lessons that depend on them, using
+// each lesson's `prerequisites` (array of lesson ids). Skips prerequisites the
+// learner has already completed or that are already in the list. Capped so the
+// day stays reasonable.
+export function applyPrerequisites(selected = [], catalog = [], completedIds = [], max = 6) {
+  const done = new Set(completedIds);
+  const byId = new Map(catalog.map((l) => [l.id, l]));
+  const out = [];
+  const seen = new Set();
+  for (const lesson of selected) {
+    for (const pid of lesson.prerequisites || []) {
+      if (done.has(pid) || seen.has(pid)) continue;
+      const pre = byId.get(pid);
+      if (pre) { out.push({ ...pre, prereqFor: lesson.id }); seen.add(pid); }
+    }
+    if (!seen.has(lesson.id)) { out.push(lesson); seen.add(lesson.id); }
+  }
+  return out.slice(0, max);
+}
+
 // Sequence today's tasks from resolved facts, trimmed to the time budget.
 // Keeps the review warm-up first; always tries to include speaking + writing
 // (the skills the existing lesson-only plan under-trains).

@@ -11,6 +11,7 @@ import EmptyState from "../components/shared/EmptyState";
 import TopicCard from "../components/language/TopicCard";
 import CleanupLessonsModal from "../components/language/CleanupLessonsModal";
 import ReformatContentButton from "../components/language/ReformatContentButton";
+import InferPrerequisitesButton from "../components/language/InferPrerequisitesButton";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/AuthContext";
 import AdBanner from "../components/shared/AdBanner";
@@ -130,6 +131,7 @@ export default function LanguageLessons() {
       </div>
 
       {isAdmin && !activeCourse && <ReformatContentButton />}
+      {isAdmin && !activeCourse && <InferPrerequisitesButton />}
 
       {!activeCourse ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

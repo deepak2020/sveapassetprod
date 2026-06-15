@@ -60,6 +60,11 @@
       "type": "string",
       "description": "Lesson content in markdown"
     },
+    "prerequisites": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Lesson ids this lesson depends on (AI-inferred); used by the study planner to order foundation first"
+    },
     "word_pairs": {
       "type": "array",
       "items": {
