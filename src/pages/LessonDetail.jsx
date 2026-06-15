@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLocation } from "react-router-dom";
 // analytics: lesson tab clicks tracked via base44.analytics.track
 import confetti from "canvas-confetti";
 import { ArrowLeft, ArrowRight, BookOpen, Trophy } from "lucide-react";
@@ -64,6 +64,10 @@ function readLocalProgress(lessonId, tab) {
 export default function LessonDetail() {
   const pathParts = window.location.pathname.split("/");
   const lessonId = pathParts[pathParts.length - 1];
+  const location = useLocation();
+  // Where to return to (e.g. the study planner) when arriving from somewhere
+  // other than the lesson browser. Carried via router state.
+  const backTo = location.state?.from || null;
   const { completed, scores, markComplete } = useLessonCompletion(lessonId);
   const { user } = useAuth();
   const confettiFired = useRef(false);
@@ -306,9 +310,12 @@ export default function LessonDetail() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-40 md:pb-28">
-      {/* Back */}
-      <Link to={lesson.topic ? `/language/topic/${lesson.sfi_course}/${encodeURIComponent(lesson.topic)}` : "/language"} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6">
-        <ArrowLeft className="w-4 h-4" /> {lesson.topic ? `Back to ${lesson.topic}` : "Back to lessons"}
+      {/* Back — to the planner if we came from there, else the topic list */}
+      <Link
+        to={backTo || (lesson.topic ? `/language/topic/${lesson.sfi_course}/${encodeURIComponent(lesson.topic)}` : "/language")}
+        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
+      >
+        <ArrowLeft className="w-4 h-4" /> {backTo ? "Tillbaka till studieplanen · Back to plan" : (lesson.topic ? `Back to ${lesson.topic}` : "Back to lessons")}
       </Link>
 
       {/* Header — clean & calm */}
@@ -371,7 +378,7 @@ export default function LessonDetail() {
             <p className="text-xs text-green-600 dark:text-green-400">You've finished all activities for this lesson.</p>
           </div>
           {nextLesson && (
-            <Link to={`/language/${nextLesson.id}`} className="ml-auto">
+            <Link to={`/language/${nextLesson.id}`} state={backTo ? { from: backTo } : undefined} className="ml-auto">
               <Button size="sm" variant="outline" className="border-green-300 dark:border-green-700 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30">Next lesson</Button>
             </Link>
           )}
