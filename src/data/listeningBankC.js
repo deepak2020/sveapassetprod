@@ -581,7 +581,7 @@ export function getListeningBank(course) {
 }
 
 // Which SFI courses currently have a listening bank (for the course switcher).
-export const LISTENING_COURSES = ["A", "B", "C"];
+export const LISTENING_COURSES = ["A", "B", "C", "D"];
 
 // Build a mock test: one random item from each category, in exam order.
 export function buildMockTest(categories) {
