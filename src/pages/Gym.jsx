@@ -10,6 +10,7 @@ import VocabReviewSession from "@/components/gym/VocabReviewSession";
 import LoginGate from "@/components/shared/LoginGate";
 import { useVocabSRS } from "@/hooks/useVocabSRS";
 import { useDailyReview } from "@/hooks/useDailyReview";
+import { shuffle } from "@/lib/shuffle";
 
 const SFI_LEVELS = ["A", "B", "C", "D"];
 const SENTENCE_COUNTS = [10, 25, 50];
@@ -287,7 +288,7 @@ function GymDashboard({ sentences, srsCards, onStartSession, sessionRef }) {
     .sort((a, b) => a.avgFrequency - b.avgFrequency);
 
   const startSession = () => {
-    const shuffled = [...sessionSentences].sort(() => Math.random() - 0.5);
+    const shuffled = shuffle(sessionSentences);
     const quiz = shuffled.slice(0, Math.min(count, shuffled.length));
     base44.analytics.track({
       eventName: "gym_session_started",

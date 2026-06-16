@@ -5,6 +5,8 @@
 // audioUrl: pre-generated audio file. When null, the app falls back to
 // reading the transcript with the browser's speech synthesis.
 
+import { shuffle } from "@/lib/shuffle";
+
 export const LISTENING_CATEGORIES_C = [
   {
     type: "dialogue",
@@ -595,7 +597,7 @@ export function buildMockTest(categories) {
 
 // Build a category practice session: up to `count` random items.
 export function buildCategorySession(category, count = 5) {
-  const shuffled = [...category.items].sort(() => Math.random() - 0.5);
+  const shuffled = shuffle(category.items);
   return shuffled.slice(0, count).map((item) => ({
     ...item,
     typeLabel: category.label,
