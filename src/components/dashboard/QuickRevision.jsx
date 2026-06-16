@@ -7,14 +7,15 @@ import { Button } from "@/components/ui/button";
 import { Zap, ChevronRight, RotateCcw, Volume2, Loader2, BookOpen, CheckCircle2 } from "lucide-react";
 import { playAudio } from "@/lib/speech";
 import { Link } from "react-router-dom";
+import { shuffle } from "@/lib/shuffle";
 
 const QUIZ_SIZE = 7;
 const TAB_LABELS = { learn: "Vocab", practice: "Practice", quiz: "Quiz", translate: "Translate", listen: "Listen", match: "Match", writing: "Writing", speaking: "Speaking" };
 
 function buildOptions(pairs, correctPair) {
   const others = pairs.filter((p) => p.swedish !== correctPair.swedish);
-  const distractors = [...others].sort(() => Math.random() - 0.5).slice(0, 3);
-  return [...distractors, correctPair].sort(() => Math.random() - 0.5).map((p) => p.swedish);
+  const distractors = shuffle(others).slice(0, 3);
+  return shuffle([...distractors, correctPair]).map((p) => p.swedish);
 }
 
 function QuizMode({ lesson, onClose }) {
@@ -22,7 +23,7 @@ function QuizMode({ lesson, onClose }) {
 
   const [questions] = useState(() => {
     if (pairs.length < 2) return [];
-    const shuffled = [...pairs].sort(() => Math.random() - 0.5).slice(0, Math.min(QUIZ_SIZE, pairs.length));
+    const shuffled = shuffle(pairs).slice(0, Math.min(QUIZ_SIZE, pairs.length));
     return shuffled.map((pair) => ({ pair, options: buildOptions(pairs, pair) }));
   });
 

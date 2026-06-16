@@ -73,23 +73,53 @@ export default function GrammarTopic() {
 
   const SESSION_SIZE = 8; // exercises per session
 
+  // Proper Fisher-Yates shuffle (Array.sort with a random comparator does NOT
+  // shuffle uniformly and barely moves large arrays).
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
   function pickSession(allExercises) {
     if (!allExercises?.length) return [];
-    const shuffled = [...allExercises].sort(() => Math.random() - 0.5);
-    // Try to include a mix of difficulties if tagged
-    const easy   = shuffled.filter(e => e.difficulty === "easy");
-    const medium = shuffled.filter(e => e.difficulty === "medium");
-    const hard   = shuffled.filter(e => e.difficulty === "hard");
-    const untagged = shuffled.filter(e => !e.difficulty || e.difficulty === "medium");
-    if (easy.length + medium.length + hard.length >= SESSION_SIZE) {
+
+    // Prefer questions not seen recently so we cycle through the whole bank
+    // before repeating; reset once it's exhausted.
+    const seenKey = `svenska:grammar_seen:${topicId}`;
+    let seen = [];
+    try { seen = JSON.parse(localStorage.getItem(seenKey) || "[]"); } catch { seen = []; }
+    const seenSet = new Set(seen);
+    let pool = allExercises.filter((e) => !seenSet.has(e.q));
+    if (pool.length < SESSION_SIZE) { pool = allExercises; seen = []; }
+
+    const shuffled = shuffle(pool);
+    const easy = shuffled.filter((e) => e.difficulty === "easy");
+    const medium = shuffled.filter((e) => e.difficulty === "medium" || !e.difficulty);
+    const hard = shuffled.filter((e) => e.difficulty === "hard");
+
+    let picked;
+    if (easy.length && hard.length && easy.length + medium.length + hard.length >= SESSION_SIZE) {
       // Balanced pick: ~2 easy, ~4 medium, ~2 hard
-      return [
-        ...easy.slice(0, 2),
-        ...medium.slice(0, 4),
-        ...hard.slice(0, 2),
-      ].slice(0, SESSION_SIZE).sort(() => Math.random() - 0.5);
+      picked = shuffle([...easy.slice(0, 2), ...medium.slice(0, 4), ...hard.slice(0, 2)]).slice(0, SESSION_SIZE);
+      if (picked.length < SESSION_SIZE) {
+        const have = new Set(picked.map((e) => e.q));
+        picked = [...picked, ...shuffled.filter((e) => !have.has(e.q))].slice(0, SESSION_SIZE);
+      }
+    } else {
+      picked = shuffled.slice(0, SESSION_SIZE);
     }
-    return shuffled.slice(0, SESSION_SIZE);
+
+    // Remember what we showed (cap stored history).
+    try {
+      const next = [...seen, ...picked.map((e) => e.q)];
+      localStorage.setItem(seenKey, JSON.stringify(next.slice(-500)));
+    } catch { /* ignore */ }
+
+    return picked;
   }
 
   // Load topic + full exercise bank from DB, sample a session

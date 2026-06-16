@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Brain } from "lucide-react";
 import QuizRunner from "@/components/shared/QuizRunner";
 import { skillMastery, weakestSkills } from "@/lib/planner";
+import { shuffle } from "@/lib/shuffle";
 
 // Four short quiz check-ins spread through the day keep recall fresh.
 const SLOTS = [
@@ -38,8 +39,7 @@ function pickQuestions(lessons, results) {
       }
     }
   }
-  const expanded = pool.flatMap((p) => Array(p.weight).fill(p.q));
-  expanded.sort(() => Math.random() - 0.5);
+  const expanded = shuffle(pool.flatMap((p) => Array(p.weight).fill(p.q)));
   const picked = [];
   const seen = new Set();
   for (const q of expanded) {
