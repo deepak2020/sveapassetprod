@@ -1,0 +1,682 @@
+[
+  {
+    "id": "b-nyh-001",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på lokala nyheter.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "God morgon. I dag öppnar en ny park i Lindby. Parken ligger nära centrum och har många blommor och bänkar. Invigningen börjar klockan elva på lördag. Alla är välkomna och inträdet är gratis."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad öppnar i Lindby?",
+        "options": ["En ny skola", "En ny park", "En ny affär", "En ny buss"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När börjar invigningen?",
+        "options": ["Klockan tio", "Klockan elva", "Klockan tolv"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vilken dag är invigningen? Skriv ditt svar.",
+        "accept": ["lördag", "på lördag", "lordag"]
+      }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "b-nyh-002",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om vädret.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Här är vädret. I morgon blir det sol i hela Solberg och det blir en fin dag. Temperaturen blir tjugo grader på dagen. På kvällen kommer lite regn. Ta med ett paraply om du går ut sent på kvällen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur blir vädret i morgon på dagen?",
+        "options": ["Regn", "Snö", "Sol", "Dimma"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur många grader blir det?",
+        "options": ["Tio grader", "Femton grader", "Tjugo grader"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "b-nyh-003",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på radio.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "I dag får staden Hagvik ett nytt bibliotek. Biblioteket ligger på Storgatan och har många böcker på olika språk. Det öppnar på måndag klockan nio. Där kan du också låna datorer gratis."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad får staden Hagvik?",
+        "options": ["Ett nytt bibliotek", "En ny park", "Ett nytt sjukhus"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Var ligger biblioteket?",
+        "options": ["På Storgatan", "På Lillgatan", "På Skolgatan", "På Parkgatan"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad kan du låna gratis?",
+        "options": ["Cyklar", "Datorer", "Bilar"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "b-nyh-004",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om bussar.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Buss nummer fyra kör en ny väg i staden från och med på tisdag. Bussen stannar nu också vid sjukhuset och vid biblioteket. Den går varje halvtimme på dagen. Tänk på den nya tiden om du tar bussen till jobbet på morgonen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken buss kör en ny väg?",
+        "options": ["Buss nummer två", "Buss nummer fyra", "Buss nummer sex"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var stannar bussen nu också?",
+        "options": ["Vid skolan", "Vid parken", "Vid affären", "Vid sjukhuset"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "b-nyh-005",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på lokala nyheter.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På söndag är det marknad på torget i Ekstad. Där kan du köpa frukt, grönsaker och bröd. Marknaden öppnar klockan åtta och stänger klockan två. Många säljare kommer från orter nära staden."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var är marknaden?",
+        "options": ["På torget i Ekstad", "I parken i Ekstad", "I skolan i Ekstad"],
+        "correctIndex": 0
+      },
+      {
+        "q": "När stänger marknaden?",
+        "options": ["Klockan ett", "Klockan två", "Klockan tre", "Klockan fyra"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vilken dag är marknaden? Skriv ditt svar.",
+        "accept": ["söndag", "på söndag", "sondag"]
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "b-nyh-006",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om en konsert.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "I kväll är det en gratis konsert i parken i Norrvik. En kör med trettio personer sjunger glada sånger för alla. Konserten börjar klockan sju och pågår i en timme. Ta med en filt och sitt på gräset och lyssna."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var är konserten?",
+        "options": ["I parken i Norrvik", "I skolan i Norrvik", "På torget i Norrvik"],
+        "correctIndex": 0
+      },
+      {
+        "q": "När börjar konserten?",
+        "options": ["Klockan sex", "Klockan sju", "Klockan åtta"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "b-nyh-007",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på radio.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "En ny simhall öppnar i Björkö nästa vecka. Simhallen har en stor bassäng för barn och en för vuxna. Den öppnar på onsdag klockan tio på morgonen. De första hundra besökarna får en gratis biljett till simhallen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad öppnar i Björkö?",
+        "options": ["En ny simhall", "En ny skola", "Ett nytt café", "En ny park"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken dag öppnar simhallen?",
+        "options": ["På måndag", "På onsdag", "På fredag"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad får de första hundra besökarna?",
+        "options": ["En gratis biljett", "en bok", "en tröja"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "b-nyh-008",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om vädret.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "I helgen blir det kallt i Granby. På lördag kommer snö och temperaturen blir minus fem grader. Ta på dig varma kläder och en mössa. På söndag blir det soligt men fortfarande kallt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kommer på lördag?",
+        "options": ["Regn", "Snö", "Sol"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur många grader blir det på lördag?",
+        "options": ["Minus fem grader", "Plus fem grader", "Tio grader", "Noll grader"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "b-nyh-009",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på lokala nyheter.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "I dag öppnar ett nytt café på Torggatan i Almvik. Caféet säljer kaffe, te och kakor. Det öppnar klockan halv åtta varje morgon. På fredag bjuder de på gratis kaffe till alla gäster."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad öppnar på Torggatan?",
+        "options": ["Ett nytt café", "En ny affär", "En ny skola"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad bjuder caféet på i fredag?",
+        "options": ["Gratis kaffe", "Gratis kakor", "Gratis te", "Gratis bröd"],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad säljer caféet? Skriv en sak. Skriv ditt svar.",
+        "accept": ["kaffe", "te", "kakor", "kaka", "kakor och kaffe"]
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "b-nyh-010",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om en tävling.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På lördag är det ett stort lopp i Sjöstad. Många barn och vuxna springer fem kilometer runt sjön tillsammans. Loppet börjar klockan tio på torget i centrum. Alla som springer får en fin medalj efteråt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur långt är loppet?",
+        "options": ["Tre kilometer", "Fem kilometer", "Tio kilometer"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad får alla som springer?",
+        "options": ["En boll", "En tröja", "En medalj", "En bok"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "b-nyh-011",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på radio.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "En ny lekplats är klar i Rosendal. Lekplatsen har en stor rutschkana och många gungor för barnen. Barnen kan leka där hela dagen utan att betala. Lekplatsen ligger bakom skolan och är öppen för alla familjer."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är klart i Rosendal?",
+        "options": ["En ny lekplats", "En ny skola", "En ny park"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Var ligger lekplatsen?",
+        "options": ["Vid sjön", "På torget", "Vid stationen", "Bakom skolan"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "b-nyh-012",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om tåget.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Från och med på måndag går ett nytt tåg mellan Kvarnby och Strandvik. Tåget går varje timme på dagen och resan tar tjugo minuter. Det är billigt att åka med det nya tåget och det stannar på tre stationer på vägen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur lång tid tar resan?",
+        "options": ["Tio minuter", "Tjugo minuter", "Trettio minuter"],
+        "correctIndex": 1
+      },
+      {
+        "q": "På hur många stationer stannar tåget?",
+        "options": ["På två", "På tre", "På fyra", "På fem"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vilken dag börjar tåget gå? Skriv ditt svar.",
+        "accept": ["måndag", "på måndag", "mandag"]
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "b-nyh-013",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på lokala nyheter.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "I dag är det bokrea i affären på Centralgatan i Furuvik. Alla böcker i butiken kostar bara tio kronor. Rean pågår till klockan sex i kväll. Många människor kommer för att köpa billiga böcker till sina barn."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar alla böcker?",
+        "options": ["Fem kronor", "Tio kronor", "Tjugo kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Till när pågår rean?",
+        "options": ["Till klockan fyra", "Till klockan fem", "Till klockan sex"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "b-nyh-014",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om vädret.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "I morgon blir det blåsigt i Havstad. Vinden kommer från havet och det blir lite kallt på morgonen. Temperaturen blir bara tolv grader på dagen. På eftermiddagen kommer solen fram och vädret blir mycket bättre."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur blir vädret i morgon?",
+        "options": ["Blåsigt", "Snöigt", "Mycket varmt"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur många grader blir det?",
+        "options": ["Tio grader", "Tolv grader", "Tjugo grader", "Femton grader"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "b-nyh-015",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på radio.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På torsdag öppnar en ny matbutik i Klippan. Butiken ligger nära stationen och har öppet varje dag. Den första veckan är frukt och grönsaker billiga. Butiken öppnar klockan åtta på morgonen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad öppnar i Klippan?",
+        "options": ["En ny skola", "Ett nytt café", "En ny matbutik", "En ny park"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Var ligger butiken?",
+        "options": ["Nära stationen", "Vid sjön", "I parken"],
+        "correctIndex": 0
+      },
+      {
+        "q": "När öppnar butiken på morgonen?",
+        "options": ["Klockan sju", "Klockan åtta", "Klockan nio"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "b-nyh-016",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om en fest.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På lördag firar staden Dalby sommar med en stor fest. Det blir musik, dans och god mat på torget i centrum. Festen börjar klockan tolv och pågår hela dagen. Det finns roliga aktiviteter för både barn och vuxna."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad firar staden Dalby?",
+        "options": ["Vinter", "Sommar", "Jul"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När börjar festen?",
+        "options": ["Klockan tio", "Klockan två", "Klockan fyra", "Klockan tolv"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "b-nyh-017",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på lokala nyheter.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "En ny cykelväg är klar i Ängsby. Cykelvägen går från centrum till sjön och är tre kilometer lång. Nu kan många cykla säkert till jobbet. Kommunen vill att fler tar cykeln i stället för bilen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är klart i Ängsby?",
+        "options": ["En ny bro", "En ny väg för bilar", "En ny cykelväg"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur lång är cykelvägen?",
+        "options": ["Två kilometer", "Tre kilometer", "Fem kilometer"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vart går cykelvägen? Skriv ett ställe. Skriv ditt svar.",
+        "accept": ["sjön", "till sjön", "centrum", "till centrum", "sjon"]
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "b-nyh-018",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om en utställning.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På museet i Storvik finns en ny utställning med gamla bilder. Bilderna visar staden för hundra år sedan. Utställningen är öppen varje dag mellan tio och fyra. Inträdet är gratis för barn."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad visar utställningen?",
+        "options": ["Gamla bilder", "Nya bilar", "Stora tavlor"],
+        "correctIndex": 0
+      },
+      {
+        "q": "För vem är inträdet gratis?",
+        "options": ["För vuxna", "För lärare", "För alla", "För barn"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "b-nyh-019",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på radio.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "I dag planterar skolan i Lundby femtio nya träd i parken. Eleverna hjälper till hela förmiddagen. Träden ger skugga på sommaren. Rektorn säger att det är bra för miljön och för staden."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många träd planterar skolan?",
+        "options": ["Trettio", "Femtio", "Hundra"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vem hjälper till?",
+        "options": ["Eleverna", "Bussförarna", "Läkarna", "Poliserna"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "b-nyh-020",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om en bro.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "En ny bro öppnar i Vattmyra på fredag. Bron går över floden och gör resan kortare för många. Nu tar det bara tio minuter att åka till centrum. Bron är gjord för både bilar och cyklar."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad öppnar i Vattmyra?",
+        "options": ["En ny park", "En ny skola", "Ett nytt torg", "En ny bro"],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur lång tid tar resan till centrum nu?",
+        "options": ["Fem minuter", "Tio minuter", "Tjugo minuter"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vilken dag öppnar bron? Skriv ditt svar.",
+        "accept": ["fredag", "på fredag", "fredagen"]
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "b-nyh-021",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på lokala nyheter.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På söndag är det loppmarknad i skolan i Tallby. Många säljer gamla kläder, böcker och leksaker. Marknaden är öppen mellan elva och tre. Pengarna går till en ny lekplats för barnen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var är loppmarknaden?",
+        "options": ["I skolan i Tallby", "I parken i Tallby", "På torget i Tallby"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad går pengarna till?",
+        "options": ["En ny buss", "En ny affär", "En ny väg", "En ny lekplats"],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "b-nyh-022",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om vädret.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "I dag blir det en fin dag i Mossberg. Solen skiner och det blir tjugofem grader. Det är perfekt väder för att bada. Många åker till sjön i eftermiddag. Glöm inte att dricka mycket vatten."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur blir vädret i dag?",
+        "options": ["Regnigt", "Soligt", "Snöigt"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur många grader blir det?",
+        "options": ["Femton grader", "Tjugo grader", "Tjugofem grader", "Trettio grader"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "b-nyh-023",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på radio.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "En ny vårdcentral öppnar i Sandvik nästa månad. Där kan du träffa en läkare eller en sjuksköterska. Vårdcentralen ligger på Hamngatan nära busshållplatsen. Den har öppet på vardagar mellan åtta och fem."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad öppnar i Sandvik?",
+        "options": ["En ny vårdcentral", "En ny skola", "Ett nytt café"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Var ligger vårdcentralen?",
+        "options": ["På Storgatan", "På Skolgatan", "På Parkgatan", "På Hamngatan"],
+        "correctIndex": 3
+      },
+      {
+        "q": "När har den öppet?",
+        "options": ["På helger", "På vardagar", "På nätter"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "b-nyh-024",
+    "course": "B",
+    "type": "news",
+    "intro": "Du hör en nyhet om en film.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "På fredag visas en gratis film i parken i Berga. Filmen är för hela familjen och börjar klockan nio på kvällen när det är mörkt. Ta med en filt och något att dricka. Alla är välkomna."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var visas filmen?",
+        "options": ["I parken i Berga", "I skolan i Berga", "På torget i Berga"],
+        "correctIndex": 0
+      },
+      {
+        "q": "När börjar filmen?",
+        "options": ["Klockan sju", "Klockan åtta", "Klockan nio"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "b-nyh-025",
+    "course": "B",
+    "type": "news",
+    "intro": "Du lyssnar på lokala nyheter.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "I dag får staden Nyborg en ny busslinje. Buss nummer åtta går mellan stationen och sjukhuset. Den börjar köra på måndag och går var tjugonde minut. Det blir lättare för många att resa i staden."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket nummer har den nya bussen?",
+        "options": ["Nummer sex", "Nummer åtta", "Nummer tio"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Mellan vilka platser går bussen?",
+        "options": ["Skolan och parken", "Torget och sjön", "Affären och centrum", "Stationen och sjukhuset"],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vilken dag börjar bussen köra? Skriv ditt svar.",
+        "accept": ["måndag", "på måndag", "mandag"]
+      }
+    ],
+    "sort_order": 24
+  }
+]

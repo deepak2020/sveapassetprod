@@ -1,0 +1,539 @@
+[
+  {
+    "id": "b-dia-001",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Anna och Erik handlar mat i affären.",
+    "transcript": [
+      {"speaker": "Anna", "text": "Hej Erik! Vad ska vi köpa idag?"},
+      {"speaker": "Erik", "text": "Vi behöver mjölk, bröd och lite frukt."},
+      {"speaker": "Anna", "text": "Bra. Äpplena kostar tjugo kronor kilot."},
+      {"speaker": "Erik", "text": "Då tar vi ett kilo äpplen."},
+      {"speaker": "Anna", "text": "Vill du ha bananer också?"},
+      {"speaker": "Erik", "text": "Ja, fem bananer räcker."},
+      {"speaker": "Anna", "text": "Vi måste betala vid kassan nu."},
+      {"speaker": "Erik", "text": "Okej, jag har pengar med mig."}
+    ],
+    "questions": [
+      {"q": "Vad kostar äpplena per kilo?", "options": ["Tio kronor", "Tjugo kronor", "Femtio kronor", "Trettio kronor"], "correctIndex": 1},
+      {"q": "Hur många bananer vill Erik ha?", "options": ["Tre", "Fyra", "Fem", "Sex"], "correctIndex": 2}
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "b-dia-002",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Fatima pratar med sin kollega Lars om jobbet.",
+    "transcript": [
+      {"speaker": "Fatima", "text": "God morgon Lars! När börjar du jobba idag?"},
+      {"speaker": "Lars", "text": "Jag börjar klockan åtta på morgonen."},
+      {"speaker": "Fatima", "text": "Jag börjar klockan nio. Vad jobbar du med?"},
+      {"speaker": "Lars", "text": "Jag arbetar på lagret. Och du?"},
+      {"speaker": "Fatima", "text": "Jag jobbar på kontoret med datorer."},
+      {"speaker": "Lars", "text": "Vad bra. Tycker du om ditt jobb?"},
+      {"speaker": "Fatima", "text": "Ja, jag trivs jättebra här."},
+      {"speaker": "Lars", "text": "Det är roligt att höra!"}
+    ],
+    "questions": [
+      {"q": "När börjar Lars jobba?", "options": ["Klockan sju", "Klockan åtta", "Klockan nio", "Klockan tio"], "correctIndex": 1},
+      {"q": "Var jobbar Fatima?", "options": ["På lagret", "På kontoret", "I affären", "På skolan"], "correctIndex": 1},
+      {"type": "open", "q": "Vad arbetar Lars med? Skriv ditt svar.", "accept": ["lagret", "på lagret", "han jobbar på lagret", "lager", "arbetar på lagret"]}
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "b-dia-003",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Mehmet ringer hyresvärden Karin om hyran.",
+    "transcript": [
+      {"speaker": "Mehmet", "text": "Hej Karin, jag har en fråga om hyran."},
+      {"speaker": "Karin", "text": "Hej Mehmet! Vad vill du veta?"},
+      {"speaker": "Mehmet", "text": "Hur mycket kostar lägenheten per månad?"},
+      {"speaker": "Karin", "text": "Hyran är sextusen kronor i månaden."},
+      {"speaker": "Mehmet", "text": "När ska jag betala hyran?"},
+      {"speaker": "Karin", "text": "Du betalar den sista varje månad."},
+      {"speaker": "Mehmet", "text": "Tack så mycket för hjälpen."},
+      {"speaker": "Karin", "text": "Ingen orsak, ha en bra dag!"}
+    ],
+    "questions": [
+      {"q": "Hur mycket är hyran per månad?", "options": ["Femtusen kronor", "Sextusen kronor", "Sjutusen kronor", "Åttatusen kronor"], "correctIndex": 1},
+      {"q": "När ska Mehmet betala hyran?", "options": ["Den första", "Den femtonde", "Den sista", "Den tjugonde"], "correctIndex": 2}
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "b-dia-004",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Sara bokar en tid hos frisören Johan.",
+    "transcript": [
+      {"speaker": "Sara", "text": "Hej, jag vill boka en tid för att klippa håret."},
+      {"speaker": "Johan", "text": "Visst! Vilken dag passar dig?"},
+      {"speaker": "Sara", "text": "Kan jag komma på fredag?"},
+      {"speaker": "Johan", "text": "Ja, jag har en tid klockan halv tre."},
+      {"speaker": "Sara", "text": "Det passar bra. Vad kostar en klippning?"},
+      {"speaker": "Johan", "text": "En klippning kostar trehundra kronor."},
+      {"speaker": "Sara", "text": "Okej, då bokar jag den tiden."},
+      {"speaker": "Johan", "text": "Vi ses på fredag, välkommen!"}
+    ],
+    "questions": [
+      {"q": "Vilken dag kommer Sara?", "options": ["Måndag", "Onsdag", "Fredag", "Söndag"], "correctIndex": 2},
+      {"q": "Vad kostar en klippning?", "options": ["Hundra kronor", "Tvåhundra kronor", "Trehundra kronor", "Fyrahundra kronor"], "correctIndex": 2},
+      {"type": "open", "q": "Vad är klockan för Saras tid? Skriv ditt svar.", "accept": ["halv tre", "klockan halv tre", "14.30", "kl halv tre", "halv 3"]}
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "b-dia-005",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Wei och Olof pratar om helgen.",
+    "transcript": [
+      {"speaker": "Wei", "text": "Hej Olof! Vad gjorde du i helgen?"},
+      {"speaker": "Olof", "text": "Jag var hemma och städade lägenheten."},
+      {"speaker": "Wei", "text": "Vad tråkigt! Jag gick på bio på lördag."},
+      {"speaker": "Olof", "text": "Vilken film såg du?"},
+      {"speaker": "Wei", "text": "Jag såg en rolig komedi. Den var bra."},
+      {"speaker": "Olof", "text": "På söndag promenerade jag i parken."},
+      {"speaker": "Wei", "text": "Det låter skönt. Vädret var fint."},
+      {"speaker": "Olof", "text": "Ja, solen sken hela dagen."}
+    ],
+    "questions": [
+      {"q": "Vad gjorde Wei på lördag?", "options": ["Städade", "Gick på bio", "Lagade mat", "Sov"], "correctIndex": 1},
+      {"q": "Vad gjorde Olof på söndag?", "options": ["Promenerade i parken", "Handlade mat", "Jobbade", "Läste en bok"], "correctIndex": 0}
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "b-dia-006",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Amir är på vårdcentralen och pratar med sjuksköterskan Eva.",
+    "transcript": [
+      {"speaker": "Amir", "text": "Hej, jag mår inte bra idag."},
+      {"speaker": "Eva", "text": "Vad är det för fel?"},
+      {"speaker": "Amir", "text": "Jag har ont i halsen och feber."},
+      {"speaker": "Eva", "text": "Hur länge har du varit sjuk?"},
+      {"speaker": "Amir", "text": "I tre dagar nu."},
+      {"speaker": "Eva", "text": "Du får träffa doktorn klockan elva."},
+      {"speaker": "Amir", "text": "Tack. Ska jag vänta här?"},
+      {"speaker": "Eva", "text": "Ja, sätt dig i väntrummet."}
+    ],
+    "questions": [
+      {"q": "Vad är det för fel på Amir?", "options": ["Ont i magen", "Ont i halsen och feber", "Ont i benet", "Huvudvärk"], "correctIndex": 1},
+      {"q": "När får Amir träffa doktorn?", "options": ["Klockan tio", "Klockan elva", "Klockan tolv", "Klockan ett"], "correctIndex": 1},
+      {"type": "open", "q": "Hur länge har Amir varit sjuk? Skriv ditt svar.", "accept": ["tre dagar", "i tre dagar", "3 dagar", "tre dar", "i 3 dagar"]}
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "b-dia-007",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Lena och Ahmed pratar i tvättstugan.",
+    "transcript": [
+      {"speaker": "Lena", "text": "Hej Ahmed! Tvättar du också idag?"},
+      {"speaker": "Ahmed", "text": "Ja, jag bokade tvättiden klockan tolv."},
+      {"speaker": "Lena", "text": "Jag har tiden efter dig, klockan två."},
+      {"speaker": "Ahmed", "text": "Bra. Vet du hur torktumlaren fungerar?"},
+      {"speaker": "Lena", "text": "Ja, du trycker på den gröna knappen."},
+      {"speaker": "Ahmed", "text": "Tack! Glöm inte att städa efteråt."},
+      {"speaker": "Lena", "text": "Självklart, jag torkar alltid maskinerna."},
+      {"speaker": "Ahmed", "text": "Vi ses snart i tvättstugan igen!"}
+    ],
+    "questions": [
+      {"q": "När har Ahmed bokat tvättid?", "options": ["Klockan tio", "Klockan tolv", "Klockan två", "Klockan fyra"], "correctIndex": 1},
+      {"q": "Vilken knapp trycker man på för torktumlaren?", "options": ["Den röda", "Den gröna", "Den blå", "Den gula"], "correctIndex": 1}
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "b-dia-008",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Yusuf frågar Maria om bussen.",
+    "transcript": [
+      {"speaker": "Yusuf", "text": "Ursäkta, går bussen till centrum härifrån?"},
+      {"speaker": "Maria", "text": "Ja, buss nummer fyra går till centrum."},
+      {"speaker": "Yusuf", "text": "När kommer nästa buss?"},
+      {"speaker": "Maria", "text": "Den kommer om tio minuter."},
+      {"speaker": "Yusuf", "text": "Hur mycket kostar en biljett?"},
+      {"speaker": "Maria", "text": "En biljett kostar trettio kronor."},
+      {"speaker": "Yusuf", "text": "Tack för hjälpen!"},
+      {"speaker": "Maria", "text": "Varsågod, ha en bra resa!"}
+    ],
+    "questions": [
+      {"q": "Vilken buss går till centrum?", "options": ["Nummer två", "Nummer fyra", "Nummer sex", "Nummer åtta"], "correctIndex": 1},
+      {"q": "Vad kostar en biljett?", "options": ["Tjugo kronor", "Trettio kronor", "Fyrtio kronor", "Femtio kronor"], "correctIndex": 1},
+      {"type": "open", "q": "När kommer nästa buss? Skriv ditt svar.", "accept": ["om tio minuter", "tio minuter", "om 10 minuter", "10 minuter", "tio min"]}
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "b-dia-009",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Ingrid pratar med läraren David om sin son i skolan.",
+    "transcript": [
+      {"speaker": "Ingrid", "text": "Hej David, hur går det för min son Adam?"},
+      {"speaker": "David", "text": "Det går bra. Adam läser mycket nu."},
+      {"speaker": "Ingrid", "text": "Vad bra! Gör han sina läxor?"},
+      {"speaker": "David", "text": "Ja, men han glömmer ibland matteboken hemma."},
+      {"speaker": "Ingrid", "text": "Jag ska hjälpa honom att komma ihåg den."},
+      {"speaker": "David", "text": "Tack. Han är duktig i svenska."},
+      {"speaker": "Ingrid", "text": "Vilken dag har de matte?"},
+      {"speaker": "David", "text": "De har matte på tisdagar."}
+    ],
+    "questions": [
+      {"q": "Vad glömmer Adam ibland hemma?", "options": ["Pennan", "Matteboken", "Jackan", "Matsäcken"], "correctIndex": 1},
+      {"q": "Vilken dag har de matte?", "options": ["Måndag", "Tisdag", "Torsdag", "Fredag"], "correctIndex": 1}
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "b-dia-010",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Hassan köper kläder i en butik och pratar med Sofia.",
+    "transcript": [
+      {"speaker": "Hassan", "text": "Hej, jag letar efter en blå tröja."},
+      {"speaker": "Sofia", "text": "Vilken storlek har du?"},
+      {"speaker": "Hassan", "text": "Jag har storlek medium."},
+      {"speaker": "Sofia", "text": "Här är en fin blå tröja i medium."},
+      {"speaker": "Hassan", "text": "Vad kostar den?"},
+      {"speaker": "Sofia", "text": "Den kostar tvåhundra kronor."},
+      {"speaker": "Hassan", "text": "Bra, jag tar den."},
+      {"speaker": "Sofia", "text": "Du kan betala vid kassan där borta."}
+    ],
+    "questions": [
+      {"q": "Vilken färg vill Hassan ha på tröjan?", "options": ["Röd", "Blå", "Grön", "Svart"], "correctIndex": 1},
+      {"q": "Vad kostar tröjan?", "options": ["Hundra kronor", "Tvåhundra kronor", "Trehundra kronor", "Femhundra kronor"], "correctIndex": 1},
+      {"type": "open", "q": "Vilken storlek har Hassan? Skriv ditt svar.", "accept": ["medium", "storlek medium", "m", "han har medium"]}
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "b-dia-011",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Nadia frågar Per om vägen till biblioteket.",
+    "transcript": [
+      {"speaker": "Nadia", "text": "Ursäkta, var ligger biblioteket?"},
+      {"speaker": "Per", "text": "Det ligger på Storgatan."},
+      {"speaker": "Nadia", "text": "Är det långt härifrån?"},
+      {"speaker": "Per", "text": "Nej, du går rakt fram i fem minuter."},
+      {"speaker": "Nadia", "text": "Ska jag svänga någonstans?"},
+      {"speaker": "Per", "text": "Ja, sväng till höger vid kyrkan."},
+      {"speaker": "Nadia", "text": "Tack så mycket!"},
+      {"speaker": "Per", "text": "Varsågod, det går snabbt att hitta."}
+    ],
+    "questions": [
+      {"q": "Var ligger biblioteket?", "options": ["På Storgatan", "På Kungsgatan", "Vid stationen", "Vid torget"], "correctIndex": 0},
+      {"q": "Var ska Nadia svänga till höger?", "options": ["Vid affären", "Vid kyrkan", "Vid skolan", "Vid parken"], "correctIndex": 1}
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "b-dia-012",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Kwame och Linnea pratar om sina barn.",
+    "transcript": [
+      {"speaker": "Kwame", "text": "Hej Linnea! Hur många barn har du?"},
+      {"speaker": "Linnea", "text": "Jag har två barn, en pojke och en flicka."},
+      {"speaker": "Kwame", "text": "Hur gamla är de?"},
+      {"speaker": "Linnea", "text": "Pojken är sju år och flickan är fyra."},
+      {"speaker": "Kwame", "text": "Min dotter är också fyra år."},
+      {"speaker": "Linnea", "text": "Vad roligt! Går hon på förskolan?"},
+      {"speaker": "Kwame", "text": "Ja, hon går på förskolan varje dag."},
+      {"speaker": "Linnea", "text": "Mina barn trivs på förskolan också."}
+    ],
+    "questions": [
+      {"q": "Hur många barn har Linnea?", "options": ["Ett", "Två", "Tre", "Fyra"], "correctIndex": 1},
+      {"q": "Hur gammal är Linneas pojke?", "options": ["Fyra år", "Fem år", "Sju år", "Tio år"], "correctIndex": 2},
+      {"type": "open", "q": "Hur gammal är Kwames dotter? Skriv ditt svar.", "accept": ["fyra år", "fyra", "4 år", "4", "hon är fyra"]}
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "b-dia-013",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Bao beställer mat på en restaurang och pratar med servitören Gustav.",
+    "transcript": [
+      {"speaker": "Bao", "text": "Hej, jag vill beställa lunch."},
+      {"speaker": "Gustav", "text": "Visst! Vad vill du ha?"},
+      {"speaker": "Bao", "text": "Jag tar köttbullar med potatis."},
+      {"speaker": "Gustav", "text": "Vill du ha något att dricka?"},
+      {"speaker": "Bao", "text": "Ja, ett glas vatten, tack."},
+      {"speaker": "Gustav", "text": "Det blir nittio kronor totalt."},
+      {"speaker": "Bao", "text": "Här är pengarna. Tack."},
+      {"speaker": "Gustav", "text": "Tack! Maten kommer snart."}
+    ],
+    "questions": [
+      {"q": "Vad beställer Bao att äta?", "options": ["Pizza", "Köttbullar med potatis", "Fisk", "Sallad"], "correctIndex": 1},
+      {"q": "Hur mycket kostar maten totalt?", "options": ["Sjuttio kronor", "Åttio kronor", "Nittio kronor", "Hundra kronor"], "correctIndex": 2}
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "b-dia-014",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Elena och Mikael pratar om vädret.",
+    "transcript": [
+      {"speaker": "Elena", "text": "Vilket fint väder det är idag!"},
+      {"speaker": "Mikael", "text": "Ja, solen skiner och det är varmt."},
+      {"speaker": "Elena", "text": "Hur många grader är det?"},
+      {"speaker": "Mikael", "text": "Det är tjugo grader ute."},
+      {"speaker": "Elena", "text": "Ska vi gå till stranden?"},
+      {"speaker": "Mikael", "text": "Bra idé! Men det regnar imorgon."},
+      {"speaker": "Elena", "text": "Då går vi idag istället."},
+      {"speaker": "Mikael", "text": "Perfekt, vi går efter lunch."}
+    ],
+    "questions": [
+      {"q": "Hur många grader är det idag?", "options": ["Tio grader", "Femton grader", "Tjugo grader", "Tjugofem grader"], "correctIndex": 2},
+      {"q": "Hur blir vädret imorgon?", "options": ["Soligt", "Det regnar", "Snö", "Blåsigt"], "correctIndex": 1}
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "b-dia-015",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Aisha frågar Henrik på apoteket om medicin.",
+    "transcript": [
+      {"speaker": "Aisha", "text": "Hej, jag har huvudvärk. Vad kan jag ta?"},
+      {"speaker": "Henrik", "text": "Du kan ta dessa tabletter."},
+      {"speaker": "Aisha", "text": "Hur många ska jag ta?"},
+      {"speaker": "Henrik", "text": "Ta en tablett två gånger om dagen."},
+      {"speaker": "Aisha", "text": "Vad kostar de?"},
+      {"speaker": "Henrik", "text": "De kostar fyrtiofem kronor."},
+      {"speaker": "Aisha", "text": "Okej, jag tar dem. Tack."},
+      {"speaker": "Henrik", "text": "Krya på dig!"}
+    ],
+    "questions": [
+      {"q": "Hur ofta ska Aisha ta tabletterna?", "options": ["En gång om dagen", "Två gånger om dagen", "Tre gånger om dagen", "Varje timme"], "correctIndex": 1},
+      {"q": "Vad kostar tabletterna?", "options": ["Trettio kronor", "Fyrtiofem kronor", "Femtio kronor", "Sextio kronor"], "correctIndex": 1},
+      {"type": "open", "q": "Vad har Aisha för problem? Skriv ditt svar.", "accept": ["huvudvärk", "hon har huvudvärk", "ont i huvudet", "huvud värk"]}
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "b-dia-016",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Diego och Birgitta pratar om sin lägenhet.",
+    "transcript": [
+      {"speaker": "Diego", "text": "Hej Birgitta! Hur stor är din lägenhet?"},
+      {"speaker": "Birgitta", "text": "Den har två rum och kök."},
+      {"speaker": "Diego", "text": "Vilken våning bor du på?"},
+      {"speaker": "Birgitta", "text": "Jag bor på tredje våningen."},
+      {"speaker": "Diego", "text": "Finns det en hiss?"},
+      {"speaker": "Birgitta", "text": "Ja, det finns en hiss i huset."},
+      {"speaker": "Diego", "text": "Vad bra! Min lägenhet har bara ett rum."},
+      {"speaker": "Birgitta", "text": "Men ett rum kan också vara mysigt."}
+    ],
+    "questions": [
+      {"q": "Hur många rum har Birgittas lägenhet?", "options": ["Ett rum", "Två rum", "Tre rum", "Fyra rum"], "correctIndex": 1},
+      {"q": "Vilken våning bor Birgitta på?", "options": ["Första", "Andra", "Tredje", "Fjärde"], "correctIndex": 2}
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "b-dia-017",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Priya pratar med chefen Stefan om semester.",
+    "transcript": [
+      {"speaker": "Priya", "text": "Hej Stefan, jag vill ta semester i juli."},
+      {"speaker": "Stefan", "text": "Hur många veckor vill du ha?"},
+      {"speaker": "Priya", "text": "Jag vill ha tre veckor."},
+      {"speaker": "Stefan", "text": "Det går bra. Vart ska du resa?"},
+      {"speaker": "Priya", "text": "Jag ska resa till Indien."},
+      {"speaker": "Stefan", "text": "Vad spännande! När åker du?"},
+      {"speaker": "Priya", "text": "Jag åker den första juli."},
+      {"speaker": "Stefan", "text": "Trevlig resa! Vi ses i augusti."}
+    ],
+    "questions": [
+      {"q": "Hur många veckor semester vill Priya ha?", "options": ["En vecka", "Två veckor", "Tre veckor", "Fyra veckor"], "correctIndex": 2},
+      {"q": "Vart ska Priya resa?", "options": ["Till Spanien", "Till Indien", "Till Italien", "Till Norge"], "correctIndex": 1},
+      {"type": "open", "q": "När åker Priya på semester? Skriv ditt svar.", "accept": ["första juli", "den första juli", "1 juli", "1:a juli", "i juli"]}
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "b-dia-018",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Omar och Karolina pratar på gymmet.",
+    "transcript": [
+      {"speaker": "Omar", "text": "Hej Karolina! Tränar du ofta här?"},
+      {"speaker": "Karolina", "text": "Ja, jag tränar tre gånger i veckan."},
+      {"speaker": "Omar", "text": "Vad bra! Jag kommer på måndagar."},
+      {"speaker": "Karolina", "text": "Vad kostar ett medlemskap här?"},
+      {"speaker": "Omar", "text": "Det kostar trehundra kronor i månaden."},
+      {"speaker": "Karolina", "text": "Det är ett bra pris."},
+      {"speaker": "Omar", "text": "Ja, och gymmet öppnar klockan sex."},
+      {"speaker": "Karolina", "text": "Perfekt, då tränar jag på morgonen."}
+    ],
+    "questions": [
+      {"q": "Hur ofta tränar Karolina i veckan?", "options": ["En gång", "Två gånger", "Tre gånger", "Fyra gånger"], "correctIndex": 2},
+      {"q": "När öppnar gymmet?", "options": ["Klockan fem", "Klockan sex", "Klockan sju", "Klockan åtta"], "correctIndex": 1}
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "b-dia-019",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Fanny frågar grannen Tariq om hjälp.",
+    "transcript": [
+      {"speaker": "Fanny", "text": "Hej Tariq, kan du hjälpa mig?"},
+      {"speaker": "Tariq", "text": "Visst! Vad behöver du hjälp med?"},
+      {"speaker": "Fanny", "text": "Min lampa i köket fungerar inte."},
+      {"speaker": "Tariq", "text": "Jag kan byta lampan åt dig."},
+      {"speaker": "Fanny", "text": "Tack! När har du tid?"},
+      {"speaker": "Tariq", "text": "Jag kommer imorgon klockan fyra."},
+      {"speaker": "Fanny", "text": "Bra, jag är hemma då."},
+      {"speaker": "Tariq", "text": "Vi ses imorgon, hej då!"}
+    ],
+    "questions": [
+      {"q": "Vad fungerar inte hos Fanny?", "options": ["Spisen", "Lampan i köket", "Kylskåpet", "TV:n"], "correctIndex": 1},
+      {"q": "När kommer Tariq?", "options": ["Idag klockan fyra", "Imorgon klockan fyra", "Imorgon klockan fem", "På fredag"], "correctIndex": 1}
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "b-dia-020",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Selma och Anders pratar om mat och matlagning.",
+    "transcript": [
+      {"speaker": "Selma", "text": "Hej Anders! Vad lagar du för mat ikväll?"},
+      {"speaker": "Anders", "text": "Jag lagar fisk med potatis."},
+      {"speaker": "Selma", "text": "Det låter gott! Är det svårt?"},
+      {"speaker": "Anders", "text": "Nej, det är lätt. Det tar trettio minuter."},
+      {"speaker": "Selma", "text": "Jag lagar soppa ikväll."},
+      {"speaker": "Anders", "text": "Vilken soppa lagar du?"},
+      {"speaker": "Selma", "text": "Jag lagar tomatsoppa, min favorit."},
+      {"speaker": "Anders", "text": "Smaklig måltid då!"}
+    ],
+    "questions": [
+      {"q": "Vad lagar Anders ikväll?", "options": ["Soppa", "Fisk med potatis", "Pasta", "Köttbullar"], "correctIndex": 1},
+      {"q": "Hur lång tid tar Anders maträtt?", "options": ["Tio minuter", "Tjugo minuter", "Trettio minuter", "En timme"], "correctIndex": 2},
+      {"type": "open", "q": "Vilken soppa lagar Selma? Skriv ditt svar.", "accept": ["tomatsoppa", "tomat soppa", "hon lagar tomatsoppa", "tomat"]}
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "b-dia-021",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Idris frågar Camilla på banken om ett konto.",
+    "transcript": [
+      {"speaker": "Idris", "text": "Hej, jag vill öppna ett bankkonto."},
+      {"speaker": "Camilla", "text": "Visst! Har du legitimation med dig?"},
+      {"speaker": "Idris", "text": "Ja, här är mitt id-kort."},
+      {"speaker": "Camilla", "text": "Bra. Vad heter du i efternamn?"},
+      {"speaker": "Idris", "text": "Mitt efternamn är Yusuf."},
+      {"speaker": "Camilla", "text": "Tack. Kontot är klart om en vecka."},
+      {"speaker": "Idris", "text": "Får jag ett bankkort också?"},
+      {"speaker": "Camilla", "text": "Ja, kortet kommer med posten."}
+    ],
+    "questions": [
+      {"q": "Vad vill Idris göra på banken?", "options": ["Ta ut pengar", "Öppna ett konto", "Låna pengar", "Växla pengar"], "correctIndex": 1},
+      {"q": "När är kontot klart?", "options": ["Idag", "Om en dag", "Om en vecka", "Om en månad"], "correctIndex": 2}
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "b-dia-022",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Grace och Björn pratar om sina husdjur.",
+    "transcript": [
+      {"speaker": "Grace", "text": "Hej Björn! Har du något husdjur?"},
+      {"speaker": "Björn", "text": "Ja, jag har en hund. Han heter Max."},
+      {"speaker": "Grace", "text": "Vad gullig! Jag har en katt."},
+      {"speaker": "Björn", "text": "Vad heter din katt?"},
+      {"speaker": "Grace", "text": "Hon heter Misse och är vit."},
+      {"speaker": "Björn", "text": "Går du ut med Max varje dag?"},
+      {"speaker": "Grace", "text": "Ja, vi promenerar två gånger om dagen."},
+      {"speaker": "Björn", "text": "Det är bra motion för er båda!"}
+    ],
+    "questions": [
+      {"q": "Vad heter Björns hund?", "options": ["Misse", "Max", "Rex", "Bella"], "correctIndex": 1},
+      {"q": "Vilken färg har Graces katt?", "options": ["Svart", "Grå", "Vit", "Brun"], "correctIndex": 2},
+      {"type": "open", "q": "Vilket husdjur har Grace? Skriv ditt svar.", "accept": ["en katt", "katt", "hon har en katt", "katten misse"]}
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "b-dia-023",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Leyla frågar Patrik på posten om ett paket.",
+    "transcript": [
+      {"speaker": "Leyla", "text": "Hej, jag vill skicka ett paket."},
+      {"speaker": "Patrik", "text": "Vart ska paketet?"},
+      {"speaker": "Leyla", "text": "Det ska till Göteborg."},
+      {"speaker": "Patrik", "text": "Vad väger paketet?"},
+      {"speaker": "Leyla", "text": "Det väger två kilo."},
+      {"speaker": "Patrik", "text": "Då kostar det åttio kronor."},
+      {"speaker": "Leyla", "text": "När kommer paketet fram?"},
+      {"speaker": "Patrik", "text": "Det kommer fram om två dagar."}
+    ],
+    "questions": [
+      {"q": "Vart ska paketet?", "options": ["Till Stockholm", "Till Göteborg", "Till Malmö", "Till Uppsala"], "correctIndex": 1},
+      {"q": "Vad kostar det att skicka paketet?", "options": ["Femtio kronor", "Sextio kronor", "Sjuttio kronor", "Åttio kronor"], "correctIndex": 3}
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "b-dia-024",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Tomas och Amina pratar om hur de tar sig till jobbet.",
+    "transcript": [
+      {"speaker": "Tomas", "text": "Hej Amina! Hur tar du dig till jobbet?"},
+      {"speaker": "Amina", "text": "Jag åker tåg varje morgon."},
+      {"speaker": "Tomas", "text": "Hur lång tid tar resan?"},
+      {"speaker": "Amina", "text": "Det tar tjugo minuter med tåg."},
+      {"speaker": "Tomas", "text": "Jag cyklar till jobbet."},
+      {"speaker": "Amina", "text": "Vad bra motion! Är det långt?"},
+      {"speaker": "Tomas", "text": "Nej, det tar bara tio minuter."},
+      {"speaker": "Amina", "text": "Då hinner du sova lite längre på morgonen!"}
+    ],
+    "questions": [
+      {"q": "Hur tar Amina sig till jobbet?", "options": ["Med buss", "Med tåg", "Med bil", "Hon går"], "correctIndex": 1},
+      {"q": "Hur lång tid tar Tomas cykeltur?", "options": ["Fem minuter", "Tio minuter", "Tjugo minuter", "Trettio minuter"], "correctIndex": 1},
+      {"type": "open", "q": "Hur lång tid tar Aminas tågresa? Skriv ditt svar.", "accept": ["tjugo minuter", "20 minuter", "tjugo min", "20 min"]}
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "b-dia-025",
+    "course": "B",
+    "type": "dialogue",
+    "intro": "Rosa och Viktor planerar en middag tillsammans.",
+    "transcript": [
+      {"speaker": "Rosa", "text": "Hej Viktor! Vill du komma på middag på lördag?"},
+      {"speaker": "Viktor", "text": "Gärna! Vilken tid ska jag komma?"},
+      {"speaker": "Rosa", "text": "Kom klockan sju på kvällen."},
+      {"speaker": "Viktor", "text": "Vad ska du laga för mat?"},
+      {"speaker": "Rosa", "text": "Jag lagar en stor sallad och kyckling."},
+      {"speaker": "Viktor", "text": "Mums! Ska jag ta med något?"},
+      {"speaker": "Rosa", "text": "Ja, du kan ta med en efterrätt."},
+      {"speaker": "Viktor", "text": "Jag tar med en glasstårta. Vi ses!"}
+    ],
+    "questions": [
+      {"q": "Vilken dag är middagen?", "options": ["Fredag", "Lördag", "Söndag", "Torsdag"], "correctIndex": 1},
+      {"q": "Vilken tid ska Viktor komma?", "options": ["Klockan sex", "Klockan sju", "Klockan åtta", "Klockan nio"], "correctIndex": 1},
+      {"q": "Vad tar Viktor med sig?", "options": ["En sallad", "Bröd", "En glasstårta", "Dryck"], "correctIndex": 2}
+    ],
+    "sort_order": 24
+  }
+]

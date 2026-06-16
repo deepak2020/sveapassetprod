@@ -1,0 +1,477 @@
+[
+  {
+    "id": "b-match-001",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de gör i helgen. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Anna", "text": "I helgen ska jag träffa mina vänner och fika på ett café."},
+      {"speaker": "Erik", "text": "Jag ska städa hela lägenheten och tvätta alla kläder."},
+      {"speaker": "Sara", "text": "På lördag spelar jag fotboll med mitt lag i parken."},
+      {"speaker": "Omar", "text": "Jag ska laga god mat och bjuda min familj på middag."}
+    ],
+    "questions": [
+      {"q": "Vad gör Anna i helgen?", "options": ["Fika med vänner", "Resa till Spanien", "Städa lägenheten", "Spela fotboll", "Laga mat åt familjen", "Sova hela dagen"], "correctIndex": 0},
+      {"q": "Vad gör Erik i helgen?", "options": ["Fika med vänner", "Resa till Spanien", "Städa lägenheten", "Spela fotboll", "Laga mat åt familjen", "Sova hela dagen"], "correctIndex": 2},
+      {"q": "Vad gör Sara i helgen?", "options": ["Fika med vänner", "Resa till Spanien", "Städa lägenheten", "Spela fotboll", "Laga mat åt familjen", "Sova hela dagen"], "correctIndex": 3},
+      {"q": "Vad gör Omar i helgen?", "options": ["Fika med vänner", "Resa till Spanien", "Städa lägenheten", "Spela fotboll", "Laga mat åt familjen", "Sova hela dagen"], "correctIndex": 4}
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "b-match-002",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar om sitt jobb. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Lena", "text": "Jag jobbar på ett sjukhus och hjälper sjuka människor varje dag."},
+      {"speaker": "Karl", "text": "Jag kör buss i stan och möter många resenärer."},
+      {"speaker": "Fatima", "text": "Jag bakar bröd och kakor tidigt på morgonen i ett bageri."},
+      {"speaker": "Johan", "text": "Jag undervisar barn i skolan och rättar läxor på kvällen."}
+    ],
+    "questions": [
+      {"q": "Vad jobbar Lena med?", "options": ["Sjuksköterska", "Busschaufför", "Bagare", "Lärare", "Polis", "Kock"], "correctIndex": 0},
+      {"q": "Vad jobbar Karl med?", "options": ["Sjuksköterska", "Busschaufför", "Bagare", "Lärare", "Polis", "Kock"], "correctIndex": 1},
+      {"q": "Vad jobbar Fatima med?", "options": ["Sjuksköterska", "Busschaufför", "Bagare", "Lärare", "Polis", "Kock"], "correctIndex": 2},
+      {"q": "Vad jobbar Johan med?", "options": ["Sjuksköterska", "Busschaufför", "Bagare", "Lärare", "Polis", "Kock"], "correctIndex": 3}
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "b-match-003",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar hur de tar sig till jobbet. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Maria", "text": "Jag cyklar till jobbet varje morgon, även när det regnar."},
+      {"speaker": "Peter", "text": "Jag åker tunnelbana eftersom det går fort in till centrum."},
+      {"speaker": "Yusuf", "text": "Jag promenerar till kontoret, det tar bara tio minuter."},
+      {"speaker": "Eva", "text": "Jag kör bil till jobbet för att det ligger långt bort."}
+    ],
+    "questions": [
+      {"q": "Hur tar sig Maria till jobbet?", "options": ["Med cykel", "Med tunnelbana", "Till fots", "Med bil", "Med tåg", "Med taxi"], "correctIndex": 0},
+      {"q": "Hur tar sig Peter till jobbet?", "options": ["Med cykel", "Med tunnelbana", "Till fots", "Med bil", "Med tåg", "Med taxi"], "correctIndex": 1},
+      {"q": "Hur tar sig Yusuf till jobbet?", "options": ["Med cykel", "Med tunnelbana", "Till fots", "Med bil", "Med tåg", "Med taxi"], "correctIndex": 2},
+      {"q": "Hur tar sig Eva till jobbet?", "options": ["Med cykel", "Med tunnelbana", "Till fots", "Med bil", "Med tåg", "Med taxi"], "correctIndex": 3}
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "b-match-004",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de ska handla. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Sofia", "text": "Jag måste köpa mjölk, ost och smör till frukosten."},
+      {"speaker": "David", "text": "Jag behöver äpplen, bananer och apelsiner från grönsaksdisken."},
+      {"speaker": "Nadia", "text": "Jag ska köpa kött och korv till grillen i kväll."},
+      {"speaker": "Lars", "text": "Jag behöver bröd och bullar från bageriet i affären."}
+    ],
+    "questions": [
+      {"q": "Vad ska Sofia handla?", "options": ["Mejeriprodukter", "Frukt", "Kött", "Bröd", "Glass", "Blommor"], "correctIndex": 0},
+      {"q": "Vad ska David handla?", "options": ["Mejeriprodukter", "Frukt", "Kött", "Bröd", "Glass", "Blommor"], "correctIndex": 1},
+      {"q": "Vad ska Nadia handla?", "options": ["Mejeriprodukter", "Frukt", "Kött", "Bröd", "Glass", "Blommor"], "correctIndex": 2},
+      {"q": "Vad ska Lars handla?", "options": ["Mejeriprodukter", "Frukt", "Kött", "Bröd", "Glass", "Blommor"], "correctIndex": 3}
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "b-match-005",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar om sin hobby. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Klara", "text": "På fritiden målar jag tavlor med vackra färger hemma."},
+      {"speaker": "Ali", "text": "Jag spelar gitarr och sjunger sånger med mina kompisar."},
+      {"speaker": "Greta", "text": "Jag tycker om att läsa böcker, helst spännande deckare."},
+      {"speaker": "Mehmet", "text": "Jag springer i skogen flera gånger i veckan."}
+    ],
+    "questions": [
+      {"q": "Vad är Klaras hobby?", "options": ["Måla", "Spela musik", "Läsa böcker", "Springa", "Fotografera", "Dansa"], "correctIndex": 0},
+      {"q": "Vad är Alis hobby?", "options": ["Måla", "Spela musik", "Läsa böcker", "Springa", "Fotografera", "Dansa"], "correctIndex": 1},
+      {"q": "Vad är Gretas hobby?", "options": ["Måla", "Spela musik", "Läsa böcker", "Springa", "Fotografera", "Dansa"], "correctIndex": 2},
+      {"q": "Vad är Mehmets hobby?", "options": ["Måla", "Spela musik", "Läsa böcker", "Springa", "Fotografera", "Dansa"], "correctIndex": 3}
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "b-match-006",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar om sina semesterplaner. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Ingrid", "text": "I sommar ska jag resa till havet och bada varje dag."},
+      {"speaker": "Hassan", "text": "Jag ska åka till bergen och vandra i naturen."},
+      {"speaker": "Linnea", "text": "Jag ska besöka en stor stad och titta på museer."},
+      {"speaker": "Bo", "text": "Jag ska stanna hemma och vila i min trädgård."}
+    ],
+    "questions": [
+      {"q": "Vad ska Ingrid göra på semestern?", "options": ["Åka till havet", "Vandra i bergen", "Besöka en stad", "Stanna hemma", "Åka skidor", "Resa med båt"], "correctIndex": 0},
+      {"q": "Vad ska Hassan göra på semestern?", "options": ["Åka till havet", "Vandra i bergen", "Besöka en stad", "Stanna hemma", "Åka skidor", "Resa med båt"], "correctIndex": 1},
+      {"q": "Vad ska Linnea göra på semestern?", "options": ["Åka till havet", "Vandra i bergen", "Besöka en stad", "Stanna hemma", "Åka skidor", "Resa med båt"], "correctIndex": 2},
+      {"q": "Vad ska Bo göra på semestern?", "options": ["Åka till havet", "Vandra i bergen", "Besöka en stad", "Stanna hemma", "Åka skidor", "Resa med båt"], "correctIndex": 3}
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "b-match-007",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar om sin favoritmat. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Petra", "text": "Min favoritmat är pizza med mycket ost och tomat."},
+      {"speaker": "Samir", "text": "Jag älskar soppa med grönsaker när det är kallt ute."},
+      {"speaker": "Hanna", "text": "Jag tycker mest om fisk med potatis och citron."},
+      {"speaker": "Nils", "text": "Jag gillar pasta med tomatsås allra bäst."}
+    ],
+    "questions": [
+      {"q": "Vad är Petras favoritmat?", "options": ["Pizza", "Soppa", "Fisk", "Pasta", "Sallad", "Pannkakor"], "correctIndex": 0},
+      {"q": "Vad är Samirs favoritmat?", "options": ["Pizza", "Soppa", "Fisk", "Pasta", "Sallad", "Pannkakor"], "correctIndex": 1},
+      {"q": "Vad är Hannas favoritmat?", "options": ["Pizza", "Soppa", "Fisk", "Pasta", "Sallad", "Pannkakor"], "correctIndex": 2},
+      {"q": "Vad är Nils favoritmat?", "options": ["Pizza", "Soppa", "Fisk", "Pasta", "Sallad", "Pannkakor"], "correctIndex": 3}
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "b-match-008",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar om sina husdjur. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Elin", "text": "Jag har en hund som heter Max och gillar att gå ut."},
+      {"speaker": "Tariq", "text": "Jag har en katt som sover hela dagen i soffan."},
+      {"speaker": "Maja", "text": "Jag har en liten fågel som sjunger vackert på morgonen."},
+      {"speaker": "Gustav", "text": "Jag har en kanin med mjuk päls i en bur."}
+    ],
+    "questions": [
+      {"q": "Vilket husdjur har Elin?", "options": ["Hund", "Katt", "Fågel", "Kanin", "Fisk", "Häst"], "correctIndex": 0},
+      {"q": "Vilket husdjur har Tariq?", "options": ["Hund", "Katt", "Fågel", "Kanin", "Fisk", "Häst"], "correctIndex": 1},
+      {"q": "Vilket husdjur har Maja?", "options": ["Hund", "Katt", "Fågel", "Kanin", "Fisk", "Häst"], "correctIndex": 2},
+      {"q": "Vilket husdjur har Gustav?", "options": ["Hund", "Katt", "Fågel", "Kanin", "Fisk", "Häst"], "correctIndex": 3}
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "b-match-009",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de gör på kvällen. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Vera", "text": "På kvällen tittar jag på film i soffan med en filt."},
+      {"speaker": "Idris", "text": "Jag lagar middag och äter tillsammans med min familj."},
+      {"speaker": "Stina", "text": "Jag går på gymmet och tränar efter jobbet."},
+      {"speaker": "Lukas", "text": "Jag ringer mina föräldrar och pratar en lång stund."}
+    ],
+    "questions": [
+      {"q": "Vad gör Vera på kvällen?", "options": ["Tittar på film", "Lagar middag", "Tränar på gym", "Ringer familjen", "Läser läxor", "Sover tidigt"], "correctIndex": 0},
+      {"q": "Vad gör Idris på kvällen?", "options": ["Tittar på film", "Lagar middag", "Tränar på gym", "Ringer familjen", "Läser läxor", "Sover tidigt"], "correctIndex": 1},
+      {"q": "Vad gör Stina på kvällen?", "options": ["Tittar på film", "Lagar middag", "Tränar på gym", "Ringer familjen", "Läser läxor", "Sover tidigt"], "correctIndex": 2},
+      {"q": "Vad gör Lukas på kvällen?", "options": ["Tittar på film", "Lagar middag", "Tränar på gym", "Ringer familjen", "Läser läxor", "Sover tidigt"], "correctIndex": 3}
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "b-match-010",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vilket rum de gillar bäst. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Rosa", "text": "Jag gillar köket bäst, där lagar jag god mat varje dag."},
+      {"speaker": "Amir", "text": "Mitt favoritrum är sovrummet, där sover jag gott och vilar."},
+      {"speaker": "Tova", "text": "Jag tycker mest om vardagsrummet, där sitter vi och pratar."},
+      {"speaker": "Felix", "text": "Jag gillar badrummet, där tar jag ett varmt bad."}
+    ],
+    "questions": [
+      {"q": "Vilket rum gillar Rosa bäst?", "options": ["Köket", "Sovrummet", "Vardagsrummet", "Badrummet", "Hallen", "Källaren"], "correctIndex": 0},
+      {"q": "Vilket rum gillar Amir bäst?", "options": ["Köket", "Sovrummet", "Vardagsrummet", "Badrummet", "Hallen", "Källaren"], "correctIndex": 1},
+      {"q": "Vilket rum gillar Tova bäst?", "options": ["Köket", "Sovrummet", "Vardagsrummet", "Badrummet", "Hallen", "Källaren"], "correctIndex": 2},
+      {"q": "Vilket rum gillar Felix bäst?", "options": ["Köket", "Sovrummet", "Vardagsrummet", "Badrummet", "Hallen", "Källaren"], "correctIndex": 3}
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "b-match-011",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vilken årstid de gillar. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Britta", "text": "Jag älskar våren när blommorna kommer och solen värmer."},
+      {"speaker": "Khaled", "text": "Jag gillar sommaren bäst, då är det varmt och ljust."},
+      {"speaker": "Astrid", "text": "Jag tycker om hösten med röda löv och svamp i skogen."},
+      {"speaker": "Markus", "text": "Jag gillar vintern när det snöar och jag åker skidor."}
+    ],
+    "questions": [
+      {"q": "Vilken årstid gillar Britta?", "options": ["Våren", "Sommaren", "Hösten", "Vintern", "Midsommar", "Julen"], "correctIndex": 0},
+      {"q": "Vilken årstid gillar Khaled?", "options": ["Våren", "Sommaren", "Hösten", "Vintern", "Midsommar", "Julen"], "correctIndex": 1},
+      {"q": "Vilken årstid gillar Astrid?", "options": ["Våren", "Sommaren", "Hösten", "Vintern", "Midsommar", "Julen"], "correctIndex": 2},
+      {"q": "Vilken årstid gillar Markus?", "options": ["Våren", "Sommaren", "Hösten", "Vintern", "Midsommar", "Julen"], "correctIndex": 3}
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "b-match-012",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vilken sport de gör. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Cecilia", "text": "Jag simmar i bassängen tre gånger i veckan."},
+      {"speaker": "Rashid", "text": "Jag spelar tennis med min bror varje söndag."},
+      {"speaker": "Wilma", "text": "Jag åker skridskor på isen när det är vinter."},
+      {"speaker": "Anton", "text": "Jag spelar basket med ett lag i en stor hall."}
+    ],
+    "questions": [
+      {"q": "Vilken sport gör Cecilia?", "options": ["Simma", "Tennis", "Skridskor", "Basket", "Boxning", "Golf"], "correctIndex": 0},
+      {"q": "Vilken sport gör Rashid?", "options": ["Simma", "Tennis", "Skridskor", "Basket", "Boxning", "Golf"], "correctIndex": 1},
+      {"q": "Vilken sport gör Wilma?", "options": ["Simma", "Tennis", "Skridskor", "Basket", "Boxning", "Golf"], "correctIndex": 2},
+      {"q": "Vilken sport gör Anton?", "options": ["Simma", "Tennis", "Skridskor", "Basket", "Boxning", "Golf"], "correctIndex": 3}
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "b-match-013",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de dricker på morgonen. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Helena", "text": "På morgonen dricker jag alltid en stor kopp kaffe."},
+      {"speaker": "Bilal", "text": "Jag dricker te med lite honung varje morgon."},
+      {"speaker": "Iris", "text": "Jag tycker om juice av apelsiner till frukosten."},
+      {"speaker": "Oscar", "text": "Jag dricker ett glas mjölk innan jag går till skolan."}
+    ],
+    "questions": [
+      {"q": "Vad dricker Helena på morgonen?", "options": ["Kaffe", "Te", "Juice", "Mjölk", "Vatten", "Läsk"], "correctIndex": 0},
+      {"q": "Vad dricker Bilal på morgonen?", "options": ["Kaffe", "Te", "Juice", "Mjölk", "Vatten", "Läsk"], "correctIndex": 1},
+      {"q": "Vad dricker Iris på morgonen?", "options": ["Kaffe", "Te", "Juice", "Mjölk", "Vatten", "Läsk"], "correctIndex": 2},
+      {"q": "Vad dricker Oscar på morgonen?", "options": ["Kaffe", "Te", "Juice", "Mjölk", "Vatten", "Läsk"], "correctIndex": 3}
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "b-match-014",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar var de bor. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Ulla", "text": "Jag bor i en lägenhet på femte våningen i stan."},
+      {"speaker": "Jamal", "text": "Jag bor i ett stort hus med trädgård på landet."},
+      {"speaker": "Saga", "text": "Jag bor i ett litet rum i en studentkorridor."},
+      {"speaker": "Henrik", "text": "Jag bor i en stuga nära skogen och en sjö."}
+    ],
+    "questions": [
+      {"q": "Var bor Ulla?", "options": ["I en lägenhet", "I ett hus", "I ett studentrum", "I en stuga", "På ett hotell", "På en båt"], "correctIndex": 0},
+      {"q": "Var bor Jamal?", "options": ["I en lägenhet", "I ett hus", "I ett studentrum", "I en stuga", "På ett hotell", "På en båt"], "correctIndex": 1},
+      {"q": "Var bor Saga?", "options": ["I en lägenhet", "I ett hus", "I ett studentrum", "I en stuga", "På ett hotell", "På en båt"], "correctIndex": 2},
+      {"q": "Var bor Henrik?", "options": ["I en lägenhet", "I ett hus", "I ett studentrum", "I en stuga", "På ett hotell", "På en båt"], "correctIndex": 3}
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "b-match-015",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de studerar. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Marta", "text": "Jag studerar svenska för att kunna prata med alla."},
+      {"speaker": "Reza", "text": "Jag läser matematik och tycker om att räkna tal."},
+      {"speaker": "Frida", "text": "Jag studerar engelska och läser många böcker på engelska."},
+      {"speaker": "Pavel", "text": "Jag läser historia och lär mig om gamla tider."}
+    ],
+    "questions": [
+      {"q": "Vad studerar Marta?", "options": ["Svenska", "Matematik", "Engelska", "Historia", "Biologi", "Musik"], "correctIndex": 0},
+      {"q": "Vad studerar Reza?", "options": ["Svenska", "Matematik", "Engelska", "Historia", "Biologi", "Musik"], "correctIndex": 1},
+      {"q": "Vad studerar Frida?", "options": ["Svenska", "Matematik", "Engelska", "Historia", "Biologi", "Musik"], "correctIndex": 2},
+      {"q": "Vad studerar Pavel?", "options": ["Svenska", "Matematik", "Engelska", "Historia", "Biologi", "Musik"], "correctIndex": 3}
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "b-match-016",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vilken färg de gillar. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Doris", "text": "Min favoritfärg är blå, som himlen en fin dag."},
+      {"speaker": "Adam", "text": "Jag gillar grön bäst, som gräset och träden."},
+      {"speaker": "Nina", "text": "Jag tycker mest om röd, en stark och varm färg."},
+      {"speaker": "Viktor", "text": "Jag gillar gul, som solen och vackra blommor."}
+    ],
+    "questions": [
+      {"q": "Vilken färg gillar Doris?", "options": ["Blå", "Grön", "Röd", "Gul", "Svart", "Vit"], "correctIndex": 0},
+      {"q": "Vilken färg gillar Adam?", "options": ["Blå", "Grön", "Röd", "Gul", "Svart", "Vit"], "correctIndex": 1},
+      {"q": "Vilken färg gillar Nina?", "options": ["Blå", "Grön", "Röd", "Gul", "Svart", "Vit"], "correctIndex": 2},
+      {"q": "Vilken färg gillar Viktor?", "options": ["Blå", "Grön", "Röd", "Gul", "Svart", "Vit"], "correctIndex": 3}
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "b-match-017",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de gör på sommaren. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Berit", "text": "På sommaren plockar jag bär i skogen med barnen."},
+      {"speaker": "Karim", "text": "Jag fiskar i sjön och grillar fisken på kvällen."},
+      {"speaker": "Ebba", "text": "Jag jobbar i trädgården och planterar grönsaker."},
+      {"speaker": "Teo", "text": "Jag åker till stranden och bygger sandslott."}
+    ],
+    "questions": [
+      {"q": "Vad gör Berit på sommaren?", "options": ["Plockar bär", "Fiskar", "Arbetar i trädgården", "Åker till stranden", "Cyklar långt", "Målar huset"], "correctIndex": 0},
+      {"q": "Vad gör Karim på sommaren?", "options": ["Plockar bär", "Fiskar", "Arbetar i trädgården", "Åker till stranden", "Cyklar långt", "Målar huset"], "correctIndex": 1},
+      {"q": "Vad gör Ebba på sommaren?", "options": ["Plockar bär", "Fiskar", "Arbetar i trädgården", "Åker till stranden", "Cyklar långt", "Målar huset"], "correctIndex": 2},
+      {"q": "Vad gör Teo på sommaren?", "options": ["Plockar bär", "Fiskar", "Arbetar i trädgården", "Åker till stranden", "Cyklar långt", "Målar huset"], "correctIndex": 3}
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "b-match-018",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de bär för kläder. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Solveig", "text": "Idag har jag på mig en varm jacka för det är kallt."},
+      {"speaker": "Yara", "text": "Jag bär en fin klänning eftersom jag ska på fest."},
+      {"speaker": "Magnus", "text": "Jag har på mig stövlar för att det regnar mycket."},
+      {"speaker": "Elias", "text": "Jag bär en mössa på huvudet för att det blåser."}
+    ],
+    "questions": [
+      {"q": "Vad bär Solveig?", "options": ["En jacka", "En klänning", "Stövlar", "En mössa", "En tröja", "Handskar"], "correctIndex": 0},
+      {"q": "Vad bär Yara?", "options": ["En jacka", "En klänning", "Stövlar", "En mössa", "En tröja", "Handskar"], "correctIndex": 1},
+      {"q": "Vad bär Magnus?", "options": ["En jacka", "En klänning", "Stövlar", "En mössa", "En tröja", "Handskar"], "correctIndex": 2},
+      {"q": "Vad bär Elias?", "options": ["En jacka", "En klänning", "Stövlar", "En mössa", "En tröja", "Handskar"], "correctIndex": 3}
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "b-match-019",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vart de ska gå. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Gunilla", "text": "Jag ska gå till biblioteket och låna några böcker."},
+      {"speaker": "Sami", "text": "Jag ska gå till apoteket och köpa medicin."},
+      {"speaker": "Alva", "text": "Jag ska gå till banken och hämta pengar."},
+      {"speaker": "Robin", "text": "Jag ska gå till posten och skicka ett paket."}
+    ],
+    "questions": [
+      {"q": "Vart ska Gunilla gå?", "options": ["Till biblioteket", "Till apoteket", "Till banken", "Till posten", "Till skolan", "Till sjukhuset"], "correctIndex": 0},
+      {"q": "Vart ska Sami gå?", "options": ["Till biblioteket", "Till apoteket", "Till banken", "Till posten", "Till skolan", "Till sjukhuset"], "correctIndex": 1},
+      {"q": "Vart ska Alva gå?", "options": ["Till biblioteket", "Till apoteket", "Till banken", "Till posten", "Till skolan", "Till sjukhuset"], "correctIndex": 2},
+      {"q": "Vart ska Robin gå?", "options": ["Till biblioteket", "Till apoteket", "Till banken", "Till posten", "Till skolan", "Till sjukhuset"], "correctIndex": 3}
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "b-match-020",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de äter till frukost. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Margareta", "text": "Till frukost äter jag gröt med lite sylt och bär."},
+      {"speaker": "Omid", "text": "Jag äter en smörgås med ost och en tomat."},
+      {"speaker": "Linn", "text": "Jag äter yoghurt med müsli och frukt på morgonen."},
+      {"speaker": "Ivan", "text": "Jag äter ett kokt ägg med bröd varje morgon."}
+    ],
+    "questions": [
+      {"q": "Vad äter Margareta till frukost?", "options": ["Gröt", "Smörgås", "Yoghurt", "Ägg", "Pannkakor", "Frukt"], "correctIndex": 0},
+      {"q": "Vad äter Omid till frukost?", "options": ["Gröt", "Smörgås", "Yoghurt", "Ägg", "Pannkakor", "Frukt"], "correctIndex": 1},
+      {"q": "Vad äter Linn till frukost?", "options": ["Gröt", "Smörgås", "Yoghurt", "Ägg", "Pannkakor", "Frukt"], "correctIndex": 2},
+      {"q": "Vad äter Ivan till frukost?", "options": ["Gröt", "Smörgås", "Yoghurt", "Ägg", "Pannkakor", "Frukt"], "correctIndex": 3}
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "b-match-021",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de gör imorgon. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Inger", "text": "Imorgon ska jag gå till tandläkaren tidigt på morgonen."},
+      {"speaker": "Hadi", "text": "Imorgon ska jag klippa håret hos frisören."},
+      {"speaker": "Tilde", "text": "Imorgon ska jag besöka min mormor på sjukhuset."},
+      {"speaker": "Noel", "text": "Imorgon ska jag ha ett viktigt möte på jobbet."}
+    ],
+    "questions": [
+      {"q": "Vad ska Inger göra imorgon?", "options": ["Gå till tandläkaren", "Gå till frisören", "Besöka mormor", "Ha möte på jobbet", "Träna på gym", "Handla mat"], "correctIndex": 0},
+      {"q": "Vad ska Hadi göra imorgon?", "options": ["Gå till tandläkaren", "Gå till frisören", "Besöka mormor", "Ha möte på jobbet", "Träna på gym", "Handla mat"], "correctIndex": 1},
+      {"q": "Vad ska Tilde göra imorgon?", "options": ["Gå till tandläkaren", "Gå till frisören", "Besöka mormor", "Ha möte på jobbet", "Träna på gym", "Handla mat"], "correctIndex": 2},
+      {"q": "Vad ska Noel göra imorgon?", "options": ["Gå till tandläkaren", "Gå till frisören", "Besöka mormor", "Ha möte på jobbet", "Träna på gym", "Handla mat"], "correctIndex": 3}
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "b-match-022",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar om sin familj. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Birgit", "text": "Jag har två döttrar som går i skolan i stan."},
+      {"speaker": "Arman", "text": "Jag har en son som är tre år och leker mycket."},
+      {"speaker": "Moa", "text": "Jag bor med min man och vi har ingen barn än."},
+      {"speaker": "Sven", "text": "Jag har en stor familj med fyra barn hemma."}
+    ],
+    "questions": [
+      {"q": "Hur ser Birgits familj ut?", "options": ["Två döttrar", "En liten son", "Make utan barn", "Fyra barn", "Bor ensam", "En katt och en hund"], "correctIndex": 0},
+      {"q": "Hur ser Armans familj ut?", "options": ["Två döttrar", "En liten son", "Make utan barn", "Fyra barn", "Bor ensam", "En katt och en hund"], "correctIndex": 1},
+      {"q": "Hur ser Moas familj ut?", "options": ["Två döttrar", "En liten son", "Make utan barn", "Fyra barn", "Bor ensam", "En katt och en hund"], "correctIndex": 2},
+      {"q": "Hur ser Svens familj ut?", "options": ["Två döttrar", "En liten son", "Make utan barn", "Fyra barn", "Bor ensam", "En katt och en hund"], "correctIndex": 3}
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "b-match-023",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de tycker om att titta på. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Gerd", "text": "Jag tittar gärna på nyheterna varje kväll klockan sju."},
+      {"speaker": "Nour", "text": "Jag älskar att titta på sport, särskilt fotboll på tv."},
+      {"speaker": "Selma", "text": "Jag tittar på roliga serier som får mig att skratta."},
+      {"speaker": "Joel", "text": "Jag gillar att titta på naturprogram om djur."}
+    ],
+    "questions": [
+      {"q": "Vad tittar Gerd på?", "options": ["Nyheter", "Sport", "Komediserier", "Naturprogram", "Musikvideor", "Matlagning"], "correctIndex": 0},
+      {"q": "Vad tittar Nour på?", "options": ["Nyheter", "Sport", "Komediserier", "Naturprogram", "Musikvideor", "Matlagning"], "correctIndex": 1},
+      {"q": "Vad tittar Selma på?", "options": ["Nyheter", "Sport", "Komediserier", "Naturprogram", "Musikvideor", "Matlagning"], "correctIndex": 2},
+      {"q": "Vad tittar Joel på?", "options": ["Nyheter", "Sport", "Komediserier", "Naturprogram", "Musikvideor", "Matlagning"], "correctIndex": 3}
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "b-match-024",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vilken instrument de spelar. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Majken", "text": "Jag spelar piano och övar varje dag i en timme."},
+      {"speaker": "Faisal", "text": "Jag spelar fiol i en orkester på helgerna."},
+      {"speaker": "Tuva", "text": "Jag spelar flöjt och tycker om dess fina ljud."},
+      {"speaker": "Kasper", "text": "Jag spelar trummor och gör mycket ljud hemma."}
+    ],
+    "questions": [
+      {"q": "Vilket instrument spelar Majken?", "options": ["Piano", "Fiol", "Flöjt", "Trummor", "Gitarr", "Saxofon"], "correctIndex": 0},
+      {"q": "Vilket instrument spelar Faisal?", "options": ["Piano", "Fiol", "Flöjt", "Trummor", "Gitarr", "Saxofon"], "correctIndex": 1},
+      {"q": "Vilket instrument spelar Tuva?", "options": ["Piano", "Fiol", "Flöjt", "Trummor", "Gitarr", "Saxofon"], "correctIndex": 2},
+      {"q": "Vilket instrument spelar Kasper?", "options": ["Piano", "Fiol", "Flöjt", "Trummor", "Gitarr", "Saxofon"], "correctIndex": 3}
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "b-match-025",
+    "course": "B",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de gör på morgonen. Matcha rätt.",
+    "transcript": [
+      {"speaker": "Ragnhild", "text": "På morgonen duschar jag först och borstar tänderna."},
+      {"speaker": "Tomas", "text": "Jag joggar en runda i parken innan jag äter."},
+      {"speaker": "Wanda", "text": "Jag läser tidningen i lugn och ro med en kopp kaffe."},
+      {"speaker": "Igor", "text": "Jag väcker barnen och gör frukost åt hela familjen."}
+    ],
+    "questions": [
+      {"q": "Vad gör Ragnhild på morgonen?", "options": ["Duschar", "Joggar", "Läser tidningen", "Väcker barnen", "Mediterar", "Lyssnar på radio"], "correctIndex": 0},
+      {"q": "Vad gör Tomas på morgonen?", "options": ["Duschar", "Joggar", "Läser tidningen", "Väcker barnen", "Mediterar", "Lyssnar på radio"], "correctIndex": 1},
+      {"q": "Vad gör Wanda på morgonen?", "options": ["Duschar", "Joggar", "Läser tidningen", "Väcker barnen", "Mediterar", "Lyssnar på radio"], "correctIndex": 2},
+      {"q": "Vad gör Igor på morgonen?", "options": ["Duschar", "Joggar", "Läser tidningen", "Väcker barnen", "Mediterar", "Lyssnar på radio"], "correctIndex": 3}
+    ],
+    "sort_order": 24
+  }
+]
