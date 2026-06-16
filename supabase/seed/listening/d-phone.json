@@ -1,0 +1,2030 @@
+[
+  {
+    "id": "d-tel-001",
+    "course": "D",
+    "type": "phone",
+    "intro": "Khadija ringer Försäkringskassan om sin föräldrapenning eftersom utbetalningen blev lägre än väntat.",
+    "transcript": [
+      {
+        "speaker": "Handläggare",
+        "text": "Försäkringskassan, du talar med Patrik."
+      },
+      {
+        "speaker": "Khadija",
+        "text": "Hej, jag heter Khadija Osman. Jag undrar varför min föräldrapenning för maj blev lägre. Jag fick bara nittiotvå kronor om dagen i stället för min vanliga ersättning."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Jag förstår att det känns oväntat. Det beror på att du nyligen tog ut dagar på grundnivå. De första hundraåttio dagarna kräver att du har haft en inkomst i minst tvåhundrafyrtio dagar i följd före födseln."
+      },
+      {
+        "speaker": "Khadija",
+        "text": "Men jag har ju arbetat i fyra år. Borde inte det räcka?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Det stämmer normalt, men i vårt system saknas uppgifter om din anställning mellan januari och mars. Då räknar vi automatiskt på lägstanivån."
+      },
+      {
+        "speaker": "Khadija",
+        "text": "Vad behöver jag göra för att rätta till det?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Skicka in ett arbetsgivarintyg som visar din inkomst för den perioden. När vi fått det gör vi en omräkning och betalar ut mellanskillnaden retroaktivt."
+      },
+      {
+        "speaker": "Khadija",
+        "text": "Hur lång tid tar handläggningen?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Räkna med upp till trettio dagar från det att intyget kommit in. Du kan följa ärendet på Mina sidor."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför blev Khadijas föräldrapenning lägre?",
+        "options": [
+          "Systemet saknar uppgifter om hennes anställning",
+          "Hon tog ut för många dagar",
+          "Hennes inkomst hade sjunkit",
+          "Hon hade slutat sitt arbete"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad ska Khadija skicka in?",
+        "options": [
+          "Ett arbetsgivarintyg",
+          "Ett läkarintyg",
+          "Ett personbevis",
+          "En ansökan om bostadsbidrag"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Hur lång tid kan handläggningen ta efter att intyget kommit in? Skriv ditt svar.",
+        "accept": [
+          "upp till trettio dagar",
+          "trettio dagar",
+          "30 dagar",
+          "ungefär en månad",
+          "cirka en månad"
+        ]
+      }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "d-tel-002",
+    "course": "D",
+    "type": "phone",
+    "intro": "Marcus ringer banken för att diskutera amorteringskravet på sitt bolån.",
+    "transcript": [
+      {
+        "speaker": "Rådgivare",
+        "text": "Välkommen till banken, du talar med Sofia."
+      },
+      {
+        "speaker": "Marcus",
+        "text": "Hej, Marcus Bergqvist heter jag. Jag vill förstå varför min amortering har höjts till tre procent per år."
+      },
+      {
+        "speaker": "Rådgivare",
+        "text": "Det beror på att din skuldkvot ligger över fyra och en halv gånger din bruttoinkomst. Då gäller ett skärpt amorteringskrav på ytterligare en procent utöver grundkravet."
+      },
+      {
+        "speaker": "Marcus",
+        "text": "Jag har ju amorterat troget i fem år. Kan jag inte få en paus?"
+      },
+      {
+        "speaker": "Rådgivare",
+        "text": "Du kan ansöka om amorteringsfrihet vid särskilda skäl, till exempel arbetslöshet eller sjukdom. Men frivillig paus beviljar vi sällan när skuldkvoten är så hög."
+      },
+      {
+        "speaker": "Marcus",
+        "text": "Vad skulle hända om jag löste in en del av lånet?"
+      },
+      {
+        "speaker": "Rådgivare",
+        "text": "Om du betalar av så att belåningsgraden hamnar under femtio procent försvinner det extra kravet. Då skulle din månadskostnad sjunka med ungefär tvåtusen kronor."
+      },
+      {
+        "speaker": "Marcus",
+        "text": "Det låter rimligt. Kan vi boka ett möte för att räkna på det?"
+      },
+      {
+        "speaker": "Rådgivare",
+        "text": "Absolut. Jag har en tid på torsdag den artonde klockan halv tre. Ta gärna med din senaste deklaration."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför har Marcus amortering höjts?",
+        "options": [
+          "Han har missat betalningar",
+          "Räntan har stigit",
+          "Han har bytt bank",
+          "Hans skuldkvot är för hög"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "När försvinner det extra amorteringskravet?",
+        "options": [
+          "När han fyller sextio",
+          "Efter tio år",
+          "När räntan sjunker",
+          "När belåningsgraden är under femtio procent"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad ska Marcus ta med till mötet?",
+        "options": [
+          "Sin senaste deklaration",
+          "Sitt anställningsavtal",
+          "Ett läkarintyg",
+          "Sitt pass"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "d-tel-003",
+    "course": "D",
+    "type": "phone",
+    "intro": "Yasmin ringer kommunen för att överklaga ett avslag på sin bygglovsansökan.",
+    "transcript": [
+      {
+        "speaker": "Handläggare",
+        "text": "Stadsbyggnadskontoret, Anders här."
+      },
+      {
+        "speaker": "Yasmin",
+        "text": "Hej, jag heter Yasmin Karimi. Jag fick avslag på mitt bygglov för en altan och vill veta hur jag överklagar."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Avslaget beror på att altanen skulle byggas närmare tomtgränsen än fyra och en halv meter utan grannens medgivande."
+      },
+      {
+        "speaker": "Yasmin",
+        "text": "Men min granne har faktiskt sagt ja muntligt."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Ett muntligt medgivande räcker tyvärr inte. Vi behöver det skriftligt och undertecknat för att kunna ändra beslutet."
+      },
+      {
+        "speaker": "Yasmin",
+        "text": "Och om jag ändå vill överklaga själva beslutet?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Då skickar du en skriftlig överklagan till oss inom tre veckor från det att du tog del av beslutet. Vi vidarebefordrar den till länsstyrelsen."
+      },
+      {
+        "speaker": "Yasmin",
+        "text": "Vad bör jag skriva i överklagandet?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Ange ärendets diarienummer, varför du anser beslutet felaktigt och vad du yrkar. Bifoga gärna grannens skriftliga medgivande, så kan saken lösa sig snabbare."
+      },
+      {
+        "speaker": "Yasmin",
+        "text": "Tack, då fixar jag ett skriftligt intyg först."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför fick Yasmin avslag?",
+        "options": [
+          "Området var skyddat",
+          "Altanen var för stor",
+          "Hon betalade inte avgiften",
+          "Den låg för nära tomtgränsen"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Inom vilken tid måste hon överklaga?",
+        "options": [
+          "Sex månader",
+          "En vecka",
+          "Två månader",
+          "Tre veckor"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vad krävs i stället för grannens muntliga ja? Skriv ditt svar.",
+        "accept": [
+          "ett skriftligt medgivande",
+          "skriftligt medgivande",
+          "grannens skriftliga medgivande",
+          "ett undertecknat medgivande",
+          "ett skriftligt intyg"
+        ]
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "d-tel-004",
+    "course": "D",
+    "type": "phone",
+    "intro": "Daniel ringer sitt fackförbund eftersom han blivit uppsagd på grund av arbetsbrist.",
+    "transcript": [
+      {
+        "speaker": "Ombudsman",
+        "text": "Fackförbundet, du talar med Helena."
+      },
+      {
+        "speaker": "Daniel",
+        "text": "Hej, Daniel Lindqvist. Jag har fått besked om uppsägning på grund av arbetsbrist och undrar om det gått rätt till."
+      },
+      {
+        "speaker": "Ombudsman",
+        "text": "Vi börjar med turordningen. Hur länge har du varit anställd?"
+      },
+      {
+        "speaker": "Daniel",
+        "text": "I sju år. Men de behöll en kollega som bara jobbat i två år."
+      },
+      {
+        "speaker": "Ombudsman",
+        "text": "Det kan vara ett brott mot turordningsreglerna, som bygger på principen sist in, först ut. Undantag finns dock för upp till tre nyckelpersoner i mindre företag."
+      },
+      {
+        "speaker": "Daniel",
+        "text": "Vi är bara tolv anställda, så undantaget kan gälla."
+      },
+      {
+        "speaker": "Ombudsman",
+        "text": "Just det. Då måste arbetsgivaren ändå kunna motivera varför kollegan har särskild kompetens. Har du fått din uppsägningstid bekräftad skriftligt?"
+      },
+      {
+        "speaker": "Daniel",
+        "text": "Ja, jag har sex månaders uppsägningstid enligt avtalet."
+      },
+      {
+        "speaker": "Ombudsman",
+        "text": "Bra. Skicka uppsägningsbeskedet till mig, så granskar jag om förhandlingen skötts korrekt. Vi har tio dagar på oss att begära överläggning."
+      },
+      {
+        "speaker": "Daniel",
+        "text": "Tack, jag mejlar det i dag."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är grunden för Daniels uppsägning?",
+        "options": [
+          "Arbetsbrist",
+          "Misskötsel",
+          "Personliga skäl",
+          "Pensionering"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken princip bygger turordningen på?",
+        "options": [
+          "Yngst först",
+          "Först in, först ut",
+          "Sist in, först ut",
+          "Högst lön först"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur lång uppsägningstid har Daniel?",
+        "options": [
+          "Sex månader",
+          "Två veckor",
+          "Ett år",
+          "Tre månader"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "d-tel-005",
+    "course": "D",
+    "type": "phone",
+    "intro": "Anita ringer Skatteverket om ett efterbeskattningsbeslut hon anser är felaktigt.",
+    "transcript": [
+      {
+        "speaker": "Handläggare",
+        "text": "Skatteverket, Johan här."
+      },
+      {
+        "speaker": "Anita",
+        "text": "Hej, Anita Sundberg. Jag har fått ett beslut om att jag ska betala tjugotvåtusen kronor i restskatt och förstår inte varför."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Jag ser i ditt ärende att du sålt en bostadsrätt förra året men inte deklarerat vinsten."
+      },
+      {
+        "speaker": "Anita",
+        "text": "Men jag köpte ju en ny bostad direkt. Skulle jag inte få uppskov med vinstskatten?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Uppskov kan beviljas, men det måste begäras aktivt i deklarationen. Eftersom du inte ansökte beskattades hela vinsten."
+      },
+      {
+        "speaker": "Anita",
+        "text": "Kan jag rätta det i efterhand?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Ja, du kan begära omprövning. Skicka in en ansökan om uppskov tillsammans med köpekontrakten för båda bostäderna."
+      },
+      {
+        "speaker": "Anita",
+        "text": "Hur länge har jag på mig?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Du kan begära omprövning i upp till sex år efter beskattningsåret. Men gör det snart, så slipper du betala in summan i onödan."
+      },
+      {
+        "speaker": "Anita",
+        "text": "Tack så mycket, då skickar jag in ansökan direkt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför fick Anita restskatt?",
+        "options": [
+          "Hon deklarerade inte vinsten från bostadsförsäljningen",
+          "Hon betalade fel arbetsgivaravgift",
+          "Hon glömde betala fastighetsavgift",
+          "Hon hade för låg inkomst"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad måste man göra för att få uppskov?",
+        "options": [
+          "Sälja en till bostad",
+          "Vänta sex år",
+          "Ringa Skatteverket",
+          "Begära det aktivt i deklarationen"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur länge kan man begära omprövning?",
+        "options": [
+          "Tio år",
+          "Tre år",
+          "Sex år",
+          "Ett år"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "d-tel-006",
+    "course": "D",
+    "type": "phone",
+    "intro": "Erik ringer en vårdcentral för att få en remiss till en specialistmottagning.",
+    "transcript": [
+      {
+        "speaker": "Sjuksköterska",
+        "text": "Vårdcentralen, du talar med Lena."
+      },
+      {
+        "speaker": "Erik",
+        "text": "Hej, Erik Holm. Jag har haft återkommande yrsel i flera månader och vill ha en remiss till en neurolog."
+      },
+      {
+        "speaker": "Sjuksköterska",
+        "text": "Jag förstår att det är oroande. Har du redan träffat en läkare hos oss för besvären?"
+      },
+      {
+        "speaker": "Erik",
+        "text": "Ja, två gånger. Vi har provat olika mediciner men ingenting har hjälpt."
+      },
+      {
+        "speaker": "Sjuksköterska",
+        "text": "Då kan läkaren skriva en specialistremiss. Men först behöver vi komplettera med en balansundersökning och vissa blodprover."
+      },
+      {
+        "speaker": "Erik",
+        "text": "Måste jag verkligen göra om allt det där?"
+      },
+      {
+        "speaker": "Sjuksköterska",
+        "text": "Specialisten kräver ett fullständigt underlag, annars riskerar remissen att avvisas. Det sparar tid i längden."
+      },
+      {
+        "speaker": "Erik",
+        "text": "Okej, då bokar vi det. Hur lång är väntetiden till neurologen sedan?"
+      },
+      {
+        "speaker": "Sjuksköterska",
+        "text": "Enligt vårdgarantin ska du få en tid inom nittio dagar efter att remissen godkänts. Jag bokar dina prover till nästa tisdag klockan nio."
+      },
+      {
+        "speaker": "Erik",
+        "text": "Tack, det passar bra."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad vill Erik ha en remiss till?",
+        "options": [
+          "En ortoped",
+          "En neurolog",
+          "En hudläkare",
+          "En kardiolog"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför behövs blodprover och balansundersökning?",
+        "options": [
+          "För att Erik är gammal",
+          "För att läkaren är ledig",
+          "För att slippa betala",
+          "För att specialisten kräver fullständigt underlag"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Inom hur många dagar ska Erik få en tid hos neurologen enligt vårdgarantin? Skriv ditt svar.",
+        "accept": [
+          "nittio dagar",
+          "90 dagar",
+          "inom nittio dagar",
+          "inom 90 dagar",
+          "tre månader"
+        ]
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "d-tel-007",
+    "course": "D",
+    "type": "phone",
+    "intro": "Fatima ringer ett försäkringsbolag för att anmäla en vattenskada i sin lägenhet.",
+    "transcript": [
+      {
+        "speaker": "Skadereglerare",
+        "text": "Försäkringsbolaget, du talar med Robert."
+      },
+      {
+        "speaker": "Fatima",
+        "text": "Hej, Fatima Aziz. Jag vill anmäla en vattenskada. Ett rör i badrummet har läckt och förstört golvet i hallen."
+      },
+      {
+        "speaker": "Skadereglerare",
+        "text": "Vad tråkigt. När upptäckte du läckan?"
+      },
+      {
+        "speaker": "Fatima",
+        "text": "I förrgår kväll. Jag stängde genast av vattnet och torkade upp så gott det gick."
+      },
+      {
+        "speaker": "Skadereglerare",
+        "text": "Bra agerat. Det är viktigt för att begränsa skadan. Har du fotograferat hur det såg ut?"
+      },
+      {
+        "speaker": "Fatima",
+        "text": "Ja, jag har flera bilder."
+      },
+      {
+        "speaker": "Skadereglerare",
+        "text": "Utmärkt. Din hemförsäkring täcker plötsliga och oförutsedda vattenskador, men du har en självrisk på trekvarts basbelopp, alltså runt artontusen kronor."
+      },
+      {
+        "speaker": "Fatima",
+        "text": "Det var mer än jag trodde. Täcks inte allt?"
+      },
+      {
+        "speaker": "Skadereglerare",
+        "text": "Självrisken drar vi alltid av. Vi skickar en besiktningsman inom fem arbetsdagar som bedömer kostnaderna. Spara alla kvitton på akut sanering."
+      },
+      {
+        "speaker": "Fatima",
+        "text": "Det ska jag göra. Tack för hjälpen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har orsakat skadan i Fatimas lägenhet?",
+        "options": [
+          "En brand",
+          "Ett läckande rör",
+          "Storm",
+          "Inbrott"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur stor är självrisken ungefär?",
+        "options": [
+          "Artontusen kronor",
+          "Femtiotusen kronor",
+          "Tusen kronor",
+          "Femtusen kronor"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad ska Fatima spara?",
+        "options": [
+          "Sitt försäkringsbrev",
+          "Gamla räkningar",
+          "Sitt hyreskontrakt",
+          "Kvitton på akut sanering"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "d-tel-008",
+    "course": "D",
+    "type": "phone",
+    "intro": "Sebastian ringer Arbetsförmedlingen om sin etableringsersättning och en planerad utbildning.",
+    "transcript": [
+      {
+        "speaker": "Handläggare",
+        "text": "Arbetsförmedlingen, du talar med Mona."
+      },
+      {
+        "speaker": "Sebastian",
+        "text": "Hej, Sebastian Nowak. Jag har blivit antagen till en yrkesutbildning till svetsare och undrar hur det påverkar min ersättning."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Vad roligt att du kommit in. Är utbildningen en del av din handlingsplan hos oss?"
+      },
+      {
+        "speaker": "Sebastian",
+        "text": "Inte ännu. Jag hittade den själv och söker på egen hand."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Då behöver vi först godkänna den i din plan. Annars riskerar du att förlora rätten till aktivitetsstöd under studietiden."
+      },
+      {
+        "speaker": "Sebastian",
+        "text": "Hur mycket får jag i aktivitetsstöd?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Det baseras på din tidigare ersättning, men lägst tvåhundratvftiötre kronor per dag fem dagar i veckan. Det betalas ut av Försäkringskassan."
+      },
+      {
+        "speaker": "Sebastian",
+        "text": "Och om utbildningen inte godkänns?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Då kan du studera ändå, men utan stöd från oss. Skicka in kursplanen så bedömer jag om den leder till ett bristyrke. Svetsare står faktiskt högt på listan."
+      },
+      {
+        "speaker": "Sebastian",
+        "text": "Perfekt, jag mejlar kursplanen i kväll."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken utbildning har Sebastian kommit in på?",
+        "options": [
+          "Svetsare",
+          "Målare",
+          "Elektriker",
+          "Snickare"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad måste hända innan han kan få aktivitetsstöd?",
+        "options": [
+          "Han måste flytta",
+          "Han måste säga upp sig",
+          "Utbildningen måste godkännas i hans plan",
+          "Han måste byta handläggare"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vem betalar ut aktivitetsstödet?",
+        "options": [
+          "Skatteverket",
+          "Arbetsförmedlingen",
+          "Kommunen",
+          "Försäkringskassan"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "d-tel-009",
+    "course": "D",
+    "type": "phone",
+    "intro": "Linnea ringer en elektronikkedja för att göra en reklamation av en bärbar dator.",
+    "transcript": [
+      {
+        "speaker": "Kundtjänst",
+        "text": "Kundtjänst, du talar med Oskar."
+      },
+      {
+        "speaker": "Linnea",
+        "text": "Hej, Linnea Falk. Jag köpte en dator för fjorton månader sedan och nu fungerar inte skärmen. Jag vill reklamera den."
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Garantin gäller i tolv månader, så den har tyvärr gått ut."
+      },
+      {
+        "speaker": "Linnea",
+        "text": "Men enligt konsumentköplagen har jag väl reklamationsrätt i tre år?"
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Det stämmer. Reklamationsrätten är tre år, och under de första två åren är det vi som måste bevisa att felet inte fanns från början."
+      },
+      {
+        "speaker": "Linnea",
+        "text": "Bra, då vill jag att ni reparerar den utan kostnad."
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Vi behöver först låta en tekniker bedöma om felet är ett ursprungsfel eller beror på yttre påverkan, som en stöt."
+      },
+      {
+        "speaker": "Linnea",
+        "text": "Datorn har aldrig tappats. Hur lång tid tar bedömningen?"
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Ungefär tio arbetsdagar. Om det är ett fabrikationsfel reparerar eller byter vi den kostnadsfritt. Skicka in den med ditt kvitto som inköpsbevis."
+      },
+      {
+        "speaker": "Linnea",
+        "text": "Tack, jag skickar den i morgon."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför säger kundtjänsten först nej?",
+        "options": [
+          "Datorn är för gammal",
+          "Felet är självförvållat",
+          "Linnea saknar kvitto",
+          "Garantin på tolv månader har gått ut"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur lång är reklamationsrätten enligt lagen?",
+        "options": [
+          "Två år",
+          "Fem år",
+          "Ett år",
+          "Tre år"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vad ska Linnea skicka med datorn som inköpsbevis? Skriv ditt svar.",
+        "accept": [
+          "kvittot",
+          "sitt kvitto",
+          "ett kvitto",
+          "inköpskvittot",
+          "kvitto"
+        ]
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "d-tel-010",
+    "course": "D",
+    "type": "phone",
+    "intro": "Ahmed ringer en advokatbyrå för rådgivning om en arvstvist i familjen.",
+    "transcript": [
+      {
+        "speaker": "Jurist",
+        "text": "Advokatbyrån, du talar med Camilla."
+      },
+      {
+        "speaker": "Ahmed",
+        "text": "Hej, Ahmed Sharif. Min far gick bort nyligen och mina syskon och jag är oense om arvet. Jag behöver råd."
+      },
+      {
+        "speaker": "Jurist",
+        "text": "Mitt deltagande i sorgen. Finns det ett testamente?"
+      },
+      {
+        "speaker": "Ahmed",
+        "text": "Ja, men min bror menar att det är ogiltigt eftersom det inte är bevittnat."
+      },
+      {
+        "speaker": "Jurist",
+        "text": "Det är en viktig poäng. Ett testamente måste bevittnas av två personer samtidigt, annars kan det förklaras ogiltigt vid en klandertalan."
+      },
+      {
+        "speaker": "Ahmed",
+        "text": "Vad händer om det ogiltigförklaras?"
+      },
+      {
+        "speaker": "Jurist",
+        "text": "Då fördelas kvarlåtenskapen enligt den legala arvsordningen, vilket innebär lika delar mellan er bröstarvingar."
+      },
+      {
+        "speaker": "Ahmed",
+        "text": "Hur går jag vidare om jag vill bestrida brorens påstående?"
+      },
+      {
+        "speaker": "Jurist",
+        "text": "Du måste väcka klandertalan vid tingsrätten inom sex månader från att du delgavs testamentet. Ta med en kopia av handlingen och bouppteckningen till vårt möte på fredag."
+      },
+      {
+        "speaker": "Ahmed",
+        "text": "Tack, då ses vi på fredag."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför hävdar Ahmeds bror att testamentet är ogiltigt?",
+        "options": [
+          "Det är för gammalt",
+          "Det saknar datum",
+          "Det är inte bevittnat",
+          "Det är handskrivet"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur fördelas arvet om testamentet ogiltigförklaras?",
+        "options": [
+          "Allt går till staten",
+          "Lika delar mellan bröstarvingarna",
+          "Enligt broderns önskan",
+          "Äldsta barnet får allt"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Inom vilken tid måste klandertalan väckas?",
+        "options": [
+          "En månad",
+          "Sex månader",
+          "Två år",
+          "Tre månader"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "d-tel-011",
+    "course": "D",
+    "type": "phone",
+    "intro": "Sara ringer CSN för att fråga om återbetalning av sitt studielån efter en inkomstförändring.",
+    "transcript": [
+      {
+        "speaker": "Handläggare",
+        "text": "CSN, du talar med Niklas."
+      },
+      {
+        "speaker": "Sara",
+        "text": "Hej, Sara Engström. Jag har förlorat mitt jobb och klarar inte mina årsbetalningar på studielånet just nu."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Jag förstår. Du kan ansöka om nedsatt årsbelopp om din inkomst sjunkit rejält."
+      },
+      {
+        "speaker": "Sara",
+        "text": "Hur mycket kan det sänkas?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Årsbeloppet får då vara högst fem procent av din inkomst. Med arbetslöshetsersättning blir det betydligt lägre än dina nuvarande fjortontusen kronor."
+      },
+      {
+        "speaker": "Sara",
+        "text": "Måste jag betala tillbaka mellanskillnaden senare?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Nej, den skjuts upp och fördelas på kommande år. Men räntan fortsätter att löpa på hela skulden."
+      },
+      {
+        "speaker": "Sara",
+        "text": "Hur ansöker jag?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Logga in på Mina sidor och fyll i en ansökan om nedsättning. Bifoga ett beslut om a-kassa som inkomstunderlag. Beslutet kommer normalt inom två veckor."
+      },
+      {
+        "speaker": "Sara",
+        "text": "Tack, jag gör det i dag."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför ringer Sara till CSN?",
+        "options": [
+          "Hon vill ta ett nytt lån",
+          "Hon klarar inte sina återbetalningar",
+          "Hon vill studera utomlands",
+          "Hon har betalat för mycket"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur högt får årsbeloppet vara vid nedsättning?",
+        "options": [
+          "Halva inkomsten",
+          "Tre procent av inkomsten",
+          "Fem procent av inkomsten",
+          "Tio procent av inkomsten"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Vad händer med räntan trots nedsättningen? Skriv ditt svar.",
+        "accept": [
+          "den fortsätter att löpa",
+          "räntan fortsätter löpa",
+          "den löper på hela skulden",
+          "räntan löper vidare",
+          "den fortsätter att löpa på skulden"
+        ]
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "d-tel-012",
+    "course": "D",
+    "type": "phone",
+    "intro": "Omar ringer Migrationsverket för att fråga om förlängning av sitt uppehållstillstånd.",
+    "transcript": [
+      {
+        "speaker": "Handläggare",
+        "text": "Migrationsverket, du talar med Ingrid."
+      },
+      {
+        "speaker": "Omar",
+        "text": "Hej, Omar Haddad. Mitt tillfälliga uppehållstillstånd går ut om två månader och jag vill ansöka om förlängning."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Bra att du hör av dig i tid. Är du fortfarande anställd?"
+      },
+      {
+        "speaker": "Omar",
+        "text": "Ja, jag har en tillsvidareanställning på ett bageri sedan ett år tillbaka."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Det är positivt för din ansökan. För permanent uppehållstillstånd krävs att du kan försörja dig själv och har gjort det under en sammanhängande period."
+      },
+      {
+        "speaker": "Omar",
+        "text": "Räcker min lön på tjugofyratusen kronor i månaden?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Det ligger över försörjningskravet, så det ser bra ut. Du behöver också uppfylla kravet på kunskaper i svenska och samhällskunskap."
+      },
+      {
+        "speaker": "Omar",
+        "text": "Det provet har jag redan klarat. När bör jag skicka in ansökan?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Senast dagen innan ditt nuvarande tillstånd löper ut. Ansök digitalt och bifoga anställningsavtal och de tre senaste lönespecifikationerna."
+      },
+      {
+        "speaker": "Omar",
+        "text": "Tack, då gör jag det den här veckan."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken anställning har Omar?",
+        "options": [
+          "En tillsvidareanställning",
+          "En provanställning",
+          "Ett sommarjobb",
+          "En praktikplats"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad krävs för permanent uppehållstillstånd?",
+        "options": [
+          "Att man är gift",
+          "Att man kan försörja sig själv",
+          "Att man äger en bostad",
+          "Att man har körkort"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "När senast bör Omar skicka in ansökan?",
+        "options": [
+          "Inom ett år",
+          "Dagen innan tillståndet löper ut",
+          "Efter att det löpt ut",
+          "Tre månader innan"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "d-tel-013",
+    "course": "D",
+    "type": "phone",
+    "intro": "Helena ringer hyresvärden för att kräva åtgärd mot mögel och hänvisa till hyreslagen.",
+    "transcript": [
+      {
+        "speaker": "Förvaltare",
+        "text": "Fastighetsbolaget, du talar med Tomas."
+      },
+      {
+        "speaker": "Helena",
+        "text": "Hej, Helena Vikström i Lindgatan tolv. Det har börjat växa mögel i mitt badrum och jag har anmält det två gånger utan att något hänt."
+      },
+      {
+        "speaker": "Förvaltare",
+        "text": "Det beklagar jag. Har du fått en bekräftelse på dina tidigare felanmälningar?"
+      },
+      {
+        "speaker": "Helena",
+        "text": "Ja, jag har två ärendenummer. Det första är nu sex veckor gammalt."
+      },
+      {
+        "speaker": "Förvaltare",
+        "text": "Det är alldeles för länge. Mögel kan påverka inomhusmiljön allvarligt och vi är skyldiga att åtgärda det."
+      },
+      {
+        "speaker": "Helena",
+        "text": "Om ni inte agerar nu överväger jag att vända mig till hyresnämnden och begära nedsatt hyra."
+      },
+      {
+        "speaker": "Förvaltare",
+        "text": "Det förstår jag. Jag skickar en fuktutredning redan i morgon bitti. Visar den på en brist åtgärdar vi den inom tio dagar."
+      },
+      {
+        "speaker": "Helena",
+        "text": "Och om skadan funnits länge, har jag rätt till kompensation?"
+      },
+      {
+        "speaker": "Förvaltare",
+        "text": "Om lägenheten haft nedsatt brukbarhet kan du ha rätt till hyresreduktion för perioden. Vi återkommer efter utredningen."
+      },
+      {
+        "speaker": "Helena",
+        "text": "Tack, jag förväntar mig snabb hantering."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är problemet i Helenas lägenhet?",
+        "options": [
+          "Trasig värme",
+          "Mögel i badrummet",
+          "Vattenläcka i köket",
+          "Buller från grannar"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vart hotar Helena att vända sig?",
+        "options": [
+          "Hyresnämnden",
+          "Polisen",
+          "Kronofogden",
+          "Skatteverket"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad skickar förvaltaren redan nästa morgon? Skriv ditt svar.",
+        "accept": [
+          "en fuktutredning",
+          "fuktutredning",
+          "en utredning",
+          "en fuktundersökning",
+          "en besiktning av fukt"
+        ]
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "d-tel-014",
+    "course": "D",
+    "type": "phone",
+    "intro": "Johan ringer Kronofogden för att invända mot ett betalningskrav han anser är felaktigt.",
+    "transcript": [
+      {
+        "speaker": "Handläggare",
+        "text": "Kronofogden, du talar med Berit."
+      },
+      {
+        "speaker": "Johan",
+        "text": "Hej, Johan Ek. Jag har fått ett betalningsföreläggande på tolvtusen kronor från ett företag jag aldrig handlat av."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Det låter allvarligt. Har du fått handlingen hemskickad med ett delgivningskvitto?"
+      },
+      {
+        "speaker": "Johan",
+        "text": "Ja, det kom i förrgår. Jag känner inte igen fordran alls."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Då ska du bestrida kravet. Du har tio dagar på dig från delgivningen att skriftligen invända."
+      },
+      {
+        "speaker": "Johan",
+        "text": "Vad händer om jag bestrider?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Då kan vi inte fastställa skulden. Företaget får i stället välja om de vill driva ärendet vidare till tingsrätten."
+      },
+      {
+        "speaker": "Johan",
+        "text": "Och om jag inte gör något?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Då meddelar vi ett utslag och skulden kan drivas in, vilket även påverkar din kreditupplysning. Så bestrid i tid om du anser kravet felaktigt."
+      },
+      {
+        "speaker": "Johan",
+        "text": "Jag skickar invändningen i dag. Tack."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför ringer Johan Kronofogden?",
+        "options": [
+          "Han vill betala en skuld",
+          "Han vill ansöka om lån",
+          "Han söker jobb",
+          "Han har fått ett felaktigt betalningskrav"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur lång tid har Johan på sig att bestrida?",
+        "options": [
+          "Sex veckor",
+          "En månad",
+          "Tio dagar",
+          "Tre dagar"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad händer om Johan inte gör något?",
+        "options": [
+          "Kravet avskrivs",
+          "Ärendet preskriberas direkt",
+          "Ett utslag meddelas och skulden kan drivas in",
+          "Han får pengar tillbaka"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "d-tel-015",
+    "course": "D",
+    "type": "phone",
+    "intro": "Amina ringer Pensionsmyndigheten för att förstå hur deltidsarbete påverkar hennes pension.",
+    "transcript": [
+      {
+        "speaker": "Handläggare",
+        "text": "Pensionsmyndigheten, du talar med Stefan."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Hej, Amina Yusuf. Jag funderar på att gå ner till deltid och undrar hur det påverkar min framtida pension."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Bra fråga. Den allmänna pensionen bygger på alla dina inkomster genom livet, så lägre lön nu ger något lägre pension."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Hur stor blir skillnaden om jag jobbar åttio procent i fem år?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Det beror på din lön, men varje år avsätts arton och en halv procent av din pensionsgrundande inkomst. Mindre inkomst betyder alltså mindre avsättning."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Påverkas även tjänstepensionen?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Ja, ofta mer än den allmänna, eftersom den beräknas på din aktuella lön. Hör med din arbetsgivare om vilka regler som gäller i ditt avtal."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Finns det något sätt att kompensera?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Du kan spara privat eller skjuta upp uttaget av pensionen, vilket höjer beloppet. Logga in på Mina sidor och gör en prognos för olika alternativ."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Tack, det ska jag göra."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad funderar Amina på att göra?",
+        "options": [
+          "Flytta utomlands",
+          "Gå ner till deltid",
+          "Gå i pension nu",
+          "Byta jobb"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur stor andel av inkomsten avsätts till allmän pension?",
+        "options": [
+          "Arton och en halv procent",
+          "Tjugofem procent",
+          "Tio procent",
+          "Fem procent"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur kan Amina höja sin framtida pension?",
+        "options": [
+          "Genom att byta bank",
+          "Genom att jobba mindre",
+          "Genom att skjuta upp uttaget",
+          "Genom att flytta"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "d-tel-016",
+    "course": "D",
+    "type": "phone",
+    "intro": "Petra ringer en bilverkstad för att klaga på en faktura som blev mycket högre än offerten.",
+    "transcript": [
+      {
+        "speaker": "Verkstadschef",
+        "text": "Bilverkstaden, du talar med Kenneth."
+      },
+      {
+        "speaker": "Petra",
+        "text": "Hej, Petra Lund. Jag fick en offert på femtusen kronor men fakturan landade på niotusen. Det är jag inte nöjd med."
+      },
+      {
+        "speaker": "Verkstadschef",
+        "text": "Jag förstår din reaktion. Vi hittade ytterligare fel på bromsarna under arbetet."
+      },
+      {
+        "speaker": "Petra",
+        "text": "Men ni ringde aldrig och frågade om jag godkände det extra arbetet."
+      },
+      {
+        "speaker": "Verkstadschef",
+        "text": "Det stämmer att vi borde ha kontaktat dig. Enligt konsumenttjänstlagen får priset inte överstiga ungefärlig prisuppgift med mer än femton procent."
+      },
+      {
+        "speaker": "Petra",
+        "text": "Då är ni långt över gränsen. Vad gäller nu?"
+      },
+      {
+        "speaker": "Verkstadschef",
+        "text": "Eftersom vi inte fick ditt godkännande har du rätt att bara betala det överenskomna priset plus den tillåtna marginalen."
+      },
+      {
+        "speaker": "Petra",
+        "text": "Så vad blir slutsumman?"
+      },
+      {
+        "speaker": "Verkstadschef",
+        "text": "Femtusen plus femton procent blir femtusen sjuhundrafemtio kronor. Jag krediterar resten och skickar en rättad faktura i dag."
+      },
+      {
+        "speaker": "Petra",
+        "text": "Tack, det är rimligt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför klagar Petra?",
+        "options": [
+          "Verkstaden var stängd",
+          "Hon fick fel bil tillbaka",
+          "Fakturan blev mycket högre än offerten",
+          "Bilen blev inte lagad"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Med hur mycket får priset överstiga en ungefärlig prisuppgift?",
+        "options": [
+          "Fem procent",
+          "Trettio procent",
+          "Femtio procent",
+          "Femton procent"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vilken slutsumma ska Petra betala? Skriv ditt svar.",
+        "accept": [
+          "femtusen sjuhundrafemtio kronor",
+          "5750 kronor",
+          "femtusen sjuhundrafemtio",
+          "5750",
+          "fem tusen sjuhundrafemtio kronor"
+        ]
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "d-tel-017",
+    "course": "D",
+    "type": "phone",
+    "intro": "Karim ringer Försäkringskassan om sin sjukpenning efter att ha fått avslag.",
+    "transcript": [
+      {
+        "speaker": "Handläggare",
+        "text": "Försäkringskassan, du talar med Eva."
+      },
+      {
+        "speaker": "Karim",
+        "text": "Hej, Karim Mansour. Jag har fått avslag på min sjukpenning fast min läkare sjukskrivit mig i tre månader till."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Jag ser ärendet. Avslaget kom efter dag hundraåttio, då vi prövar din arbetsförmåga mot hela arbetsmarknaden, inte bara ditt vanliga jobb."
+      },
+      {
+        "speaker": "Karim",
+        "text": "Men jag kan ju knappt gå på grund av min ryggskada."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Det är just den bedömningen som ska prövas. Vårt underlag tyder på att du skulle klara ett mindre fysiskt krävande arbete."
+      },
+      {
+        "speaker": "Karim",
+        "text": "Det håller jag inte med om. Hur överklagar jag?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Begär först omprövning hos oss inom två månader. Bifoga gärna ett kompletterande läkarutlåtande som beskriver dina begränsningar tydligare."
+      },
+      {
+        "speaker": "Karim",
+        "text": "Och om ni avslår igen?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Då kan du överklaga vidare till förvaltningsrätten. Men börja med omprövningen, det är ofta där beslut ändras."
+      },
+      {
+        "speaker": "Karim",
+        "text": "Tack, jag pratar med min läkare i morgon."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När fick Karim avslag på sjukpenningen?",
+        "options": [
+          "Direkt vid ansökan",
+          "Vid dag fjorton",
+          "Efter dag hundraåttio",
+          "Efter ett år"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad ska Karim bifoga sin omprövning?",
+        "options": [
+          "Ett kvitto",
+          "En deklaration",
+          "Ett kompletterande läkarutlåtande",
+          "Ett anställningsavtal"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vart kan Karim överklaga om omprövningen avslås?",
+        "options": [
+          "Förvaltningsrätten",
+          "Hyresnämnden",
+          "Tingsrätten",
+          "Kronofogden"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "d-tel-018",
+    "course": "D",
+    "type": "phone",
+    "intro": "Elin ringer en internetleverantör för att häva ett avtal hon tecknat via telefonförsäljning.",
+    "transcript": [
+      {
+        "speaker": "Kundtjänst",
+        "text": "Bredbandsbolaget, du talar med Viktor."
+      },
+      {
+        "speaker": "Elin",
+        "text": "Hej, Elin Norberg. En säljare ringde i går och jag sa ja, men nu ångrar jag mig och vill häva avtalet."
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Jag förstår. Tecknades avtalet enbart över telefon?"
+      },
+      {
+        "speaker": "Elin",
+        "text": "Ja, jag har inte skrivit under något."
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Då gäller en viktig regel. Sedan lagändringen måste avtal från telefonförsäljning bekräftas skriftligt för att bli giltiga."
+      },
+      {
+        "speaker": "Elin",
+        "text": "Jag har inte fått eller skickat någon sådan bekräftelse."
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Då finns det inget bindande avtal alls, oavsett ångerrätten på fjorton dagar."
+      },
+      {
+        "speaker": "Elin",
+        "text": "Så jag behöver inte betala något?"
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Nej, ingen kostnad uppstår. Jag noterar att du inte bekräftat och avslutar ärendet. Du får en bekräftelse på det via mejl inom en timme."
+      },
+      {
+        "speaker": "Elin",
+        "text": "Tack så mycket, det var en lättnad."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur tecknades Elins avtal?",
+        "options": [
+          "På nätet",
+          "Via telefonförsäljning",
+          "Per brev",
+          "I en butik"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför är avtalet inte giltigt?",
+        "options": [
+          "Det bekräftades aldrig skriftligt",
+          "Säljaren var oärlig",
+          "Hon är minderårig",
+          "Priset var fel"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Hur lång är den vanliga ångerrätten som nämns? Skriv ditt svar.",
+        "accept": [
+          "fjorton dagar",
+          "14 dagar",
+          "fjorton",
+          "två veckor",
+          "14"
+        ]
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "d-tel-019",
+    "course": "D",
+    "type": "phone",
+    "intro": "Hassan ringer kommunens socialtjänst för att ansöka om ekonomiskt bistånd.",
+    "transcript": [
+      {
+        "speaker": "Socialsekreterare",
+        "text": "Socialtjänsten, du talar med Maria."
+      },
+      {
+        "speaker": "Hassan",
+        "text": "Hej, Hassan Ali. Jag har blivit av med mitt jobb och min a-kassa räcker inte till hyran. Jag vill ansöka om försörjningsstöd."
+      },
+      {
+        "speaker": "Socialsekreterare",
+        "text": "Det ska vi titta på. Har du sökt alla andra ersättningar du kan ha rätt till, som bostadsbidrag?"
+      },
+      {
+        "speaker": "Hassan",
+        "text": "Ja, jag får redan bostadsbidrag men det täcker inte allt."
+      },
+      {
+        "speaker": "Socialsekreterare",
+        "text": "Bra. Försörjningsstöd är det sista skyddsnätet, så vi prövar mot riksnormen och dina faktiska kostnader."
+      },
+      {
+        "speaker": "Hassan",
+        "text": "Vad behöver jag lämna in?"
+      },
+      {
+        "speaker": "Socialsekreterare",
+        "text": "Kontoutdrag för de senaste tre månaderna, hyresavi och uppgift om alla inkomster. Du behöver också vara inskriven på Arbetsförmedlingen och söka arbete aktivt."
+      },
+      {
+        "speaker": "Hassan",
+        "text": "Det är jag redan. När kan jag få besked?"
+      },
+      {
+        "speaker": "Socialsekreterare",
+        "text": "Vi fattar beslut inom ungefär en vecka efter ett komplett underlag. Jag bokar in ett besök till på torsdag klockan tio."
+      },
+      {
+        "speaker": "Hassan",
+        "text": "Tack, då kommer jag då."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför söker Hassan försörjningsstöd?",
+        "options": [
+          "Han ska studera",
+          "Han har för hög inkomst",
+          "Hans a-kassa räcker inte till hyran",
+          "Han vill köpa en bil"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad måste Hassan göra utöver att ansöka?",
+        "options": [
+          "Sälja sin bostad",
+          "Vara inskriven på Arbetsförmedlingen och söka arbete",
+          "Ta ett lån",
+          "Flytta till annan kommun"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "När får Hassan besked efter komplett underlag?",
+        "options": [
+          "Samma dag",
+          "Inom ungefär en vecka",
+          "Inom tre månader",
+          "Efter ett år"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "d-tel-020",
+    "course": "D",
+    "type": "phone",
+    "intro": "Nadia ringer en mäklare för att ifrågasätta en dold information vid ett bostadsköp.",
+    "transcript": [
+      {
+        "speaker": "Mäklare",
+        "text": "Mäklarbyrån, du talar med Patrik."
+      },
+      {
+        "speaker": "Nadia",
+        "text": "Hej, Nadia Persson. Jag köpte en villa av er för tre månader sedan och nu har jag upptäckt allvarliga fuktskador i grunden."
+      },
+      {
+        "speaker": "Mäklare",
+        "text": "Det var tråkigt att höra. Genomförde du en överlåtelsebesiktning innan köpet?"
+      },
+      {
+        "speaker": "Nadia",
+        "text": "Ja, men besiktningsmannen kom inte åt kryputrymmet under huset."
+      },
+      {
+        "speaker": "Mäklare",
+        "text": "Som köpare har du en långtgående undersökningsplikt, men säljaren har upplysningsplikt om kända fel."
+      },
+      {
+        "speaker": "Nadia",
+        "text": "Grannen säger att förra ägaren visste om fukten. Vad innebär det?"
+      },
+      {
+        "speaker": "Mäklare",
+        "text": "Om säljaren medvetet förtigit ett känt fel kan det räknas som ett dolt fel som du kan kräva ersättning för."
+      },
+      {
+        "speaker": "Nadia",
+        "text": "Hur länge har jag på mig att reklamera?"
+      },
+      {
+        "speaker": "Mäklare",
+        "text": "Du kan göra gällande fel i upp till tio år efter tillträdet, men anmäl till säljaren så snart som möjligt efter att du upptäckt det. Spara all dokumentation och besiktningsutlåtanden."
+      },
+      {
+        "speaker": "Nadia",
+        "text": "Tack, jag samlar ihop allt och hör av mig."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har Nadia upptäckt i villan?",
+        "options": [
+          "En trasig värmepump",
+          "Skadedjur",
+          "Mögel på vinden",
+          "Fuktskador i grunden"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad har köparen enligt mäklaren?",
+        "options": [
+          "Rätt att häva direkt",
+          "Upplysningsplikt",
+          "En långtgående undersökningsplikt",
+          "Ingen plikt alls"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Hur länge kan Nadia göra gällande fel efter tillträdet? Skriv ditt svar.",
+        "accept": [
+          "tio år",
+          "10 år",
+          "upp till tio år",
+          "i tio år",
+          "10"
+        ]
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "d-tel-021",
+    "course": "D",
+    "type": "phone",
+    "intro": "Gustav ringer en vårdcentral för att överklaga ett beslut om nekad behandling.",
+    "transcript": [
+      {
+        "speaker": "Verksamhetschef",
+        "text": "Vårdcentralen, du talar med Annika."
+      },
+      {
+        "speaker": "Gustav",
+        "text": "Hej, Gustav Mörk. Min läkare har nekat mig en remiss till en operation som jag tycker att jag behöver. Jag vill veta hur jag går vidare."
+      },
+      {
+        "speaker": "Verksamhetschef",
+        "text": "Jag förstår din frustration. Bedömningen grundar sig på de medicinska riktlinjerna för din diagnos."
+      },
+      {
+        "speaker": "Gustav",
+        "text": "Men jag har ont varje dag. Kan jag få en andra bedömning?"
+      },
+      {
+        "speaker": "Verksamhetschef",
+        "text": "Ja, du har rätt till en förnyad medicinsk bedömning, ibland kallad second opinion, vid en allvarlig eller livshotande sjukdom."
+      },
+      {
+        "speaker": "Gustav",
+        "text": "Min sjukdom är kronisk men inte livshotande. Gäller rätten då?"
+      },
+      {
+        "speaker": "Verksamhetschef",
+        "text": "Då är det inte en självklar rättighet, men du kan ändå begära att få träffa en annan läkare hos oss eller välja en annan vårdcentral helt."
+      },
+      {
+        "speaker": "Gustav",
+        "text": "Och om jag vill klaga formellt på beslutet?"
+      },
+      {
+        "speaker": "Verksamhetschef",
+        "text": "Då vänder du dig till patientnämnden i regionen, som är fristående och kostnadsfri. Jag ger dig deras kontaktuppgifter."
+      },
+      {
+        "speaker": "Gustav",
+        "text": "Tack, jag tar gärna deras nummer."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har Gustavs läkare nekat honom?",
+        "options": [
+          "En medicin",
+          "En remiss till en operation",
+          "Ett läkarbesök",
+          "Ett intyg"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "När har man självklar rätt till en förnyad bedömning?",
+        "options": [
+          "Alltid",
+          "Vid allvarlig eller livshotande sjukdom",
+          "Aldrig",
+          "Vid förkylning"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vart kan Gustav vända sig för att klaga formellt?",
+        "options": [
+          "Patientnämnden",
+          "Kommunen",
+          "Försäkringskassan",
+          "Polisen"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "d-tel-022",
+    "course": "D",
+    "type": "phone",
+    "intro": "Leila ringer ett flygbolag för att kräva kompensation efter en inställd flygning.",
+    "transcript": [
+      {
+        "speaker": "Kundtjänst",
+        "text": "Flygbolaget, du talar med David."
+      },
+      {
+        "speaker": "Leila",
+        "text": "Hej, Leila Ahmadi. Mitt flyg från Stockholm till Paris ställdes in i går och jag vill ha kompensation."
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Jag beklagar det inträffade. Fick du information om förseningen mer än fjorton dagar i förväg?"
+      },
+      {
+        "speaker": "Leila",
+        "text": "Nej, jag fick veta först två timmar innan avgång på flygplatsen."
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Då kan du enligt EU-reglerna ha rätt till ersättning, så länge orsaken inte var extraordinära omständigheter som oväder."
+      },
+      {
+        "speaker": "Leila",
+        "text": "Personalen sa att det berodde på ett tekniskt fel."
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Tekniska fel räknas normalt som vårt ansvar. För den sträckan, under femtonhundra kilometer, är ersättningen tvåhundrafemtio euro."
+      },
+      {
+        "speaker": "Leila",
+        "text": "Får jag också tillbaka kostnaden för hotellet jag fick boka?"
+      },
+      {
+        "speaker": "Kundtjänst",
+        "text": "Ja, skäliga utlägg för mat och boende ersätts mot kvitto. Skicka in en reklamation via vår blankett så handlägger vi den inom fyra veckor."
+      },
+      {
+        "speaker": "Leila",
+        "text": "Tack, jag skickar in allt i dag."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför ringer Leila flygbolaget?",
+        "options": [
+          "Hon vill boka ett nytt flyg",
+          "Hon vill ändra sin biljett",
+          "Hennes flyg ställdes in",
+          "Hon tappade bagaget"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Varför har Leila rätt till ersättning?",
+        "options": [
+          "Det var oväder",
+          "Biljetten var dyr",
+          "Hon kom för sent",
+          "Orsaken var ett tekniskt fel"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Hur stor är ersättningen för den sträckan? Skriv ditt svar.",
+        "accept": [
+          "tvåhundrafemtio euro",
+          "250 euro",
+          "tvåhundrafemtio",
+          "250",
+          "två hundra femtio euro"
+        ]
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "d-tel-023",
+    "course": "D",
+    "type": "phone",
+    "intro": "Viktor ringer banken för att bestrida ett bedrägeri med sitt bankkort.",
+    "transcript": [
+      {
+        "speaker": "Bankhandläggare",
+        "text": "Banken, du talar med Rania."
+      },
+      {
+        "speaker": "Viktor",
+        "text": "Hej, Viktor Lindholm. Jag har upptäckt tre köp på mitt kort som jag inte har gjort, på sammanlagt åttatusen kronor."
+      },
+      {
+        "speaker": "Bankhandläggare",
+        "text": "Det låter obehagligt. Jag spärrar ditt kort omedelbart. Har du fortfarande kortet i din ägo?"
+      },
+      {
+        "speaker": "Viktor",
+        "text": "Ja, det ligger i min plånbok. Jag har aldrig lånat ut det."
+      },
+      {
+        "speaker": "Bankhandläggare",
+        "text": "Bra. Då rör det sig sannolikt om obehöriga transaktioner. Du måste polisanmäla händelsen och skicka oss anmälningsnumret."
+      },
+      {
+        "speaker": "Viktor",
+        "text": "Behöver jag betala något själv?"
+      },
+      {
+        "speaker": "Bankhandläggare",
+        "text": "Om du inte agerat grovt vårdslöst är din självrisk högst fyrahundra kronor enligt lagen om betaltjänster."
+      },
+      {
+        "speaker": "Viktor",
+        "text": "Jag har skött koden noga och aldrig delat den."
+      },
+      {
+        "speaker": "Bankhandläggare",
+        "text": "Då utreder vi det som ett rent bedrägeri. Vi återför pengarna preliminärt inom tio dagar medan utredningen pågår."
+      },
+      {
+        "speaker": "Viktor",
+        "text": "Tack, jag gör polisanmälan direkt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har hänt med Viktors kort?",
+        "options": [
+          "Det är demagnetiserat",
+          "Han har tappat bort det",
+          "Det har gått ut",
+          "Det har använts för köp han inte gjort"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad måste Viktor göra utöver att kontakta banken?",
+        "options": [
+          "Beställa ett nytt pass",
+          "Polisanmäla händelsen",
+          "Säga upp kontot",
+          "Byta bank"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur hög är självrisken om han inte varit grovt vårdslös?",
+        "options": [
+          "Högst fyrahundra kronor",
+          "Hela beloppet",
+          "Tusen kronor",
+          "Ingen alls"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "d-tel-024",
+    "course": "D",
+    "type": "phone",
+    "intro": "Ingrid ringer kommunen för att ansöka om hemtjänst åt sin äldre mamma.",
+    "transcript": [
+      {
+        "speaker": "Biståndshandläggare",
+        "text": "Kommunen, du talar med Samuel."
+      },
+      {
+        "speaker": "Ingrid",
+        "text": "Hej, Ingrid Berg. Min mamma är åttiosex år och klarar inte längre att laga mat eller städa själv. Jag vill ansöka om hemtjänst åt henne."
+      },
+      {
+        "speaker": "Biståndshandläggare",
+        "text": "Det ska vi titta på. Är det din mamma själv som ansöker, eller har du fullmakt?"
+      },
+      {
+        "speaker": "Ingrid",
+        "text": "Jag har en skriftlig fullmakt från henne."
+      },
+      {
+        "speaker": "Biståndshandläggare",
+        "text": "Bra. Hemtjänst beviljas efter en individuell behovsbedömning enligt socialtjänstlagen, inte automatiskt utifrån ålder."
+      },
+      {
+        "speaker": "Ingrid",
+        "text": "Vad ingår i en sådan bedömning?"
+      },
+      {
+        "speaker": "Biståndshandläggare",
+        "text": "Jag gör ett hembesök och kartlägger vad hon klarar själv och var hon behöver stöd, till exempel med måltider, hygien och inköp."
+      },
+      {
+        "speaker": "Ingrid",
+        "text": "Kostar hemtjänsten något?"
+      },
+      {
+        "speaker": "Biståndshandläggare",
+        "text": "Ja, men avgiften är inkomstprövad och får aldrig överstiga maxtaxan, som är drygt tvåtusenfyrahundra kronor i månaden. Jag bokar ett hembesök nästa onsdag."
+      },
+      {
+        "speaker": "Ingrid",
+        "text": "Tack, det passar bra."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför behöver Ingrids mamma hemtjänst?",
+        "options": [
+          "Hon klarar inte matlagning och städning själv",
+          "Hon är ensam",
+          "Hon vill ha sällskap",
+          "Hon ska flytta"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur beviljas hemtjänst?",
+        "options": [
+          "Genom lottning",
+          "Bara med läkarintyg",
+          "Efter en individuell behovsbedömning",
+          "Automatiskt efter ålder"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Vad får hemtjänstavgiften aldrig överstiga? Skriv ditt svar.",
+        "accept": [
+          "maxtaxan",
+          "maxtaxa",
+          "den inkomstprövade maxtaxan",
+          "högkostnadsskyddet maxtaxan",
+          "maxavgiften"
+        ]
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "d-tel-025",
+    "course": "D",
+    "type": "phone",
+    "intro": "Samir ringer Transportstyrelsen för att överklaga ett indraget körkort.",
+    "transcript": [
+      {
+        "speaker": "Handläggare",
+        "text": "Transportstyrelsen, du talar med Lovisa."
+      },
+      {
+        "speaker": "Samir",
+        "text": "Hej, Samir Khan. Jag har fått mitt körkort återkallat efter en fortkörning och vill överklaga beslutet."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Jag förstår. Hur mycket över hastighetsgränsen körde du?"
+      },
+      {
+        "speaker": "Samir",
+        "text": "Trettio kilometer i timmen för fort på en vanlig väg. Jag var stressad på väg till jobbet."
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Vid en så kraftig överträdelse återkallas körkortet normalt under en spärrtid på minst två månader."
+      },
+      {
+        "speaker": "Samir",
+        "text": "Jag behöver bilen för mitt arbete. Kan jag få någon lindring?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Du kan ansöka om att få en varning i stället, men det beviljas sällan vid grov hastighetsöverträdelse. Det väger tyngre om körkortet är direkt nödvändigt i tjänsten."
+      },
+      {
+        "speaker": "Samir",
+        "text": "Hur överklagar jag formellt?"
+      },
+      {
+        "speaker": "Handläggare",
+        "text": "Skriv en överklagan till förvaltningsrätten och skicka den till oss inom tre veckor från beslutsdatumet. Bifoga ett arbetsgivarintyg som styrker ditt behov av körkort."
+      },
+      {
+        "speaker": "Samir",
+        "text": "Tack, då ordnar jag intyget snabbt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför har Samirs körkort återkallats?",
+        "options": [
+          "Han körde utan bälte",
+          "Rattfylleri",
+          "Han parkerade fel",
+          "En kraftig fortkörning"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur lång är spärrtiden normalt vid en sådan överträdelse?",
+        "options": [
+          "Tre år",
+          "Ett år",
+          "En vecka",
+          "Minst två månader"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad ska Samir bifoga sin överklagan?",
+        "options": [
+          "Sitt pass",
+          "En bild på bilen",
+          "Ett läkarintyg",
+          "Ett arbetsgivarintyg"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 24
+  }
+]

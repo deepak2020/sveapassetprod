@@ -1,0 +1,677 @@
+[
+  {
+    "id": "b-utrop-001",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du handlar i en affär.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "God eftermiddag! Vi har stor rea i dag. Alla jackor kostar bara hundra kronor. Rean slutar klockan sju i kväll. Välkommen till kassan, tack!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar en jacka i dag?",
+        "options": ["Femtio kronor", "Hundra kronor", "Tvåhundra kronor", "Tio kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När slutar rean?",
+        "options": ["Klockan sju", "Klockan sex", "Klockan fem", "Klockan åtta"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "b-utrop-002",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på en busshållplats.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Information till resenärer. Buss nummer fyra till centrum är försenad. Den kommer klockan halv tre i stället för klockan två. Vi beklagar förseningen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken buss är försenad?",
+        "options": ["Buss nummer tre", "Buss nummer fyra", "Buss nummer fem", "Buss nummer sex"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När kommer bussen nu?",
+        "options": ["Klockan två", "Klockan halv tre", "Klockan tre", "Klockan halv två"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vart går bussen?",
+        "options": ["Till centrum", "Till skolan", "Till sjukhuset", "Till stationen"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "b-utrop-003",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på biblioteket.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej alla besökare. Biblioteket stänger om femton minuter, klockan åtta. Lämna tillbaka era böcker vid disken. Tack för i dag och välkommen tillbaka i morgon!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger biblioteket?",
+        "options": ["Klockan sju", "Klockan sex", "Klockan åtta", "Klockan nio"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Var ska du lämna böckerna?",
+        "options": ["Vid dörren", "Vid fönstret", "Vid disken", "Vid utgången"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "b-utrop-004",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är i skolan.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Viktig information till alla elever. Lektionen i sal tolv börjar klockan nio i morgon, inte klockan åtta. Ta med era böcker och en penna. Tack!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När börjar lektionen i morgon?",
+        "options": ["Klockan åtta", "Klockan nio", "Klockan tio", "Klockan sju"],
+        "correctIndex": 1
+      },
+      {
+        "q": "I vilken sal är lektionen?",
+        "options": ["Sal tio", "Sal elva", "Sal tolv", "Sal tretton"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad ska eleverna ta med?",
+        "options": ["Böcker och en penna", "Mat och dryck", "En dator", "En jacka"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "b-utrop-005",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är i en simhall.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej alla badgäster! Den stora bassängen stänger klockan fyra för städning. Den lilla bassängen är öppen till klockan sex. Tack för i dag!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger den stora bassängen?",
+        "options": ["Klockan tre", "Klockan fyra", "Klockan fem", "Klockan sex"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför stänger den stora bassängen?",
+        "options": ["För städning", "För en fest", "För en tävling", "För en lektion"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "b-utrop-006",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du sitter i vårdcentralens väntrum.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Anna Svensson, varsågod och gå till rum sju. Doktorn väntar på dig. Övriga patienter, vänta kvar i väntrummet. Tack för ert tålamod."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vem ska gå till doktorn?",
+        "options": ["Anna Svensson", "Erik Larsson", "Maria Berg", "Lisa Holm"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Till vilket rum ska hon gå?",
+        "options": ["Rum fem", "Rum sex", "Rum sju", "Rum åtta"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "b-utrop-007",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är i ett köpcentrum.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej och välkommen till köpcentret! En liten pojke väntar på sin mamma vid informationen på plan två. Han heter Oskar. Mamma, kom till informationen, tack!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad heter pojken?",
+        "options": ["Oskar", "Anton", "Hugo", "Elias"],
+        "correctIndex": 0
+      },
+      {
+        "q": "Var väntar pojken?",
+        "options": ["Vid kassan", "Vid informationen", "Vid dörren", "Vid hissen"],
+        "correctIndex": 1
+      },
+      {
+        "q": "På vilken plan är informationen?",
+        "options": ["Plan ett", "Plan två", "Plan tre", "Plan fyra"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "b-utrop-008",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på en matmarknad.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hör upp, alla kunder! Vi säljer färska jordgubbar i dag. En liter kostar tjugo kronor. Kom till stånd nummer tre. Vi har öppet till klockan fem."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar en liter jordgubbar?",
+        "options": ["Tio kronor", "Femton kronor", "Tjugo kronor", "Trettio kronor"],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilket stånd ska du gå till?",
+        "options": ["Stånd nummer ett", "Stånd nummer två", "Stånd nummer tre", "Stånd nummer fyra"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "b-utrop-009",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på en tågstation.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Information till resenärer. Tåget till Göteborg avgår från spår fem klockan kvart över tre. Var snäll och gå till spåret nu. Ha en trevlig resa!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vart går tåget?",
+        "options": ["Till Stockholm", "Till Göteborg", "Till Malmö", "Till Uppsala"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Från vilket spår avgår tåget?",
+        "options": ["Spår tre", "Spår fyra", "Spår fem", "Spår sex"],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "När avgår tåget? Skriv ditt svar.",
+        "accept": ["kvart över tre", "klockan kvart över tre", "15.15", "tre och kvart", "kvart över tre på eftermiddagen"]
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "b-utrop-010",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du handlar i en mataffär.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "God morgon, kära kunder! I dag har vi extrapris på bröd. Tre limpor kostar bara tjugofem kronor. Erbjudandet gäller hela dagen. Välkommen att handla!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är det extrapris på?",
+        "options": ["Mjölk", "Bröd", "Ost", "Frukt"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad kostar tre limpor?",
+        "options": ["Tjugofem kronor", "Tjugo kronor", "Femton kronor", "Trettio kronor"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "b-utrop-011",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på en flygplats.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Sista upprop för resenärer till London. Flyget avgår från gate tolv. Skynda er till gaten nu, tack. Dörrarna stänger om tio minuter."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vart går flyget?",
+        "options": ["Till Paris", "Till London", "Till Berlin", "Till Rom"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Från vilken gate avgår flyget?",
+        "options": ["Gate tio", "Gate elva", "Gate tolv", "Gate tretton"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "b-utrop-012",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är i en klädaffär.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej alla kunder! Affären stänger klockan nio i kväll. Vi har rea på skor på plan ett. Ett par skor kostar nu hundrafemtio kronor. Välkommen!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är det rea på?",
+        "options": ["Byxor", "Skor", "Tröjor", "Mössor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad kostar ett par skor nu?",
+        "options": ["Hundra kronor", "Hundrafemtio kronor", "Tvåhundra kronor", "Femtio kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När stänger affären?",
+        "options": ["Klockan åtta", "Klockan nio", "Klockan tio", "Klockan sju"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "b-utrop-013",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på ett museum.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Välkomna till museet! Museet stänger klockan fyra i dag. Glöm inte att besöka kaféet på plan två. En kopp kaffe kostar tjugo kronor. Tack för besöket!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger museet?",
+        "options": ["Klockan tre", "Klockan fyra", "Klockan fem", "Klockan sex"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var ligger kaféet?",
+        "options": ["På plan ett", "På plan två", "På plan tre", "Vid dörren"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "b-utrop-014",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är i skolans matsal.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej alla elever! I dag serverar vi soppa och bröd till lunch. Matsalen öppnar klockan elva. Kom och ät, men glöm inte att tvätta händerna först. Smaklig måltid!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad serveras till lunch?",
+        "options": ["Pasta", "Soppa och bröd", "Fisk", "Korv"],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "När öppnar matsalen? Skriv ditt svar.",
+        "accept": ["klockan elva", "elva", "11", "kl 11", "klockan 11"]
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "b-utrop-015",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på ett gym.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej alla medlemmar! Gymmet stänger klockan tio i kväll. Det finns ett nytt pass på måndag klockan sex. Anmäl dig i receptionen. Tack och ha en bra träning!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger gymmet?",
+        "options": ["Klockan nio", "Klockan tio", "Klockan elva", "Klockan åtta"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var ska du anmäla dig?",
+        "options": ["I receptionen", "Vid dörren", "I omklädningsrummet", "Vid bassängen"],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vilken dag är det nya passet? Skriv ditt svar.",
+        "accept": ["måndag", "på måndag", "måndagen", "nästa måndag"]
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "b-utrop-016",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på en parkering.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Information till alla bilförare. Parkeringen stänger klockan midnatt. Det kostar tjugo kronor i timmen. Glöm inte att betala i automaten vid utgången. Tack!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger parkeringen?",
+        "options": ["Klockan elva", "Klockan midnatt", "Klockan tio", "Klockan ett"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad kostar parkeringen i timmen?",
+        "options": ["Tio kronor", "Femton kronor", "Tjugo kronor", "Trettio kronor"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "b-utrop-017",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på posten.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej och välkommen till posten! Ta en kölapp vid dörren. Just nu är det nummer fyrtiotvå som gäller. Posten stänger klockan sex. Tack för att ni väntar."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var tar du en kölapp?",
+        "options": ["Vid kassan", "Vid dörren", "Vid fönstret", "Vid disken"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När stänger posten?",
+        "options": ["Klockan fem", "Klockan sex", "Klockan sju", "Klockan fyra"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "b-utrop-018",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på en biograf.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Välkomna till biografen! Filmen börjar klockan sju i salong två. Stäng av era mobiltelefoner, tack. Det finns popcorn och dryck att köpa i kiosken. Trevlig film!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När börjar filmen?",
+        "options": ["Klockan sex", "Klockan sju", "Klockan åtta", "Klockan fem"],
+        "correctIndex": 1
+      },
+      {
+        "q": "I vilken salong visas filmen?",
+        "options": ["Salong ett", "Salong två", "Salong tre", "Salong fyra"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad ska du göra med mobiltelefonen?",
+        "options": ["Stänga av den", "Ringa ett samtal", "Ladda den", "Lämna in den"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "b-utrop-019",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på en återvinningsstation.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej alla besökare! Stationen stänger klockan fem. Lägg glas i den gröna behållaren och papper i den blå. Tack för att ni återvinner. Välkommen tillbaka!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger stationen?",
+        "options": ["Klockan fyra", "Klockan fem", "Klockan sex", "Klockan tre"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var ska du lägga glas?",
+        "options": ["I den blå behållaren", "I den gröna behållaren", "I den röda behållaren", "I den gula behållaren"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "b-utrop-020",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är i en leksaksaffär.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej alla barn och föräldrar! I dag har vi rea på leksaker. En boll kostar bara tio kronor. Rean finns på plan ett. Affären stänger klockan sex. Välkommen!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kostar en boll i dag?",
+        "options": ["Fem kronor", "Tio kronor", "Femton kronor", "Tjugo kronor"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var finns rean?",
+        "options": ["På plan ett", "På plan två", "På plan tre", "Vid kassan"],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "b-utrop-021",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på en idrottsplats.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Välkomna till matchen! Matchen börjar klockan två. En biljett kostar femtio kronor. Köp korv och dryck i kiosken vid ingången. Heja laget och ha det trevligt!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När börjar matchen?",
+        "options": ["Klockan ett", "Klockan två", "Klockan tre", "Klockan fyra"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad kostar en biljett?",
+        "options": ["Trettio kronor", "Fyrtio kronor", "Femtio kronor", "Sextio kronor"],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Var kan du köpa korv? Skriv ditt svar.",
+        "accept": ["i kiosken", "i kiosken vid ingången", "vid ingången", "kiosken", "i en kiosk"]
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "b-utrop-022",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på en färja.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "God dag, alla resenärer! Färjan lägger till om tjugo minuter. Restaurangen på däck fyra är öppen nu. Glöm inte era väskor när ni går av. Tack för resan!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När lägger färjan till?",
+        "options": ["Om tio minuter", "Om tjugo minuter", "Om trettio minuter", "Om fem minuter"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var ligger restaurangen?",
+        "options": ["På däck tre", "På däck fem", "På däck fyra", "På däck två"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "b-utrop-023",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på en vårdcentral.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej alla patienter! Vårdcentralen stänger klockan fem i dag. Vid akut sjukdom, ring sjukvårdsupplysningen på nummer ett ett sju sju. Tack och krya på er!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger vårdcentralen?",
+        "options": ["Klockan fyra", "Klockan fem", "Klockan sex", "Klockan tre"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilket nummer ska du ringa vid akut sjukdom?",
+        "options": ["Ett ett två", "Ett ett sju sju", "Nittio tusen", "Ett ett fyra fjorton"],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "b-utrop-024",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på en marknad utomhus.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hör upp, alla besökare! Det börjar regna snart. Marknaden stänger tidigare i dag, klockan tre. Passa på att handla nu. Vi har äpplen för fem kronor styck. Välkommen!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför stänger marknaden tidigare?",
+        "options": ["Det börjar regna", "Det är en fest", "Det är sent", "Det är kallt"],
+        "correctIndex": 0
+      },
+      {
+        "q": "När stänger marknaden i dag?",
+        "options": ["Klockan två", "Klockan tre", "Klockan fyra", "Klockan fem"],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad kostar ett äpple?",
+        "options": ["Tre kronor", "Fyra kronor", "Fem kronor", "Sex kronor"],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "b-utrop-025",
+    "course": "B",
+    "type": "announcement",
+    "intro": "Du är på ett bibliotek.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Hej alla besökare! I morgon klockan elva har vi sagostund för barn i barnrummet. Det är gratis. Anmäl er i informationen. Välkomna med era barn, stora och små!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad händer i morgon?",
+        "options": ["En konsert", "En sagostund för barn", "En filmkväll", "En fest"],
+        "correctIndex": 1
+      },
+      {
+        "q": "När är sagostunden?",
+        "options": ["Klockan tio", "Klockan tolv", "Klockan elva", "Klockan ett"],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Vad kostar sagostunden? Skriv ditt svar.",
+        "accept": ["gratis", "den är gratis", "ingenting", "inget", "noll kronor"]
+      }
+    ],
+    "sort_order": 24
+  }
+]

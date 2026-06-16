@@ -1,0 +1,1139 @@
+[
+  {
+    "id": "d-ber-001",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Yusuf reflekterar över sin väg till yrket som ingenjör.",
+    "transcript": [
+      {
+        "speaker": "Yusuf",
+        "text": "När jag kom till Sverige var jag övertygad om att min utbildning från hemlandet skulle räcka, men verkligheten blev en kalldusch. Mina betyg som ingenjör erkändes inte direkt, och jag fick börja om nästan från noll. I stället för att ge upp valde jag att läsa kompletterande kurser på universitetet samtidigt som jag arbetade som lokalvårdare på kvällarna. Det var tunga år, men i efterhand är jag tacksam. Jag lärde mig språket på djupet och förstod att tålamod ofta är viktigare än talang. I dag arbetar jag som konstruktör, och jag säger alltid till nyanlända att vägen kan vara krokig utan att vara stängd."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad blev en besvikelse för Yusuf när han kom till Sverige?",
+        "options": [
+          "Att hans utbildning inte erkändes direkt",
+          "Att han inte gillade vädret",
+          "Att han inte hittade bostad",
+          "Att han inte fick lära sig språket"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken attityd har Yusuf till sina svåra år i dag?",
+        "options": [
+          "Han är bitter över tiden",
+          "Han ångrar att han inte gav upp",
+          "Han är tacksam för det han lärde sig",
+          "Han tycker det var bortkastad tid"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Vad menar Yusuf med att vägen kan vara krokig utan att vara stängd? Skriv ditt svar.",
+        "accept": [
+          "det är svårt men möjligt",
+          "man kan lyckas även om det tar tid",
+          "hinder betyder inte att det är omöjligt",
+          "man kan nå målet trots svårigheter",
+          "det går även om det är jobbigt"
+        ]
+      }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "d-ber-002",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Amina ger sin syn på integration i Sverige.",
+    "transcript": [
+      {
+        "speaker": "Amina",
+        "text": "Många pratar om integration som om det bara handlar om att lära sig svenska och skaffa jobb. Jag håller delvis med, men jag tycker att man glömmer en viktig sak: integration måste gå åt två håll. Det räcker inte att vi som har flyttat hit anstränger oss, om samhället samtidigt stänger dörrar. Jag har själv märkt hur svårt det är att bli inbjuden hem till svenska kollegor, trots att vi jobbar tillsammans varje dag. Samtidigt vill jag inte skylla allt på andra. Jag har också tagit initiativ själv, gått med i en körförening och bjudit grannarna på fika. Verklig integration uppstår först när båda parter vågar ta ett steg mot varandra."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad anser Amina att många glömmer när de pratar om integration?",
+        "options": [
+          "Att man behöver ett jobb",
+          "Att man måste lära sig språket",
+          "Att man ska flytta ofta",
+          "Att integration måste gå åt två håll"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilket exempel ger Amina på att hon själv tagit initiativ?",
+        "options": [
+          "Hon flyttade till en ny stad",
+          "Hon började studera juridik",
+          "Hon bytte jobb",
+          "Hon gick med i en körförening"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilken är Aminas huvudpoäng?",
+        "options": [
+          "Båda parter måste anstränga sig",
+          "Integration är omöjlig",
+          "Bara samhället har ansvar",
+          "Bara invandrare har ansvar"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "d-ber-003",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Daniel berättar om en utmaning han övervann.",
+    "transcript": [
+      {
+        "speaker": "Daniel",
+        "text": "För tre år sedan drabbades jag av en svår utbrändhet. Jag hade tagit på mig alldeles för mycket på jobbet och vägrade erkänna att jag inte orkade. Till slut kraschade kroppen helt, och jag blev sjukskriven i ett halvår. Det var den jobbigaste perioden i mitt liv, men också en vändpunkt. Jag tvingades fundera över vad som egentligen var viktigt för mig. Jag insåg att jag levt för andras förväntningar i stället för mina egna behov. Nu har jag lärt mig att sätta gränser och säga nej utan dåligt samvete. Jag arbetar fortfarande mycket, men på ett sätt som inte bryter ner mig. Den erfarenheten har gjort mig till en klokare människa."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad drabbades Daniel av?",
+        "options": [
+          "Utbrändhet",
+          "Arbetslöshet",
+          "En arbetsskada",
+          "En olycka i hemmet"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad insåg Daniel under sjukskrivningen?",
+        "options": [
+          "Att han behövde ett nytt jobb",
+          "Att han levt för andras förväntningar",
+          "Att han borde flytta",
+          "Att han ville byta land"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vad har Daniel lärt sig att göra efter sin utbrändhet? Skriv ditt svar.",
+        "accept": [
+          "att sätta gränser",
+          "att säga nej",
+          "att ta hand om sig själv",
+          "att inte ta på sig för mycket",
+          "att lyssna på sina egna behov"
+        ]
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "d-ber-004",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Fatima jämför livet i Sverige med livet i hemlandet.",
+    "transcript": [
+      {
+        "speaker": "Fatima",
+        "text": "Folk frågar ofta om jag saknar mitt hemland, och svaret är inte enkelt. Det jag saknar mest är gemenskapen. Hemma var dörren alltid öppen, och man kunde gå hem till grannen utan att ringa först. Här är allt mer planerat, och spontaniteten har jag fått leta efter. Samtidigt uppskattar jag tryggheten i Sverige enormt. Här vet jag att mina döttrar kan utbilda sig till vad de vill, och att ingen ifrågasätter det. Sjukvården och skolan fungerar, och jag känner mig respekterad som kvinna. Så det är inte så att det ena är bättre än det andra. Jag bär med mig det bästa från båda världar, och det gör mig rikare som människa."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad saknar Fatima mest från hemlandet?",
+        "options": [
+          "Maten",
+          "Vädret",
+          "Gemenskapen",
+          "Sitt gamla jobb"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad uppskattar Fatima särskilt med Sverige?",
+        "options": [
+          "Tryggheten och möjligheterna",
+          "Att allt är oplanerat",
+          "Att grannarna är öppna",
+          "Spontaniteten"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken slutsats drar Fatima?",
+        "options": [
+          "Sverige är bättre",
+          "Hon trivs ingenstans",
+          "Hon tar med sig det bästa från båda",
+          "Hemlandet är bättre"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "d-ber-005",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Erik delar sina tankar om miljö och vardagliga val.",
+    "transcript": [
+      {
+        "speaker": "Erik",
+        "text": "Jag blir lite trött på debatten om miljön ibland, för den handlar nästan bara om vad vi enskilda ska göra. Visst, jag sorterar mina sopor och cyklar till jobbet, men jag tror inte att problemet löses av att jag slutar äta kött på tisdagar. De stora utsläppen kommer från industrin och från politiska beslut som vi knappt kan påverka i vardagen. Samtidigt vill jag inte använda det som en ursäkt för att inte göra någonting. Mina val spelar roll som signal till andra, och förändring börjar ofta i det lilla. Men jag önskar att fler skulle kräva ansvar uppåt, i stället för att lägga hela skulden på vanliga människor."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad tycker Erik om miljödebatten?",
+        "options": [
+          "Att den handlar för mycket om individen",
+          "Att den är meningslös",
+          "Att den inte behövs",
+          "Att den är för politisk"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför fortsätter Erik ändå att göra miljöval?",
+        "options": [
+          "För att han måste enligt lag",
+          "För att hans val är en signal till andra",
+          "För att det är billigare",
+          "För att grannarna kräver det"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad önskar Erik?",
+        "options": [
+          "Att fler kräver ansvar uppåt",
+          "Att individen gör mer",
+          "Att alla slutar cykla",
+          "Att man slutar prata om miljön"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "d-ber-006",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Leila berättar om sina ambitioner och sin motivation.",
+    "transcript": [
+      {
+        "speaker": "Leila",
+        "text": "Min dröm har alltid varit att starta eget företag. När jag växte upp drev min mamma en liten butik, och jag minns hur stolt hon var trots att vi hade ont om pengar. Den känslan av frihet och ansvar har jag burit med mig. Nu läser jag en utbildning i ekonomi på kvällarna samtidigt som jag jobbar deltid. Det är slitsamt, och ibland tvivlar jag på om jag orkar i mål. Men varje gång jag är nära att ge upp tänker jag på min mamma och hur hon aldrig klagade. Om två år hoppas jag kunna öppna en egen verksamhet inom catering. Jag vet att risken är stor, men för mig är det värre att aldrig ens försöka."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är Leilas dröm?",
+        "options": [
+          "Att flytta utomlands",
+          "Att bli lärare",
+          "Att bli läkare",
+          "Att starta eget företag"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad ger Leila motivation när hon vill ge upp?",
+        "options": [
+          "Hennes lärare",
+          "Tanken på hennes mamma",
+          "Pengar",
+          "Hennes vänner"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Varför är Leila villig att ta risken att starta eget? Skriv ditt svar.",
+        "accept": [
+          "det är värre att aldrig försöka",
+          "hon vill inte ångra att hon inte försökte",
+          "hon vill förverkliga sin dröm",
+          "hon vågar trots risken",
+          "att inte försöka är värre för henne"
+        ]
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "d-ber-007",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Mohammed ger sin åsikt om bostadssituationen i Sverige.",
+    "transcript": [
+      {
+        "speaker": "Mohammed",
+        "text": "Det som förvånar mig mest med Sverige är hur svårt det är att få en bostad. Jag trodde att ett rikt land skulle ha löst det, men i stället står man i bostadskö i tio år eller tvingas betala orimliga summor på andrahandsmarknaden. Min familj har flyttat fyra gånger på tre år, och det påverkar barnen mest. Varje gång byter de skola och förlorar sina kompisar. Jag förstår att det inte finns några enkla lösningar, men jag tycker att politikerna pratar mer än de bygger. Trygghet handlar inte bara om jobb, utan också om att ha ett hem man kan lita på. Utan en stabil bostad blir allt annat i livet svårare."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad förvånar Mohammed mest med Sverige?",
+        "options": [
+          "Att det är svårt att få bostad",
+          "Att vintern är lång",
+          "Att det är svårt att få jobb",
+          "Att maten är dyr"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilka påverkas mest av familjens flyttar enligt Mohammed?",
+        "options": [
+          "Grannarna",
+          "Hans fru",
+          "Han själv",
+          "Barnen"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad är Mohammeds kritik mot politikerna?",
+        "options": [
+          "De sänker hyrorna för mycket",
+          "De bygger för mycket",
+          "De bryr sig bara om jobb",
+          "De pratar mer än de bygger"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "d-ber-008",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Sara berättar om en erfarenhet som förändrade hennes syn på arbete.",
+    "transcript": [
+      {
+        "speaker": "Sara",
+        "text": "I flera år jagade jag en högre lön och en finare titel. Jag bytte jobb så fort jag fick chansen att tjäna mer, utan att fundera på om jag faktiskt trivdes. Vändpunkten kom när jag fick ett välbetalt chefsjobb och samtidigt blev olyckligare än någonsin. Jag insåg att pengar inte väger upp om man känner sig tom på morgonen. Jag sa upp mig, vilket många runt omkring mig tyckte var galet, och började arbeta på en förskola för mindre lön. Nu går jag till jobbet med glädje. Den erfarenheten lärde mig att framgång inte alltid är det som syns på lönebeskedet. För mig handlar det numera om mening, inte om status."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad jagade Sara tidigare i sitt arbetsliv?",
+        "options": [
+          "Högre lön och finare titel",
+          "Mer fritid",
+          "Ett tryggare jobb",
+          "Kortare arbetsdagar"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad insåg Sara när hon fick chefsjobbet?",
+        "options": [
+          "Att titeln var viktigast",
+          "Att hon ville tjäna ännu mer",
+          "Att pengar inte väger upp tomhet",
+          "Att hon ville bli chef igen"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad betyder framgång för Sara i dag?",
+        "options": [
+          "Hög lön",
+          "Status",
+          "En fin titel",
+          "Mening"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "d-ber-009",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Ahmad reflekterar över vikten av utbildning.",
+    "transcript": [
+      {
+        "speaker": "Ahmad",
+        "text": "I mitt hemland fick jag aldrig chansen att studera klart, eftersom kriget kom emellan. När jag kom till Sverige var jag nästan trettiofem, och många sa att det var för sent att börja om. Men jag vägrade lyssna på dem. Jag läste SFI på dagarna och matematik på kvällarna, och i dag studerar jag till sjuksköterska. Det viktigaste jag har förstått är att utbildning inte bara handlar om ett yrke, utan om frihet. Med kunskap kan ingen lura dig, och du kan fatta egna beslut. Jag vill att mina barn ska se att deras pappa kämpade, så att de aldrig tar sin skolgång för given. Det är aldrig för sent att lära sig något nytt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför fick Ahmad inte studera klart i hemlandet?",
+        "options": [
+          "Han flyttade ofta",
+          "Han hade inte råd",
+          "Kriget kom emellan",
+          "Han ville inte"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad har utbildning framför allt gett Ahmad enligt honom själv?",
+        "options": [
+          "Pengar",
+          "Många vänner",
+          "En fin titel",
+          "Frihet"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Varför vill Ahmad att hans barn ska se honom kämpa? Skriv ditt svar.",
+        "accept": [
+          "så att de inte tar skolan för given",
+          "för att de ska uppskatta utbildning",
+          "för att vara ett föredöme",
+          "så att de förstår värdet av studier",
+          "för att inspirera dem"
+        ]
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "d-ber-010",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Camilla berättar om sin karriärväg och ett svårt val.",
+    "transcript": [
+      {
+        "speaker": "Camilla",
+        "text": "Efter gymnasiet visste jag inte alls vad jag ville bli. Alla mina vänner verkade ha en tydlig plan, medan jag mest kände mig vilsen. Jag provade flera olika jobb, från butik till lager, och en del tyckte att jag slösade bort min tid. Men jag ser det inte så. Varje jobb lärde mig något om mig själv och om vad jag inte ville göra. Till slut hamnade jag inom IT nästan av en slump, och då föll allt på plats. Det jag vill säga till unga som känner sig stressade är att man inte måste ha hela livet utstakat vid tjugo. Ibland hittar man rätt väg just genom att våga gå fel några gånger."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur kände sig Camilla efter gymnasiet?",
+        "options": [
+          "Säker på sin plan",
+          "Vilsen",
+          "Glad och bestämd",
+          "Trött på att studera"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur ser Camilla på sina många olika jobb?",
+        "options": [
+          "Som lärorika erfarenheter",
+          "Som bortkastad tid",
+          "Som något hon ångrar",
+          "Som ett misslyckande"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad är Camillas budskap till unga?",
+        "options": [
+          "Man måste ha en plan tidigt",
+          "IT är det bästa yrket",
+          "Det är okej att gå fel ibland",
+          "Man bör undvika att byta jobb"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "d-ber-011",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Hassan ger sin syn på arbetslivet i Sverige.",
+    "transcript": [
+      {
+        "speaker": "Hassan",
+        "text": "Det tog ett tag innan jag förstod hur arbetslivet fungerar här. I början tyckte jag att svenskarna var märkligt distanserade, eftersom man sällan pratade om privatlivet på jobbet. Hemma var kollegor nästan som familj. Men med tiden har jag börjat uppskatta den raka kommunikationen och att man får komma till tals även om man är ny. Ingen chef skriker, och beslut tas ofta gemensamt efter diskussion. Det jag fortfarande tycker är svårt är alla oskrivna regler, som att man inte ska verka för ambitiös eller sticka ut för mycket. Men på det stora hela trivs jag, för jag känner att min åsikt faktiskt räknas, oavsett vilken position jag har."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur upplevde Hassan svenskarna i början?",
+        "options": [
+          "Som märkligt distanserade",
+          "Som ointresserade av jobbet",
+          "Som väldigt nära vänner",
+          "Som högljudda"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad uppskattar Hassan med svenskt arbetsliv?",
+        "options": [
+          "Att chefen bestämmer ensam",
+          "Att ingen diskuterar besluten",
+          "Att man får komma till tals",
+          "Att man pratar mycket om privatlivet"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Vad tycker Hassan fortfarande är svårt på jobbet? Skriv ditt svar.",
+        "accept": [
+          "de oskrivna reglerna",
+          "att man inte ska sticka ut",
+          "att man inte ska verka för ambitiös",
+          "de outtalade reglerna",
+          "att inte sticka ut för mycket"
+        ]
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "d-ber-012",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Nadia berättar om hur hon övervann sin rädsla för att tala svenska.",
+    "transcript": [
+      {
+        "speaker": "Nadia",
+        "text": "Länge vägrade jag prata svenska om jag inte var helt säker på att meningen var rätt. Jag var livrädd för att göra bort mig och att folk skulle skratta. Den rädslan höll mig tillbaka i flera år, och jag märkte att mina kollegor som vågade prata, trots fel, lärde sig mycket snabbare än jag. Till slut bestämde jag mig för att byta strategi. Jag tvingade mig själv att säga något varje dag, även om det blev fel. Och vet du vad? Ingen skrattade. Tvärtom blev folk gladare och mer hjälpsamma när jag försökte. I dag inser jag att det största hindret aldrig var språket, utan min egen rädsla. Mod är viktigare än perfektion."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför vägrade Nadia länge att prata svenska?",
+        "options": [
+          "Hon tyckte inte om språket",
+          "Hon var rädd för att göra fel",
+          "Hon hade inte tid att lära sig",
+          "Hon hade ingen att prata med"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad märkte Nadia om sina kollegor?",
+        "options": [
+          "De som vågade prata lärde sig snabbare",
+          "De pratade aldrig svenska",
+          "De skrattade åt henne",
+          "De undvek att hjälpa henne"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad var det största hindret enligt Nadia?",
+        "options": [
+          "Själva språket",
+          "Hennes egen rädsla",
+          "Hennes kollegor",
+          "Bristen på tid"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "d-ber-013",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Johan ger sin åsikt om sociala medier.",
+    "transcript": [
+      {
+        "speaker": "Johan",
+        "text": "Jag har en kluven inställning till sociala medier. Å ena sidan håller jag kontakten med släkt och vänner i andra länder, vilket hade varit omöjligt förr. Å andra sidan märker jag hur jag ständigt jämför mitt liv med andras, och nästan alltid kommer till korta. Folk visar bara sina bästa stunder, och man glömmer lätt att det är en tillrättalagd bild. För ett halvår sedan testade jag att ta en paus i en månad, och jag mådde faktiskt mycket bättre. Jag sov bättre och kände mig mindre rastlös. Nu försöker jag använda apparna mer medvetet i stället för att scrolla på ren reflex. Tekniken är ett verktyg, men den får inte styra hela mitt liv."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är positivt med sociala medier enligt Johan?",
+        "options": [
+          "Att man håller kontakt med släkt och vänner",
+          "Att man slipper jämföra sig",
+          "Att man får sova bättre",
+          "Att man kan tjäna pengar"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad hände när Johan tog en paus i en månad?",
+        "options": [
+          "Han mådde sämre",
+          "Han mådde bättre och sov bättre",
+          "Han kände sig ensam",
+          "Han ångrade sig"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Hur vill Johan använda sociala medier i framtiden? Skriv ditt svar.",
+        "accept": [
+          "mer medvetet",
+          "inte scrolla på reflex",
+          "med måtta",
+          "som ett verktyg",
+          "mindre och mer medvetet"
+        ]
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "d-ber-014",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Elena berättar om sina planer för framtiden.",
+    "transcript": [
+      {
+        "speaker": "Elena",
+        "text": "Jag har alltid tyckt om att arbeta med mina händer, och därför bestämde jag mig för att utbilda mig till elektriker. Många blev förvånade, eftersom det fortfarande är ett ovanligt yrkesval för en kvinna. Men det struntar jag i. Jag tror att vi behöver bryta gamla mönster om vad män och kvinnor ska göra. Min plan är att först jobba några år som anställd för att få erfarenhet, och sedan starta eget tillsammans med en vän. Jag vet att branschen kan vara tuff, och att jag kommer att få bevisa mig mer än mina manliga kollegor. Men jag ser det som en utmaning snarare än ett hinder. Om jag lyckas hoppas jag att fler tjejer vågar välja samma väg."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket yrke utbildar sig Elena till?",
+        "options": [
+          "Rörmokare",
+          "Målare",
+          "Elektriker",
+          "Snickare"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Varför blev många förvånade över hennes val?",
+        "options": [
+          "Hon hade ingen utbildning",
+          "Det är ett ovanligt yrkesval för en kvinna",
+          "Hon var för gammal",
+          "Det är ett dåligt betalt yrke"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur ser Elena på att hon måste bevisa sig mer än män?",
+        "options": [
+          "Som en orättvisa hon inte klarar",
+          "Som en utmaning",
+          "Som ett hinder som stoppar henne",
+          "Som något hon inte bryr sig om alls"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "d-ber-015",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Omar reflekterar över vad ensamhet kan göra med en människa.",
+    "transcript": [
+      {
+        "speaker": "Omar",
+        "text": "Det första året i Sverige var jag fruktansvärt ensam. Jag kände ingen, förstod inte språket och satt mest hemma i min lägenhet. Jag trodde att problemet skulle lösa sig av sig självt, men så blev det inte. Ensamheten åt upp mig inifrån, och jag blev nedstämd. Vändningen kom när en granne föreslog att jag skulle gå med i en lokal fotbollsklubb. Där spelade det ingen roll varifrån man kom, för bollen talar samma språk överallt. Genom laget fick jag både vänner och en anledning att lämna hemmet. I dag vill jag säga till alla nyanlända: vänta inte på att livet ska komma till dig, utan ta första steget själv, även om det känns svårt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur var Omars första år i Sverige?",
+        "options": [
+          "Fullt av jobb",
+          "Roligt och socialt",
+          "Fruktansvärt ensamt",
+          "Fyllt av resor"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad hjälpte Omar att ta sig ur ensamheten?",
+        "options": [
+          "En ny lägenhet",
+          "Ett nytt jobb",
+          "En språkkurs",
+          "En fotbollsklubb"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vilket råd ger Omar till nyanlända? Skriv ditt svar.",
+        "accept": [
+          "ta första steget själv",
+          "vänta inte på att livet kommer till dig",
+          "var aktiv själv",
+          "ta initiativ",
+          "vänta inte utan agera"
+        ]
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "d-ber-016",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Linnea ger sin syn på balansen mellan arbete och familjeliv.",
+    "transcript": [
+      {
+        "speaker": "Linnea",
+        "text": "När jag fick mitt första barn trodde jag att jag skulle kunna fortsätta precis som förut på jobbet, men det var naivt. Plötsligt räckte inte tiden till någonting, och jag kände mig misslyckad både som förälder och som anställd. Det tog mig ett tag att acceptera att man inte kan ge hundra procent till allt samtidigt. I dag jobbar jag deltid, och även om det betyder mindre pengar är jag övertygad om att det var rätt beslut. Jag tycker att samhället pratar för lite om hur svårt det faktiskt är att få ihop livspusslet. Vi måste sluta hylla dem som jobbar ihjäl sig och i stället värdesätta dem som vågar prioritera det som verkligen betyder något."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad trodde Linnea efter att hon fått barn?",
+        "options": [
+          "Att hon skulle byta yrke",
+          "Att hon skulle sluta jobba",
+          "Att hon kunde fortsätta precis som förut",
+          "Att hon skulle få mer tid"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad accepterade Linnea till slut?",
+        "options": [
+          "Att barn inte passar henne",
+          "Att deltid är ett misslyckande",
+          "Att man inte kan ge allt till allt samtidigt",
+          "Att hon måste sluta jobba helt"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad anser Linnea att samhället borde göra?",
+        "options": [
+          "Hylla dem som jobbar mest",
+          "Tvinga alla att jobba heltid",
+          "Sänka lönerna för deltid",
+          "Värdesätta dem som vågar prioritera"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "d-ber-017",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Karim berättar om en resa som förändrade honom.",
+    "transcript": [
+      {
+        "speaker": "Karim",
+        "text": "För några år sedan reste jag tillbaka till mitt hemland för första gången på ett decennium. Jag hade byggt upp en bild i mitt huvud av hur allt skulle vara, men verkligheten var en annan. Många av mina gamla vänner hade flyttat, gatorna såg slitna ut och jag kände mig nästan som en turist i min egen barndomsstad. Det var en smärtsam insikt, men också en befriande. Jag förstod att hemmet inte är en plats på kartan, utan något man bär inom sig. Resan fick mig att sluta längta bakåt och i stället uppskatta livet jag har byggt här. Numera ser jag mig själv som en person med rötter i två länder, och jag har slutat känna mig kluven."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur kände sig Karim när han besökte sin barndomsstad?",
+        "options": [
+          "Mycket lycklig",
+          "Precis som hemma",
+          "Helt obrydd",
+          "Nästan som en turist"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad insåg Karim om begreppet hem?",
+        "options": [
+          "Att det bara finns i hemlandet",
+          "Att det inte spelar någon roll",
+          "Att det är en plats på kartan",
+          "Att det är något man bär inom sig"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Hur ser Karim på sig själv i dag? Skriv ditt svar.",
+        "accept": [
+          "som en person med rötter i två länder",
+          "inte längre kluven",
+          "hemma i båda länderna",
+          "med två hemländer",
+          "som någon med rötter på två ställen"
+        ]
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "d-ber-018",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Sofia ger sin åsikt om frivilligt arbete.",
+    "transcript": [
+      {
+        "speaker": "Sofia",
+        "text": "Många tror att man engagerar sig ideellt enbart för att hjälpa andra, men jag är ärlig med att jag får minst lika mycket tillbaka själv. Sedan ett par år läser jag läxor med barn som har det tufft i skolan, och det är det mest meningsfulla jag gör. När jag ser ett barn som äntligen förstår något det kämpat med blir jag glad för hela dagen. Visst kostar det tid, och ibland är jag trött efter en lång arbetsvecka. Men jag tror att ett samhälle blir kallt om alla bara tänker på sig själva. Vi behöver fler mötesplatser mellan människor, oavsett bakgrund och ålder. För mig är det ideella arbetet ett sätt att vägra acceptera ett samhälle där vi blir främlingar för varandra."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är Sofia ärlig med när det gäller frivilligt arbete?",
+        "options": [
+          "Att hon inte har tid",
+          "Att hon ogillar det",
+          "Att hon gör det för pengar",
+          "Att hon själv får mycket tillbaka"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad gör Sofia som frivillig?",
+        "options": [
+          "Kör ut matkassar",
+          "Lagar mat åt äldre",
+          "Städar i parker",
+          "Läser läxor med barn"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad är Sofias djupare motiv?",
+        "options": [
+          "Att slippa vara hemma",
+          "Att motverka ett kallt samhälle",
+          "Att få en bättre titel",
+          "Att tjäna pengar"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "d-ber-019",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Tomas reflekterar över ett misstag han lärde sig av.",
+    "transcript": [
+      {
+        "speaker": "Tomas",
+        "text": "Tidigt i min karriär gjorde jag ett stort misstag som kostade företaget mycket pengar. Jag hade slarvat med en beräkning, och felet upptäcktes först när det var för sent. Min första instinkt var att skylla på andra och dölja att det var jag. Men i stället tog jag ett djupt andetag och erkände allt för min chef. Jag var säker på att jag skulle få sparken. Till min förvåning sa han att han litade mer på mig efter detta, just för att jag var ärlig. Den dagen lärde jag mig att det inte är misstagen som definierar oss, utan hur vi hanterar dem. Sedan dess vågar jag erkänna när jag har fel, och konstigt nog har det gjort mig till en bättre ledare."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad var Tomas första instinkt efter misstaget?",
+        "options": [
+          "Att be om en ny tjänst",
+          "Att säga upp sig",
+          "Att skylla på andra och dölja det",
+          "Att erkänna direkt"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur reagerade chefen när Tomas erkände?",
+        "options": [
+          "Han gav Tomas sparken",
+          "Han blev arg",
+          "Han sänkte Tomas lön",
+          "Han litade mer på Tomas"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vad lärde sig Tomas av händelsen? Skriv ditt svar.",
+        "accept": [
+          "att det är viktigt att vara ärlig",
+          "att hur man hanterar misstag är viktigast",
+          "att erkänna sina fel",
+          "att misstag inte definierar oss",
+          "att ärlighet lönar sig"
+        ]
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "d-ber-020",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Yasmin ger sin syn på språkets betydelse.",
+    "transcript": [
+      {
+        "speaker": "Yasmin",
+        "text": "Jag brukade tro att jag bara behövde lära mig tillräckligt med svenska för att klara av vardagen, som att handla och boka tider. Men ju längre jag har bott här, desto mer har jag förstått att språket är mycket mer än praktiska ord. Det är genom språket man får tillgång till människors humor, deras sätt att tänka och de små skämten som binder ihop en arbetsplats. Så länge jag bara förstod hälften kände jag mig alltid utanför, som om jag stod bakom ett glas. Därför har jag bestämt mig för att fortsätta läsa även efter SFI. Jag vill inte bara överleva på svenska, jag vill kunna leva fullt ut på det, med alla nyanser. Först då känner jag att jag verkligen hör hemma."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad trodde Yasmin från början om svenska språket?",
+        "options": [
+          "Att hon inte behövde det alls",
+          "Att hon redan kunde tillräckligt",
+          "Att hon bara behövde klara vardagen",
+          "Att hon aldrig skulle lära sig"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur kände sig Yasmin när hon bara förstod hälften?",
+        "options": [
+          "Utanför, som bakom ett glas",
+          "Stolt",
+          "Helt nöjd",
+          "Likgiltig"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför vill Yasmin fortsätta läsa efter SFI?",
+        "options": [
+          "För att hennes chef kräver det",
+          "För att få ett bättre jobb",
+          "För att hon måste enligt lag",
+          "För att kunna leva fullt ut på svenska"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "d-ber-021",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Peter reflekterar över hur synen på framgång förändrats med åldern.",
+    "transcript": [
+      {
+        "speaker": "Peter",
+        "text": "Som ung mätte jag framgång i prylar. En fin bil, en dyr klocka och en stor lägenhet var beviset på att jag lyckats. Jag jobbade dygnet runt för att ha råd med allt detta, men ärligt talat var jag sällan riktigt nöjd. När min pappa gick bort förra året fick jag perspektiv på saker. Vid hans begravning pratade ingen om vad han ägt, utan om vilken god och generös människa han varit. Det fick mig att tänka på vilket avtryck jag själv vill lämna. Numera lägger jag mindre tid på att tjäna pengar och mer på mina barn och vänner. Jag har inte blivit fattigare, snarare tvärtom, men rikedomen mäter jag inte längre i kronor."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur mätte Peter framgång som ung?",
+        "options": [
+          "I tid med familjen",
+          "I hälsa",
+          "I antal vänner",
+          "I prylar"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad fick Peter att ändra sin syn?",
+        "options": [
+          "Att han flyttade utomlands",
+          "Att han förlorade jobbet",
+          "Att han blev sjuk",
+          "Att hans pappa gick bort"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Hur ser Peter på rikedom i dag? Skriv ditt svar.",
+        "accept": [
+          "inte i pengar",
+          "i tid med familj och vänner",
+          "inte i kronor",
+          "i relationer",
+          "i det som betyder något, inte pengar"
+        ]
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "d-ber-022",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Aisha ger sin åsikt om jämställdhet.",
+    "transcript": [
+      {
+        "speaker": "Aisha",
+        "text": "Innan jag flyttade till Sverige hade jag aldrig tänkt så mycket på jämställdhet, eftersom rollerna i mitt hemland var ganska givna. Här såg jag plötsligt pappor som tog ut föräldraledighet och kvinnor som var chefer, och det öppnade mina ögon. Samtidigt blir jag ibland provocerad när folk här tror att jämställdhet är något helt färdigt i Sverige. Även här tjänar kvinnor mindre och tar större ansvar hemma. Jag tycker att det är farligt att slå sig till ro, för då slutar man kämpa. För egen del har jämställdheten gett mig friheten att fatta egna beslut om mitt liv. Det är en frihet jag aldrig tänker ge ifrån mig, och jag vill ge samma frihet vidare till min dotter."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad öppnade Aishas ögon i Sverige?",
+        "options": [
+          "Att maten var annorlunda",
+          "Att alla var rika",
+          "Att pappor var lediga och kvinnor var chefer",
+          "Att vädret var kallt"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad provocerar Aisha ibland?",
+        "options": [
+          "Att pappor är lediga",
+          "Att kvinnor är chefer",
+          "Att folk tror jämställdheten är helt färdig",
+          "Att jämställdheten gått för långt"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Varför tycker Aisha att man inte ska slå sig till ro?",
+        "options": [
+          "För att hon vill flytta hem",
+          "För att man då slutar kämpa",
+          "För att allt redan är bra",
+          "För att det inte spelar roll"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "d-ber-023",
+    "course": "D",
+    "type": "monologue",
+    "intro": "David berättar om hur han bytte karriär mitt i livet.",
+    "transcript": [
+      {
+        "speaker": "David",
+        "text": "I tjugo år arbetade jag som ekonom på en bank, och på papperet hade jag allt: bra lön, trygg anställning och fina kollegor. Ändå kände jag en gnagande tomhet. När jag fyllde fyrtiofem bestämde jag mig för att göra något radikalt och utbilda mig till lärare. Många i min omgivning tyckte att jag var galen som gav upp en säker karriär. Det var ekonomiskt tufft i några år, och jag tvivlade ofta. Men i dag, när jag står framför en klass och ser eleverna växa, vet jag att det var värt varje uppoffring. Min erfarenhet har lärt mig att det aldrig är för sent att börja om, så länge man vågar lyssna på den där inre rösten som säger att något inte stämmer."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad arbetade David som tidigare?",
+        "options": [
+          "Ingenjör",
+          "Ekonom på en bank",
+          "Lärare",
+          "Snickare"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför bytte David karriär trots att han hade allt på papperet?",
+        "options": [
+          "Han kände en gnagande tomhet",
+          "Han ville tjäna mer",
+          "Han fick sparken",
+          "Han ville flytta"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad har Davids erfarenhet lärt honom? Skriv ditt svar.",
+        "accept": [
+          "att det aldrig är för sent att börja om",
+          "att lyssna på sin inre röst",
+          "att man kan byta karriär även mitt i livet",
+          "att våga göra förändringar",
+          "att det är värt att följa sin känsla"
+        ]
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "d-ber-024",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Marta ger sin syn på äldreomsorgen i samhället.",
+    "transcript": [
+      {
+        "speaker": "Marta",
+        "text": "Jag har arbetat inom äldreomsorgen i många år, och det är ett yrke jag älskar men som ständigt är pressat. Vi som jobbar nära de gamla ser hur tiden aldrig räcker till. Man hinner knappt mer än det mest nödvändiga, och samtalet, som ofta betyder mest för en ensam människa, blir det första som stryks. Jag tycker att ett samhälle ska bedömas efter hur det behandlar sina svagaste, och där har vi en bit kvar. Det handlar inte bara om mer pengar, även om det behövs, utan om respekt för dem som byggt landet. Jag önskar att fler unga ville söka sig hit, men då måste yrket få högre status. De äldre förtjänar att deras sista år präglas av värdighet."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är problemet enligt Marta?",
+        "options": [
+          "Att maten är dålig",
+          "Att tiden aldrig räcker till",
+          "Att lokalerna är dåliga",
+          "Att de äldre är otrevliga"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad blir det första som stryks när tiden inte räcker?",
+        "options": [
+          "Hygienen",
+          "Samtalet",
+          "Medicinen",
+          "Maten"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad anser Marta att ett samhälle ska bedömas efter?",
+        "options": [
+          "Hur det behandlar sina svagaste",
+          "Hur många jobb det finns",
+          "Hur stora städerna är",
+          "Hur rikt det är"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "d-ber-025",
+    "course": "D",
+    "type": "monologue",
+    "intro": "Samuel reflekterar över vad tålamod har betytt för honom.",
+    "transcript": [
+      {
+        "speaker": "Samuel",
+        "text": "Om någon hade sagt till mig för fem år sedan hur lång väg jag hade framför mig, hade jag nog blivit modlös. Jag kom hit utan att kunna ett ord svenska, utan utbildning och utan kontakter. Steg för steg har jag byggt upp ett liv: först språket, sedan en praktikplats, och nu en fast anställning som jag är stolt över. Det som har burit mig är tålamod. I min kultur säger man att den som har tålamod till slut får se sin trädgård blomma. Jag har lärt mig att stora förändringar sällan sker över en natt, utan genom tusen små beslut att inte ge upp. När jag tittar tillbaka är jag inte stolt över att jag aldrig snubblade, utan över att jag varje gång reste mig igen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur kom Samuel till Sverige?",
+        "options": [
+          "Med många kontakter",
+          "Utan språk, utbildning och kontakter",
+          "Med ett jobb som väntade",
+          "Med en färdig utbildning"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad har framför allt burit Samuel enligt honom själv?",
+        "options": [
+          "Tur",
+          "Tålamod",
+          "Pengar",
+          "Kontakter"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vad är Samuel mest stolt över när han ser tillbaka? Skriv ditt svar.",
+        "accept": [
+          "att han alltid reste sig igen",
+          "att han aldrig gav upp",
+          "att han fortsatte trots motgångar",
+          "att han reste sig efter varje motgång",
+          "att han kämpade vidare"
+        ]
+      }
+    ],
+    "sort_order": 24
+  }
+]

@@ -561,15 +561,27 @@ export const LISTENING_CATEGORIES_A = [
   { type: "matching",     label: "Matchning",     emoji: "🔗", description: "Lyssna på fyra korta klipp och matcha rätt", items: [] },
 ];
 
+// Full 7-category structure for Kurs B and D (items come from Supabase).
+export const LISTENING_CATEGORIES_FULL = [
+  { type: "dialogue",     label: "Samtal",         emoji: "💬", description: "Vardagliga samtal mellan två personer", items: [] },
+  { type: "phone",        label: "Telefonsamtal",  emoji: "📞", description: "Telefonsamtal till vården, skolan, företag och myndigheter", items: [] },
+  { type: "voicemail",    label: "Röstmeddelande", emoji: "📱", description: "Meddelanden på telefonsvarare", items: [] },
+  { type: "announcement", label: "Utrop",          emoji: "📢", description: "Högtalarutrop på stationer, i butiker och på flygplatser", items: [] },
+  { type: "monologue",    label: "Berättelse",     emoji: "🎙️", description: "Personer berättar om sitt liv, arbete och vardag", items: [] },
+  { type: "news",         label: "Nyhetsinslag",   emoji: "📻", description: "Korta nyheter från radio om lokala händelser", items: [] },
+  { type: "matching",     label: "Matchning",      emoji: "🔗", description: "Lyssna på flera korta klipp och matcha rätt person", items: [] },
+];
+
 export function getListeningBank(course) {
   const c = course?.toUpperCase();
   if (c === "C") return LISTENING_CATEGORIES_C;
   if (c === "A") return LISTENING_CATEGORIES_A;
+  if (c === "B" || c === "D") return LISTENING_CATEGORIES_FULL;
   return null;
 }
 
 // Which SFI courses currently have a listening bank (for the course switcher).
-export const LISTENING_COURSES = ["A", "C"];
+export const LISTENING_COURSES = ["A", "B", "C", "D"];
 
 // Build a mock test: one random item from each category, in exam order.
 export function buildMockTest(categories) {

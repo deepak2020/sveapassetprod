@@ -1,0 +1,1877 @@
+[
+  {
+    "id": "d-match-001",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar om sitt arbete. Matcha varje person med rätt yrke. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Linnea",
+        "text": "Jag tillbringar dagarna i en sal där allt måste vara sterilt, och när narkosen verkar känner jag att patientens liv vilar i mina händer."
+      },
+      {
+        "speaker": "Marcus",
+        "text": "Mitt jobb handlar om att tolka siffror, granska bokslut och se till att företagens deklarationer stämmer innan myndigheterna granskar dem."
+      },
+      {
+        "speaker": "Yusuf",
+        "text": "Jag står framför en klass varje morgon och försöker väcka nyfikenhet hos ungdomar som hellre tittar på sina mobiler än på tavlan."
+      },
+      {
+        "speaker": "Petra",
+        "text": "Mina dagar fylls av ritningar och beräkningar; jag måste garantera att broarna jag konstruerar håller i hundra år utan att rasa."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad arbetar Linnea med?",
+        "options": [
+          "Revisor",
+          "Advokat",
+          "Journalist",
+          "Kirurg",
+          "Byggnadsingenjör",
+          "Lärare"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad arbetar Marcus med?",
+        "options": [
+          "Revisor",
+          "Advokat",
+          "Journalist",
+          "Kirurg",
+          "Byggnadsingenjör",
+          "Lärare"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad arbetar Yusuf med?",
+        "options": [
+          "Revisor",
+          "Advokat",
+          "Journalist",
+          "Kirurg",
+          "Byggnadsingenjör",
+          "Lärare"
+        ],
+        "correctIndex": 5
+      },
+      {
+        "q": "Vad arbetar Petra med?",
+        "options": [
+          "Revisor",
+          "Advokat",
+          "Journalist",
+          "Kirurg",
+          "Byggnadsingenjör",
+          "Lärare"
+        ],
+        "correctIndex": 4
+      }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "d-match-002",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer uttrycker sin åsikt om biltrafiken i staden. Matcha varje person med rätt ståndpunkt. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Hassan",
+        "text": "Jag tycker att vi borde stänga centrum helt för fordon; luften skulle bli renare och barnen kunde leka tryggt på gatorna igen."
+      },
+      {
+        "speaker": "Camilla",
+        "text": "Visst finns det problem, men att förbjuda allt vore orimligt; en del avgifter och bättre kollektivtrafik räcker långt enligt mig."
+      },
+      {
+        "speaker": "Johan",
+        "text": "Ärligt talat bryr jag mig inte särskilt; det löser sig nog ändå med tiden, och jag har viktigare saker att tänka på."
+      },
+      {
+        "speaker": "Ingrid",
+        "text": "Att begränsa folks frihet att köra är fel väg; människor behöver sina bilar och politikerna ska inte lägga sig i det."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken ståndpunkt har Hassan?",
+        "options": [
+          "Vill bygga fler motorvägar",
+          "Vill ha måttliga åtgärder",
+          "Är emot alla begränsningar",
+          "Är likgiltig inför frågan",
+          "Vill förbjuda bilar helt",
+          "Vill ha gratis parkering"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Vilken ståndpunkt har Camilla?",
+        "options": [
+          "Vill bygga fler motorvägar",
+          "Vill ha måttliga åtgärder",
+          "Är emot alla begränsningar",
+          "Är likgiltig inför frågan",
+          "Vill förbjuda bilar helt",
+          "Vill ha gratis parkering"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilken ståndpunkt har Johan?",
+        "options": [
+          "Vill bygga fler motorvägar",
+          "Vill ha måttliga åtgärder",
+          "Är emot alla begränsningar",
+          "Är likgiltig inför frågan",
+          "Vill förbjuda bilar helt",
+          "Vill ha gratis parkering"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilken ståndpunkt har Ingrid?",
+        "options": [
+          "Vill bygga fler motorvägar",
+          "Vill ha måttliga åtgärder",
+          "Är emot alla begränsningar",
+          "Är likgiltig inför frågan",
+          "Vill förbjuda bilar helt",
+          "Vill ha gratis parkering"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "d-match-003",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de studerar på universitetet. Matcha varje person med rätt ämne. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Sofia",
+        "text": "Jag fördjupar mig i hur samhällen styrs, varför vissa partier vinner makt och hur lagar formas i samspel mellan folk och stat."
+      },
+      {
+        "speaker": "David",
+        "text": "Mina kurser kretsar kring celler, gener och hur levande organismer fungerar; mest tid lägger jag i laboratoriet med mikroskop."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Jag analyserar hur människors psyke fungerar, varför vi beter oss som vi gör och vad som händer i hjärnan vid stress."
+      },
+      {
+        "speaker": "Robert",
+        "text": "Mitt fält handlar om byggstenarna i universum; jag räknar på krafter, energi och rörelse och drömmer om att förstå tidens natur."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad studerar Sofia?",
+        "options": [
+          "Psykologi",
+          "Ekonomi",
+          "Statsvetenskap",
+          "Biologi",
+          "Historia",
+          "Fysik"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad studerar David?",
+        "options": [
+          "Psykologi",
+          "Ekonomi",
+          "Statsvetenskap",
+          "Biologi",
+          "Historia",
+          "Fysik"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad studerar Amina?",
+        "options": [
+          "Psykologi",
+          "Ekonomi",
+          "Statsvetenskap",
+          "Biologi",
+          "Historia",
+          "Fysik"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad studerar Robert?",
+        "options": [
+          "Psykologi",
+          "Ekonomi",
+          "Statsvetenskap",
+          "Biologi",
+          "Historia",
+          "Fysik"
+        ],
+        "correctIndex": 5
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "d-match-004",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer beskriver sin boendesituation. Matcha varje person med rätt boende. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Elin",
+        "text": "Vi delar kök och badrum med fyra andra som jag knappt kände innan; ibland blir det stökigt, men hyran är åtminstone överkomlig."
+      },
+      {
+        "speaker": "Karim",
+        "text": "Här ute hörs bara fåglar och vinden; närmaste granne bor en kilometer bort och jag måste ta bilen för minsta inköp."
+      },
+      {
+        "speaker": "Lovisa",
+        "text": "Jag äger min lilla våning högst upp i huset; hissen är trasig ibland, men utsikten över taken gör allt besväret värt det."
+      },
+      {
+        "speaker": "Anders",
+        "text": "Vårt hus har trädgård och staket, perfekt för barnen, men det kräver ständigt underhåll och ligger en bra bit från city."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur bor Elin?",
+        "options": [
+          "På ett hotell",
+          "I en husbil",
+          "Avskilt på landet",
+          "I en villa i förorten",
+          "I ett kollektiv",
+          "I en ägd lägenhet"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Hur bor Karim?",
+        "options": [
+          "På ett hotell",
+          "I en husbil",
+          "Avskilt på landet",
+          "I en villa i förorten",
+          "I ett kollektiv",
+          "I en ägd lägenhet"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur bor Lovisa?",
+        "options": [
+          "På ett hotell",
+          "I en husbil",
+          "Avskilt på landet",
+          "I en villa i förorten",
+          "I ett kollektiv",
+          "I en ägd lägenhet"
+        ],
+        "correctIndex": 5
+      },
+      {
+        "q": "Hur bor Anders?",
+        "options": [
+          "På ett hotell",
+          "I en husbil",
+          "Avskilt på landet",
+          "I en villa i förorten",
+          "I ett kollektiv",
+          "I en ägd lägenhet"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "d-match-005",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar om sin drömsemester. Matcha varje person med rätt semestertyp. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Nadia",
+        "text": "Jag vill vakna till vågornas brus, gräva tårna i den varma sanden och inte göra något annat än att läsa en bok i skuggan."
+      },
+      {
+        "speaker": "Oskar",
+        "text": "För mig betyder vila att packa ryggsäcken, klättra uppför branta stigar och slå läger där ingen mobil har täckning."
+      },
+      {
+        "speaker": "Birgitta",
+        "text": "Jag dras till gamla städer fulla av museer, katedraler och historia; varje gränd berättar något om svunna tider."
+      },
+      {
+        "speaker": "Tobias",
+        "text": "Helst flyger jag till andra sidan jorden, smakar främmande maträtter och kastar mig in i kulturer helt olika min egen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken semester vill Nadia ha?",
+        "options": [
+          "Kryssning",
+          "Långresa i Asien",
+          "Strandsemester",
+          "Kulturresa i Europa",
+          "Vandring i fjällen",
+          "Skidsemester"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilken semester vill Oskar ha?",
+        "options": [
+          "Kryssning",
+          "Långresa i Asien",
+          "Strandsemester",
+          "Kulturresa i Europa",
+          "Vandring i fjällen",
+          "Skidsemester"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Vilken semester vill Birgitta ha?",
+        "options": [
+          "Kryssning",
+          "Långresa i Asien",
+          "Strandsemester",
+          "Kulturresa i Europa",
+          "Vandring i fjällen",
+          "Skidsemester"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilken semester vill Tobias ha?",
+        "options": [
+          "Kryssning",
+          "Långresa i Asien",
+          "Strandsemester",
+          "Kulturresa i Europa",
+          "Vandring i fjällen",
+          "Skidsemester"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "d-match-006",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de oroar sig mest för. Matcha varje person med rätt oro. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Maja",
+        "text": "Jag ligger vaken och tänker på isarna som smälter och somrarna som blir allt torrare; vad lämnar vi egentligen efter oss?"
+      },
+      {
+        "speaker": "Felix",
+        "text": "Räkningarna staplas på hög och lönen räcker knappt till slutet av månaden; jag vet inte hur jag ska klara nästa hyra."
+      },
+      {
+        "speaker": "Sara",
+        "text": "När jag känner en knöl eller får ont blir jag livrädd; tanken på att kroppen sviker mig håller mig vaken om nätterna."
+      },
+      {
+        "speaker": "Emil",
+        "text": "Maskinerna blir smartare för varje år och jag undrar om någon ens behöver min kompetens om tio år; framtiden känns osäker."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad oroar sig Maja för?",
+        "options": [
+          "Sin hälsa",
+          "Brottslighet",
+          "Klimatförändringen",
+          "Sin ekonomi",
+          "Ensamhet",
+          "Att förlora jobbet"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad oroar sig Felix för?",
+        "options": [
+          "Sin hälsa",
+          "Brottslighet",
+          "Klimatförändringen",
+          "Sin ekonomi",
+          "Ensamhet",
+          "Att förlora jobbet"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad oroar sig Sara för?",
+        "options": [
+          "Sin hälsa",
+          "Brottslighet",
+          "Klimatförändringen",
+          "Sin ekonomi",
+          "Ensamhet",
+          "Att förlora jobbet"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad oroar sig Emil för?",
+        "options": [
+          "Sin hälsa",
+          "Brottslighet",
+          "Klimatförändringen",
+          "Sin ekonomi",
+          "Ensamhet",
+          "Att förlora jobbet"
+        ],
+        "correctIndex": 5
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "d-match-007",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar om sitt fritidsintresse. Matcha varje person med rätt intresse. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Henrik",
+        "text": "På kvällarna sätter jag mig vid spisen och experimenterar med kryddor från hela världen tills hela köket doftar himmelskt."
+      },
+      {
+        "speaker": "Leila",
+        "text": "Jag fångar ögonblick genom linsen, jagar det rätta ljuset i gryningen och kan stå tyst i timmar för en enda bra bild."
+      },
+      {
+        "speaker": "Gustav",
+        "text": "När jag gräver i jorden, planterar frön och ser dem växa känner jag ett lugn som inget annat ger mig i livet."
+      },
+      {
+        "speaker": "Maria",
+        "text": "Jag förlorar mig i andra världar mellan sidorna; en bra berättelse kan hålla mig uppe halva natten utan att jag märker tiden."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är Henriks intresse?",
+        "options": [
+          "Läsning",
+          "Matlagning",
+          "Schack",
+          "Cykling",
+          "Trädgårdsarbete",
+          "Fotografi"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad är Leilas intresse?",
+        "options": [
+          "Läsning",
+          "Matlagning",
+          "Schack",
+          "Cykling",
+          "Trädgårdsarbete",
+          "Fotografi"
+        ],
+        "correctIndex": 5
+      },
+      {
+        "q": "Vad är Gustavs intresse?",
+        "options": [
+          "Läsning",
+          "Matlagning",
+          "Schack",
+          "Cykling",
+          "Trädgårdsarbete",
+          "Fotografi"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Vad är Marias intresse?",
+        "options": [
+          "Läsning",
+          "Matlagning",
+          "Schack",
+          "Cykling",
+          "Trädgårdsarbete",
+          "Fotografi"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "d-match-008",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar hur de tar sig till jobbet. Matcha varje person med rätt färdsätt. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Pernilla",
+        "text": "Oavsett väder trampar jag de åtta kilometrarna; benen blir starka och jag slipper trängas med svettiga främlingar i rusningen."
+      },
+      {
+        "speaker": "Ali",
+        "text": "Jag glider fram under jorden, läser tidningen och byter en gång; det går snabbt så länge inget signalfel ställer till det."
+      },
+      {
+        "speaker": "Klara",
+        "text": "Eftersom kontoret ligger bara två kvarter bort tar jag mig dit på egna ben och hinner till och med köpa kaffe på vägen."
+      },
+      {
+        "speaker": "Viktor",
+        "text": "Varje morgon sitter jag fast bakom ratten i en lång kö av blinkande bromsljus och förbannar att vägarna byggdes för länge sedan."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur pendlar Pernilla?",
+        "options": [
+          "Med cykel",
+          "Till fots",
+          "Med pendeltåg",
+          "Med bil",
+          "Med buss",
+          "Med tunnelbana"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur pendlar Ali?",
+        "options": [
+          "Med cykel",
+          "Till fots",
+          "Med pendeltåg",
+          "Med bil",
+          "Med buss",
+          "Med tunnelbana"
+        ],
+        "correctIndex": 5
+      },
+      {
+        "q": "Hur pendlar Klara?",
+        "options": [
+          "Med cykel",
+          "Till fots",
+          "Med pendeltåg",
+          "Med bil",
+          "Med buss",
+          "Med tunnelbana"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur pendlar Viktor?",
+        "options": [
+          "Med cykel",
+          "Till fots",
+          "Med pendeltåg",
+          "Med bil",
+          "Med buss",
+          "Med tunnelbana"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "d-match-009",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar om en vana de vill ändra på. Matcha varje person med rätt vana. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Jonas",
+        "text": "Jag lovar mig själv att gå och lägga mig tidigt, men sedan blir det ännu en avsnitt och ännu ett, och plötsligt är klockan tre."
+      },
+      {
+        "speaker": "Rania",
+        "text": "Det första jag gör på morgonen är att gripa efter skärmen, och innan jag vet ordet av har en timme runnit bort i flödet."
+      },
+      {
+        "speaker": "Mikael",
+        "text": "Jag vet att kroppen behöver röra på sig, men efter jobbet sjunker jag ner i soffan och hittar alltid en ursäkt att skjuta upp det."
+      },
+      {
+        "speaker": "Hanna",
+        "text": "När stressen kommer river jag upp en chokladkaka eller en påse godis, fast jag vet att sockret bara ger mig dåligt samvete efteråt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken vana vill Jonas ändra?",
+        "options": [
+          "Tränar för lite",
+          "Röker",
+          "Äter för mycket socker",
+          "Använder mobilen för mycket",
+          "Dricker för mycket kaffe",
+          "Vakar för sent"
+        ],
+        "correctIndex": 5
+      },
+      {
+        "q": "Vilken vana vill Rania ändra?",
+        "options": [
+          "Tränar för lite",
+          "Röker",
+          "Äter för mycket socker",
+          "Använder mobilen för mycket",
+          "Dricker för mycket kaffe",
+          "Vakar för sent"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilken vana vill Mikael ändra?",
+        "options": [
+          "Tränar för lite",
+          "Röker",
+          "Äter för mycket socker",
+          "Använder mobilen för mycket",
+          "Dricker för mycket kaffe",
+          "Vakar för sent"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken vana vill Hanna ändra?",
+        "options": [
+          "Tränar för lite",
+          "Röker",
+          "Äter för mycket socker",
+          "Använder mobilen för mycket",
+          "Dricker för mycket kaffe",
+          "Vakar för sent"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "d-match-010",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de värdesätter högst i livet. Matcha varje person med rätt värdering. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Cecilia",
+        "text": "Inget betyder mer för mig än middagarna runt köksbordet med mina barn och min man; allt annat kommer i andra hand."
+      },
+      {
+        "speaker": "Omar",
+        "text": "Att vara min egen herre, kunna resa när jag vill och inte behöva be någon om lov är det jag skattar allra högst."
+      },
+      {
+        "speaker": "Linn",
+        "text": "Jag mäter mitt liv i vad jag åstadkommer; att klättra, bli erkänd och nå mina mål driver mig varje vaken minut."
+      },
+      {
+        "speaker": "Babak",
+        "text": "För mig är inre stillhet det viktigaste; bara jag har min hälsa och ett lugnt sinne behöver jag inga rikedomar."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad värdesätter Cecilia?",
+        "options": [
+          "Inre lugn",
+          "Status",
+          "Familjen",
+          "Friheten",
+          "Karriären",
+          "Pengar"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad värdesätter Omar?",
+        "options": [
+          "Inre lugn",
+          "Status",
+          "Familjen",
+          "Friheten",
+          "Karriären",
+          "Pengar"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad värdesätter Linn?",
+        "options": [
+          "Inre lugn",
+          "Status",
+          "Familjen",
+          "Friheten",
+          "Karriären",
+          "Pengar"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Vad värdesätter Babak?",
+        "options": [
+          "Inre lugn",
+          "Status",
+          "Familjen",
+          "Friheten",
+          "Karriären",
+          "Pengar"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "d-match-011",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar om sitt arbete. Matcha varje person med rätt yrke. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Stina",
+        "text": "Jag följer människor genom deras tyngsta stunder, lyssnar utan att döma och hjälper dem hitta tillbaka när livet känns olösligt."
+      },
+      {
+        "speaker": "Daniel",
+        "text": "Mina händer formar metall och rör hela dagen; när någon ringer i panik för en läckande ledning är det jag som rycker ut."
+      },
+      {
+        "speaker": "Fatima",
+        "text": "Jag jagar sanningen bakom rubrikerna, ringer källor, kontrollerar fakta och skriver tills läsaren förstår vad som verkligen hänt."
+      },
+      {
+        "speaker": "Erik",
+        "text": "Med pensel och färg täcker jag väggar och fasader; jag gillar att se hur ett slitet rum förvandlas till något nytt på en dag."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad arbetar Stina med?",
+        "options": [
+          "Psykolog",
+          "Målare",
+          "Rörmokare",
+          "Elektriker",
+          "Frisör",
+          "Journalist"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad arbetar Daniel med?",
+        "options": [
+          "Psykolog",
+          "Målare",
+          "Rörmokare",
+          "Elektriker",
+          "Frisör",
+          "Journalist"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad arbetar Fatima med?",
+        "options": [
+          "Psykolog",
+          "Målare",
+          "Rörmokare",
+          "Elektriker",
+          "Frisör",
+          "Journalist"
+        ],
+        "correctIndex": 5
+      },
+      {
+        "q": "Vad arbetar Erik med?",
+        "options": [
+          "Psykolog",
+          "Målare",
+          "Rörmokare",
+          "Elektriker",
+          "Frisör",
+          "Journalist"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "d-match-012",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer tycker till om förslaget att förbjuda mobiler i skolan. Matcha varje person med rätt åsikt. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Patrik",
+        "text": "Äntligen! Eleverna sitter ju klistrade vid skärmarna istället för att lyssna; ett totalt förbud är precis vad klassrummen behöver."
+      },
+      {
+        "speaker": "Nour",
+        "text": "Att ta ifrån dem mobilerna löser ingenting; vi måste i stället lära ungdomarna att hantera tekniken på ett klokt sätt."
+      },
+      {
+        "speaker": "Greta",
+        "text": "Kanske kan man tillåta dem på rasterna men samla in dem under lektionerna; en mellanväg vore rimligast tror jag."
+      },
+      {
+        "speaker": "Samir",
+        "text": "Ärligt talat har jag ingen stark uppfattning; lärarna får väl bestämma själva, det spelar mig ingen större roll."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken åsikt har Patrik?",
+        "options": [
+          "Vill ha en kompromiss",
+          "Vill ha totalt förbud",
+          "Är emot förbud",
+          "Saknar bestämd åsikt",
+          "Vill avskaffa läxor",
+          "Vill köpa mobiler åt alla"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilken åsikt har Nour?",
+        "options": [
+          "Vill ha en kompromiss",
+          "Vill ha totalt förbud",
+          "Är emot förbud",
+          "Saknar bestämd åsikt",
+          "Vill avskaffa läxor",
+          "Vill köpa mobiler åt alla"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilken åsikt har Greta?",
+        "options": [
+          "Vill ha en kompromiss",
+          "Vill ha totalt förbud",
+          "Är emot förbud",
+          "Saknar bestämd åsikt",
+          "Vill avskaffa läxor",
+          "Vill köpa mobiler åt alla"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken åsikt har Samir?",
+        "options": [
+          "Vill ha en kompromiss",
+          "Vill ha totalt förbud",
+          "Är emot förbud",
+          "Saknar bestämd åsikt",
+          "Vill avskaffa läxor",
+          "Vill köpa mobiler åt alla"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "d-match-013",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar vilken utbildning de går. Matcha varje person med rätt utbildning. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Wilma",
+        "text": "Jag övar på att ställa diagnoser, lägga om sår och möta patienter; om några år bär jag den vita rocken på en avdelning."
+      },
+      {
+        "speaker": "Anton",
+        "text": "Mina dagar består av kod, algoritmer och buggar som vägrar försvinna; målet är att kunna bygga program som miljoner använder."
+      },
+      {
+        "speaker": "Zara",
+        "text": "Jag läser om paragrafer, rättsfall och hur domstolar resonerar; en dag vill jag försvara människor som blivit orättvist behandlade."
+      },
+      {
+        "speaker": "Lukas",
+        "text": "Vi ritar fasader, räknar på ljus och rum och bygger modeller; jag drömmer om att en dag forma de hus människor ska bo i."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad utbildar sig Wilma till?",
+        "options": [
+          "Sjuksköterska",
+          "Tandläkare",
+          "Jurist",
+          "Arkitekt",
+          "Programmerare",
+          "Ekonom"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad utbildar sig Anton till?",
+        "options": [
+          "Sjuksköterska",
+          "Tandläkare",
+          "Jurist",
+          "Arkitekt",
+          "Programmerare",
+          "Ekonom"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Vad utbildar sig Zara till?",
+        "options": [
+          "Sjuksköterska",
+          "Tandläkare",
+          "Jurist",
+          "Arkitekt",
+          "Programmerare",
+          "Ekonom"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad utbildar sig Lukas till?",
+        "options": [
+          "Sjuksköterska",
+          "Tandläkare",
+          "Jurist",
+          "Arkitekt",
+          "Programmerare",
+          "Ekonom"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "d-match-014",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de saknar mest med sitt hemland. Matcha varje person med rätt sak. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Yasmin",
+        "text": "Det jag längtar efter är dofterna från min mormors kök, de rätter ingen restaurang här lyckas återskapa hur mycket de än försöker."
+      },
+      {
+        "speaker": "Karim",
+        "text": "Mest av allt saknar jag att kunna kliva ut och genast stöta på någon jag känner; här hälsar grannarna knappt på varandra."
+      },
+      {
+        "speaker": "Linnea",
+        "text": "Jag vissnar i mörkret; därhemma värmde solen min hud året runt och himlen var blå även mitt i december månad."
+      },
+      {
+        "speaker": "Hugo",
+        "text": "Det är ljudet jag bär med mig: rytmerna, sångerna och danserna på torget om kvällarna som fyllde luften med liv."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad saknar Yasmin?",
+        "options": [
+          "Gemenskapen",
+          "Maten",
+          "Musiken",
+          "Naturen",
+          "Språket",
+          "Klimatet"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad saknar Karim?",
+        "options": [
+          "Gemenskapen",
+          "Maten",
+          "Musiken",
+          "Naturen",
+          "Språket",
+          "Klimatet"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad saknar Linnea?",
+        "options": [
+          "Gemenskapen",
+          "Maten",
+          "Musiken",
+          "Naturen",
+          "Språket",
+          "Klimatet"
+        ],
+        "correctIndex": 5
+      },
+      {
+        "q": "Vad saknar Hugo?",
+        "options": [
+          "Gemenskapen",
+          "Maten",
+          "Musiken",
+          "Naturen",
+          "Språket",
+          "Klimatet"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "d-match-015",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer beskriver sin personlighet. Matcha varje person med rätt egenskap. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Tova",
+        "text": "Jag planerar allt i minsta detalj, gör listor och blir rastlös om saker ligger huller om buller; ordning ger mig trygghet."
+      },
+      {
+        "speaker": "Rasmus",
+        "text": "Jag hoppar gärna in i nya projekt utan att tveka; risker skrämmer mig inte och jag säger ja innan jag hunnit tänka efter."
+      },
+      {
+        "speaker": "Maryam",
+        "text": "Folk säger att jag alltid ser ljuset; även när allt går fel hittar jag något att le åt och tror att det löser sig till slut."
+      },
+      {
+        "speaker": "Felix",
+        "text": "I stora sällskap drar jag mig undan och lyssnar hellre än pratar; jag laddar mina batterier i tystnad och ensamhet."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur är Tova?",
+        "options": [
+          "Envis",
+          "Ordningsam",
+          "Orädd",
+          "Generös",
+          "Tillbakadragen",
+          "Optimistisk"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur är Rasmus?",
+        "options": [
+          "Envis",
+          "Ordningsam",
+          "Orädd",
+          "Generös",
+          "Tillbakadragen",
+          "Optimistisk"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur är Maryam?",
+        "options": [
+          "Envis",
+          "Ordningsam",
+          "Orädd",
+          "Generös",
+          "Tillbakadragen",
+          "Optimistisk"
+        ],
+        "correctIndex": 5
+      },
+      {
+        "q": "Hur är Felix?",
+        "options": [
+          "Envis",
+          "Ordningsam",
+          "Orädd",
+          "Generös",
+          "Tillbakadragen",
+          "Optimistisk"
+        ],
+        "correctIndex": 4
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "d-match-016",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar varför de bytte jobb. Matcha varje person med rätt anledning. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Elias",
+        "text": "Jag slet kvällar och helger men kände aldrig att jag kom någonvart; till slut insåg jag att jag förtjänade mer i kuvertet."
+      },
+      {
+        "speaker": "Sanna",
+        "text": "Stämningen på kontoret blev outhärdlig; chefen skrek och kollegorna skvallrade, så till sist orkade jag helt enkelt inte mer."
+      },
+      {
+        "speaker": "Noah",
+        "text": "Jag gjorde samma sak om och om igen tills jag kunde det i sömnen; jag behövde något som verkligen utmanade mig på nytt."
+      },
+      {
+        "speaker": "Iris",
+        "text": "Med småbarn hemma gick det inte ihop med skiftarbete och resor; jag sökte mig till något som lät mig vara mer närvarande."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför bytte Elias jobb?",
+        "options": [
+          "Dålig arbetsmiljö",
+          "För högre lön",
+          "Sökte nya utmaningar",
+          "För familjens skull",
+          "Företaget gick i konkurs",
+          "Flyttade till ny stad"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför bytte Sanna jobb?",
+        "options": [
+          "Dålig arbetsmiljö",
+          "För högre lön",
+          "Sökte nya utmaningar",
+          "För familjens skull",
+          "Företaget gick i konkurs",
+          "Flyttade till ny stad"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför bytte Noah jobb?",
+        "options": [
+          "Dålig arbetsmiljö",
+          "För högre lön",
+          "Sökte nya utmaningar",
+          "För familjens skull",
+          "Företaget gick i konkurs",
+          "Flyttade till ny stad"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Varför bytte Iris jobb?",
+        "options": [
+          "Dålig arbetsmiljö",
+          "För högre lön",
+          "Sökte nya utmaningar",
+          "För familjens skull",
+          "Företaget gick i konkurs",
+          "Flyttade till ny stad"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "d-match-017",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar hur de helst tillbringar en ledig kväll. Matcha varje person med rätt aktivitet. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Moa",
+        "text": "Inget slår att krypa ner under en filt med te och en serie; jag stänger dörren mot världen och njuter av att bara vara hemma."
+      },
+      {
+        "speaker": "Jonas",
+        "text": "Jag älskar när lägenheten fylls av skratt och röster; jag dukar fram, häller upp och ser till att ingen gäst går hungrig hem."
+      },
+      {
+        "speaker": "Aisha",
+        "text": "Efter en lång vecka vill jag ut bland folk, känna basen dunka och dansa tills fötterna värker och solen börjar gå upp."
+      },
+      {
+        "speaker": " Erik",
+        "text": "Jag drar på mig löparskorna oavsett klockslag; svetten och pulsen rensar huvudet bättre än något annat efter en jobbig dag."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur vill Moa tillbringa kvällen?",
+        "options": [
+          "Träna",
+          "Spela tv-spel",
+          "Gå ut och dansa",
+          "Gå på bio",
+          "Mysa hemma",
+          "Bjuda på middag"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Hur vill Jonas tillbringa kvällen?",
+        "options": [
+          "Träna",
+          "Spela tv-spel",
+          "Gå ut och dansa",
+          "Gå på bio",
+          "Mysa hemma",
+          "Bjuda på middag"
+        ],
+        "correctIndex": 5
+      },
+      {
+        "q": "Hur vill Aisha tillbringa kvällen?",
+        "options": [
+          "Träna",
+          "Spela tv-spel",
+          "Gå ut och dansa",
+          "Gå på bio",
+          "Mysa hemma",
+          "Bjuda på middag"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur vill Erik tillbringa kvällen?",
+        "options": [
+          "Träna",
+          "Spela tv-spel",
+          "Gå ut och dansa",
+          "Gå på bio",
+          "Mysa hemma",
+          "Bjuda på middag"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "d-match-018",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de gör för miljön. Matcha varje person med rätt handling. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Vera",
+        "text": "Jag har slutat helt med kött och fisk; varje måltid bygger numera på bönor, linser och grönsaker från torget."
+      },
+      {
+        "speaker": "Jamal",
+        "text": "Jag handlar nästan aldrig nytt längre utan letar i secondhand och lagar det trasiga; en tröja kan hålla i många år till."
+      },
+      {
+        "speaker": "Linda",
+        "text": "Jag sorterar allt ner till minsta lock och sköljer förpackningar noga; tanken på att inget ska gå till spillo driver mig."
+      },
+      {
+        "speaker": "Bashir",
+        "text": "Jag sålde bilen och tar numera tåget även på längre resor; att slippa flyga känns som det minsta jag kan göra för planeten."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gör Vera för miljön?",
+        "options": [
+          "Reser klimatsmart",
+          "Odlar egen mat",
+          "Sparar el",
+          "Återvinner noggrant",
+          "Äter vegetariskt",
+          "Köper begagnat"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Vad gör Jamal för miljön?",
+        "options": [
+          "Reser klimatsmart",
+          "Odlar egen mat",
+          "Sparar el",
+          "Återvinner noggrant",
+          "Äter vegetariskt",
+          "Köper begagnat"
+        ],
+        "correctIndex": 5
+      },
+      {
+        "q": "Vad gör Linda för miljön?",
+        "options": [
+          "Reser klimatsmart",
+          "Odlar egen mat",
+          "Sparar el",
+          "Återvinner noggrant",
+          "Äter vegetariskt",
+          "Köper begagnat"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad gör Bashir för miljön?",
+        "options": [
+          "Reser klimatsmart",
+          "Odlar egen mat",
+          "Sparar el",
+          "Återvinner noggrant",
+          "Äter vegetariskt",
+          "Köper begagnat"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "d-match-019",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar om en typ av film de helst ser. Matcha varje person med rätt genre. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Astrid",
+        "text": "Jag älskar när huvudet måste arbeta; vem var mördaren, vad döljer ledtrådarna? Jag gissar in i sista minuten och har oftast fel."
+      },
+      {
+        "speaker": "Omar",
+        "text": "Ge mig explosioner, biljakter och hjältar som hänger från stup; jag vill sitta på helspänn och knappt våga andas i mörkret."
+      },
+      {
+        "speaker": "Nina",
+        "text": "Jag dras till berättelser om två som möts, tappar varandra och kanske hittar tillbaka; jag gråter varje gång det slutar lyckligt."
+      },
+      {
+        "speaker": "Teo",
+        "text": "Helst ser jag något som får mig att vråla av skratt; en bra komiker och tokiga missförstånd lyfter humöret en hel vecka framåt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken genre gillar Astrid?",
+        "options": [
+          "Deckare",
+          "Romantik",
+          "Action",
+          "Skräck",
+          "Dokumentär",
+          "Komedi"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken genre gillar Omar?",
+        "options": [
+          "Deckare",
+          "Romantik",
+          "Action",
+          "Skräck",
+          "Dokumentär",
+          "Komedi"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilken genre gillar Nina?",
+        "options": [
+          "Deckare",
+          "Romantik",
+          "Action",
+          "Skräck",
+          "Dokumentär",
+          "Komedi"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilken genre gillar Teo?",
+        "options": [
+          "Deckare",
+          "Romantik",
+          "Action",
+          "Skräck",
+          "Dokumentär",
+          "Komedi"
+        ],
+        "correctIndex": 5
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "d-match-020",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de helst lägger sina pengar på. Matcha varje person med rätt sak. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Selma",
+        "text": "Saker samlar bara damm; istället sparar jag till nästa flygbiljett och minnen från platser jag aldrig sett förut."
+      },
+      {
+        "speaker": "Markus",
+        "text": "Jag unnar mig gärna en riktigt god middag ute; att smaka kockens senaste skapelse är värt varenda krona för mig."
+      },
+      {
+        "speaker": "Hedda",
+        "text": "Det mesta går till garderoben; ett välsytt plagg i rätt tyg får mig att känna mig som en ny människa varje morgon."
+      },
+      {
+        "speaker": "Arvid",
+        "text": "Jag lägger inte ut i onödan utan ser hellre siffran på kontot växa; en trygg buffert betyder mer för mig än något annat."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad lägger Selma pengar på?",
+        "options": [
+          "Kläder",
+          "Inredning",
+          "Resor",
+          "Teknikprylar",
+          "Restaurangbesök",
+          "Sparande"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad lägger Markus pengar på?",
+        "options": [
+          "Kläder",
+          "Inredning",
+          "Resor",
+          "Teknikprylar",
+          "Restaurangbesök",
+          "Sparande"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Vad lägger Hedda pengar på?",
+        "options": [
+          "Kläder",
+          "Inredning",
+          "Resor",
+          "Teknikprylar",
+          "Restaurangbesök",
+          "Sparande"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad lägger Arvid pengar på?",
+        "options": [
+          "Kläder",
+          "Inredning",
+          "Resor",
+          "Teknikprylar",
+          "Restaurangbesök",
+          "Sparande"
+        ],
+        "correctIndex": 5
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "d-match-021",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de gör på sin volontärtid. Matcha varje person med rätt insats. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Inga",
+        "text": "Varje vecka sätter jag mig vid ett bord på biblioteket och hjälper nyanlända att förstå krångliga blanketter och formulera brev."
+      },
+      {
+        "speaker": "Reza",
+        "text": "Jag besöker dem som ingen annan hälsar på; ofta räcker det att hålla en hand och lyssna en stund för att lysa upp en dag."
+      },
+      {
+        "speaker": "Klara",
+        "text": "På helgerna drar jag på mig handskar och plockar skräp längs stränderna; det är otroligt vad folk lämnar efter sig i naturen."
+      },
+      {
+        "speaker": "Sami",
+        "text": "Jag står i köket och delar ut varma mål till dem som inte har tak över huvudet; ingen ska behöva vara hungrig en kall kväll."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gör Inga som volontär?",
+        "options": [
+          "Samlar in pengar",
+          "Lagar mat åt hemlösa",
+          "Tränar barnlag",
+          "Besöker ensamma",
+          "Städar naturen",
+          "Hjälper med språk"
+        ],
+        "correctIndex": 5
+      },
+      {
+        "q": "Vad gör Reza som volontär?",
+        "options": [
+          "Samlar in pengar",
+          "Lagar mat åt hemlösa",
+          "Tränar barnlag",
+          "Besöker ensamma",
+          "Städar naturen",
+          "Hjälper med språk"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad gör Klara som volontär?",
+        "options": [
+          "Samlar in pengar",
+          "Lagar mat åt hemlösa",
+          "Tränar barnlag",
+          "Besöker ensamma",
+          "Städar naturen",
+          "Hjälper med språk"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Vad gör Sami som volontär?",
+        "options": [
+          "Samlar in pengar",
+          "Lagar mat åt hemlösa",
+          "Tränar barnlag",
+          "Besöker ensamma",
+          "Städar naturen",
+          "Hjälper med språk"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "d-match-022",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar vilken egenskap de söker hos en chef. Matcha varje person med rätt egenskap. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Dina",
+        "text": "Det viktigaste är att den som leder oss faktiskt ser oss, frågar hur vi mår och förstår att vi är människor och inte maskiner."
+      },
+      {
+        "speaker": "Pontus",
+        "text": "Jag vill veta exakt vad som gäller; en ledare som säger en sak och gör en annan tappar genast min respekt fullständigt."
+      },
+      {
+        "speaker": "Leila",
+        "text": "Lämna mig i fred och lita på att jag klarar mitt; ingen sak irriterar mig mer än någon som ständigt tittar mig över axeln."
+      },
+      {
+        "speaker": "Gabriel",
+        "text": "Jag uppskattar någon som vågar tänka nytt, slänger ut gamla rutiner och vågar prova idéer som andra tycker är galna."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad söker Dina hos en chef?",
+        "options": [
+          "Förtroende",
+          "Ärlighet",
+          "Nytänkande",
+          "Punktlighet",
+          "Empati",
+          "Stränghet"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Vad söker Pontus hos en chef?",
+        "options": [
+          "Förtroende",
+          "Ärlighet",
+          "Nytänkande",
+          "Punktlighet",
+          "Empati",
+          "Stränghet"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad söker Leila hos en chef?",
+        "options": [
+          "Förtroende",
+          "Ärlighet",
+          "Nytänkande",
+          "Punktlighet",
+          "Empati",
+          "Stränghet"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad söker Gabriel hos en chef?",
+        "options": [
+          "Förtroende",
+          "Ärlighet",
+          "Nytänkande",
+          "Punktlighet",
+          "Empati",
+          "Stränghet"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "d-match-023",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar om ett problem i sitt bostadsområde. Matcha varje person med rätt problem. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Ronja",
+        "text": "På kvällarna går det knappt att sova; musiken dånar från grannarna och bilarna tutar långt in på nätterna utanför fönstret."
+      },
+      {
+        "speaker": "Idris",
+        "text": "Det finns ingenstans att ställa bilen; man cirklar runt i en kvart varje kväll och slutar ändå med att parkera tre gator bort."
+      },
+      {
+        "speaker": "Maja",
+        "text": "Soporna ligger i högar vid containrarna och ingen verkar tömma dem; på sommaren är stanken outhärdlig redan från trapphuset."
+      },
+      {
+        "speaker": "Teodor",
+        "text": "Lyktorna har slocknat i månader och stigen genom parken ligger kolsvart; man känner sig riktigt otrygg på vägen hem om kvällarna."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket problem har Ronja?",
+        "options": [
+          "Klotter",
+          "Dålig sophantering",
+          "Buller",
+          "Parkeringsbrist",
+          "Bristande belysning",
+          "Trafikfara"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilket problem har Idris?",
+        "options": [
+          "Klotter",
+          "Dålig sophantering",
+          "Buller",
+          "Parkeringsbrist",
+          "Bristande belysning",
+          "Trafikfara"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilket problem har Maja?",
+        "options": [
+          "Klotter",
+          "Dålig sophantering",
+          "Buller",
+          "Parkeringsbrist",
+          "Bristande belysning",
+          "Trafikfara"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilket problem har Teodor?",
+        "options": [
+          "Klotter",
+          "Dålig sophantering",
+          "Buller",
+          "Parkeringsbrist",
+          "Bristande belysning",
+          "Trafikfara"
+        ],
+        "correctIndex": 4
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "d-match-024",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de helst läser. Matcha varje person med rätt typ av text. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Saga",
+        "text": "Jag dras till böcker om verkliga personers liv, hur de reste sig efter motgångar och vilka val som format dem till de de blev."
+      },
+      {
+        "speaker": "Nils",
+        "text": "Helst läser jag om hur världen hänger ihop; nya rön om hjärnan, rymden eller klimatet får mig att stanna upp och förundras."
+      },
+      {
+        "speaker": "Amira",
+        "text": "Jag älskar att försvinna in i påhittade världar med drakar, magi och hjältar; ju längre bort från verkligheten desto bättre."
+      },
+      {
+        "speaker": "Viggo",
+        "text": "Jag bläddrar varje morgon igenom det senaste som hänt i världen; jag vill förstå politiken och kunna diskutera dagens händelser."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad läser Saga helst?",
+        "options": [
+          "Poesi",
+          "Nyheter",
+          "Biografier",
+          "Populärvetenskap",
+          "Fantasy",
+          "Serietidningar"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad läser Nils helst?",
+        "options": [
+          "Poesi",
+          "Nyheter",
+          "Biografier",
+          "Populärvetenskap",
+          "Fantasy",
+          "Serietidningar"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad läser Amira helst?",
+        "options": [
+          "Poesi",
+          "Nyheter",
+          "Biografier",
+          "Populärvetenskap",
+          "Fantasy",
+          "Serietidningar"
+        ],
+        "correctIndex": 4
+      },
+      {
+        "q": "Vad läser Viggo helst?",
+        "options": [
+          "Poesi",
+          "Nyheter",
+          "Biografier",
+          "Populärvetenskap",
+          "Fantasy",
+          "Serietidningar"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "d-match-025",
+    "course": "D",
+    "type": "matching",
+    "intro": "Fyra personer berättar vad de gör för att hålla sig friska. Matcha varje person med rätt vana. Två alternativ blir över.",
+    "transcript": [
+      {
+        "speaker": "Frida",
+        "text": "Jag är noga med att alltid släcka i tid; utan mina åtta timmar i mörkret blir jag hängig, glömsk och kort i tonen mot alla."
+      },
+      {
+        "speaker": "Adam",
+        "text": "Jag har bytt ut chipsen mot frukt och lagar nästan allt från grunden; vad jag stoppar i mig märks direkt på hur jag mår."
+      },
+      {
+        "speaker": "Tuva",
+        "text": "Varje morgon sätter jag mig stilla en stund och andas djupt; att rensa tankarna innan dagen drar igång håller stressen borta."
+      },
+      {
+        "speaker": "Olle",
+        "text": "Jag fyller flaskan om och om igen och tömmer den under dagen; så fort jag glömmer det märker jag genast på huvudvärken."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gör Frida för hälsan?",
+        "options": [
+          "Tar vitaminer",
+          "Mediterar",
+          "Sover tillräckligt",
+          "Äter nyttigt",
+          "Dricker mycket vatten",
+          "Tränar styrka"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad gör Adam för hälsan?",
+        "options": [
+          "Tar vitaminer",
+          "Mediterar",
+          "Sover tillräckligt",
+          "Äter nyttigt",
+          "Dricker mycket vatten",
+          "Tränar styrka"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad gör Tuva för hälsan?",
+        "options": [
+          "Tar vitaminer",
+          "Mediterar",
+          "Sover tillräckligt",
+          "Äter nyttigt",
+          "Dricker mycket vatten",
+          "Tränar styrka"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad gör Olle för hälsan?",
+        "options": [
+          "Tar vitaminer",
+          "Mediterar",
+          "Sover tillräckligt",
+          "Äter nyttigt",
+          "Dricker mycket vatten",
+          "Tränar styrka"
+        ],
+        "correctIndex": 4
+      }
+    ],
+    "sort_order": 24
+  }
+]

@@ -1,0 +1,377 @@
+[
+  {
+    "id": "b-ber-001",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sitt jobb.",
+    "transcript": [
+      {"speaker": "Linnea", "text": "Hej! Jag heter Linnea och jag är 34 år. Jag arbetar som busschaufför i Stockholm. Jag har kört buss i sex år och jag trivs jättebra. Jag börjar tidigt på morgonen, klockan fem. Jag gillar mitt jobb för jag träffar många människor varje dag. På helgen är jag ledig och då vilar jag hemma."}
+    ],
+    "questions": [
+      {"q": "Vad arbetar Linnea som?", "options": ["Lärare", "Busschaufför", "Sjuksköterska", "Kock"], "correctIndex": 1},
+      {"q": "Hur länge har hon kört buss?", "options": ["Två år", "Fyra år", "Sex år", "Tio år"], "correctIndex": 2},
+      {"q": "När börjar Linnea jobba?", "options": ["Klockan fem", "Klockan sju", "Klockan nio"], "correctIndex": 0}
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "b-ber-002",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sin familj.",
+    "transcript": [
+      {"speaker": "Ahmed", "text": "Jag heter Ahmed och jag kommer från Somalia. Nu bor jag i Malmö med min familj. Jag har tre barn och en fru. Min fru heter Sara och hon studerar svenska. Vårt äldsta barn går i skolan och de små är hemma. Vi bor i en lägenhet med tre rum. På kvällen lagar vi mat tillsammans och pratar om dagen."}
+    ],
+    "questions": [
+      {"q": "Hur många barn har Ahmed?", "options": ["Ett", "Två", "Tre", "Fyra"], "correctIndex": 2},
+      {"q": "Var bor Ahmed nu?", "options": ["Stockholm", "Malmö", "Göteborg"], "correctIndex": 1},
+      {"type": "open", "q": "Vad heter Ahmeds fru? Skriv ditt svar.", "accept": ["Sara", "sara", "Hon heter Sara", "Hans fru heter Sara"]}
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "b-ber-003",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om en hobby.",
+    "transcript": [
+      {"speaker": "Wei", "text": "Hej, jag heter Wei. Jag kommer från Kina men jag bor i Uppsala nu. Min hobby är att simma. Jag simmar tre gånger i veckan på badhuset. Jag gillar vatten och det är bra för kroppen. Förra året lärde jag mig att simma snabbare. På sommaren simmar jag också i sjön. Det är min favoritsport."}
+    ],
+    "questions": [
+      {"q": "Vad är Weis hobby?", "options": ["Springa", "Simma", "Cykla", "Dansa"], "correctIndex": 1},
+      {"q": "Hur ofta simmar Wei?", "options": ["En gång i veckan", "Tre gånger i veckan", "Varje dag"], "correctIndex": 1},
+      {"q": "Var kommer Wei från?", "options": ["Kina", "Japan", "Korea", "Thailand"], "correctIndex": 0}
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "b-ber-004",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sin dag.",
+    "transcript": [
+      {"speaker": "Maria", "text": "Jag heter Maria och jag är 28 år. Varje dag stiger jag upp klockan sju. Jag äter frukost och dricker kaffe. Sedan går jag till SFI-skolan. Jag studerar svenska på förmiddagen. På eftermiddagen arbetar jag i en affär. Jag säljer kläder. På kvällen tittar jag på tv och läser läxor. Jag är trött men glad."}
+    ],
+    "questions": [
+      {"q": "När stiger Maria upp?", "options": ["Klockan sex", "Klockan sju", "Klockan åtta"], "correctIndex": 1},
+      {"q": "Var arbetar Maria på eftermiddagen?", "options": ["I en skola", "I en affär", "På ett sjukhus", "På en restaurang"], "correctIndex": 1},
+      {"q": "Vad gör Maria på förmiddagen?", "options": ["Arbetar", "Studerar svenska", "Sover"], "correctIndex": 1}
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "b-ber-005",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om var hen bor.",
+    "transcript": [
+      {"speaker": "Jonas", "text": "Hej! Jag heter Jonas och jag är 45 år. Jag bor i en liten by nära Kiruna i norra Sverige. Här är det kallt och mycket snö på vintern. Jag har ett rött hus och en stor trädgård. Jag har bott här i tjugo år. Jag gillar naturen och tystnaden. På vintern åker jag skidor och på sommaren fiskar jag i sjön."}
+    ],
+    "questions": [
+      {"q": "Var bor Jonas?", "options": ["Nära Stockholm", "Nära Kiruna", "Nära Malmö"], "correctIndex": 1},
+      {"q": "Vilken färg har Jonas hus?", "options": ["Blått", "Rött", "Gult", "Vitt"], "correctIndex": 1},
+      {"type": "open", "q": "Vad gör Jonas på sommaren? Skriv ditt svar.", "accept": ["Fiskar", "fiskar", "Han fiskar", "Fiskar i sjön", "Han fiskar i sjön"]}
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "b-ber-006",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sitt jobb.",
+    "transcript": [
+      {"speaker": "Fatou", "text": "Jag heter Fatou och jag kommer från Gambia. Jag arbetar som undersköterska på ett äldreboende i Göteborg. Jag hjälper gamla människor varje dag. Jag har arbetat här i två år. Jag tycker om mitt jobb mycket. Ibland jobbar jag på natten. Jag pratar svenska med de äldre och de berättar gamla historier för mig."}
+    ],
+    "questions": [
+      {"q": "Vad arbetar Fatou som?", "options": ["Lärare", "Undersköterska", "Chaufför", "Kock"], "correctIndex": 1},
+      {"q": "Hur länge har Fatou arbetat där?", "options": ["Ett år", "Två år", "Fem år"], "correctIndex": 1},
+      {"q": "Var arbetar Fatou?", "options": ["På ett sjukhus", "I en skola", "På ett äldreboende", "I en affär"], "correctIndex": 2}
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "b-ber-007",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om att lära sig svenska.",
+    "transcript": [
+      {"speaker": "Elena", "text": "Hej, jag heter Elena och jag kommer från Ukraina. Jag lär mig svenska på SFI. Det är svårt men roligt. Jag har studerat svenska i ett år. Nu förstår jag mer och kan prata lite. Min lärare heter Anders och han är snäll. Jag läser svenska böcker hemma och tittar på svenska program på tv. Jag vill arbeta som tandläkare i Sverige."}
+    ],
+    "questions": [
+      {"q": "Hur länge har Elena studerat svenska?", "options": ["Sex månader", "Ett år", "Tre år"], "correctIndex": 1},
+      {"q": "Vad vill Elena arbeta som?", "options": ["Lärare", "Tandläkare", "Sjuksköterska", "Kock"], "correctIndex": 1},
+      {"type": "open", "q": "Vad heter Elenas lärare? Skriv ditt svar.", "accept": ["Anders", "anders", "Han heter Anders", "Läraren heter Anders"]}
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "b-ber-008",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sin helg.",
+    "transcript": [
+      {"speaker": "Carlos", "text": "Jag heter Carlos och jag kommer från Chile. På helgen gör jag många saker. På lördag handlar jag mat och städar lägenheten. Sedan spelar jag fotboll med mina vänner i parken. På söndag sover jag länge och lagar en stor middag. Min familj kommer på besök. Vi äter tillsammans och pratar. Jag älskar helgen för då är jag ledig."}
+    ],
+    "questions": [
+      {"q": "Var kommer Carlos från?", "options": ["Spanien", "Mexiko", "Peru", "Chile"], "correctIndex": 3},
+      {"q": "Vad gör Carlos på lördag?", "options": ["Spelar fotboll", "Arbetar", "Studerar"], "correctIndex": 0},
+      {"q": "När kommer familjen på besök?", "options": ["På fredag", "På lördag", "På söndag"], "correctIndex": 2}
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "b-ber-009",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sin familj och sitt hem.",
+    "transcript": [
+      {"speaker": "Priya", "text": "Hej! Jag heter Priya och jag är 39 år. Jag kommer från Indien. Jag bor i ett hus i Lund med min man och två barn. Vi har också en hund som heter Max. Vårt hus är gult och har en trädgård. På morgonen lämnar jag barnen på förskolan. Min man arbetar på ett kontor. På kvällen är vi alla hemma tillsammans."}
+    ],
+    "questions": [
+      {"q": "Hur många barn har Priya?", "options": ["Ett", "Två", "Tre", "Fyra"], "correctIndex": 1},
+      {"q": "Vad heter hunden?", "options": ["Rex", "Bella", "Max"], "correctIndex": 2},
+      {"q": "Var bor Priya?", "options": ["Stockholm", "Uppsala", "Malmö", "Lund"], "correctIndex": 3}
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "b-ber-010",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sitt jobb.",
+    "transcript": [
+      {"speaker": "Erik", "text": "Jag heter Erik och jag är 52 år. Jag arbetar som snickare. Jag bygger hus och möbler av trä. Jag har varit snickare i nästan trettio år. Jag gillar att arbeta med mina händer. Mitt jobb är ibland tungt men jag är stark. Jag börjar klockan sju och slutar klockan fyra. På kvällen lyssnar jag på musik och vilar."}
+    ],
+    "questions": [
+      {"q": "Vad arbetar Erik som?", "options": ["Målare", "Elektriker", "Snickare", "Rörmokare"], "correctIndex": 2},
+      {"q": "Hur gammal är Erik?", "options": ["42 år", "52 år", "62 år"], "correctIndex": 1},
+      {"q": "När slutar Erik jobba?", "options": ["Klockan tre", "Klockan fyra", "Klockan fem"], "correctIndex": 1}
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "b-ber-011",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sin hobby.",
+    "transcript": [
+      {"speaker": "Amina", "text": "Hej, jag heter Amina och jag är 26 år. Min hobby är att laga mat. Jag lagar mat från många länder. På helgen bjuder jag mina vänner på middag. Jag gillar att baka bröd och kakor också. Förra veckan bakade jag en stor tårta till min systers födelsedag. Alla tyckte att den var god. En dag vill jag öppna en egen restaurang."}
+    ],
+    "questions": [
+      {"q": "Vad är Aminas hobby?", "options": ["Måla", "Laga mat", "Sjunga", "Springa"], "correctIndex": 1},
+      {"q": "Vad vill Amina göra en dag?", "options": ["Öppna en restaurang", "Bli lärare", "Flytta till Kina"], "correctIndex": 0},
+      {"type": "open", "q": "Vad bakade Amina förra veckan? Skriv ditt svar.", "accept": ["En tårta", "tårta", "En stor tårta", "Tårta", "Hon bakade en tårta"]}
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "b-ber-012",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sin dag.",
+    "transcript": [
+      {"speaker": "Tomas", "text": "Jag heter Tomas och jag bor i Örebro. Jag är pensionär och jag är 68 år. På morgonen tar jag en promenad med min hund. Sedan dricker jag kaffe och läser tidningen. På eftermiddagen träffar jag mina vänner på ett café. Vi pratar och spelar kort. På kvällen ringer jag mina barnbarn. De bor i Stockholm. Jag har ett lugnt och bra liv."}
+    ],
+    "questions": [
+      {"q": "Hur gammal är Tomas?", "options": ["58 år", "68 år", "78 år"], "correctIndex": 1},
+      {"q": "Var bor Tomas?", "options": ["Stockholm", "Göteborg", "Lund", "Örebro"], "correctIndex": 3},
+      {"q": "Vad gör Tomas på eftermiddagen?", "options": ["Sover", "Träffar vänner på café", "Arbetar"], "correctIndex": 1}
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "b-ber-013",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sitt jobb.",
+    "transcript": [
+      {"speaker": "Nguyen", "text": "Hej! Jag heter Nguyen och jag kommer från Vietnam. Jag arbetar i en restaurang som kock. Jag lagar mat varje dag. Jag har arbetat på restaurangen i fyra år. Vi serverar både svensk och asiatisk mat. Jag tycker om mitt jobb men det är stressigt ibland. Jag jobbar ofta på kvällen. På min lediga dag vilar jag och sover."}
+    ],
+    "questions": [
+      {"q": "Vad arbetar Nguyen som?", "options": ["Servitör", "Diskare", "Kock", "Chef"], "correctIndex": 2},
+      {"q": "Hur länge har Nguyen arbetat där?", "options": ["Två år", "Fyra år", "Sex år", "Åtta år"], "correctIndex": 1},
+      {"q": "Var kommer Nguyen från?", "options": ["Thailand", "Vietnam", "Kina"], "correctIndex": 1}
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "b-ber-014",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om vad hen gillar.",
+    "transcript": [
+      {"speaker": "Sofia", "text": "Jag heter Sofia och jag är 31 år. Jag gillar musik mycket. Jag spelar gitarr och sjunger. På fritiden går jag på konserter med mina vänner. Min favoritfärg är blå och min favoritmat är pasta. Jag bor i Helsingborg i en liten lägenhet. På sommaren gillar jag att vara ute i solen. Jag är en glad person och jag skrattar ofta."}
+    ],
+    "questions": [
+      {"q": "Vad spelar Sofia?", "options": ["Piano", "Gitarr", "Trummor", "Flöjt"], "correctIndex": 1},
+      {"q": "Vilken är Sofias favoritfärg?", "options": ["Röd", "Grön", "Blå", "Gul"], "correctIndex": 2},
+      {"q": "Var bor Sofia?", "options": ["Helsingborg", "Stockholm", "Malmö"], "correctIndex": 0}
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "b-ber-015",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om att lära sig svenska.",
+    "transcript": [
+      {"speaker": "Mohammed", "text": "Jag heter Mohammed och jag kommer från Irak. Jag läser svenska på SFI i Borås. Jag går i kurs B nu. Det är min andra termin. Jag tycker att grammatiken är svår men jag övar mycket. Varje dag skriver jag nya ord i en bok. Jag pratar svenska med mina grannar. Snart kan jag tala bättre. Jag vill köra taxi i framtiden."}
+    ],
+    "questions": [
+      {"q": "Var läser Mohammed svenska?", "options": ["Stockholm", "Lund", "Umeå", "Borås"], "correctIndex": 3},
+      {"q": "Vad vill Mohammed göra i framtiden?", "options": ["Köra taxi", "Bli lärare", "Bli kock"], "correctIndex": 0},
+      {"type": "open", "q": "Var kommer Mohammed från? Skriv ditt svar.", "accept": ["Irak", "irak", "Han kommer från Irak", "Från Irak"]}
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "b-ber-016",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sina helgplaner.",
+    "transcript": [
+      {"speaker": "Ingrid", "text": "Hej! Jag heter Ingrid och jag är 41 år. Nästa helg ska jag åka till Stockholm. Jag ska besöka min syster som bor där. Vi ska gå på museum och äta på en fin restaurang. På söndag ska vi shoppa kläder. Jag ser fram emot resan. Jag åker tåg på fredag kväll och kommer hem på söndag. Det ska bli en rolig helg."}
+    ],
+    "questions": [
+      {"q": "Vart ska Ingrid åka?", "options": ["Göteborg", "Stockholm", "Malmö", "Uppsala"], "correctIndex": 1},
+      {"q": "Vem ska hon besöka?", "options": ["Sin mamma", "Sin vän", "Sin syster"], "correctIndex": 2},
+      {"q": "Hur reser Ingrid?", "options": ["Med bil", "Med tåg", "Med flyg"], "correctIndex": 1}
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "b-ber-017",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sitt jobb.",
+    "transcript": [
+      {"speaker": "Yusuf", "text": "Jag heter Yusuf och jag kommer från Eritrea. Jag arbetar som lokalvårdare på en skola. Jag städar klassrum och korridorer. Jag börjar tidigt, klockan sex på morgonen. Jag har arbetat här i tre år. Jag gillar mitt jobb för det är lugnt. Efter jobbet går jag till SFI och läser svenska. På kvällen är jag hemma med min familj."}
+    ],
+    "questions": [
+      {"q": "Vad arbetar Yusuf som?", "options": ["Lärare", "Vaktmästare", "Lokalvårdare", "Kock"], "correctIndex": 2},
+      {"q": "När börjar Yusuf jobba?", "options": ["Klockan sex", "Klockan åtta", "Klockan tio"], "correctIndex": 0},
+      {"q": "Vart går Yusuf efter jobbet?", "options": ["Hem", "Till SFI", "Till affären"], "correctIndex": 1}
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "b-ber-018",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sin hobby.",
+    "transcript": [
+      {"speaker": "Kasia", "text": "Hej, jag heter Kasia och jag kommer från Polen. Min hobby är att cykla. Jag cyklar nästan varje dag. Förra sommaren cyklade jag runt hela ön Gotland med min man. Det var jättekul men jobbigt. Jag gillar att vara ute i naturen. På vintern cyklar jag inte så mycket för det är kallt. Då går jag på gym istället. Jag tycker om att röra på mig."}
+    ],
+    "questions": [
+      {"q": "Vad är Kasias hobby?", "options": ["Simma", "Cykla", "Springa", "Dansa"], "correctIndex": 1},
+      {"q": "Var cyklade Kasia förra sommaren?", "options": ["Runt Gotland", "Runt Öland", "I Stockholm"], "correctIndex": 0},
+      {"type": "open", "q": "Var kommer Kasia från? Skriv ditt svar.", "accept": ["Polen", "polen", "Hon kommer från Polen", "Från Polen"]}
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "b-ber-019",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sin dag.",
+    "transcript": [
+      {"speaker": "Daniel", "text": "Jag heter Daniel och jag är 23 år. Jag studerar på universitetet i Umeå. Jag läser till ingenjör. På morgonen åker jag buss till skolan. Jag har föreläsningar hela dagen. På lunchen äter jag med mina kompisar i matsalen. På kvällen pluggar jag på biblioteket. Det är mycket att läsa men jag gillar det. På helgen tränar jag på gymmet."}
+    ],
+    "questions": [
+      {"q": "Vad läser Daniel till?", "options": ["Läkare", "Ingenjör", "Lärare", "Advokat"], "correctIndex": 1},
+      {"q": "Var studerar Daniel?", "options": ["Lund", "Uppsala", "Stockholm", "Umeå"], "correctIndex": 3},
+      {"q": "Hur åker Daniel till skolan?", "options": ["Med buss", "Med cykel", "Med bil"], "correctIndex": 0}
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "b-ber-020",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sin familj.",
+    "transcript": [
+      {"speaker": "Rosa", "text": "Hej! Jag heter Rosa och jag är 36 år. Jag kommer från Filippinerna. Jag bor i Västerås med min man och min dotter. Min dotter heter Mia och hon är fem år. Hon går på förskola. Min man arbetar som taxichaufför. Jag städar hemma och tar hand om vår dotter. På kvällen ringer jag min mamma i Filippinerna. Jag saknar henne mycket."}
+    ],
+    "questions": [
+      {"q": "Var kommer Rosa från?", "options": ["Thailand", "Vietnam", "Indien", "Filippinerna"], "correctIndex": 3},
+      {"q": "Hur gammal är dottern?", "options": ["Tre år", "Fem år", "Sju år"], "correctIndex": 1},
+      {"q": "Vad arbetar Rosas man som?", "options": ["Kock", "Lärare", "Taxichaufför"], "correctIndex": 2}
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "b-ber-021",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om var hen bor.",
+    "transcript": [
+      {"speaker": "Oksana", "text": "Jag heter Oksana och jag är 47 år. Jag bor i centrala Göteborg i en lägenhet på tredje våningen. Lägenheten har två rum och ett kök. Jag har bott här i fem år. Jag gillar att bo i staden för det är nära till allt. Bredvid huset finns en park och en mataffär. På morgonen hör jag spårvagnen utanför fönstret. Jag trivs bra här."}
+    ],
+    "questions": [
+      {"q": "Var bor Oksana?", "options": ["Stockholm", "Malmö", "Lund", "Göteborg"], "correctIndex": 3},
+      {"q": "På vilken våning bor hon?", "options": ["Första", "Andra", "Tredje", "Fjärde"], "correctIndex": 2},
+      {"q": "Hur länge har Oksana bott där?", "options": ["Tre år", "Fem år", "Tio år"], "correctIndex": 1}
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "b-ber-022",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sitt jobb.",
+    "transcript": [
+      {"speaker": "Johan", "text": "Hej, jag heter Johan och jag är 38 år. Jag arbetar som brevbärare i Jönköping. Jag delar ut post och paket till husen. Jag cyklar mycket på jobbet, även när det regnar. Jag har varit brevbärare i tio år. Jag gillar att vara ute och röra på mig. Jag känner många människor i området. På helgen är jag ledig och då målar jag tavlor."}
+    ],
+    "questions": [
+      {"q": "Vad arbetar Johan som?", "options": ["Busschaufför", "Snickare", "Lokalvårdare", "Brevbärare"], "correctIndex": 3},
+      {"q": "Hur länge har Johan jobbat?", "options": ["Fem år", "Åtta år", "Tio år", "Tolv år"], "correctIndex": 2},
+      {"type": "open", "q": "Vad gör Johan på helgen? Skriv ditt svar.", "accept": ["Målar tavlor", "Målar", "Han målar tavlor", "Han målar", "målar tavlor"]}
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "b-ber-023",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om vad hen gillar.",
+    "transcript": [
+      {"speaker": "Layla", "text": "Jag heter Layla och jag är 29 år. Jag kommer från Marocko. Jag gillar att läsa böcker. Varje vecka går jag till biblioteket och lånar nya böcker. Jag tycker om deckare bäst. Jag gillar också att dricka te med mynta på eftermiddagen. På kvällen läser jag innan jag sover. Min favoritbok handlar om en kvinna som reser jorden runt. Jag drömmer om att resa mycket."}
+    ],
+    "questions": [
+      {"q": "Vad gillar Layla att göra?", "options": ["Läsa böcker", "Spela fotboll", "Måla", "Sjunga"], "correctIndex": 0},
+      {"q": "Vilka böcker tycker hon bäst om?", "options": ["Kärleksromaner", "Deckare", "Barnböcker"], "correctIndex": 1},
+      {"q": "Var kommer Layla från?", "options": ["Marocko", "Egypten", "Tunisien", "Algeriet"], "correctIndex": 0}
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "b-ber-024",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sin dag och rutin.",
+    "transcript": [
+      {"speaker": "Grace", "text": "Hej! Jag heter Grace och jag kommer från Nigeria. Jag bor i Linköping. Varje morgon väcker jag mina två barn klockan sju. Vi äter frukost tillsammans och sedan går barnen till skolan. På dagen arbetar jag deltid i en butik. Jag jobbar tre dagar i veckan. På kvällen lagar jag mat och hjälper barnen med läxor. Jag är trött men jag är lycklig med mitt liv."}
+    ],
+    "questions": [
+      {"q": "Var bor Grace?", "options": ["Norrköping", "Jönköping", "Linköping", "Helsingborg"], "correctIndex": 2},
+      {"q": "Hur många dagar i veckan jobbar hon?", "options": ["Två", "Tre", "Fyra", "Fem"], "correctIndex": 1},
+      {"q": "När väcker Grace barnen?", "options": ["Klockan sex", "Klockan sju", "Klockan åtta"], "correctIndex": 1}
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "b-ber-025",
+    "course": "B",
+    "type": "monologue",
+    "intro": "En person berättar om sina helgplaner.",
+    "transcript": [
+      {"speaker": "Samir", "text": "Jag heter Samir och jag är 33 år. Jag kommer från Afghanistan men bor i Sundsvall. Den här helgen ska jag och mina vänner grilla i parken. Vi ska spela fotboll och lyssna på musik. På söndag ska jag besöka min bror som bor i samma stad. Vi ska titta på en match på tv tillsammans. Jag ser fram emot helgen för vädret ska bli soligt."}
+    ],
+    "questions": [
+      {"q": "Var bor Samir?", "options": ["Sundsvall", "Stockholm", "Umeå", "Gävle"], "correctIndex": 0},
+      {"q": "Vad ska Samir göra på söndag?", "options": ["Grilla i parken", "Arbeta", "Besöka sin bror"], "correctIndex": 2},
+      {"q": "Hur ska vädret bli?", "options": ["Regnigt", "Kallt", "Blåsigt", "Soligt"], "correctIndex": 3}
+    ],
+    "sort_order": 24
+  }
+]

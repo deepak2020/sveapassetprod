@@ -1,0 +1,377 @@
+[
+  {
+    "id": "b-rost-001",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Du har ett meddelande från tandläkaren.",
+    "transcript": [
+      { "speaker": "Tandläkaren", "text": "Hej, det här är tandläkaren Anna Lind. Jag ringer för att påminna dig om din tid. Du ska komma på onsdag klockan tio på morgonen. Glöm inte att borsta tänderna innan du kommer. Vi ses på onsdag. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vilken dag ska personen komma?", "options": ["Måndag", "Onsdag", "Fredag", "Söndag"], "correctIndex": 1 },
+      { "q": "Vem ringer?", "options": ["Frisören", "Läraren", "Tandläkaren", "Mamma"], "correctIndex": 2 },
+      { "q": "Vilken tid är tiden?", "options": ["Klockan tio", "Klockan två", "Klockan fem", "Klockan åtta"], "correctIndex": 0 }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "b-rost-002",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "En kompis ringer om ert möte.",
+    "transcript": [
+      { "speaker": "Johan", "text": "Hej, det är Johan! Jag ville bara säga att vi byter plats ikväll. Vi ses inte på caféet utan vid stationen istället. Kom klockan sex så tar vi bussen tillsammans. Ring mig om du inte hittar dit. Vi ses snart!" }
+    ],
+    "questions": [
+      { "q": "Var ska de träffas nu?", "options": ["På caféet", "Vid stationen", "Hemma hos Johan", "I parken"], "correctIndex": 1 },
+      { "q": "Vilken tid ska de mötas?", "options": ["Klockan fyra", "Klockan fem", "Klockan sex", "Klockan sju"], "correctIndex": 2 },
+      { "q": "Hur ska de åka?", "options": ["Med bussen", "Med tåget", "Med bilen", "Med cykeln"], "correctIndex": 0 }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "b-rost-003",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Förskolan ringer om en utflykt.",
+    "transcript": [
+      { "speaker": "Förskolan", "text": "Hej, det här är Maria från förskolan Solen. På fredag ska barnen åka på utflykt till skogen. Ta med stövlar och en matsäck till ditt barn. Vi går klockan nio på morgonen, så kom gärna i tid. Tack och ha en bra dag!" }
+    ],
+    "questions": [
+      { "q": "Vart ska barnen åka?", "options": ["Till stranden", "Till skogen", "Till museet", "Till parken"], "correctIndex": 1 },
+      { "q": "Vad ska barnen ta med?", "options": ["Stövlar och matsäck", "Böcker", "Pengar", "Leksaker"], "correctIndex": 0 },
+      { "type": "open", "q": "Vilken dag är utflykten? Skriv ditt svar.", "accept": ["fredag", "på fredag", "fredag.", "Fredag", "fre"] }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "b-rost-004",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Frisören måste boka om din tid.",
+    "transcript": [
+      { "speaker": "Frisören", "text": "Hej, det är Karin på frisörsalongen. Tyvärr måste jag boka om din tid på torsdag. Kan du komma på måndag klockan ett på eftermiddagen istället? Ring mig och säg till om det går bra för dig. Tack så mycket. Vi hörs. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Varför ringer frisören?", "options": ["För att säga hej", "För att boka om tiden", "För att sälja schampo", "För att be om pengar"], "correctIndex": 1 },
+      { "q": "Vilken ny dag föreslår hon?", "options": ["Torsdag", "Söndag", "Måndag", "Lördag"], "correctIndex": 2 },
+      { "q": "Vilken tid är den nya tiden?", "options": ["Klockan ett", "Klockan tre", "Klockan sex", "Klockan nio"], "correctIndex": 0 }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "b-rost-005",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Apoteket ringer om din medicin.",
+    "transcript": [
+      { "speaker": "Apoteket", "text": "Hej, det här är apoteket i centrum. Vi ringer för att säga att din medicin är klar. Du kan hämta den när som helst före klockan sex på kvällen. Ta med din legitimation när du kommer. Välkommen in till oss. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad är klart?", "options": ["Din medicin", "Ditt paket", "Din mat", "Din biljett"], "correctIndex": 0 },
+      { "q": "När kan personen hämta den?", "options": ["Efter klockan sex", "Före klockan sex", "På natten", "På söndag"], "correctIndex": 1 },
+      { "q": "Vad ska personen ta med?", "options": ["Pengar", "En väska", "Legitimation", "En kompis"], "correctIndex": 2 }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "b-rost-006",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Chefen ringer om din arbetstid.",
+    "transcript": [
+      { "speaker": "Chefen", "text": "Hej, det är Peter, din chef. Imorgon börjar vi lite tidigare. Kan du komma klockan sju istället för åtta? Vi har mycket att göra på morgonen imorgon. Ring mig om det är ett problem för dig. Tack och vi ses imorgon!" }
+    ],
+    "questions": [
+      { "q": "Vad vill chefen?", "options": ["Att du stannar hemma", "Att du kommer tidigare", "Att du kommer senare", "Att du tar ledigt"], "correctIndex": 1 },
+      { "q": "Vilken tid ska du komma?", "options": ["Klockan sex", "Klockan sju", "Klockan åtta", "Klockan nio"], "correctIndex": 1 },
+      { "type": "open", "q": "Vad heter chefen? Skriv ditt svar.", "accept": ["Peter", "peter", "Peter.", "Det är Peter", "han heter Peter"] }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "b-rost-007",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Mormor bjuder på middag.",
+    "transcript": [
+      { "speaker": "Mormor", "text": "Hej älskling, det är mormor. Jag vill bjuda dig på middag på söndag. Jag lagar köttbullar och potatis, din favorit. Kom hem till mig klockan fem på söndag. Ta gärna med din syster också. Puss och kram, vi ses snart. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vilken dag är middagen?", "options": ["Lördag", "Söndag", "Måndag", "Tisdag"], "correctIndex": 1 },
+      { "q": "Vad ska mormor laga?", "options": ["Pizza", "Soppa", "Köttbullar och potatis", "Fisk"], "correctIndex": 2 },
+      { "q": "Vilken tid ska personen komma?", "options": ["Klockan fem", "Klockan sex", "Klockan sju", "Klockan åtta"], "correctIndex": 0 }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "b-rost-008",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Posten ringer om ett paket.",
+    "transcript": [
+      { "speaker": "Posten", "text": "Hej, det här är posten. Du har ett paket som väntar på dig. Du kan hämta det i affären på Storgatan. Ta med din legitimation och koden från ditt sms. Affären på Storgatan är öppen till klockan åtta ikväll. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad väntar på personen?", "options": ["Ett brev", "Ett paket", "En blomma", "En bok"], "correctIndex": 1 },
+      { "q": "Var ska personen hämta det?", "options": ["På posten", "Hemma", "I affären på Storgatan", "På stationen"], "correctIndex": 2 },
+      { "q": "Till vilken tid är affären öppen?", "options": ["Klockan sex", "Klockan sju", "Klockan åtta", "Klockan nio"], "correctIndex": 2 }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "b-rost-009",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Din granne ringer om en nyckel.",
+    "transcript": [
+      { "speaker": "Granne", "text": "Hej, det är din granne Lena. Jag hittade din nyckel på trappan idag. Jag har den hemma hos mig. Du kan komma och hämta den ikväll efter klockan sex. Knacka bara på min dörr så öppnar jag. Ha en bra dag! Vi ses. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad hittade Lena?", "options": ["En plånbok", "En nyckel", "En telefon", "En väska"], "correctIndex": 1 },
+      { "q": "När kan personen hämta den?", "options": ["Efter klockan sex", "På morgonen", "På söndag", "Imorgon"], "correctIndex": 0 },
+      { "type": "open", "q": "Var hittade Lena nyckeln? Skriv ditt svar.", "accept": ["på trappan", "trappan", "På trappan", "på trappan.", "i trappan"] }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "b-rost-010",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Skolan ringer om ett möte.",
+    "transcript": [
+      { "speaker": "Läraren", "text": "Hej, det är läraren Erik från skolan. Vi har ett föräldramöte på tisdag klockan sex på kvällen. Vi pratar om barnens läsning. Mötet är i klassrummet på andra våningen. Välkommen dit, det blir trevligt. Tack och hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad handlar mötet om?", "options": ["Mat", "Barnens läsning", "Sport", "Pengar"], "correctIndex": 1 },
+      { "q": "Vilken dag är mötet?", "options": ["Måndag", "Tisdag", "Onsdag", "Torsdag"], "correctIndex": 1 },
+      { "q": "Var är mötet?", "options": ["I matsalen", "I köket", "I klassrummet", "På gården"], "correctIndex": 2 }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "b-rost-011",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Vårdcentralen ringer om en tid.",
+    "transcript": [
+      { "speaker": "Vårdcentralen", "text": "Hej, det här är vårdcentralen. Du har en tid hos doktorn på torsdag klockan nio. Kom tio minuter tidigare och anmäl dig i receptionen. Glöm inte ditt kort hemma. Ring oss om du inte kan komma på torsdag. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vem ska personen träffa?", "options": ["Tandläkaren", "Doktorn", "Frisören", "Chefen"], "correctIndex": 1 },
+      { "q": "Vilken tid är tiden?", "options": ["Klockan sju", "Klockan åtta", "Klockan nio", "Klockan tio"], "correctIndex": 2 },
+      { "q": "Var ska personen anmäla sig?", "options": ["I receptionen", "I köket", "På gatan", "Hemma"], "correctIndex": 0 }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "b-rost-012",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "En kompis bjuder på fest.",
+    "transcript": [
+      { "speaker": "Sara", "text": "Hej, det är Sara! Jag fyller år på lördag och vill bjuda dig på fest. Festen är hemma hos mig klockan sju. Det blir mat, musik och tårta hemma hos mig. Ta med en kompis om du vill. Hoppas verkligen att du kommer! Puss, hej då!" }
+    ],
+    "questions": [
+      { "q": "Varför har Sara fest?", "options": ["Hon flyttar", "Hon fyller år", "Hon fick jobb", "Hon gifter sig"], "correctIndex": 1 },
+      { "q": "Vilken dag är festen?", "options": ["Fredag", "Lördag", "Söndag", "Måndag"], "correctIndex": 1 },
+      { "q": "Vilken tid börjar festen?", "options": ["Klockan fem", "Klockan sex", "Klockan sju", "Klockan åtta"], "correctIndex": 2 }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "b-rost-013",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Biblioteket ringer om en bok.",
+    "transcript": [
+      { "speaker": "Biblioteket", "text": "Hej, det här är biblioteket. Boken du väntar på är nu inne. Du kan hämta den den här veckan. Vi har öppet varje dag till klockan sex på kvällen. Kom in med ditt lånekort så hjälper vi dig. Välkommen hit. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad ringer biblioteket om?", "options": ["En bok är inne", "En bok är borta", "En ny tidning", "En film"], "correctIndex": 0 },
+      { "q": "Till vilken tid har de öppet?", "options": ["Klockan fyra", "Klockan fem", "Klockan sex", "Klockan sju"], "correctIndex": 2 },
+      { "q": "Vad ska personen ta med?", "options": ["Pengar", "Lånekort", "En väska", "En penna"], "correctIndex": 1 }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "b-rost-014",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Din bror ringer om en middag.",
+    "transcript": [
+      { "speaker": "Anders", "text": "Hej, det är din bror Anders. Vill du äta middag med oss på fredag? Vi tänkte gå på en restaurang i stan. Vi möts vid torget i stan klockan halv sju. Säg till mig om du kan komma med oss. Det blir verkligen kul! Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vart vill de gå?", "options": ["På bio", "På en restaurang", "Till parken", "Hem till mormor"], "correctIndex": 1 },
+      { "q": "Var ska de mötas?", "options": ["Vid torget", "Vid stationen", "Hemma", "På skolan"], "correctIndex": 0 },
+      { "type": "open", "q": "Vilken dag är middagen? Skriv ditt svar.", "accept": ["fredag", "på fredag", "Fredag", "fredag.", "fre"] }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "b-rost-015",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Verkstaden ringer om din bil.",
+    "transcript": [
+      { "speaker": "Verkstaden", "text": "Hej, det här är bilverkstaden. Din bil är nu klar. Du kan hämta den imorgon mellan klockan åtta och fyra. Ta med pengar eller ditt kort när du ska betala. Ring oss gärna om du har några frågor. Tack och hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad är klart?", "options": ["Bilen", "Cykeln", "Medicinen", "Maten"], "correctIndex": 0 },
+      { "q": "När kan personen hämta den?", "options": ["Idag", "Imorgon", "På söndag", "Nästa vecka"], "correctIndex": 1 },
+      { "q": "Vad ska personen ta med för att betala?", "options": ["En väska", "En nyckel", "Pengar eller kort", "Legitimation"], "correctIndex": 2 }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "b-rost-016",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "En kompis ringer och är sjuk.",
+    "transcript": [
+      { "speaker": "Olof", "text": "Hej, det är Olof. Jag är tyvärr sjuk idag och kan inte komma på träningen. Kan du säga till tränaren? Jag hoppas att jag är frisk igen till nästa vecka. Vi hörs senare på telefonen. Tack så mycket för hjälpen. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Varför ringer Olof?", "options": ["Han är glad", "Han är sjuk", "Han flyttar", "Han har en fest"], "correctIndex": 1 },
+      { "q": "Vart kan Olof inte komma?", "options": ["Till träningen", "Till skolan", "Till jobbet", "Till festen"], "correctIndex": 0 },
+      { "q": "Vad ska personen göra?", "options": ["Köpa medicin", "Säga till tränaren", "Hämta ett paket", "Ringa mamma"], "correctIndex": 1 }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "b-rost-017",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Hyresvärden ringer om vatten.",
+    "transcript": [
+      { "speaker": "Hyresvärden", "text": "Hej, det är hyresvärden Nilsson. På måndag stänger vi av vattnet mellan klockan nio och tolv. Vi måste laga ett rör i huset på måndag. Fyll gärna några flaskor med vatten innan klockan nio. Ursäkta besväret. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad händer på måndag?", "options": ["Vattnet stängs av", "Elen stängs av", "Huset målas", "Dörren byts"], "correctIndex": 0 },
+      { "q": "Mellan vilka tider?", "options": ["Sju och nio", "Nio och tolv", "Ett och tre", "Fyra och sex"], "correctIndex": 1 },
+      { "type": "open", "q": "Vad ska personen göra innan? Skriv ditt svar.", "accept": ["fylla flaskor med vatten", "fylla flaskor", "fylla vatten i flaskor", "ta vatten i flaskor", "spara vatten"] }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "b-rost-018",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Din kollega ringer om ett möte.",
+    "transcript": [
+      { "speaker": "Fatima", "text": "Hej, det är Fatima från jobbet. Mötet imorgon flyttas till klockan elva istället för tio. Vi ses i det stora rummet på första våningen. Ta med dina papper till mötet. Ring mig om du undrar något. Tack, hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad händer med mötet?", "options": ["Det ställs in", "Det flyttas till elva", "Det flyttas till nio", "Det är hemma"], "correctIndex": 1 },
+      { "q": "Var är mötet?", "options": ["I köket", "I det stora rummet", "På gården", "Ute"], "correctIndex": 1 },
+      { "q": "Vad ska personen ta med?", "options": ["Mat", "Pengar", "Sina papper", "En dator"], "correctIndex": 2 }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "b-rost-019",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Affären ringer om en vara.",
+    "transcript": [
+      { "speaker": "Affären", "text": "Hej, det här är möbelaffären. Bordet du köpte är nu klart att hämta. Vi har öppet till klockan sju på vardagar. Ta med kvittot när du kommer. Behöver du hjälp att bära finns vi här. Välkommen. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad kan personen hämta?", "options": ["En stol", "Ett bord", "En lampa", "En soffa"], "correctIndex": 1 },
+      { "q": "Till vilken tid har de öppet?", "options": ["Klockan fem", "Klockan sex", "Klockan sju", "Klockan åtta"], "correctIndex": 2 },
+      { "q": "Vad ska personen ta med?", "options": ["Kvittot", "Pengar", "En väska", "En kompis"], "correctIndex": 0 }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "b-rost-020",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "En kompis ringer om en film.",
+    "transcript": [
+      { "speaker": "Emma", "text": "Hej, det är Emma! Vill du gå på bio ikväll? Det går en rolig film klockan åtta. Vi kan ses utanför biografen en stund innan. Ta med lite pengar till popcorn. Ring mig snart och säg om du vill med. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vart vill Emma gå?", "options": ["På bio", "På café", "Till parken", "Hem"], "correctIndex": 0 },
+      { "q": "Vilken tid börjar filmen?", "options": ["Klockan sex", "Klockan sju", "Klockan åtta", "Klockan nio"], "correctIndex": 2 },
+      { "type": "open", "q": "Vad ska personen ta med pengar till? Skriv ditt svar.", "accept": ["popcorn", "till popcorn", "popcorn.", "Popcorn", "att köpa popcorn"] }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "b-rost-021",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Din mamma ringer om en present.",
+    "transcript": [
+      { "speaker": "Mamma", "text": "Hej, det är mamma. Pappa fyller år på lördag och vi ska köpa en present. Kan du följa med till affären på fredag? Vi möts vid bussen klockan fyra på fredag. Tänk gärna på vad han vill ha i present. Puss och kram. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vem fyller år?", "options": ["Mamma", "Pappa", "Brodern", "Mormor"], "correctIndex": 1 },
+      { "q": "Vilken dag ska de handla?", "options": ["Torsdag", "Fredag", "Lördag", "Söndag"], "correctIndex": 1 },
+      { "q": "Var ska de mötas?", "options": ["Vid bussen", "Hemma", "I affären", "Vid skolan"], "correctIndex": 0 }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "b-rost-022",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Simhallen ringer om en kurs.",
+    "transcript": [
+      { "speaker": "Simhallen", "text": "Hej, det här är simhallen. Din simkurs börjar på onsdag klockan fem. Ta med baddräkt och handduk. Vi träffas vid den lilla bassängen klockan fem. Kom gärna i god tid. Vi ser verkligen fram emot att se dig. Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vilken dag börjar kursen?", "options": ["Måndag", "Onsdag", "Fredag", "Söndag"], "correctIndex": 1 },
+      { "q": "Vad ska personen ta med?", "options": ["Baddräkt och handduk", "Böcker", "Mat", "Pengar"], "correctIndex": 0 },
+      { "q": "Var träffas de?", "options": ["Vid stora bassängen", "Vid lilla bassängen", "Utanför", "I caféet"], "correctIndex": 1 }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "b-rost-023",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "En kompis ringer om en flytt.",
+    "transcript": [
+      { "speaker": "Kalle", "text": "Hej, det är Kalle! Jag flyttar på lördag och behöver lite hjälp. Kan du komma klockan tio och hjälpa mig att bära lådor? Jag bjuder på god pizza efteråt till alla. Ring mig och säg om du kan komma. Tack så mycket! Hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad behöver Kalle hjälp med?", "options": ["Att flytta", "Att laga mat", "Att handla", "Att städa"], "correctIndex": 0 },
+      { "q": "Vilken tid ska personen komma?", "options": ["Klockan åtta", "Klockan nio", "Klockan tio", "Klockan elva"], "correctIndex": 2 },
+      { "q": "Vad bjuder Kalle på efteråt?", "options": ["Pizza", "Kaffe", "Glass", "Tårta"], "correctIndex": 0 }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "b-rost-024",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "Banken ringer om ett kort.",
+    "transcript": [
+      { "speaker": "Banken", "text": "Hej, det här är banken. Ditt nya bankkort är klart. Du kan hämta det på vårt kontor på Storgatan. Vi har öppet mellan klockan tio och fyra på vardagar. Ta med din legitimation när du kommer. Välkommen in. Tack och hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad är klart?", "options": ["Ett bankkort", "Ett paket", "En bok", "En bil"], "correctIndex": 0 },
+      { "q": "Var ska personen hämta det?", "options": ["Hemma", "På kontoret på Storgatan", "På posten", "I affären"], "correctIndex": 1 },
+      { "type": "open", "q": "Vad ska personen ta med? Skriv ditt svar.", "accept": ["legitimation", "din legitimation", "leg", "Legitimation", "id"] }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "b-rost-025",
+    "course": "B",
+    "type": "voicemail",
+    "intro": "En kompis ringer om fika.",
+    "transcript": [
+      { "speaker": "Linnea", "text": "Hej, det är Linnea! Vill du fika med mig imorgon? Vi kan ses på caféet vid torget klockan tre. De har riktigt goda bullar där. Jag har inte sett dig på länge, så det blir trevligt. Ring mig snart! Puss och hej då!" }
+    ],
+    "questions": [
+      { "q": "Vad vill Linnea göra?", "options": ["Fika", "Träna", "Handla", "Städa"], "correctIndex": 0 },
+      { "q": "Var ska de ses?", "options": ["Hemma", "På caféet vid torget", "I parken", "På jobbet"], "correctIndex": 1 },
+      { "q": "Vilken tid ska de mötas?", "options": ["Klockan ett", "Klockan två", "Klockan tre", "Klockan fyra"], "correctIndex": 2 }
+    ],
+    "sort_order": 24
+  }
+]
