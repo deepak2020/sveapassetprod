@@ -1,0 +1,1132 @@
+[
+  {
+    "id": "d-utrop-001",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du står på en tågstation och hör ett meddelande från utroparen.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Vi vill informera samtliga resenärer om att snabbtåget mot Göteborg, avgång klockan fjorton och trettiofem från spår sex, är inställt på grund av ett tekniskt fel på loket. Ersättningstrafik med buss avgår från hållplats B utanför huvudentrén klockan femton noll fem. Resenärer med platsbiljett behöver inte boka om utan visar samma biljett vid påstigning. Vi beklagar förseningen och ber er beräkna ungefär fyrtio minuters extra restid."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför är tåget mot Göteborg inställt?",
+        "options": [
+          "På grund av ett tekniskt fel på loket",
+          "På grund av en olycka",
+          "På grund av snöoväder",
+          "På grund av personalbrist"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Var avgår ersättningsbussen?",
+        "options": [
+          "Från spår tre",
+          "Från stationens baksida",
+          "Från hållplats B utanför huvudentrén",
+          "Från spår sex"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad bör resenärerna räkna med?",
+        "options": [
+          "Att tåget kommer senare än planerat",
+          "Cirka fyrtio minuters extra restid",
+          "Att de måste köpa ny biljett",
+          "Att resan blir billigare"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "d-utrop-002",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du befinner dig på en flygplats och hör ett meddelande i högtalarna.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Till passagerare på flight SK fyrtiotvå med destination Köpenhamn. På grund av kraftig dimma över ankomstflygplatsen har vårt flyg omdirigerats till Malmö Airport. Vid landning i Malmö ordnar flygbolaget kostnadsfri busstransport vidare till Köpenhamn. Passagerare med anslutande flyg ombeds kontakta vår servicedisk vid gate tjugotvå för ombokning. Vänligen behåll ert boardingkort och lyssna efter ytterligare information vid gaten."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vart har flyget omdirigerats?",
+        "options": [
+          "Tillbaka till utgångspunkten",
+          "Till Göteborg",
+          "Till Malmö Airport",
+          "Till Stockholm"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Varför har flyget omdirigerats?",
+        "options": [
+          "På grund av brist på personal",
+          "På grund av tekniska problem",
+          "På grund av kraftig dimma",
+          "På grund av strejk"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad ska passagerare med anslutande flyg göra?",
+        "options": [
+          "Vänta vid bagagebandet",
+          "Kontakta servicedisken vid gate tjugotvå",
+          "Ringa flygbolaget",
+          "Lämna flygplatsen direkt"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "d-utrop-003",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på ett sjukhus och hör ett meddelande i väntrummet.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till besökare på medicinkliniken plan tre. På grund av ett pågående underhållsarbete är hiss A ur funktion under eftermiddagen. Vänligen använd hiss B vid den östra entrén eller trapphuset i mitten av byggnaden. Vi vill också påminna om att besökstiderna är mellan klockan tretton och nitton, och att högst två besökare per patient får vistas på avdelningen samtidigt. Tack för att ni visar hänsyn till våra patienter."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken hiss är ur funktion?",
+        "options": [
+          "Båda hissarna",
+          "Hiss A",
+          "Hiss C",
+          "Hiss B"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur många besökare får vara hos en patient samtidigt?",
+        "options": [
+          "Högst två",
+          "Obegränsat antal",
+          "Högst tre",
+          "Högst en"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "När är besökstiderna?",
+        "options": [
+          "Mellan tretton och nitton",
+          "Mellan tio och tolv",
+          "Hela dygnet",
+          "Endast på förmiddagen"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "d-utrop-004",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du deltar i en konferens och hör ett meddelande från arrangören.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Välkomna till årets konferens om hållbar stadsutveckling. Vi vill informera om att förmiddagens program har ändrats något. Föreläsningen av professor Lindqvist flyttas från sal A till den stora hörsalen på grund av det stora intresset. Eftermiddagens workshops börjar klockan tretton trettio och deltagarna delas in i grupper enligt listan vid receptionen. Lunch serveras i restaurangen på bottenvåningen mellan tolv och tretton. Glöm inte att bära er namnbricka väl synlig under hela dagen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vart flyttas professor Lindqvists föreläsning?",
+        "options": [
+          "Till sal A",
+          "Till restaurangen",
+          "Till den stora hörsalen",
+          "Till receptionen"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Varför flyttas föreläsningen?",
+        "options": [
+          "På grund av städning",
+          "På grund av sjukdom",
+          "På grund av det stora intresset",
+          "På grund av tekniska problem"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "När börjar eftermiddagens workshops?",
+        "options": [
+          "Klockan tolv",
+          "Klockan tretton",
+          "Klockan fjorton",
+          "Klockan tretton trettio"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "d-utrop-005",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på ett stort utomhusevenemang och hör en utropare ge instruktioner.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Bästa besökare, vi närmar oss kvällens huvudkonsert som börjar klockan tjugo. Vi ber er att redan nu förbereda er inför insläppet till scenområdet. Av säkerhetsskäl är det inte tillåtet att ta med glasflaskor eller väskor större än en A-fyra. Det finns förvaringsskåp vid den norra ingången. Var vänlig följ personalens anvisningar och håll utrymningsvägarna fria. Vid eventuell utrymning, gå lugnt mot närmaste grön skylt och samlas vid parkeringen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad får man inte ta med till scenområdet?",
+        "options": [
+          "Mobiltelefoner",
+          "Kameror",
+          "Mat och dryck i papp",
+          "Glasflaskor och stora väskor"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Var finns förvaringsskåpen?",
+        "options": [
+          "Vid parkeringen",
+          "Vid restaurangen",
+          "Vid den norra ingången",
+          "Vid scenen"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Vart ska man gå vid en utrymning? Skriv ditt svar.",
+        "accept": [
+          "mot närmaste gröna skylt",
+          "till parkeringen",
+          "mot grön skylt och samlas vid parkeringen",
+          "närmaste gröna skylt",
+          "mot grön skylt",
+          "samlas vid parkeringen"
+        ]
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "d-utrop-006",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på din arbetsplats och hör ett meddelande om en utrymningsövning.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Detta är ett meddelande till samtliga medarbetare. Om ungefär tio minuter genomförs en planerad utrymningsövning i hela byggnaden. När larmet ljuder ska ni omedelbart avbryta pågående arbete, stänga ner datorerna och lämna lokalen via närmaste nödutgång. Använd inte hissarna. Återsamlingsplatsen är på parkeringen söder om huvudbyggnaden, där varje avdelningschef ansvarar för att räkna in sin personal. Övningen beräknas vara avslutad inom trettio minuter. Tack för ert samarbete."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad ska medarbetarna göra när larmet ljuder?",
+        "options": [
+          "Lämna lokalen via närmaste nödutgång",
+          "Ringa chefen",
+          "Fortsätta arbeta",
+          "Gå till lunchrummet"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Var är återsamlingsplatsen?",
+        "options": [
+          "På parkeringen söder om huvudbyggnaden",
+          "I receptionen",
+          "I matsalen",
+          "Vid huvudentrén"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vem ansvarar för att räkna in personalen?",
+        "options": [
+          "Varje avdelningschef",
+          "Receptionisten",
+          "Brandkåren",
+          "Säkerhetsvakten"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "d-utrop-007",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du besöker en myndighet och hör ett meddelande om öppettider.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till våra besökare. På grund av ett planerat systemunderhåll kommer vissa av våra tjänster att vara begränsade i dag. Ärenden som rör folkbokföring och personnummer kan tyvärr inte hanteras vid besök efter klockan femton. Vi rekommenderar att ni i stället använder våra digitala tjänster på webbplatsen, som fungerar som vanligt. För övriga ärenden gäller ordinarie öppettider till klockan sexton. Ta en kölapp vid entrén och invänta ert nummer på skärmen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilka ärenden kan inte hanteras efter klockan femton?",
+        "options": [
+          "Alla ärenden",
+          "Ärenden om folkbokföring och personnummer",
+          "Ärenden om pass",
+          "Ärenden om skatt"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför är tjänsterna begränsade i dag?",
+        "options": [
+          "På grund av ett planerat systemunderhåll",
+          "På grund av strejk",
+          "På grund av en helgdag",
+          "På grund av personalbrist"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad rekommenderar myndigheten att besökarna använder i stället? Skriv ditt svar.",
+        "accept": [
+          "de digitala tjänsterna",
+          "webbplatsen",
+          "digitala tjänster på webbplatsen",
+          "de digitala tjänsterna på webbplatsen",
+          "internettjänsterna",
+          "hemsidan"
+        ]
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "d-utrop-008",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du åker kollektivt och hör ett meddelande om en trafikomläggning.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Information till resenärer i kollektivtrafiken. På grund av vägarbete på Storgatan kör buss linje fyra en tillfälligt omlagd sträcka under de kommande tre veckorna. Hållplatserna vid Torget och Biblioteket är indragna. I stället stannar bussen vid ersättningshållplatserna på Kungsgatan, ungefär tvåhundra meter österut. Resenärer som ska till sjukhuset rekommenderas att byta till linje sju vid Centralstationen. Vi ber om överseende med de tillfälliga förändringarna och hänvisar till reseplaneraren för aktuella tider."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför kör linje fyra en omlagd sträcka?",
+        "options": [
+          "På grund av vägarbete på Storgatan",
+          "På grund av ett evenemang",
+          "På grund av en olycka",
+          "På grund av brist på chaufförer"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilka hållplatser är indragna?",
+        "options": [
+          "Torget och Biblioteket",
+          "Kungsgatan och Centralstationen",
+          "Storgatan och Biblioteket",
+          "Sjukhuset och Torget"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur tar sig resenärer till sjukhuset?",
+        "options": [
+          "Genom att byta till linje sju vid Centralstationen",
+          "Till fots från Torget",
+          "Med taxi",
+          "Med linje fyra hela vägen"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "d-utrop-009",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en tågstation och hör ett meddelande om förseningar.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Vi ber om er uppmärksamhet. Regionaltåget mot Uppsala, som skulle ha avgått klockan sexton och tjugo från spår fyra, är försenat med omkring tjugofem minuter på grund av ett signalfel längre fram på banan. Nytt beräknat avgångstid är klockan sexton och fyrtiofem från samma spår. Resenärer som riskerar att missa en anslutning i Uppsala kan vända sig till vår kundtjänst på plan ett för hjälp med ombokning. Vi beklagar de olägenheter detta medför."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur mycket är tåget mot Uppsala försenat?",
+        "options": [
+          "Omkring tjugofem minuter",
+          "En timme",
+          "Tio minuter",
+          "Fem minuter"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad är orsaken till förseningen?",
+        "options": [
+          "Ett signalfel längre fram på banan",
+          "Dåligt väder",
+          "Personalbrist",
+          "Ett tekniskt fel på tåget"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad ska resenärer som riskerar att missa anslutningen göra?",
+        "options": [
+          "Vända sig till kundtjänst på plan ett",
+          "Vänta på perrongen",
+          "Ringa en taxi",
+          "Ta nästa tåg"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "d-utrop-010",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är i ett köpcentrum och hör ett meddelande i högtalarna.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Kära kunder, vi vill informera om att köpcentret stänger om trettio minuter, klockan tjugo. Vi ber er att i god tid avsluta era inköp och bege er mot utgångarna. Parkeringshuset håller öppet ytterligare en timme efter stängning. Vi vill också påminna om att vår kundservice på plan två tar emot hittegods och hjälper till med presentkort fram till stängning. Tack för att ni handlade hos oss i dag, och varmt välkomna åter."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När stänger köpcentret?",
+        "options": [
+          "Klockan tjugoett",
+          "Klockan arton",
+          "Klockan tjugo",
+          "Klockan nitton"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur länge är parkeringshuset öppet efter stängning?",
+        "options": [
+          "En halvtimme",
+          "Det stänger samtidigt",
+          "Två timmar",
+          "En timme"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Var kan man lämna in hittegods?",
+        "options": [
+          "I parkeringshuset",
+          "Vid huvudentrén",
+          "Vid kassan",
+          "Vid kundservice på plan två"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "d-utrop-011",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på ett bibliotek och hör ett meddelande om ändrade öppettider.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till våra besökare. Med anledning av en personalutbildning kommer biblioteket att stänga tidigare än vanligt i dag, redan klockan sexton. Vänligen avsluta era lån i god tid vid utlåningsdisken eller använd självbetjäningsautomaterna vid entrén. Återlämning av böcker kan ske dygnet runt via inkastet utanför huvudingången. Vi vill också påminna om att studierummen måste bokas i förväg via vår webbplats. Ordinarie öppettider gäller igen från och med morgondagen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför stänger biblioteket tidigare i dag?",
+        "options": [
+          "På grund av reparation",
+          "Med anledning av en personalutbildning",
+          "På grund av en helgdag",
+          "På grund av flytt"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "När stänger biblioteket i dag?",
+        "options": [
+          "Klockan sjutton",
+          "Klockan sexton",
+          "Klockan arton",
+          "Klockan femton"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur kan man lämna tillbaka böcker efter stängning?",
+        "options": [
+          "Det går inte",
+          "Vid utlåningsdisken",
+          "Via posten",
+          "Via inkastet utanför huvudingången"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "d-utrop-012",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en färjeterminal och hör ett meddelande inför avgång.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Till samtliga passagerare som ska resa med färjan till Helsingfors. Vi öppnar nu incheckningen vid lucka tre och fyra. Fordonsförare ombeds köra fram till uppställningsplatsen enligt anvisning från vår personal, medan gående passagerare checkar in i terminalbyggnaden. Avgång sker klockan arton noll noll, och ombordstigningen avslutas femton minuter innan dess. Glöm inte giltig legitimation. Vi påminner om att hytter kan bokas vid informationsdisken om ni önskar uppgradera er resa under överfarten."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vid vilka luckor öppnar incheckningen?",
+        "options": [
+          "Lucka tre och fyra",
+          "Lucka fem och sex",
+          "Lucka två och tre",
+          "Lucka ett och två"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "När avslutas ombordstigningen?",
+        "options": [
+          "Femton minuter innan avgång",
+          "Klockan arton noll noll",
+          "Trettio minuter innan avgång",
+          "En timme innan avgång"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Var kan passagerare boka en hytt? Skriv ditt svar.",
+        "accept": [
+          "vid informationsdisken",
+          "informationsdisken",
+          "vid informationen",
+          "i informationsdisken",
+          "vid info-disken"
+        ]
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "d-utrop-013",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en arbetsplats och hör ett meddelande om en säkerhetsrutin.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett viktigt säkerhetsmeddelande till alla som vistas i produktionshallen. På grund av ett pågående arbete med tunga lyft i sektion C är området avspärrat fram till klockan fjorton. Endast behörig personal med hjälm och skyddsväst får passera avspärrningen. Övriga ombeds använda den alternativa gångvägen längs den södra väggen. Vi påminner om att ögonskydd är obligatoriskt i hela hallen. Vid frågor, kontakta skyddsombudet på telefonnummer hundrasextiotvå. Tack för att ni prioriterar säkerheten."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför är sektion C avspärrad?",
+        "options": [
+          "På grund av städning",
+          "På grund av brand",
+          "På grund av ett arbete med tunga lyft",
+          "På grund av en olycka"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vem får passera avspärrningen?",
+        "options": [
+          "Endast behörig personal med hjälm och skyddsväst",
+          "Alla anställda",
+          "Besökare",
+          "Chefer"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad är obligatoriskt i hela hallen?",
+        "options": [
+          "Ögonskydd",
+          "Handskar",
+          "Hörselskydd",
+          "Skyddsskor"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "d-utrop-014",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en flygplats och hör ett meddelande om en gateändring.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till passagerare på flight BA tvåhundra med destination London. Vänligen observera att gaten har ändrats från gate tolv till gate arton. Vi ber er bege er till den nya gaten i god tid, eftersom den ligger i en annan del av terminalen och det kan ta upp till tio minuter att gå dit. Boarding påbörjas klockan nio och fyrtio och avslutas tjugo minuter före avgång. Ha boardingkort och pass framme. Vi önskar er en trevlig resa."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken är den nya gaten?",
+        "options": [
+          "Gate tjugo",
+          "Gate fjorton",
+          "Gate arton",
+          "Gate tolv"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Varför bör passagerarna bege sig dit i god tid?",
+        "options": [
+          "Det är trångt på flyget",
+          "Flyget är försenat",
+          "Den nya gaten ligger i en annan del av terminalen",
+          "Det är många passagerare"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "När avslutas boarding?",
+        "options": [
+          "Tjugo minuter före avgång",
+          "Vid avgång",
+          "Tio minuter före avgång",
+          "Klockan nio och fyrtio"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "d-utrop-015",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en idrottsarena och hör ett meddelande inför en match.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Välkomna till kvällens match här på arenan. Vi vill informera om några praktiska saker inför avsparken klockan nitton. Var vänlig ta plats på den läktarsektion som anges på din biljett, och respektera att det är förbjudet att tända bengaler eller annan pyroteknik inne på arenan. Toaletter och kiosker finns i nedre planet. Vid behov av sjukvård, vänd dig till personalen i gula västar. Vi önskar samtliga supportrar en trygg och trevlig kväll, och låt oss tillsammans heja fram laget."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När är avsparken?",
+        "options": [
+          "Klockan nitton",
+          "Klockan arton",
+          "Klockan sjutton",
+          "Klockan tjugo"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad är förbjudet inne på arenan?",
+        "options": [
+          "Att äta",
+          "Att tända bengaler eller pyroteknik",
+          "Att fotografera",
+          "Att stå upp"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vem ska man vända sig till om man behöver sjukvård?",
+        "options": [
+          "Domaren",
+          "Polisen",
+          "Personalen i gula västar",
+          "Receptionen"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "d-utrop-016",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en tågstation och hör ett meddelande om ett spårbyte.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Vi ber om er uppmärksamhet. Intercitytåget mot Malmö, avgång klockan sjutton och tio, avgår i dag från spår nio i stället för spår sju som annonserats. Resenärer ombeds förflytta sig till spår nio via den norra gångbron, eftersom underjordsgången är avstängd för reparation. Tåget har plats för cykel i vagn ett och rullstol i vagn fem. Vi vill också påminna om att tåget gör ett kort uppehåll i Lund innan det fortsätter mot Malmö. Trevlig resa."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Från vilket spår avgår tåget i dag?",
+        "options": [
+          "Spår sju",
+          "Spår fem",
+          "Spår nio",
+          "Spår tio"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Varför ska resenärerna använda den norra gångbron?",
+        "options": [
+          "Den är snabbast",
+          "Underjordsgången är avstängd för reparation",
+          "Hissen är trasig",
+          "Det regnar"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Var gör tåget ett kort uppehåll innan Malmö?",
+        "options": [
+          "I Hässleholm",
+          "I Göteborg",
+          "I Lund",
+          "I Helsingborg"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "d-utrop-017",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en mässa och hör ett meddelande från arrangören.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till alla utställare och besökare på mässan. Vi vill påminna om att dagens program avslutas med en gemensam paneldiskussion i hörsal B klockan sexton. Innan dess hålls flera seminarier i de mindre salarna enligt programbladet, som finns att hämta vid informationsdisken. Utställare ombeds inte börja packa ihop sina montrar förrän efter klockan sjutton, av hänsyn till sena besökare. Garderoben stänger klockan arton, så glöm inte att hämta era tillhörigheter i tid. Tack för i dag."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var hålls den gemensamma paneldiskussionen?",
+        "options": [
+          "I hörsal B",
+          "I garderoben",
+          "I hörsal A",
+          "Vid informationsdisken"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "När får utställarna börja packa ihop sina montrar?",
+        "options": [
+          "Före klockan sexton",
+          "Efter klockan sjutton",
+          "Efter klockan arton",
+          "När som helst"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför ber man utställarna vänta med att packa ihop?",
+        "options": [
+          "Av hänsyn till sena besökare",
+          "På grund av brandrisk",
+          "För att vinna pris",
+          "För att städa"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "d-utrop-018",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en simhall och hör ett meddelande om stängning.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till alla badgäster. Simhallen stänger om trettio minuter, och vi ber er därför lämna bassängerna senast klockan tjugo och femton för att hinna duscha och byta om. Bastun stängs av redan nu inför rengöringen. Vi vill påminna om att den stora bassängen är reserverad för simträning mellan klockan arton och nitton i morgon, och att barnbassängen då är öppen som vanligt. Glöm inte era värdesaker i förvaringsskåpen. Tack för i dag och varmt välkomna åter."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När senast ska badgästerna lämna bassängerna?",
+        "options": [
+          "Klockan tjugo och femton",
+          "Klockan tjugo",
+          "Klockan tjugoett",
+          "Klockan nitton"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad händer med bastun?",
+        "options": [
+          "Den stängs av nu inför rengöringen",
+          "Den är trasig",
+          "Den reserveras för träning",
+          "Den är öppen hela kvällen"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad är den stora bassängen reserverad för i morgon mellan arton och nitton? Skriv ditt svar.",
+        "accept": [
+          "simträning",
+          "för simträning",
+          "träning",
+          "simträning mellan arton och nitton"
+        ]
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "d-utrop-019",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en myndighet och hör ett meddelande om ett nytt könummersystem.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till våra besökare. Vi har i dag infört ett nytt könummersystem. När ni kommer in tar ni en kölapp i automaten till vänster om entrén och väljer den knapp som motsvarar ert ärende. Ert nummer visas sedan på de stora skärmarna ovanför disken tillsammans med vilken lucka ni ska gå till. Vi ber er ha eventuella handlingar och legitimation framme för att besöket ska gå smidigt. Vid tekniska problem med automaten, kontakta personalen i informationen. Tack för ert tålamod."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var tar man en kölapp?",
+        "options": [
+          "Hos personalen",
+          "Vid disken",
+          "På skärmen",
+          "I automaten till vänster om entrén"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Var visas ditt nummer?",
+        "options": [
+          "I automaten",
+          "Vid entrén",
+          "På de stora skärmarna ovanför disken",
+          "På kölappen"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad ska man göra vid tekniska problem med automaten?",
+        "options": [
+          "Gå hem",
+          "Kontakta personalen i informationen",
+          "Vänta tills den fungerar",
+          "Ta en ny lapp"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "d-utrop-020",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på ett tåg och hör ett meddelande från tågvärden.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till resenärerna ombord. Vi närmar oss nu Hässleholm, där tåget gör ett uppehåll på cirka fem minuter. Resenärer som ska byta till tåget mot Karlskrona går av här och fortsätter från spår två på motsatt sida av plattformen. Vi vill också informera om att bistrovagnen, som finns i mitten av tåget i vagn fyra, håller öppet under hela resan. På grund av många resenärer ber vi er att hålla gångarna fria och placera bagaget i hyllorna. Tack."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var ska resenärer mot Karlskrona byta tåg?",
+        "options": [
+          "I Malmö",
+          "I Lund",
+          "I Kristianstad",
+          "I Hässleholm"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Från vilket spår fortsätter tåget mot Karlskrona?",
+        "options": [
+          "Spår två",
+          "Samma spår",
+          "Spår ett",
+          "Spår tre"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Var ligger bistrovagnen?",
+        "options": [
+          "I vagn sju",
+          "Längst fram i vagn ett",
+          "Längst bak",
+          "I mitten av tåget i vagn fyra"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "d-utrop-021",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på ett universitet och hör ett meddelande om en tentamen.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till studenter som ska skriva tentamen i nationalekonomi. Salen har ändrats från sal tvåhundra till idrottshallen på grund av det stora antalet anmälda. Ni ombeds vara på plats senast trettio minuter före start klockan nio, med giltig legitimation framme. Endast godkända hjälpmedel, det vill säga miniräknare utan minnesfunktion, får användas. Väskor och ytterkläder lämnas vid ingången. Toalettbesök sker en student i taget i sällskap av tentamensvakt. Lycka till med er tentamen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vart har tentamenssalen ändrats?",
+        "options": [
+          "Till sal tvåhundra",
+          "Till biblioteket",
+          "Till idrottshallen",
+          "Till en hörsal"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Hur långt innan start ska studenterna vara på plats?",
+        "options": [
+          "En timme",
+          "Femton minuter",
+          "Trettio minuter",
+          "Tio minuter"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilket hjälpmedel är tillåtet?",
+        "options": [
+          "Miniräknare utan minnesfunktion",
+          "Mobiltelefon",
+          "Anteckningar",
+          "Dator"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "d-utrop-022",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en flygplats och hör ett meddelande om en inställd avgång.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till passagerare på flight LH trehundratolv till Frankfurt. Vi beklagar att meddela att avgången är inställd på grund av en strejk hos personalen på destinationsflygplatsen. Samtliga berörda passagerare ombeds bege sig till transferdisken i ankomsthallen, där vår personal hjälper till med ombokning till nästa tillgängliga flyg eller alternativ resväg. Passagerare med incheckat bagage får tillbaka sina väskor vid band tre. Vi rekommenderar att ni behåller alla kvitton för eventuell ersättning. Vi ber om ursäkt för det inträffade."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför är avgången inställd?",
+        "options": [
+          "På grund av en strejk på destinationsflygplatsen",
+          "På grund av brist på bränsle",
+          "På grund av tekniskt fel",
+          "På grund av dåligt väder"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vart ska berörda passagerare bege sig?",
+        "options": [
+          "Till gaten",
+          "Till incheckningen",
+          "Till transferdisken i ankomsthallen",
+          "Hem"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vid vilket band får passagerarna tillbaka sitt bagage?",
+        "options": [
+          "Band två",
+          "Band tre",
+          "Band ett",
+          "Band fem"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "d-utrop-023",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en arbetsplats och hör ett meddelande om ett strömavbrott.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till alla medarbetare. Vi har just drabbats av ett oplanerat strömavbrott som påverkar hela kontorsbyggnaden. Tekniker är på väg och felet beräknas vara åtgärdat inom en timme. Under tiden ber vi er spara ert arbete så snart strömmen återkommer och undvika att använda hissarna, som tills vidare är ur funktion. Nödbelysningen i trapphusen fungerar som vanligt. De medarbetare som arbetar med känslig utrustning ombeds följa de särskilda rutiner som finns anslagna i respektive avdelning. Tack för ert tålamod."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har hänt på arbetsplatsen?",
+        "options": [
+          "Ett oplanerat strömavbrott",
+          "En översvämning",
+          "En brand",
+          "En utrymning"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Inom hur lång tid beräknas felet vara åtgärdat?",
+        "options": [
+          "Det är okänt",
+          "Inom tio minuter",
+          "Inom en dag",
+          "Inom en timme"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad ska medarbetarna undvika att använda?",
+        "options": [
+          "Telefonerna",
+          "Trapporna",
+          "Datorerna",
+          "Hissarna"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "d-utrop-024",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en konsertarena och hör ett meddelande om förseningar inför start.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till alla i publiken. På grund av tekniska problem med ljudanläggningen försenas kvällens konsert med ungefär tjugo minuter. Vi ber om er förståelse och försäkrar att vårt tekniska team arbetar för fullt med att lösa problemet. Under tiden håller barerna i foajén öppet, och vi rekommenderar att ni passar på att besöka dem nu för att undvika köbildning senare. Av säkerhetsskäl ber vi er att inte blockera trappor och utgångar. Konserten beräknas nu börja klockan tjugo och tjugo."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför försenas konserten?",
+        "options": [
+          "Artisten är sen",
+          "Dåligt väder",
+          "För få besökare",
+          "Tekniska problem med ljudanläggningen"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur lång är förseningen?",
+        "options": [
+          "Tio minuter",
+          "En timme",
+          "Fem minuter",
+          "Ungefär tjugo minuter"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad rekommenderar utroparen publiken att göra under tiden?",
+        "options": [
+          "Klaga vid kassan",
+          "Besöka barerna i foajén nu",
+          "Gå hem",
+          "Vänta på sina platser"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "d-utrop-025",
+    "course": "D",
+    "type": "announcement",
+    "intro": "Du är på en busstation och hör ett meddelande om en ändrad avgång.",
+    "transcript": [
+      {
+        "speaker": "Utropare",
+        "text": "Ett meddelande till resenärer som ska resa med expressbussen mot Stockholm, avgång klockan tretton. På grund av ett tidigare driftstopp avgår bussen i dag från läge tolv i stället för läge åtta. Vi ber er förflytta er dit i god tid, eftersom bussen är fullbokad och avgår punktligt. Resenärer med bokad plats visar biljetten i appen eller på papper vid påstigning. Det finns möjlighet att lämna stort bagage i lastutrymmet, men ta med er värdesaker in i bussen. Trevlig resa till huvudstaden."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Från vilket läge avgår bussen i dag?",
+        "options": [
+          "Läge tolv",
+          "Läge tio",
+          "Läge sex",
+          "Läge åtta"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför avgår bussen från ett annat läge?",
+        "options": [
+          "På grund av väderlek",
+          "På grund av för många resenärer",
+          "På grund av vägarbete",
+          "På grund av ett tidigare driftstopp"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vad ska resenärerna ta med sig in i bussen i stället för att lämna i lastutrymmet? Skriv ditt svar.",
+        "accept": [
+          "värdesaker",
+          "sina värdesaker",
+          "värdesakerna",
+          "värdesaker in i bussen"
+        ]
+      }
+    ],
+    "sort_order": 24
+  }
+]

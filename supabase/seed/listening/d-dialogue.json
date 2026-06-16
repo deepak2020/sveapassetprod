@@ -1,0 +1,1937 @@
+[
+  {
+    "id": "d-dia-001",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Sofia och hennes chef Marcus sitter i ett möte för att diskutera hennes lön.",
+    "transcript": [
+      {
+        "speaker": "Sofia",
+        "text": "Tack för att du tog dig tid. Jag har jobbat här i tre år nu och vill gärna prata om min lön."
+      },
+      {
+        "speaker": "Marcus",
+        "text": "Absolut, det är en rimlig sak att ta upp. Du har verkligen utvecklats mycket sedan du började."
+      },
+      {
+        "speaker": "Sofia",
+        "text": "Jag har dessutom tagit över ansvaret för hela kundregistret, vilket inte ingick i min ursprungliga roll."
+      },
+      {
+        "speaker": "Marcus",
+        "text": "Det stämmer, och du har skött det utmärkt. Vad hade du tänkt dig för nivå?"
+      },
+      {
+        "speaker": "Sofia",
+        "text": "Jag skulle vilja höja min månadslön med tre tusen kronor, eftersom mitt ansvar har ökat betydligt."
+      },
+      {
+        "speaker": "Marcus",
+        "text": "Jag förstår resonemanget, men budgeten är ganska stram just nu. Skulle två tusen kunna fungera?"
+      },
+      {
+        "speaker": "Sofia",
+        "text": "Om vi samtidigt kunde se över möjligheten till kompetensutveckling, så vore jag nöjd med det."
+      },
+      {
+        "speaker": "Marcus",
+        "text": "Det låter som en bra kompromiss. Jag återkommer med ett skriftligt förslag i nästa vecka."
+      },
+      {
+        "speaker": "Sofia",
+        "text": "Perfekt, då väntar jag på det. Tack för att du lyssnade på mina argument."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur länge har Sofia arbetat på företaget?",
+        "options": [
+          "Två år",
+          "Fem år",
+          "Ett år",
+          "Tre år"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilket extra ansvar nämner Sofia att hon har tagit över?",
+        "options": [
+          "Marknadsföringen",
+          "Kundregistret",
+          "Personalansvar",
+          "Ekonomin"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad kan man dra för slutsats om hur förhandlingen slutar?",
+        "options": [
+          "De når en kompromiss",
+          "Marcus avslår allt",
+          "De skjuter upp mötet helt",
+          "Sofia säger upp sig"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "d-dia-002",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Amir och Karin är föräldrar som träffas på ett föräldramöte i skolan.",
+    "transcript": [
+      {
+        "speaker": "Karin",
+        "text": "Hej Amir! Vad tycker du om de nya reglerna kring mobiltelefoner som rektorn just presenterade?"
+      },
+      {
+        "speaker": "Amir",
+        "text": "Jag är faktiskt positiv. Min son sitter alldeles för mycket på telefonen även under läxläsningen."
+      },
+      {
+        "speaker": "Karin",
+        "text": "Jag håller delvis med, men jag oroar mig för att eleverna inte kan nå oss föräldrar om något händer."
+      },
+      {
+        "speaker": "Amir",
+        "text": "Det är en bra poäng. Kanske borde de få använda dem på rasterna men inte under lektionstid."
+      },
+      {
+        "speaker": "Karin",
+        "text": "Precis så tänker jag också. Förresten, har du anmält ditt barn till simskolan i höst?"
+      },
+      {
+        "speaker": "Amir",
+        "text": "Inte än, men jag tänkte göra det den här veckan. Vet du om det finns platser kvar?"
+      },
+      {
+        "speaker": "Karin",
+        "text": "Det var ont om platser förra året, så jag skulle anmäla så fort som möjligt om jag vore du."
+      },
+      {
+        "speaker": "Amir",
+        "text": "Tack för tipset, då gör jag det redan ikväll när jag kommer hem."
+      },
+      {
+        "speaker": "Karin",
+        "text": "Bra! Vi ses säkert på nästa möte. Ha en trevlig kväll."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad handlar de nya skolreglerna om?",
+        "options": [
+          "Mobiltelefoner",
+          "Matsalen",
+          "Skoluniform",
+          "Läxhjälp"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken oro lyfter Karin fram angående reglerna?",
+        "options": [
+          "Att betygen sjunker",
+          "Att föräldrar inte kan nås",
+          "Att lärarna får mer jobb",
+          "Att barnen blir uttråkade"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vad rekommenderar Karin att Amir gör snabbt? Skriv ditt svar.",
+        "accept": [
+          "Anmäla till simskolan",
+          "Anmäla barnet till simskolan",
+          "Anmäla sonen till simskola",
+          "Boka simskola",
+          "Anmäla till simskola"
+        ]
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "d-dia-003",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Lena och Johan diskuterar bostadsmarknaden över en kopp kaffe.",
+    "transcript": [
+      {
+        "speaker": "Lena",
+        "text": "Har du sett hur mycket priserna på lägenheter har sjunkit i stan det senaste halvåret?"
+      },
+      {
+        "speaker": "Johan",
+        "text": "Ja, det är ganska dramatiskt. Räntorna har höjts så mycket att många inte längre har råd att köpa."
+      },
+      {
+        "speaker": "Lena",
+        "text": "Vi funderade på att sälja vår tvåa, men nu undrar jag om vi borde vänta tills marknaden återhämtar sig."
+      },
+      {
+        "speaker": "Johan",
+        "text": "Det beror på. Om du ändå ska köpa något större spelar det mindre roll, eftersom allt har gått ner."
+      },
+      {
+        "speaker": "Lena",
+        "text": "Sant, då blir ju mellanskillnaden mindre. Men jag är ändå nervös för räntan på det nya lånet."
+      },
+      {
+        "speaker": "Johan",
+        "text": "Förstår dig. Vi valde att binda räntan på tre år för att slippa oroa oss varje månad."
+      },
+      {
+        "speaker": "Lena",
+        "text": "Det låter klokt. Kanske borde vi prata med banken om samma sak innan vi bestämmer oss."
+      },
+      {
+        "speaker": "Johan",
+        "text": "Definitivt. Det är bättre att ha en plan än att gissa hur marknaden ska utvecklas."
+      },
+      {
+        "speaker": "Lena",
+        "text": "Tack, du har gett mig en hel del att tänka på. Jag ringer banken imorgon."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför har många svårt att köpa bostad nu enligt Johan?",
+        "options": [
+          "Bankerna är stängda",
+          "Priserna har stigit",
+          "Det finns inga lägenheter",
+          "Räntorna har höjts"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur har Johan hanterat sin egen ränta?",
+        "options": [
+          "Bundit räntan i tre år",
+          "Sålt bostaden",
+          "Bytt bank",
+          "Tagit ett extra lån"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken attityd har Lena i slutet av samtalet?",
+        "options": [
+          "Hon är arg på Johan",
+          "Hon känner sig mer redo att agera",
+          "Hon är fortfarande helt rådvill",
+          "Hon har gett upp idén att sälja"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "d-dia-004",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Fatima och hennes kollega Erik diskuterar en konflikt som uppstått på arbetsplatsen.",
+    "transcript": [
+      {
+        "speaker": "Fatima",
+        "text": "Erik, jag måste prata med dig. Jag kände mig faktiskt överkörd på mötet igår när du avbröt mig flera gånger."
+      },
+      {
+        "speaker": "Erik",
+        "text": "Åh, det var verkligen inte min avsikt. Jag blev kanske för ivrig att få fram mina egna idéer."
+      },
+      {
+        "speaker": "Fatima",
+        "text": "Jag uppskattar att du säger det. Det är bara så att mina förslag aldrig hinner bli hörda."
+      },
+      {
+        "speaker": "Erik",
+        "text": "Du har rätt, och jag ber om ursäkt. Hur tycker du att vi borde göra på framtida möten?"
+      },
+      {
+        "speaker": "Fatima",
+        "text": "Kanske skulle vi kunna komma överens om att låta varandra prata till punkt innan vi svarar."
+      },
+      {
+        "speaker": "Erik",
+        "text": "Det är en utmärkt idé. Jag ska verkligen anstränga mig för att lyssna mer noggrant."
+      },
+      {
+        "speaker": "Fatima",
+        "text": "Tack, det betyder mycket. Jag vill ju att vi ska kunna samarbeta bra trots olika åsikter."
+      },
+      {
+        "speaker": "Erik",
+        "text": "Samma här. Det känns skönt att vi kunde reda ut det här direkt istället för att låta det växa."
+      },
+      {
+        "speaker": "Fatima",
+        "text": "Helt enig. Då tar vi nystart på morgonmötet imorgon."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kände Fatima på gårdagens möte?",
+        "options": [
+          "Att hon fick för mycket beröm",
+          "Att hon blev avbruten",
+          "Att hon kom för sent",
+          "Att mötet var roligt"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilken lösning föreslår Fatima?",
+        "options": [
+          "Att låta varandra prata till punkt",
+          "Att byta avdelning",
+          "Att sluta ha möten",
+          "Att Erik ska sluta"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Hur reagerar Erik på Fatimas kritik? Skriv ditt svar.",
+        "accept": [
+          "Han ber om ursäkt",
+          "Han ber om ursäkt och vill ändra sig",
+          "Han tar åt sig och ber om ursäkt",
+          "Han håller med och ber om ursäkt",
+          "Han accepterar kritiken"
+        ]
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "d-dia-005",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Nina och Omar planerar tillsammans ett projekt på sin arbetsplats.",
+    "transcript": [
+      {
+        "speaker": "Nina",
+        "text": "Vi har fått klartecken för det nya projektet, men deadlinen är redan om sex veckor."
+      },
+      {
+        "speaker": "Omar",
+        "text": "Det är tajt. Jag föreslår att vi delar upp arbetet i tre tydliga faser så att vi behåller överblicken."
+      },
+      {
+        "speaker": "Nina",
+        "text": "Bra idé. Vill du ta ansvar för analysdelen medan jag fokuserar på själva genomförandet?"
+      },
+      {
+        "speaker": "Omar",
+        "text": "Det passar mig perfekt, eftersom jag har mest erfarenhet av att samla in och tolka data."
+      },
+      {
+        "speaker": "Nina",
+        "text": "Då behöver vi också bestämma hur ofta vi ska stämma av med varandra under resans gång."
+      },
+      {
+        "speaker": "Omar",
+        "text": "Ett kort avstämningsmöte varje måndag morgon brukar fungera bäst, tycker jag."
+      },
+      {
+        "speaker": "Nina",
+        "text": "Håller med. Då slipper vi missförstånd och kan justera planen om något skulle gå fel."
+      },
+      {
+        "speaker": "Omar",
+        "text": "Precis. Ska jag skicka ut en kalenderinbjudan till hela teamet redan idag?"
+      },
+      {
+        "speaker": "Nina",
+        "text": "Ja tack, gör det. Ju tidigare alla vet vad som gäller, desto smidigare blir det."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När är deadlinen för projektet?",
+        "options": [
+          "Om sex veckor",
+          "Om en vecka",
+          "Om tre veckor",
+          "Om två månader"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken del tar Omar ansvar för?",
+        "options": [
+          "Analysdelen",
+          "Marknadsföringen",
+          "Ekonomin",
+          "Genomförandet"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför vill de ha avstämningsmöten varje måndag?",
+        "options": [
+          "För att fira framgångar",
+          "För att fika tillsammans",
+          "För att undvika missförstånd",
+          "För att chefen kräver det"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "d-dia-006",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Henrik och Aisha diskuterar miljö och klimat hemma vid köksbordet.",
+    "transcript": [
+      {
+        "speaker": "Aisha",
+        "text": "Jag läste att vår kommun vill att alla ska sortera matavfall från och med nästa år."
+      },
+      {
+        "speaker": "Henrik",
+        "text": "Det var på tiden. Vi slänger faktiskt alldeles för mycket mat som hade kunnat bli biogas istället."
+      },
+      {
+        "speaker": "Aisha",
+        "text": "Sant. Jag funderar också på om vi borde sälja bilen och satsa mer på kollektivtrafiken."
+      },
+      {
+        "speaker": "Henrik",
+        "text": "Det skulle minska våra utsläpp rejält, men hur tar vi oss till sommarstugan då?"
+      },
+      {
+        "speaker": "Aisha",
+        "text": "Vi kanske kunde hyra en bil de få gånger vi verkligen behöver, det blir nog billigare också."
+      },
+      {
+        "speaker": "Henrik",
+        "text": "Det är ett klokt förslag. Då slipper vi dessutom kostnaderna för försäkring och service."
+      },
+      {
+        "speaker": "Aisha",
+        "text": "Precis. Små förändringar i vardagen kan göra större skillnad än man tror."
+      },
+      {
+        "speaker": "Henrik",
+        "text": "Jag håller med. Ska vi börja med att räkna ut hur mycket bilen faktiskt kostar oss per år?"
+      },
+      {
+        "speaker": "Aisha",
+        "text": "Ja, då får vi ett tydligt underlag innan vi fattar ett slutgiltigt beslut."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad vill kommunen att invånarna ska börja göra?",
+        "options": [
+          "Köpa elbilar",
+          "Spara vatten",
+          "Sortera matavfall",
+          "Plantera träd"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad föreslår Aisha angående bilen?",
+        "options": [
+          "Att köpa en ny bil",
+          "Att sälja den och hyra vid behov",
+          "Att behålla den för alltid",
+          "Att låna grannens bil"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad kan man säga om parets inställning till miljöfrågor?",
+        "options": [
+          "De tycker det är onödigt",
+          "De är ointresserade",
+          "De är beredda att ändra sina vanor",
+          "De är oense om allt"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "d-dia-007",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Patienten Yusuf samtalar med läkaren Birgitta på vårdcentralen.",
+    "transcript": [
+      {
+        "speaker": "Birgitta",
+        "text": "God morgon Yusuf. Jag ser i journalen att du har haft ont i ryggen i flera veckor nu."
+      },
+      {
+        "speaker": "Yusuf",
+        "text": "Ja, det började efter att jag lyft tungt på jobbet. Värken strålar ibland ända ner i benet."
+      },
+      {
+        "speaker": "Birgitta",
+        "text": "Det låter som att det kan vara en nerv som kläms. Har du provat några smärtstillande mediciner?"
+      },
+      {
+        "speaker": "Yusuf",
+        "text": "Jag har tagit värktabletter, men de hjälper bara tillfälligt. Jag är orolig att det är något allvarligt."
+      },
+      {
+        "speaker": "Birgitta",
+        "text": "I de flesta fall läker den här typen av besvär av sig själv, men vi ska ta det på allvar."
+      },
+      {
+        "speaker": "Yusuf",
+        "text": "Det känns skönt att höra. Vad rekommenderar du att jag gör härnäst?"
+      },
+      {
+        "speaker": "Birgitta",
+        "text": "Jag skriver en remiss till sjukgymnast och ber dig undvika tunga lyft den närmaste tiden."
+      },
+      {
+        "speaker": "Yusuf",
+        "text": "Tack. Borde jag sjukskriva mig eller kan jag fortsätta jobba med lättare uppgifter?"
+      },
+      {
+        "speaker": "Birgitta",
+        "text": "Lättare uppgifter går bra, men hör av dig direkt om värken blir värre eller om benet domnar."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur länge har Yusuf haft ont i ryggen?",
+        "options": [
+          "Ett halvår",
+          "Flera veckor",
+          "Några dagar",
+          "Två år"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad skriver läkaren en remiss till?",
+        "options": [
+          "Psykolog",
+          "Operation",
+          "Röntgen",
+          "Sjukgymnast"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vad ska Yusuf undvika enligt läkaren? Skriv ditt svar.",
+        "accept": [
+          "Tunga lyft",
+          "Att lyfta tungt",
+          "Tungt arbete",
+          "Lyfta tunga saker",
+          "Tunga lyften"
+        ]
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "d-dia-008",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Studievägledaren Anders pratar med Leila om hennes möjligheter till vidareutbildning.",
+    "transcript": [
+      {
+        "speaker": "Leila",
+        "text": "Hej Anders. Jag jobbar som undersköterska men funderar på att utbilda mig vidare till sjuksköterska."
+      },
+      {
+        "speaker": "Anders",
+        "text": "Vad roligt! Det är en utbildning med god arbetsmarknad. Har du den behörighet som krävs?"
+      },
+      {
+        "speaker": "Leila",
+        "text": "Jag är osäker. Jag läste på Komvux för några år sedan men saknar kanske matematik och kemi."
+      },
+      {
+        "speaker": "Anders",
+        "text": "Då kan vi enkelt komplettera de kurserna. Många väljer att läsa dem på distans medan de jobbar kvar."
+      },
+      {
+        "speaker": "Leila",
+        "text": "Det skulle passa mig bra eftersom jag har två barn och inte kan sluta jobba helt."
+      },
+      {
+        "speaker": "Anders",
+        "text": "Förstår det. Du kan dessutom ansöka om studiemedel för att klara ekonomin under tiden."
+      },
+      {
+        "speaker": "Leila",
+        "text": "Skönt att höra. Hur lång tid tar själva sjuksköterskeutbildningen sedan?"
+      },
+      {
+        "speaker": "Anders",
+        "text": "Den är på tre år om du läser på heltid, men det går att förlänga om du behöver gå långsammare."
+      },
+      {
+        "speaker": "Leila",
+        "text": "Tack så mycket. Du har gjort hela planen mycket tydligare och mindre skrämmande för mig."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad arbetar Leila som idag?",
+        "options": [
+          "Läkare",
+          "Undersköterska",
+          "Sjuksköterska",
+          "Lärare"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilka ämnen tror Leila att hon saknar behörighet i?",
+        "options": [
+          "Svenska och engelska",
+          "Matematik och kemi",
+          "Historia och biologi",
+          "Fysik och geografi"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur känner Leila sig i slutet av samtalet?",
+        "options": [
+          "Mindre orolig och tydligare",
+          "Helt ointresserad",
+          "Besviken på Anders",
+          "Mer förvirrad"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "d-dia-009",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Grannarna Stefan och Mariam diskuterar en nyhet om integration i området.",
+    "transcript": [
+      {
+        "speaker": "Mariam",
+        "text": "Har du läst att kommunen ska starta ett nytt språkkafé i biblioteket på torsdagar?"
+      },
+      {
+        "speaker": "Stefan",
+        "text": "Ja, det stod i lokaltidningen. Jag tycker det är ett bra initiativ för att folk ska lära känna varandra."
+      },
+      {
+        "speaker": "Mariam",
+        "text": "Verkligen. När jag flyttade hit var det svårast att hitta naturliga sätt att öva svenska på."
+      },
+      {
+        "speaker": "Stefan",
+        "text": "Det kan jag tänka mig. Kanske borde jag själv anmäla mig som frivillig samtalsledare."
+      },
+      {
+        "speaker": "Mariam",
+        "text": "Vad fint! Din erfarenhet skulle säkert hjälpa många som är nya i landet att känna sig välkomna."
+      },
+      {
+        "speaker": "Stefan",
+        "text": "Tanken är att alla vinner på det. Jag får träffa nya människor och de får öva i en avslappnad miljö."
+      },
+      {
+        "speaker": "Mariam",
+        "text": "Precis så fungerar integration bäst, tror jag, när den sker i vardagen och inte bara i klassrummet."
+      },
+      {
+        "speaker": "Stefan",
+        "text": "Helt enig. Ska vi gå dit tillsammans första gången och se hur det är upplagt?"
+      },
+      {
+        "speaker": "Mariam",
+        "text": "Gärna! Då känns det mindre nervöst för oss båda att kliva in genom dörren."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Var ska språkkaféet äga rum?",
+        "options": [
+          "I kyrkan",
+          "I biblioteket",
+          "I skolan",
+          "På torget"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad funderar Stefan på att göra?",
+        "options": [
+          "Skriva i tidningen",
+          "Flytta från området",
+          "Starta en kurs",
+          "Bli frivillig samtalsledare"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Enligt Mariam, var fungerar integration bäst? Skriv ditt svar.",
+        "accept": [
+          "I vardagen",
+          "I vardagen och inte bara i klassrummet",
+          "När den sker i vardagen",
+          "I det dagliga livet",
+          "I vardagslivet"
+        ]
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "d-dia-010",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Ekonomen Petra förklarar familjens ekonomi för sin partner David.",
+    "transcript": [
+      {
+        "speaker": "David",
+        "text": "Petra, jag är lite orolig. Det känns som att pengarna tar slut tidigare varje månad nu."
+      },
+      {
+        "speaker": "Petra",
+        "text": "Du har rätt. Jag gick igenom kontoutdraget och våra matkostnader har stigit med nästan tjugo procent."
+      },
+      {
+        "speaker": "David",
+        "text": "Tjugo procent? Det är enormt. Beror det enbart på inflationen eller handlar vi mer än tidigare?"
+      },
+      {
+        "speaker": "Petra",
+        "text": "Mest inflationen, men jag tror också att vi slänger mycket och köper saker på impuls."
+      },
+      {
+        "speaker": "David",
+        "text": "Då borde vi kanske göra en veckomeny och en inköpslista innan vi går till affären."
+      },
+      {
+        "speaker": "Petra",
+        "text": "Bra idé. Om vi dessutom ser över våra abonnemang skulle vi nog kunna spara flera hundralappar."
+      },
+      {
+        "speaker": "David",
+        "text": "Vi har ju tre olika streamingtjänster som vi knappt använder. Vi kan säga upp minst två."
+      },
+      {
+        "speaker": "Petra",
+        "text": "Precis. Med lite planering klarar vi det här utan att behöva avstå från det vi verkligen tycker om."
+      },
+      {
+        "speaker": "David",
+        "text": "Skönt att höra. Det känns mycket bättre när vi har en konkret plan tillsammans."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Med hur mycket har matkostnaderna stigit?",
+        "options": [
+          "Femton procent",
+          "Tio procent",
+          "Nästan tjugo procent",
+          "Trettio procent"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad föreslår David för att handla smartare?",
+        "options": [
+          "Att göra veckomeny och inköpslista",
+          "Att byta affär",
+          "Att handla oftare",
+          "Att äta ute mer"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken är parets slutsats om sin ekonomi?",
+        "options": [
+          "De måste sälja huset",
+          "De behöver inte ändra något",
+          "Den är hopplös",
+          "Med planering klarar de det"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "d-dia-011",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Kollegorna Sara och Hassan diskuterar om de ska byta jobb eller stanna kvar.",
+    "transcript": [
+      {
+        "speaker": "Hassan",
+        "text": "Sara, har du sett att vår konkurrent annonserar efter folk med precis vår kompetens? Lönen ser bra ut."
+      },
+      {
+        "speaker": "Sara",
+        "text": "Jag har faktiskt också snubblat över den annonsen. Men jag trivs ju egentligen ganska bra här."
+      },
+      {
+        "speaker": "Hassan",
+        "text": "Det gör jag med, fast jag känner att jag inte längre utvecklas i min nuvarande roll."
+      },
+      {
+        "speaker": "Sara",
+        "text": "Det är en viktig poäng. Pengar är inte allt, men att stå stilla i karriären är inte heller kul."
+      },
+      {
+        "speaker": "Hassan",
+        "text": "Kanske borde vi prata med vår chef om interna utvecklingsmöjligheter innan vi söker oss bort."
+      },
+      {
+        "speaker": "Sara",
+        "text": "Klokt. Om de verkligen vill behålla oss kanske de kan erbjuda nya ansvarsområden eller utbildning."
+      },
+      {
+        "speaker": "Hassan",
+        "text": "Exakt. Då vet vi i alla fall var vi står innan vi fattar ett så stort beslut."
+      },
+      {
+        "speaker": "Sara",
+        "text": "Jag bokar in ett möte med chefen redan imorgon, så får vi se hur hon reagerar."
+      },
+      {
+        "speaker": "Hassan",
+        "text": "Perfekt. Det känns bra att inte rusa iväg utan att tänka igenom alla alternativ ordentligt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har konkurrenten gjort?",
+        "options": [
+          "Sänkt sina priser",
+          "Gått i konkurs",
+          "Flyttat utomlands",
+          "Annonserat efter personal"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad saknar Hassan i sin nuvarande roll?",
+        "options": [
+          "Fri parkering",
+          "Trevliga kollegor",
+          "Utveckling",
+          "Bra lokaler"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad bestämmer de sig för att göra först?",
+        "options": [
+          "Prata med chefen om möjligheter",
+          "Säga upp sig direkt",
+          "Söka det nya jobbet genast",
+          "Strunta i hela saken"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "d-dia-012",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Vännerna Elin och Mohammed diskuterar en nyhet om kollektivtrafiken.",
+    "transcript": [
+      {
+        "speaker": "Elin",
+        "text": "Hörde du att regionen vill höja priset på månadskortet med hundra kronor från och med juli?"
+      },
+      {
+        "speaker": "Mohammed",
+        "text": "Ja, och samtidigt drar de in flera busslinjer på landsbygden. Det drabbar verkligen dem utan bil."
+      },
+      {
+        "speaker": "Elin",
+        "text": "Just det. Min moster bor på landet och är helt beroende av bussen för att ta sig till vårdcentralen."
+      },
+      {
+        "speaker": "Mohammed",
+        "text": "Det är problematiskt. Å andra sidan säger de att pengarna ska gå till tätare avgångar i stan."
+      },
+      {
+        "speaker": "Elin",
+        "text": "Det låter bra för oss som bor centralt, men det känns orättvist mot dem som bor längre bort."
+      },
+      {
+        "speaker": "Mohammed",
+        "text": "Jag håller med. Kanske borde vi skriva under den namninsamling som pensionärsföreningen startat."
+      },
+      {
+        "speaker": "Elin",
+        "text": "Absolut. Ju fler vi är som protesterar, desto större chans att politikerna tänker om."
+      },
+      {
+        "speaker": "Mohammed",
+        "text": "Sant. Jag delar länken i vår grannskapsgrupp så att fler får möjlighet att skriva på."
+      },
+      {
+        "speaker": "Elin",
+        "text": "Tack, det gör verkligen skillnad. Demokrati handlar ju om att faktiskt göra sin röst hörd."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur mycket vill regionen höja månadskortet?",
+        "options": [
+          "Femtio kronor",
+          "Tjugo kronor",
+          "Tvåhundra kronor",
+          "Hundra kronor"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vem drabbas mest enligt samtalet?",
+        "options": [
+          "De på landsbygden utan bil",
+          "Pendlare med bil",
+          "Studenter",
+          "De som bor centralt"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad bestämmer sig de för att göra för att protestera? Skriv ditt svar.",
+        "accept": [
+          "Skriva under en namninsamling",
+          "Skriva på namninsamlingen",
+          "Skriva under namninsamling",
+          "Skriva på en namninsamling",
+          "Delta i namninsamlingen"
+        ]
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "d-dia-013",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Chefen Andreas håller ett utvecklingssamtal med medarbetaren Priya.",
+    "transcript": [
+      {
+        "speaker": "Andreas",
+        "text": "Välkommen Priya. Jag vill att vi använder det här samtalet till att prata om din utveckling, inte bara siffror."
+      },
+      {
+        "speaker": "Priya",
+        "text": "Det uppskattar jag. Jag känner ibland att mina insatser drunknar i alla deadlines vi har."
+      },
+      {
+        "speaker": "Andreas",
+        "text": "Jag har faktiskt lagt märke till hur väl du leder de yngre i teamet. Det är en styrka vi borde ta vara på."
+      },
+      {
+        "speaker": "Priya",
+        "text": "Tack, det betyder mycket. Jag skulle gärna ta på mig ett formellt ledaransvar om möjligheten fanns."
+      },
+      {
+        "speaker": "Andreas",
+        "text": "Det är precis vad jag hoppades att du skulle säga. Vi planerar att skapa en teamledarroll till hösten."
+      },
+      {
+        "speaker": "Priya",
+        "text": "Vad spännande! Vad skulle krävas av mig för att jag ska vara redo för den rollen?"
+      },
+      {
+        "speaker": "Andreas",
+        "text": "Du behöver gå en ledarskapsutbildning, men din praktiska erfarenhet täcker redan det mesta."
+      },
+      {
+        "speaker": "Priya",
+        "text": "Då sätter jag igång direkt. Det här ger mig verkligen ny motivation att fortsätta utvecklas här."
+      },
+      {
+        "speaker": "Andreas",
+        "text": "Härligt att höra. Jag tror att du kommer att göra ett utmärkt jobb i den nya rollen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad vill Andreas främst prata om under samtalet?",
+        "options": [
+          "Semesterplaner",
+          "Lönen",
+          "Priyas utveckling",
+          "Företagets vinst"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilken styrka lyfter Andreas fram hos Priya?",
+        "options": [
+          "Att hon aldrig är sjuk",
+          "Att hon kommer i tid",
+          "Att hon skriver bra rapporter",
+          "Att hon leder de yngre"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad krävs för att Priya ska bli teamledare?",
+        "options": [
+          "En högre examen",
+          "En ledarskapsutbildning",
+          "Mer erfarenhet",
+          "Ett språktest"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "d-dia-014",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Föräldrarna Kerstin och Tariq diskuterar barnens skärmtid hemma.",
+    "transcript": [
+      {
+        "speaker": "Kerstin",
+        "text": "Tariq, jag tycker att barnen sitter alldeles för länge framför skärmarna, särskilt nu under loven."
+      },
+      {
+        "speaker": "Tariq",
+        "text": "Jag känner likadant. Samtidigt är det svårt eftersom de använder datorn både för skolan och för nöje."
+      },
+      {
+        "speaker": "Kerstin",
+        "text": "Sant, gränsen blir otydlig. Kanske borde vi sätta fasta tider för spel och annat utan koppling till skolan."
+      },
+      {
+        "speaker": "Tariq",
+        "text": "Det låter rimligt. Men vi måste vara konsekventa, annars förhandlar de bort varje regel vi sätter."
+      },
+      {
+        "speaker": "Kerstin",
+        "text": "Precis. Och vi borde nog se över våra egna vanor också, så att vi föregår med gott exempel."
+      },
+      {
+        "speaker": "Tariq",
+        "text": "Du har en poäng där. Jag sitter ju själv med mobilen vid middagsbordet ibland."
+      },
+      {
+        "speaker": "Kerstin",
+        "text": "Vi kan börja med en mobilfri middag varje kväll, det blir en bra start för hela familjen."
+      },
+      {
+        "speaker": "Tariq",
+        "text": "Bra förslag. Då pratar vi med barnen ikväll så att de får vara med och bestämma reglerna."
+      },
+      {
+        "speaker": "Kerstin",
+        "text": "Klokt. Om de känner sig delaktiga är chansen större att de faktiskt följer det vi kommer överens om."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När tycker Kerstin att barnen sitter särskilt mycket vid skärmen?",
+        "options": [
+          "På helgerna",
+          "Efter middagen",
+          "Under loven",
+          "På morgnarna"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad ska familjen börja med enligt förslaget?",
+        "options": [
+          "Mobilfri middag",
+          "Slänga datorerna",
+          "Förbjuda spel helt",
+          "Köpa nya mobiler"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Varför vill de att barnen ska vara med och bestämma reglerna? Skriv ditt svar.",
+        "accept": [
+          "För att de ska följa reglerna",
+          "Då följer de reglerna lättare",
+          "För att de ska känna sig delaktiga",
+          "Större chans att de följer dem",
+          "För att öka chansen att de följer reglerna"
+        ]
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "d-dia-015",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Fackrepresentanten Göran samtalar med medlemmen Amina om hennes arbetsvillkor.",
+    "transcript": [
+      {
+        "speaker": "Amina",
+        "text": "Hej Göran. Jag ville prata med dig eftersom min arbetsgivare vill att jag jobbar övertid varje vecka utan extra ersättning."
+      },
+      {
+        "speaker": "Göran",
+        "text": "Det låter inte rätt. Enligt kollektivavtalet ska övertid alltid ersättas, antingen i pengar eller i ledig tid."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Det misstänkte jag. Men jag är rädd att skapa konflikt eftersom jag har en visstidsanställning."
+      },
+      {
+        "speaker": "Göran",
+        "text": "Jag förstår din oro, men du har rättigheter oavsett anställningsform. Vi kan ta upp det utan att nämna ditt namn."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Det skulle kännas tryggare. Hur går vi vidare rent praktiskt?"
+      },
+      {
+        "speaker": "Göran",
+        "text": "Jag begär ett möte med arbetsgivaren och påminner om vad avtalet faktiskt säger om övertid."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Tack. Det känns skönt att inte behöva stå ensam mot ledningen i den här frågan."
+      },
+      {
+        "speaker": "Göran",
+        "text": "Det är precis därför facket finns. Tillsammans har vi mycket större möjlighet att förändra orättvisa villkor."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Jag är glad att jag blev medlem. Hör gärna av dig så fort du vet hur arbetsgivaren ställer sig."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är problemet som Amina tar upp?",
+        "options": [
+          "Hon jobbar övertid utan ersättning",
+          "Hon trivs inte med kollegorna",
+          "Hon vill byta avdelning",
+          "Hon får för låg grundlön"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad säger kollektivavtalet om övertid enligt Göran?",
+        "options": [
+          "Den ska alltid ersättas",
+          "Den är förbjuden",
+          "Den ska anmälas till polisen",
+          "Den är frivillig"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför tvekar Amina att agera?",
+        "options": [
+          "Hon gillar sin chef",
+          "Hon ska snart gå i pension",
+          "Hon har visstidsanställning",
+          "Hon flyttar snart"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "d-dia-016",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Grannarna Ingrid och Samir diskuterar ett förslag på en ny förskola i området.",
+    "transcript": [
+      {
+        "speaker": "Samir",
+        "text": "Ingrid, har du sett att kommunen planerar att bygga en ny förskola på grönytan bredvid vårt hus?"
+      },
+      {
+        "speaker": "Ingrid",
+        "text": "Ja, och jag är kluven. Vi behöver fler förskoleplatser, men jag är ledsen att förlora parken."
+      },
+      {
+        "speaker": "Samir",
+        "text": "Jag känner likadant. Mina barn skulle få närmare till förskolan, men vart ska vi gå och leka sedan?"
+      },
+      {
+        "speaker": "Ingrid",
+        "text": "Enligt ritningarna ska de faktiskt bevara en del av grönytan och anlägga en lekplats där."
+      },
+      {
+        "speaker": "Samir",
+        "text": "Det visste jag inte. Då blir saken genast lite mer balanserad, tycker jag."
+      },
+      {
+        "speaker": "Ingrid",
+        "text": "Precis. Det viktiga är att vi går på samrådsmötet och framför våra synpunkter innan beslutet fattas."
+      },
+      {
+        "speaker": "Samir",
+        "text": "Helt rätt. Om vi är många som ställer krav på grönytan lyssnar kommunen säkert bättre."
+      },
+      {
+        "speaker": "Ingrid",
+        "text": "Jag sätter upp en lapp i trapphuset så att fler grannar får veta när mötet äger rum."
+      },
+      {
+        "speaker": "Samir",
+        "text": "Tack, det är en bra idé. Ju fler röster, desto större chans att vi får ett bra slutresultat."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad planerar kommunen att bygga?",
+        "options": [
+          "Ett äldreboende",
+          "En förskola",
+          "En skola",
+          "En affär"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad ska enligt ritningarna bevaras?",
+        "options": [
+          "Ett gammalt hus",
+          "En del av grönytan",
+          "En fotbollsplan",
+          "En parkeringsplats"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad är grannarnas gemensamma plan?",
+        "options": [
+          "Att flytta härifrån",
+          "Att strunta i frågan",
+          "Att gå på samrådsmötet",
+          "Att överklaga i domstol"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "d-dia-017",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Kollegorna Viktor och Layla diskuterar hur de ska hantera en missnöjd kund.",
+    "transcript": [
+      {
+        "speaker": "Layla",
+        "text": "Viktor, kunden som ringde nyss var verkligen upprörd. Leveransen var två veckor försenad."
+      },
+      {
+        "speaker": "Viktor",
+        "text": "Det är inte konstigt att han är arg. Vi lovade ju ett datum som vi sedan inte kunde hålla."
+      },
+      {
+        "speaker": "Layla",
+        "text": "Frågan är hur vi gör nu. Han hotar att avsluta hela avtalet om vi inte gottgör honom."
+      },
+      {
+        "speaker": "Viktor",
+        "text": "Jag tycker att vi ska vara ärliga, be om ursäkt och erbjuda en rabatt på nästa beställning."
+      },
+      {
+        "speaker": "Layla",
+        "text": "Bra tänkt. Men vi måste också förklara varför det blev fel, annars verkar vi oansvariga."
+      },
+      {
+        "speaker": "Viktor",
+        "text": "Sant. Problemet låg hos vår underleverantör, men kunden bryr sig nog mest om hur vi löser det framåt."
+      },
+      {
+        "speaker": "Layla",
+        "text": "Precis. Ska jag ringa upp honom direkt eller vill du ta samtalet eftersom du känner honom bättre?"
+      },
+      {
+        "speaker": "Viktor",
+        "text": "Jag ringer. Det känns mer personligt och visar att vi tar honom på allvar."
+      },
+      {
+        "speaker": "Layla",
+        "text": "Perfekt. Då förbereder jag ett skriftligt erbjudande som du kan skicka direkt efter samtalet."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför var kunden upprörd?",
+        "options": [
+          "Leveransen var försenad",
+          "Personalen var oartig",
+          "Produkten var trasig",
+          "Priset var för högt"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Var låg det egentliga problemet enligt Viktor?",
+        "options": [
+          "Hos underleverantören",
+          "Hos posten",
+          "Hos chefen",
+          "Hos kunden"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad föreslår Viktor att de erbjuder kunden? Skriv ditt svar.",
+        "accept": [
+          "En rabatt",
+          "Rabatt på nästa beställning",
+          "En ursäkt och rabatt",
+          "Rabatt",
+          "En rabatt på nästa order"
+        ]
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "d-dia-018",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Vännerna Camilla och Idris diskuterar en aktuell nyhet om artificiell intelligens.",
+    "transcript": [
+      {
+        "speaker": "Idris",
+        "text": "Camilla, har du läst artikeln om att allt fler företag använder artificiell intelligens för att rekrytera?"
+      },
+      {
+        "speaker": "Camilla",
+        "text": "Ja, det fascinerar och oroar mig samtidigt. Tänk om systemet sorterar bort folk på orättvisa grunder."
+      },
+      {
+        "speaker": "Idris",
+        "text": "Det är just risken som forskarna varnar för. En dator kan ärva fördomar från den data den tränats på."
+      },
+      {
+        "speaker": "Camilla",
+        "text": "Samtidigt kan det ju gå snabbare och kanske till och med minska den mänskliga partiskheten i vissa fall."
+      },
+      {
+        "speaker": "Idris",
+        "text": "Sant, det är inte svart eller vitt. Tekniken är ett verktyg, men hur vi använder den avgör allt."
+      },
+      {
+        "speaker": "Camilla",
+        "text": "Precis. Jag tror att vi behöver tydliga regler så att människor alltid har sista ordet i beslutet."
+      },
+      {
+        "speaker": "Idris",
+        "text": "Håller med. Annars riskerar vi att lita blint på system som vi egentligen inte förstår."
+      },
+      {
+        "speaker": "Camilla",
+        "text": "Det är en viktig debatt. Jag hoppas att politikerna hänger med i utvecklingen istället för att halka efter."
+      },
+      {
+        "speaker": "Idris",
+        "text": "Jag med. Tekniken går så fort att lagstiftningen verkligen behöver komma ikapp snart."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad använder företagen artificiell intelligens till enligt artikeln?",
+        "options": [
+          "Att räkna ut löner",
+          "Att marknadsföra produkter",
+          "Att rekrytera personal",
+          "Att designa kontor"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilken risk varnar forskarna för?",
+        "options": [
+          "Att datorn ärver fördomar",
+          "Att den är för långsam",
+          "Att den slutar fungera",
+          "Att tekniken är för dyr"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad anser Camilla och Idris behövs?",
+        "options": [
+          "Tydliga regler där människor bestämmer",
+          "Att anställa fler datorer",
+          "Att förbjuda all teknik",
+          "Att sluta rekrytera helt"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "d-dia-019",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Hyresgästen Robert pratar med hyresvärden Nadia om problem i lägenheten.",
+    "transcript": [
+      {
+        "speaker": "Robert",
+        "text": "Hej Nadia. Jag ringer för att fukten i badrummet har blivit värre, och nu luktar det riktigt illa."
+      },
+      {
+        "speaker": "Nadia",
+        "text": "Det låter allvarligt. Har du märkt om det droppar någonstans eller om färgen har börjat flagna?"
+      },
+      {
+        "speaker": "Robert",
+        "text": "Färgen flagnar vid taket och golvet känns ibland fuktigt. Jag är orolig för att det kan bli mögel."
+      },
+      {
+        "speaker": "Nadia",
+        "text": "Du gjorde rätt som hörde av dig direkt. Jag skickar en hantverkare för att undersöka saken redan imorgon."
+      },
+      {
+        "speaker": "Robert",
+        "text": "Tack. Måste jag vara hemma eller kan de använda huvudnyckeln om jag är på jobbet?"
+      },
+      {
+        "speaker": "Nadia",
+        "text": "De kan använda huvudnyckeln, men jag meddelar dig exakt när de kommer så att du är informerad."
+      },
+      {
+        "speaker": "Robert",
+        "text": "Bra. Om det visar sig vara ett större problem, hur länge tror du att reparationen tar?"
+      },
+      {
+        "speaker": "Nadia",
+        "text": "Det beror på omfattningen, men vi har ansvar att åtgärda det snabbt och ordna ersättningsboende vid behov."
+      },
+      {
+        "speaker": "Robert",
+        "text": "Skönt att höra att ni tar det på allvar. Då väntar jag på besked från hantverkaren."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket problem har Robert i lägenheten?",
+        "options": [
+          "Ljud från grannar",
+          "Fukt i badrummet",
+          "Trasig spis",
+          "Kall värme"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad oroar sig Robert för att det ska bli?",
+        "options": [
+          "Brand",
+          "Översvämning",
+          "Mögel",
+          "Råttor"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Vad ska hyresvärden ordna vid behov om reparationen tar lång tid? Skriv ditt svar.",
+        "accept": [
+          "Ersättningsboende",
+          "Ett ersättningsboende",
+          "Annat boende",
+          "Ett annat boende",
+          "Tillfälligt boende"
+        ]
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "d-dia-020",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Kollegorna Magnus och Zara planerar en utbildningsdag för hela avdelningen.",
+    "transcript": [
+      {
+        "speaker": "Zara",
+        "text": "Magnus, vi behöver bestämma innehållet för utbildningsdagen. Vad tror du att teamet behöver mest just nu?"
+      },
+      {
+        "speaker": "Magnus",
+        "text": "Jag märker att många kämpar med det nya datasystemet, så en praktisk genomgång vore värdefull."
+      },
+      {
+        "speaker": "Zara",
+        "text": "Bra observation. Samtidigt har flera efterfrågat något om stresshantering eftersom arbetsbelastningen är hög."
+      },
+      {
+        "speaker": "Magnus",
+        "text": "Då kan vi dela dagen i två block, ett tekniskt på förmiddagen och ett om välmående på eftermiddagen."
+      },
+      {
+        "speaker": "Zara",
+        "text": "Smart upplägg. Ska vi ta in en extern föreläsare för stressdelen eller klarar vi det själva?"
+      },
+      {
+        "speaker": "Magnus",
+        "text": "En extern expert ger nog mer tyngd, men det kostar förstås mer. Vi får kolla mot budgeten."
+      },
+      {
+        "speaker": "Zara",
+        "text": "Jag stämmer av med chefen imorgon. Under tiden kan du boka en lokal som rymmer hela avdelningen."
+      },
+      {
+        "speaker": "Magnus",
+        "text": "Visst. Ska vi sikta på den sista fredagen i månaden så att alla hinner planera in det i kalendern?"
+      },
+      {
+        "speaker": "Zara",
+        "text": "Perfekt. Då skickar vi ut en preliminär inbjudan i veckan och justerar detaljerna efterhand."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kämpar många i teamet med enligt Magnus?",
+        "options": [
+          "Schemat",
+          "Resorna",
+          "Telefonerna",
+          "Det nya datasystemet"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad har flera medarbetare efterfrågat?",
+        "options": [
+          "Fler raster",
+          "Nya datorer",
+          "Högre lön",
+          "Något om stresshantering"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Varför tvekar de att ta in en extern föreläsare?",
+        "options": [
+          "Det tar för lång tid",
+          "Lokalen är för liten",
+          "Det kostar mer",
+          "Ingen är intresserad"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "d-dia-021",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Vännerna Theodor och Ruth diskuterar sjukvården efter ett besök på akuten.",
+    "transcript": [
+      {
+        "speaker": "Ruth",
+        "text": "Theodor, jag satt på akuten i nästan sex timmar igår innan jag fick träffa en läkare."
+      },
+      {
+        "speaker": "Theodor",
+        "text": "Det är alldeles för länge. Personalen gör säkert sitt bästa, men systemet verkar vara hårt belastat."
+      },
+      {
+        "speaker": "Ruth",
+        "text": "Precis. En sjuksköterska berättade att de saknar flera kollegor på grund av sjukskrivningar."
+      },
+      {
+        "speaker": "Theodor",
+        "text": "Det är en ond cirkel. När färre ska göra mer ökar stressen, och då blir ännu fler sjuka."
+      },
+      {
+        "speaker": "Ruth",
+        "text": "Sant. Jag tycker att politikerna borde satsa mer på att behålla personalen, inte bara anställa nya."
+      },
+      {
+        "speaker": "Theodor",
+        "text": "Håller med. Bättre arbetsvillkor och rimliga scheman skulle nog locka tillbaka många som slutat."
+      },
+      {
+        "speaker": "Ruth",
+        "text": "Förresten, hur var det egentligen, fick du rätt vård till slut trots väntan?"
+      },
+      {
+        "speaker": "Theodor",
+        "text": "Ja, när jag väl kom in var läkaren både kunnig och vänlig. Det är väntetiden som är problemet."
+      },
+      {
+        "speaker": "Ruth",
+        "text": "Just det. Själva vården håller hög kvalitet, men vägen dit är alldeles för lång och tröttsam."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur länge fick Ruth vänta på akuten?",
+        "options": [
+          "Nästan sex timmar",
+          "En hel dag",
+          "Fyra timmar",
+          "Två timmar"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad är orsaken till personalbristen enligt sjuksköterskan?",
+        "options": [
+          "Semestrar",
+          "Strejk",
+          "Sjukskrivningar",
+          "Utbildning"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad anser de båda om själva vårdens kvalitet?",
+        "options": [
+          "Den är farlig",
+          "Den håller hög kvalitet",
+          "Den är dålig",
+          "Den är för dyr"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "d-dia-022",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Kollegorna Felix och Amina förbereder en löneförhandling inför ett möte med ledningen.",
+    "transcript": [
+      {
+        "speaker": "Amina",
+        "text": "Felix, vi behöver en gemensam strategi inför mötet. Ledningen brukar avfärda krav som inte är väl underbyggda."
+      },
+      {
+        "speaker": "Felix",
+        "text": "Du har rätt. Jag har tagit fram statistik som visar att vår avdelning levererat tjugo procent mer än förra året."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Utmärkt. Då kan vi argumentera för att lönerna borde spegla den ökade produktiviteten."
+      },
+      {
+        "speaker": "Felix",
+        "text": "Exakt. Vi bör också jämföra med vad liknande tjänster betalar hos andra arbetsgivare i branschen."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Bra poäng. Om vi ligger under marknadsnivå blir det svårt för dem att säga nej helt."
+      },
+      {
+        "speaker": "Felix",
+        "text": "Vi måste ändå vara realistiska. Om vi kräver för mycket riskerar vi att de stänger dörren direkt."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Sant. Låt oss sätta ett tydligt mål men ha ett lägsta acceptabelt resultat i bakfickan."
+      },
+      {
+        "speaker": "Felix",
+        "text": "Klokt. Då uppträder vi enat och sansat, det brukar ge bäst resultat i en förhandling."
+      },
+      {
+        "speaker": "Amina",
+        "text": "Helt enig. Vi går igenom siffrorna en sista gång ikväll så att vi står stadigt imorgon."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur mycket mer har avdelningen levererat enligt statistiken?",
+        "options": [
+          "Tjugo procent",
+          "Femton procent",
+          "Tio procent",
+          "Trettio procent"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad vill de jämföra med utöver produktiviteten?",
+        "options": [
+          "Andra länders skatter",
+          "Antalet anställda",
+          "Företagets historia",
+          "Marknadslönen i branschen"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vad vill Amina ha i bakfickan inför förhandlingen? Skriv ditt svar.",
+        "accept": [
+          "Ett lägsta acceptabelt resultat",
+          "En lägsta nivå",
+          "Ett minimikrav",
+          "En lägstanivå",
+          "Ett lägsta resultat"
+        ]
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "d-dia-023",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Grannarna Gustav och Selma diskuterar ett förslag om att bilda en samfällighet.",
+    "transcript": [
+      {
+        "speaker": "Selma",
+        "text": "Gustav, flera grannar vill bilda en samfällighet för att tillsammans sköta vägen och grönområdet."
+      },
+      {
+        "speaker": "Gustav",
+        "text": "Det kan vara klokt. Just nu är det otydligt vem som ansvarar när vägen behöver lagas på vintern."
+      },
+      {
+        "speaker": "Selma",
+        "text": "Precis mitt problem. Förra året fick jag betala snöröjningen själv eftersom ingen annan ville ta tag i det."
+      },
+      {
+        "speaker": "Gustav",
+        "text": "Det är ju orättvist. Med en samfällighet skulle alla dela på kostnaderna och ansvaret rättvist."
+      },
+      {
+        "speaker": "Selma",
+        "text": "Samtidigt innebär det fler möten och papper. Vissa grannar tycker nog att det blir för byråkratiskt."
+      },
+      {
+        "speaker": "Gustav",
+        "text": "Det stämmer, men i längden sparar vi både pengar och konflikter om vi har tydliga regler."
+      },
+      {
+        "speaker": "Selma",
+        "text": "Du har en poäng. Ska vi kalla till ett informationsmöte så att alla kan ställa sina frågor först?"
+      },
+      {
+        "speaker": "Gustav",
+        "text": "Bra idé. Då får tveksamma grannar chans att förstå fördelarna innan vi röstar om förslaget."
+      },
+      {
+        "speaker": "Selma",
+        "text": "Perfekt. Jag bokar bygdegården till nästa torsdag och sätter upp en inbjudan i brevlådorna."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad vill grannarna bilda en samfällighet för att sköta?",
+        "options": [
+          "Vägen och grönområdet",
+          "En parkering",
+          "En lekplats",
+          "Ett gym"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad fick Selma betala själv förra året?",
+        "options": [
+          "Snöröjningen",
+          "Vägbelysningen",
+          "Gräsklippningen",
+          "Sophämtningen"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilken nackdel med en samfällighet nämns?",
+        "options": [
+          "Den blir för byråkratisk",
+          "Den är olaglig",
+          "Ingen vill bo kvar",
+          "Den är gratis"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "d-dia-024",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Vännerna Daniel och Yara diskuterar en nyhet om klimatåtgärder i deras stad.",
+    "transcript": [
+      {
+        "speaker": "Yara",
+        "text": "Daniel, har du hört att kommunen vill göra hela centrum bilfritt inom tre år?"
+      },
+      {
+        "speaker": "Daniel",
+        "text": "Ja, det är ett djärvt förslag. Jag tror det blir bra för luften, men många handlare protesterar redan."
+      },
+      {
+        "speaker": "Yara",
+        "text": "De är rädda att förlora kunder. Samtidigt visar studier att gågator ofta lockar fler besökare på sikt."
+      },
+      {
+        "speaker": "Daniel",
+        "text": "Det stämmer. Folk stannar längre och handlar mer när de slipper trängas med bilar och avgaser."
+      },
+      {
+        "speaker": "Yara",
+        "text": "Frågan är hur de som bor utanför stan ska ta sig in. Kollektivtrafiken måste byggas ut rejält först."
+      },
+      {
+        "speaker": "Daniel",
+        "text": "Absolut. Annars drabbas de som redan har långt till jobbet, och då blir förslaget orättvist."
+      },
+      {
+        "speaker": "Yara",
+        "text": "Precis. Jag tycker idén är god, men genomförandet måste ske stegvis och med eftertanke."
+      },
+      {
+        "speaker": "Daniel",
+        "text": "Håller med. Om man tvingar fram förändringen för snabbt riskerar man att förlora folkets stöd helt."
+      },
+      {
+        "speaker": "Yara",
+        "text": "Just det. En bra reform behöver både mod och tålamod för att verkligen lyckas i längden."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad vill kommunen göra med centrum?",
+        "options": [
+          "Göra det bilfritt",
+          "Höja parkeringsavgifterna",
+          "Riva gamla hus",
+          "Bygga fler parkeringar"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför protesterar handlarna?",
+        "options": [
+          "De är rädda att förlora kunder",
+          "De gillar inte luften",
+          "De vill ha fler bilar",
+          "De vill ha högre hyror"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad anser Yara och Daniel om hur förslaget bör genomföras?",
+        "options": [
+          "Inte alls",
+          "Bara på prov en vecka",
+          "Så snabbt som möjligt",
+          "Stegvis och med eftertanke"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "d-dia-025",
+    "course": "D",
+    "type": "dialogue",
+    "intro": "Medarbetaren Elias diskuterar möjligheten att jobba hemifrån med sin chef Hanna.",
+    "transcript": [
+      {
+        "speaker": "Elias",
+        "text": "Hanna, jag ville prata om möjligheten att arbeta hemifrån några dagar i veckan framöver."
+      },
+      {
+        "speaker": "Hanna",
+        "text": "Det är en fråga som flera har tagit upp. Vad är din främsta anledning till önskemålet?"
+      },
+      {
+        "speaker": "Elias",
+        "text": "Jag pendlar nästan två timmar varje dag, och den tiden skulle jag hellre lägga på faktiskt arbete."
+      },
+      {
+        "speaker": "Hanna",
+        "text": "Jag förstår det. Samtidigt är vissa av dina uppgifter beroende av att du finns på plats med teamet."
+      },
+      {
+        "speaker": "Elias",
+        "text": "Det är sant. Jag tänkte mig kanske två dagar hemma och tre på kontoret för att behålla samarbetet."
+      },
+      {
+        "speaker": "Hanna",
+        "text": "Det låter som en rimlig balans. Vi måste dock säkerställa att du är nåbar under arbetstid."
+      },
+      {
+        "speaker": "Elias",
+        "text": "Självklart. Jag är alltid tillgänglig via chatt och telefon, precis som om jag satt på kontoret."
+      },
+      {
+        "speaker": "Hanna",
+        "text": "Bra. Då provar vi det här under tre månader och utvärderar sedan hur det har fungerat för alla."
+      },
+      {
+        "speaker": "Elias",
+        "text": "Tack så mycket, Hanna. Det här kommer verkligen att underlätta min vardag betydligt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är Elias främsta skäl till att vilja jobba hemifrån?",
+        "options": [
+          "Han trivs inte med kollegorna",
+          "Kontoret är för litet",
+          "Han vill spara på lunchen",
+          "Han pendlar två timmar om dagen"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilket upplägg föreslår Elias?",
+        "options": [
+          "Fem dagar hemma",
+          "Bara på fredagar",
+          "Aldrig på kontoret",
+          "Två dagar hemma, tre på kontoret"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Hur länge ska de testa den nya lösningen innan de utvärderar? Skriv ditt svar.",
+        "accept": [
+          "Tre månader",
+          "I tre månader",
+          "Under tre månader",
+          "3 månader",
+          "Tre månaders prov"
+        ]
+      }
+    ],
+    "sort_order": 24
+  }
+]

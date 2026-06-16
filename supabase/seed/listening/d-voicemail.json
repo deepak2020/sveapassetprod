@@ -1,0 +1,1137 @@
+[
+  {
+    "id": "d-rost-001",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Du har ett meddelande från en handläggare på Försäkringskassan.",
+    "transcript": [
+      {
+        "speaker": "Handläggare Camilla Sjöberg",
+        "text": "Hej, det här är Camilla Sjöberg, handläggare på Försäkringskassan. Jag ringer angående din ansökan om föräldrapenning som kom in den tredje mars. Tyvärr saknar vi ett läkarintyg för perioden från den första april, och utan det kan vi inte fatta beslut i ditt ärende. Du behöver logga in på Mina sidor och ladda upp intyget senast den tjugonde maj, annars måste vi avslå ansökan. Har du frågor kan du ringa mig på vardagar mellan nio och elva. Mitt direktnummer hittar du i brevet vi skickade förra veckan. Tack, och ha en fortsatt bra dag."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket dokument saknas i ärendet?",
+        "options": [
+          "Ett läkarintyg",
+          "En kopia av passet",
+          "Ett anställningsbevis",
+          "Ett kontoutdrag"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad händer om intyget inte kommer in i tid?",
+        "options": [
+          "Ärendet flyttas till en annan myndighet",
+          "Beslutet skjuts upp ett år",
+          "Beloppet halveras",
+          "Ansökan avslås"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "När kan man nå handläggaren?",
+        "options": [
+          "Endast via mejl",
+          "Vardagar mellan nio och elva",
+          "Helger mellan nio och elva",
+          "Varje dag efter klockan tre"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "d-rost-002",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Mäklaren har lämnat ett meddelande om en visning.",
+    "transcript": [
+      {
+        "speaker": "Mäklare Henrik Dahl",
+        "text": "Hej, Henrik Dahl heter jag och jag är mäklare på Bostadsbyrån. Tack för ditt intresse för trerummaren på Storgatan tjugotvå. Vi har en extra visning på söndag klockan fjorton, eftersom intresset varit stort. Jag vill bara förvarna om att lägenheten redan har flera spekulanter, och en budgivning lär starta direkt efter helgen. Om du vill delta behöver du ha ett lånelöfte klart i förväg. Hör gärna av dig innan fredag så jag vet om jag ska räkna med dig på söndag. Du når mig på det här numret hela veckan. Hej så länge!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gäller meddelandet?",
+        "options": [
+          "Ett kontraktsmöte",
+          "En inställd visning",
+          "En extra visning på söndag",
+          "En sänkning av priset"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad bör spekulanten ordna i förväg?",
+        "options": [
+          "Ett hemförsäkringsavtal",
+          "Ett lånelöfte",
+          "En besiktningsman",
+          "En flyttfirma"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad antyder mäklaren om försäljningen?",
+        "options": [
+          "Att det blir en budgivning med konkurrens",
+          "Att visningen kan ställas in",
+          "Att lägenheten är svårsåld",
+          "Att priset kommer att sänkas"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "d-rost-003",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Du har sökt ett jobb och får ett besked.",
+    "transcript": [
+      {
+        "speaker": "Rekryterare Maria Ek",
+        "text": "Hej, det här är Maria Ek från HR-avdelningen på Nordpharma. Jag ringer med anledning av tjänsten som projektledare som du intervjuades för i tisdags. Det är med stor glädje jag kan meddela att vi vill erbjuda dig tjänsten. Lönen vi föreslår ligger på fyrtiotvå tusen i månaden, med möjlighet till revision efter sex månader. Vi tänker oss tillträde den första september. Jag mejlar över ett skriftligt erbjudande i dag, och vi behöver ditt svar senast nästa fredag. Ring mig gärna om du har frågor om villkoren. Stort grattis, och jag hoppas verkligen att du tackar ja!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket besked ger rekryteraren?",
+        "options": [
+          "En kallelse till en ny intervju",
+          "Ett avslag",
+          "En begäran om referenser",
+          "Ett erbjudande om jobbet"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad är den föreslagna ingångslönen?",
+        "options": [
+          "Trettioåtta tusen",
+          "Trettiotvå tusen",
+          "Fyrtiotvå tusen",
+          "Fyrtiosju tusen"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "När ska den sökande senast lämna svar? Skriv ditt svar.",
+        "accept": [
+          "nästa fredag",
+          "fredag",
+          "senast nästa fredag",
+          "på fredag",
+          "i fredag"
+        ]
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "d-rost-004",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Din advokat har lämnat ett meddelande.",
+    "transcript": [
+      {
+        "speaker": "Advokat Olof Persson",
+        "text": "God dag, det här är advokat Olof Persson. Jag ringer i ditt ärende mot hyresvärden gällande den nekade återbetalningen av depositionen. Jag har nu gått igenom samtliga handlingar, och min bedömning är att du har en god chans att vinna om vi går vidare till hyresnämnden. Innan dess vill jag dock föreslå ett förlikningsmöte, vilket ofta är både snabbare och billigare. Vi har fått en preliminär tid den tolfte juni. Jag behöver veta om du vill att jag bokar den, samt om du kan skicka över hyreskontraktet i original. Ring mig gärna tillbaka så går vi igenom strategin. Tack."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad handlar ärendet om?",
+        "options": [
+          "En obetald faktura",
+          "En uppsägning från jobbet",
+          "En vårdnadstvist",
+          "En nekad återbetalning av deposition"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad föreslår advokaten i första hand?",
+        "options": [
+          "Ett förlikningsmöte",
+          "En polisanmälan",
+          "Att avskriva ärendet",
+          "En rättegång"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad ska klienten skicka över?",
+        "options": [
+          "Lönebesked",
+          "En kopia på passet",
+          "Ett läkarintyg",
+          "Hyreskontraktet i original"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "d-rost-005",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Vårdcentralen ringer om dina provsvar.",
+    "transcript": [
+      {
+        "speaker": "Läkare Sofia Lund",
+        "text": "Hej, det här är doktor Sofia Lund från Vårdcentralen Söder. Jag ringer angående de blodprover du lämnade förra veckan. De flesta värdena ser bra ut, men ett av järnvärdena är lite lägre än normalt, och jag vill gärna prata med dig om det. Det är ingenting akut, men jag rekommenderar att vi följer upp med ett nytt prov om en månad. Jag skulle uppskatta om du ringde upp mottagningen så bokar vi en telefontid. Försök att höra av dig under de närmaste dagarna. Du når oss på växeln vardagar mellan åtta och sexton. Ha det bra så länge."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför ringer läkaren?",
+        "options": [
+          "För att avboka en operation",
+          "För att skicka en remiss",
+          "För att förnya ett recept",
+          "För att gå igenom provsvar"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur allvarligt verkar resultatet vara?",
+        "options": [
+          "Helt utan anmärkning",
+          "Mycket akut",
+          "Livshotande",
+          "Inget akut, men värt att följa upp"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad ska patienten göra?",
+        "options": [
+          "Ringa upp mottagningen",
+          "Åka direkt till akuten",
+          "Vänta på ett brev",
+          "Byta vårdcentral"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "d-rost-006",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Banken ringer om din bolåneansökan.",
+    "transcript": [
+      {
+        "speaker": "Banktjänsteman Anders Berg",
+        "text": "Hej, Anders Berg heter jag och jag ringer från Svenska Banken angående din ansökan om bolån. Vi har nu gjort en bedömning, och jag kan glädja dig med att du är beviljad ett lånelöfte på upp till två komma sex miljoner kronor. Räntan vi kan erbjuda just nu ligger på fyra komma två procent bunden på tre år. För att gå vidare behöver vi att du och din medsökande skriver under några handlingar, helst på vårt kontor. Lånelöftet gäller i tre månader från i dag. Boka gärna en tid med mig så snart ni hittat ett objekt. Hör av dig om något är oklart!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket besked ger banktjänstemannen?",
+        "options": [
+          "Kontot är spärrat",
+          "Ett lånelöfte är beviljat",
+          "Ansökan är avslagen",
+          "Räntan har höjts kraftigt"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur länge gäller lånelöftet?",
+        "options": [
+          "Sex månader",
+          "Tre månader",
+          "Ett år",
+          "En månad"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vilket maxbelopp är beviljat? Skriv ditt svar.",
+        "accept": [
+          "2,6 miljoner",
+          "två komma sex miljoner",
+          "2.6 miljoner",
+          "2600000",
+          "2 600 000 kronor",
+          "2,6 miljoner kronor"
+        ]
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "d-rost-007",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En kollega ringer om ett gemensamt projekt.",
+    "transcript": [
+      {
+        "speaker": "Kollega Johan Strand",
+        "text": "Hej, det är Johan. Jag ringer om rapporten till kunden som ska vara klar på torsdag. Jag har precis fått veta att kunden vill tidigarelägga mötet till onsdag förmiddag i stället, vilket betyder att vi behöver ha allt klart redan tisdag kväll. Jag har gjort klart min del med siffrorna, men jag saknar fortfarande din sammanfattning och slutsatserna. Skulle du kunna skicka över det senast i morgon eftermiddag? Annars hinner jag inte sätta ihop helheten i tid. Hör av dig om du är pressad så löser vi det tillsammans, kanske kan jag ta en del av texten. Tack, och ha en bra kväll!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför har tidsplanen ändrats?",
+        "options": [
+          "Chefen har bytt prioriteringar",
+          "Kunden vill tidigarelägga mötet",
+          "En kollega är sjuk",
+          "Datorerna ligger nere"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad saknar Johan från mottagaren?",
+        "options": [
+          "Siffrorna",
+          "Sammanfattningen och slutsatserna",
+          "Kundens kontaktuppgifter",
+          "En bokad konferenslokal"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad erbjuder sig Johan att göra om mottagaren är pressad?",
+        "options": [
+          "Skjuta upp mötet",
+          "Be chefen om hjälp",
+          "Avboka kunden",
+          "Ta en del av texten"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "d-rost-008",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Försäkringsbolaget ringer om ett ärende.",
+    "transcript": [
+      {
+        "speaker": "Skadereglerare Lina Holm",
+        "text": "Hej, det här är Lina Holm, skadereglerare på Trygg Försäkring. Jag ringer angående din anmälan om vattenskadan i badrummet som du gjorde i förra månaden. Vi har nu fått besiktningsmannens rapport, och skadan omfattas av din hemförsäkring. Du har dock en självrisk på tre tusen femhundra kronor som dras av från ersättningen. Innan vi kan betala ut behöver jag att du skickar in kvitton på de saker som förstörts, samt en offert från en hantverkare för reparationen. Mejla gärna allt till mig direkt. Återkom inom två veckor, annars riskerar ärendet att läggas på is. Hör av dig vid frågor!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gäller ärendet?",
+        "options": [
+          "En bilskada",
+          "En brand i köket",
+          "En stöld",
+          "En vattenskada i badrummet"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur stor är självrisken?",
+        "options": [
+          "Sju tusen kronor",
+          "Tusen femhundra kronor",
+          "Fem tusen kronor",
+          "Tre tusen femhundra kronor"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad ska kunden skicka in?",
+        "options": [
+          "Kvitton och en offert från en hantverkare",
+          "En kopia på hyreskontraktet",
+          "Endast ett polisintyg",
+          "Ett nytt försäkringsavtal"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "d-rost-009",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Hyresvärden ringer om en kommande besiktning.",
+    "transcript": [
+      {
+        "speaker": "Hyresvärd Patrik Nyström",
+        "text": "Hej, det här är Patrik Nyström, din hyresvärd. Jag ringer för att meddela att vi kommer att göra en besiktning av din lägenhet inför din avflyttning. Vi har bokat in den till torsdag den artonde klockan tio. Det är viktigt att du är hemma, eller att du ser till att någon kan släppa in oss. Tänk på att lägenheten ska vara tömd och städad, och att eventuella hål i väggarna ska vara lagade. Om vi hittar skador utöver normalt slitage kan kostnaden dras från depositionen. Hör av dig snarast om tiden inte passar, så bokar vi om. Tack på förhand!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är syftet med besiktningen?",
+        "options": [
+          "Att byta lås",
+          "Att kontrollera lägenheten inför avflyttning",
+          "Att installera nya fönster",
+          "Att höja hyran"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad krävs av hyresgästen vid besiktningen?",
+        "options": [
+          "Att lägenheten är tömd och städad",
+          "Att hyran är förskottsbetald",
+          "Att möblerna står kvar",
+          "Att en granne är närvarande"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad kan hända om man hittar skador utöver normalt slitage?",
+        "options": [
+          "Kostnaden dras från depositionen",
+          "Inget händer",
+          "Hyresgästen får en varning",
+          "Kontraktet förlängs automatiskt"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "d-rost-010",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En kursledare ringer om din utbildning.",
+    "transcript": [
+      {
+        "speaker": "Kursledare Eva Bergström",
+        "text": "Hej, det här är Eva Bergström, kursledare för utbildningen i projektledning. Jag ringer eftersom jag har sett att du missade examinationsuppgiften som skulle lämnas in i fredags. För att bli godkänd på kursen måste alla tre uppgifter vara inlämnade och godkända. Jag kan ge dig en sista chans att komplettera, men då behöver jag ha din uppgift senast nästa onsdag. Skickar du inte in den blir du tyvärr underkänd och får göra om hela momentet nästa termin. Hör gärna av dig om du har stött på problem eller behöver handledning, så bokar vi en tid. Lycka till med kompletteringen!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Varför ringer kursledaren?",
+        "options": [
+          "För att avboka kursen",
+          "För att flytta fram tentamen",
+          "För att en uppgift inte lämnats in",
+          "För att gratulera till ett godkänt resultat"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad händer om uppgiften inte kommer in i tid?",
+        "options": [
+          "Studenten får ett lägre betyg",
+          "Kursen avslutas tidigare",
+          "Ingenting",
+          "Studenten blir underkänd och får göra om momentet"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "När ska kompletteringen senast lämnas in? Skriv ditt svar.",
+        "accept": [
+          "nästa onsdag",
+          "onsdag",
+          "senast nästa onsdag",
+          "på onsdag",
+          "i onsdag"
+        ]
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "d-rost-011",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En handläggare på kommunen ringer om ett bidrag.",
+    "transcript": [
+      {
+        "speaker": "Handläggare Karin Öberg",
+        "text": "Hej, det här är Karin Öberg, handläggare på socialförvaltningen i kommunen. Jag ringer angående din ansökan om ekonomiskt bistånd för maj månad. Vi har gått igenom dina underlag, men vi behöver kompletterande uppgifter innan vi kan fatta beslut. Konkret saknar vi kontoutdrag för samtliga konton de senaste tre månaderna, samt en kopia på ditt senaste hyresavtal. Du kan antingen lämna in det på vårt kontor eller ladda upp det via e-tjänsten. Vi behöver handlingarna senast den tjugofemte, annars måste vi pausa ärendet. Du är välkommen att boka ett besök om du behöver hjälp med ansökan. Hej då!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gäller ärendet?",
+        "options": [
+          "En ansökan om ekonomiskt bistånd",
+          "Ett körkortstillstånd",
+          "En bostadsansökan",
+          "En skattedeklaration"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilka handlingar saknas?",
+        "options": [
+          "Ett arbetsgivarintyg",
+          "Ett läkarintyg",
+          "Kontoutdrag och en kopia på hyresavtalet",
+          "Endast ett pass"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad händer om handlingarna inte kommer in i tid?",
+        "options": [
+          "Beloppet höjs",
+          "Ansökan godkänns ändå",
+          "Man kallas till möte",
+          "Ärendet pausas"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "d-rost-012",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En verkstad ringer om din bil.",
+    "transcript": [
+      {
+        "speaker": "Bilmekaniker Tomas Falk",
+        "text": "Hej, det här är Tomas på Bilverkstan. Jag ringer om din bil som du lämnade in för service i går. Vi har hittat ett problem som vi inte räknade med: bromsskivorna är så slitna att de måste bytas, annars är bilen inte trafiksäker. Det innebär en extra kostnad på ungefär fyra tusen kronor utöver det vi pratade om. Jag vill inte göra något utan ditt godkännande, så ring gärna tillbaka så snart du kan. Om jag får klartecken i dag hinner bilen bli klar till i morgon eftermiddag, annars dröjer det till nästa vecka eftersom vi måste beställa hem delarna. Hör av dig!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket problem har upptäckts?",
+        "options": [
+          "En punktering",
+          "Slut på olja",
+          "Ett trasigt batteri",
+          "Slitna bromsskivor"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Varför ringer mekanikern innan han fortsätter?",
+        "options": [
+          "Han har tappat bort bilnyckeln",
+          "Verkstaden ska stänga",
+          "Han vill ha kundens godkännande för extrakostnaden",
+          "Han vill boka en ny tid"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad krävs för att bilen ska bli klar redan till i morgon?",
+        "options": [
+          "Att bilen flyttas till en annan verkstad",
+          "Att kunden ger klartecken redan i dag",
+          "Att kunden betalar kontant",
+          "Att kunden hämtar delar själv"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "d-rost-013",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En rekryterare ringer med ett avslag.",
+    "transcript": [
+      {
+        "speaker": "Rekryterare David Holm",
+        "text": "Hej, det här är David Holm från Talangbyrån. Jag ringer angående tjänsten som ekonomiassistent som du sökte och intervjuades för. Först och främst vill jag tacka för din tid och ditt engagemang under processen. Tyvärr har vi beslutat att gå vidare med en annan kandidat den här gången, framför allt på grund av att tjänsten kräver mer erfarenhet av just bokslut. Jag vill ändå säga att du gjorde ett mycket gott intryck, och vi skulle gärna höra av oss om en liknande roll dyker upp framöver. Om du vill kan jag ge dig återkoppling på intervjun, så ring mig gärna. Lycka till i ditt sökande!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilket besked ger rekryteraren?",
+        "options": [
+          "Ett avslag",
+          "Ett jobberbjudande",
+          "En begäran om referenser",
+          "En ny intervjutid"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad var huvudskälet till beslutet?",
+        "options": [
+          "Tjänsten krävde mer erfarenhet av bokslut",
+          "Kandidaten kom för sent",
+          "Tjänsten drogs in",
+          "Lönekraven var för höga"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad antyder rekryteraren om framtiden?",
+        "options": [
+          "Att företaget ska läggas ner",
+          "Att kandidaten aldrig bör söka igen",
+          "Att de gärna hör av sig vid en liknande roll",
+          "Att kandidaten bör byta yrke"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "d-rost-014",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Tandläkarmottagningen ringer om en behandling.",
+    "transcript": [
+      {
+        "speaker": "Tandhygienist Nina Falk",
+        "text": "Hej, det här är Nina Falk från Tandvårdscentralen. Jag ringer angående din undersökning förra veckan. Tandläkaren har gått igenom röntgenbilderna och ser att du behöver laga en tand i underkäken innan det blir värre. Vi föreslår en tid redan nästa vecka, eftersom det annars finns risk att problemet sprider sig. Behandlingen tar ungefär en timme och kostnaden landar på runt två tusen kronor efter avdraget i tandvårdsstödet. Ring oss gärna under dagtid så bokar vi in en tid som passar dig. Tänk på att vi har ganska fullt just nu, så ju tidigare du hör av dig desto bättre. Ha en bra dag!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad behöver patienten göra?",
+        "options": [
+          "Laga en tand i underkäken",
+          "Dra ut en visdomstand",
+          "Boka en ny röntgen",
+          "Byta tandläkare"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför bör patienten boka tid snart?",
+        "options": [
+          "Problemet kan sprida sig",
+          "Priset höjs nästa månad",
+          "Mottagningen ska stänga",
+          "Erbjudandet går ut"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Ungefär hur mycket kostar behandlingen efter tandvårdsstödet? Skriv ditt svar.",
+        "accept": [
+          "2000 kronor",
+          "två tusen kronor",
+          "runt 2000",
+          "ca 2000 kr",
+          "cirka två tusen",
+          "2000 kr"
+        ]
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "d-rost-015",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En handläggare på Arbetsförmedlingen ringer.",
+    "transcript": [
+      {
+        "speaker": "Arbetsförmedlare Said Ahmadi",
+        "text": "Hej, det här är Said Ahmadi, din handläggare på Arbetsförmedlingen. Jag ringer för att kalla dig till ett uppföljningsmöte om din handlingsplan. Vi har bokat en tid den fjärde juni klockan tretton på vårt kontor i centrum. Det är viktigt att du kommer, eftersom det är ett villkor för din ersättning. Ta gärna med dig en uppdaterad lista över de jobb du sökt sedan vårt förra möte. Om tiden inte passar måste du höra av dig minst två dagar i förväg, annars riskerar du att din ersättning påverkas. Du når mig enklast via mejl eller på telefon på förmiddagarna. Tack, och vi ses snart!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad kallas personen till?",
+        "options": [
+          "En utbildning",
+          "En kurs i CV-skrivning",
+          "Ett uppföljningsmöte om handlingsplanen",
+          "En anställningsintervju"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad ska personen ta med sig?",
+        "options": [
+          "Ett kontoutdrag",
+          "Ett läkarintyg",
+          "En lista över sökta jobb",
+          "Ett pass"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad händer om man uteblir utan att avboka i tid?",
+        "options": [
+          "Ersättningen kan påverkas",
+          "Inget alls",
+          "Mötet flyttas automatiskt",
+          "Man får en ny handläggare"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "d-rost-016",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Ett resebolag ringer om en ändring i din resa.",
+    "transcript": [
+      {
+        "speaker": "Resekoordinator Petra Wikström",
+        "text": "Hej, det här är Petra Wikström från Resespecialisten. Jag ringer tyvärr med tråkiga nyheter om din resa till Italien nästa månad. Flygbolaget har ställt in ert ursprungliga flyg på lördagsmorgonen, och vi har bokat om er till en avgång samma kväll klockan nitton. Det innebär att ni anländer först sent på natten, men hotellet är informerat. Vill ni i stället ha pengarna tillbaka för flyget har ni rätt till det, men då behöver ni meddela oss inom sju dagar. Hör av er och berätta hur ni vill göra, så ordnar jag det. Jag är på kontoret hela veckan. Ursäkta besväret, och hör gärna av er snart!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har hänt med resan?",
+        "options": [
+          "Det ursprungliga flyget är inställt",
+          "Priset har höjts",
+          "Hotellet är överbokat",
+          "Resan är helt avbokad"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilket alternativ erbjuds förutom ombokningen?",
+        "options": [
+          "En annan destination",
+          "En uppgradering till business",
+          "Pengarna tillbaka för flyget",
+          "En gratis hotellnatt"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Inom vilken tid måste resenärerna svara om de vill ha pengarna tillbaka?",
+        "options": [
+          "Tre dagar",
+          "Sju dagar",
+          "En månad",
+          "Två veckor"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "d-rost-017",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Din chef ringer om en omorganisation.",
+    "transcript": [
+      {
+        "speaker": "Chef Annika Lund",
+        "text": "Hej, det är Annika. Jag ville ge dig en heads-up innan vi ses i morgon. Som du kanske hört går vi igenom en omorganisation, och din avdelning slås ihop med marknadsteamet från första augusti. För dig innebär det inga negativa förändringar, snarare tvärtom: jag vill erbjuda dig en ny roll som teamledare med personalansvar. Det följer med ett visst ansvar och en löneförhöjning. Jag vill gärna prata igenom detaljerna på vårt möte klockan nio i morgon. Fundera på om du är intresserad innan dess, och ring mig om du har frågor i kväll. Vi hörs!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad meddelar chefen om avdelningen?",
+        "options": [
+          "Den får en ny chef",
+          "Den flyttar utomlands",
+          "Den läggs ner",
+          "Den slås ihop med marknadsteamet"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad erbjuds medarbetaren?",
+        "options": [
+          "En ny roll som teamledare",
+          "En avgångsersättning",
+          "En förflyttning till ett annat kontor",
+          "En tjänstledighet"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Hur framställer chefen förändringen för medarbetaren?",
+        "options": [
+          "Som tillfälligt",
+          "Som oviktigt",
+          "Som något negativt",
+          "Som något positivt"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "d-rost-018",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En advokat ringer om ett testamente och arv.",
+    "transcript": [
+      {
+        "speaker": "Jurist Birgitta Sandell",
+        "text": "God dag, det här är Birgitta Sandell, jurist på Familjerättsbyrån. Jag ringer i egenskap av ombud för dödsboet efter din avlidne morbror. Som en av arvtagarna behöver du skriva under bouppteckningen innan vi kan gå vidare med arvskiftet. Jag har skickat handlingarna med posten i dag, och jag behöver dem signerade i retur senast den trettionde. Det finns även en fastighet i boet som ni dödsbodelägare gemensamt måste besluta om: antingen säljs den och beloppet fördelas, eller så löser någon ut de övriga. Jag föreslår att vi bokar ett möte för att diskutera detta. Ring mig gärna under kontorstid. Mitt deltagande beklagar jag förlusten."
+      }
+    ],
+    "questions": [
+      {
+        "q": "I vilket sammanhang ringer juristen?",
+        "options": [
+          "Ett företagsköp",
+          "En hyrestvist",
+          "Ett dödsbo och arvskifte",
+          "En skilsmässa"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad måste arvtagaren göra?",
+        "options": [
+          "Skriva under bouppteckningen",
+          "Boka en begravning",
+          "Sälja sin bil",
+          "Betala en avgift"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vilket beslut måste dödsbodelägarna fatta om fastigheten?",
+        "options": [
+          "Om den ska säljas eller lösas ut",
+          "Om den ska hyras ut",
+          "Om den ska rivas",
+          "Om den ska skänkas bort"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "d-rost-019",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En läkare ringer med besked om en remiss.",
+    "transcript": [
+      {
+        "speaker": "Läkare Per Nyberg",
+        "text": "Hej, det här är doktor Per Nyberg från Vårdcentralen Norr. Jag ringer angående de undersökningar vi pratade om vid ditt senaste besök. Jag har nu skrivit en remiss till en specialist på sjukhuset för en närmare utredning av dina besvär. Du kommer att få en kallelse hemskickad, men det kan tyvärr dröja upp till sex veckor på grund av långa köer. Om dina symtom förvärras under tiden, framför allt om du får svårt att andas eller ihållande smärta, vill jag att du söker akut vård direkt. Annars avvaktar vi specialistens bedömning. Hör av dig till mottagningen om du har frågor. Ta hand om dig!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har läkaren gjort?",
+        "options": [
+          "Avskrivit ärendet",
+          "Skrivit en remiss till en specialist",
+          "Skrivit ut ett nytt recept",
+          "Bokat en operation"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur lång kan väntetiden på kallelsen bli?",
+        "options": [
+          "En vecka",
+          "Två dagar",
+          "Ett halvår",
+          "Upp till sex veckor"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "I vilka fall ska patienten söka akut vård? Skriv ditt svar.",
+        "accept": [
+          "om symtomen förvärras",
+          "vid andningssvårigheter",
+          "om man får svårt att andas",
+          "vid ihållande smärta",
+          "om besvären blir värre",
+          "om man får svårt att andas eller ihållande smärta"
+        ]
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "d-rost-020",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En mäklare ringer efter en budgivning.",
+    "transcript": [
+      {
+        "speaker": "Mäklare Sara Lindqvist",
+        "text": "Hej, det här är Sara Lindqvist på Hemmamäklarna. Jag ringer angående budgivningen på radhuset i Bromma som du var med och bjöd på. Det blev en intensiv kväll med fem budgivare, och jag måste tyvärr meddela att en annan köpare la ett högre bud på fyra miljoner sjuhundra tusen. Du valde att inte gå högre, vilket jag har full förståelse för. Jag ville ändå höra av mig personligen och tacka för ditt intresse. Vi har faktiskt ett liknande objekt i samma område på gång till salu om ett par veckor. Om du är intresserad kan jag förvarna dig innan det läggs ut. Hör gärna av dig så lägger jag upp dig på listan. Ha en fin dag!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är resultatet av budgivningen?",
+        "options": [
+          "Mottagaren vann budgivningen",
+          "Budgivningen ställdes in",
+          "En annan köpare la ett högre bud",
+          "Säljaren drog tillbaka huset"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad erbjuder mäklaren?",
+        "options": [
+          "Gratis flytthjälp",
+          "Att förvarna om ett liknande objekt",
+          "En rabatt på nästa köp",
+          "Att sänka priset"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur många budgivare var med?",
+        "options": [
+          "Tre",
+          "Fyra",
+          "Sex",
+          "Fem"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "d-rost-021",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En kursledare ringer om en distansutbildning.",
+    "transcript": [
+      {
+        "speaker": "Kursledare Markus Holmberg",
+        "text": "Hej, det här är Markus Holmberg, kursansvarig för distanskursen i svenska för yrkeslivet. Jag ringer för att informera om en viktig ändring. Vi har tyvärr blivit tvungna att flytta det obligatoriska seminariet från måndag till onsdag samma vecka, eftersom lokalen vi bokat inte längre är tillgänglig. Seminariet sker fortfarande på distans via länk, klockan sjutton till nitton. Länken hittar du i lärplattformen senast dagen innan. Eftersom seminariet är obligatoriskt och ligger till grund för betyget är det viktigt att du deltar. Kan du av någon anledning inte vara med behöver du höra av dig till mig i förväg så ordnar vi en ersättningsuppgift. Hör av dig vid frågor!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vilken ändring informerar kursledaren om?",
+        "options": [
+          "Betyget höjs för alla",
+          "Kursen blir på plats i stället",
+          "Kursen ställs in",
+          "Seminariet flyttas från måndag till onsdag"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Varför har ändringen gjorts?",
+        "options": [
+          "Läraren är sjuk",
+          "För få anmälda",
+          "Lokalen är inte tillgänglig",
+          "Tekniska problem"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad gäller om man inte kan delta?",
+        "options": [
+          "Inget särskilt",
+          "Man måste höra av sig i förväg för en ersättningsuppgift",
+          "Man får göra om hela kursen",
+          "Man blir automatiskt underkänd"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "d-rost-022",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "Försäkringsbolaget ringer om en bilförsäkring.",
+    "transcript": [
+      {
+        "speaker": "Handläggare Robert Ek",
+        "text": "Hej, det här är Robert Ek från Bilförsäkring Direkt. Jag ringer angående den skadeanmälan du gjorde efter krocken förra veckan. Vi har nu varit i kontakt med den andra parten, och tyvärr är skuldfrågan oklar eftersom era berättelser skiljer sig åt. För att komma vidare skulle det hjälpa oss mycket om du har några bilder från olycksplatsen, eller om det fanns vittnen som såg vad som hände. Har du sådana uppgifter, mejla dem till mig så snart du kan. Under tiden vill jag påminna om att din bil får repareras först när vi har gett klartecken, annars riskerar du att stå för kostnaden själv. Hör av dig, så löser vi det här tillsammans!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är problemet med ärendet?",
+        "options": [
+          "Skuldfrågan är oklar",
+          "Anmälan kom in för sent",
+          "Bilen är stulen",
+          "Premien är för låg"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad ber handläggaren kunden om?",
+        "options": [
+          "Bilder eller vittnesuppgifter",
+          "Ett nytt försäkringsavtal",
+          "En förskottsbetalning",
+          "En kopia av körkortet"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad riskerar kunden om bilen repareras utan klartecken?",
+        "options": [
+          "Att försäkringen sägs upp",
+          "Att själv få stå för kostnaden",
+          "Inget alls",
+          "Att bli polisanmäld"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "d-rost-023",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En handläggare på Skatteverket ringer.",
+    "transcript": [
+      {
+        "speaker": "Handläggare Yusuf Demir",
+        "text": "Hej, det här är Yusuf Demir, handläggare på Skatteverket. Jag ringer angående din inkomstdeklaration för förra året. Vi har upptäckt en uppgift som vi behöver få klarhet i, närmare bestämt ett avdrag för resor till och från arbetet som verkar väl högt i förhållande till din arbetsplats adress. Innan vi kan godkänna avdraget behöver vi att du skickar in underlag, till exempel kvitton eller en redogörelse för hur du har räknat. Du kan göra det enkelt via Mina sidor på vår webbplats. Vi behöver dina uppgifter inom tre veckor, annars kommer vi att ändra avdraget och fatta beslut utan dem. Hör av dig om du har frågor, så hjälper jag dig. Tack!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gäller ärendet?",
+        "options": [
+          "En ny folkbokföring",
+          "Ett företagskonto",
+          "Ett avdrag i deklarationen",
+          "En obetald skatt"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad ifrågasätter handläggaren?",
+        "options": [
+          "En lön",
+          "Ett avdrag för arbetsresor",
+          "En bostadsadress",
+          "En sjukskrivning"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad händer om kunden inte skickar in underlaget i tid?",
+        "options": [
+          "Personen kallas till möte",
+          "Ärendet avskrivs",
+          "Ingenting",
+          "Avdraget ändras och beslut fattas ändå"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "d-rost-024",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En kollega ringer om en konferens.",
+    "transcript": [
+      {
+        "speaker": "Kollega Helena Strand",
+        "text": "Hej, det är Helena. Jag ringer om konferensen i Göteborg nästa vecka som vi båda ska åka på. Det har blivit en del ändringar i programmet, och vår presentation har flyttats från eftermiddagen till klockan tio på torsdag förmiddag. Det betyder att vi måste ta ett tidigare tåg, redan halv sju på morgonen, för att hinna fram. Jag har preliminärt bokat biljetter åt oss båda men behöver veta om det funkar för dig innan jag betalar. Skulle du dessutom kunna ta med den uppdaterade versionen av presentationen på ett USB-minne som backup? Min dator har krånglat lite. Ring mig i kväll så stämmer vi av allt. Tack så mycket, vi hörs!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad har ändrats inför konferensen?",
+        "options": [
+          "Vilka som ska åka",
+          "Hotellet",
+          "Tiden för deras presentation",
+          "Platsen för konferensen"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Varför måste de ta ett tidigare tåg?",
+        "options": [
+          "Tåget är billigare på morgonen",
+          "Hotellet kräver tidig incheckning",
+          "Presentationen har flyttats till förmiddagen",
+          "De ska träffa en kund först"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Vad ber Helena kollegan ta med som backup? Skriv ditt svar.",
+        "accept": [
+          "ett USB-minne",
+          "presentationen på USB-minne",
+          "USB-minne med presentationen",
+          "en kopia på presentationen",
+          "presentationen på ett usb-minne",
+          "usb-minne"
+        ]
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "d-rost-025",
+    "course": "D",
+    "type": "voicemail",
+    "intro": "En handläggare på Migrationsverket ringer.",
+    "transcript": [
+      {
+        "speaker": "Handläggare Lena Forsberg",
+        "text": "Hej, det här är Lena Forsberg, handläggare på Migrationsverket. Jag ringer angående din ansökan om förlängt uppehållstillstånd. Vi har gått igenom dina handlingar, men för att kunna fatta beslut behöver vi komplettera med ett anställningsavtal samt lönespecifikationer för de senaste sex månaderna. Det är viktigt att avtalet visar att anställningen uppfyller villkoren för försörjning. Du kan ladda upp dokumenten via din e-tjänst, och vi behöver dem senast den femtonde i nästa månad. Tänk på att handläggningstiden kan bli lång, så ju snabbare du kompletterar desto bättre. Du behöver inte boka en ny tid för intervju i nuläget. Hör av dig till oss om något är oklart. Tack!"
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad gäller ärendet?",
+        "options": [
+          "Ett arbetstillstånd för en anhörig",
+          "En folkbokföring",
+          "En medborgarskapsansökan",
+          "En ansökan om förlängt uppehållstillstånd"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilka handlingar behöver kompletteras?",
+        "options": [
+          "Pass och vigselbevis",
+          "Hyreskontrakt och betyg",
+          "Läkarintyg",
+          "Anställningsavtal och lönespecifikationer"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad sägs om en intervju?",
+        "options": [
+          "Intervjun sker på telefon i morgon",
+          "Intervjun är inställd för gott",
+          "Ingen ny tid för intervju behöver bokas just nu",
+          "En intervju krävs omgående"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 24
+  }
+]

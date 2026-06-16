@@ -1,0 +1,1142 @@
+[
+  {
+    "id": "d-nyh-001",
+    "course": "D",
+    "type": "news",
+    "intro": "Du lyssnar på ekonominyheterna i radio.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Arbetslösheten i regionen Vänskär sjönk under första kvartalet till 5,2 procent, en minskning med 0,8 procentenheter jämfört med samma period i fjol. Enligt regionens analyschef beror nedgången främst på att tillverkningsindustrin anställt fler efter att exportorderna ökat. Samtidigt varnar fackförbundet för att bristen på yrkesutbildad personal kan bromsa utvecklingen redan till hösten, om inte fler utbildningsplatser tillkommer. Regionen planerar därför att starta tre nya yrkesprogram nästa läsår."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur mycket sjönk arbetslösheten jämfört med året innan?",
+        "options": [
+          "5,2 procentenheter",
+          "3 procentenheter",
+          "0,8 procentenheter",
+          "2 procentenheter"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad anges som huvudorsaken till att arbetslösheten minskade?",
+        "options": [
+          "Ökade exportorder inom industrin",
+          "Sänkta skatter",
+          "Färre invånare i regionen",
+          "Fler studieplatser"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad varnar fackförbundet för kan bromsa utvecklingen? Skriv ditt svar.",
+        "accept": [
+          "brist på yrkesutbildad personal",
+          "personalbrist",
+          "brist på utbildad personal",
+          "brist på personal",
+          "kompetensbrist"
+        ]
+      }
+    ],
+    "sort_order": 0
+  },
+  {
+    "id": "d-nyh-002",
+    "course": "D",
+    "type": "news",
+    "intro": "Här följer en nyhet om infrastruktur.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Den nya tågförbindelsen mellan Almsta och Granby invigs på fredag efter fyra års byggtid. Sträckan på 62 kilometer kortar restiden från drygt en timme till knappt fyrtio minuter. Trafikmyndigheten räknar med omkring tolvtusen resenärer per dygn redan första året. Projektet, som kostat cirka 4,3 miljarder kronor, blev ett halvår försenat på grund av problem med marken vid Almsta. Enligt projektledaren väntas förbindelsen minska biltrafiken på den parallella motorvägen märkbart."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur lång är den nya tågsträckan?",
+        "options": [
+          "12 kilometer",
+          "62 kilometer",
+          "40 kilometer",
+          "4 kilometer"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför blev projektet försenat?",
+        "options": [
+          "Dåligt väder",
+          "Problem med marken vid Almsta",
+          "Brist på pengar",
+          "Strejk bland arbetarna"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilken effekt väntas förbindelsen få?",
+        "options": [
+          "Längre restider",
+          "Minskad biltrafik på motorvägen",
+          "Högre biljettpriser",
+          "Fler bilar på motorvägen"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 1
+  },
+  {
+    "id": "d-nyh-003",
+    "course": "D",
+    "type": "news",
+    "intro": "Du hör en nyhet om miljö och klimat.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Kommunen Sjövik meddelar att utsläppen av växthusgaser minskat med 28 procent sedan 2015. Den största delen av minskningen kommer från att fjärrvärmeverket gått över från olja till biobränsle och spillvärme från industrin. Trots framstegen har kommunen ännu inte nått sitt mål om en halvering till 2030. Miljöchefen betonar att de svåraste utsläppen återstår, framför allt inom transportsektorn. Därför satsar kommunen nu 90 miljoner kronor på laddstationer och utbyggd kollektivtrafik de kommande tre åren."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur mycket har utsläppen minskat sedan 2015?",
+        "options": [
+          "90 procent",
+          "15 procent",
+          "50 procent",
+          "28 procent"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Inom vilket område finns de svåraste utsläppen kvar?",
+        "options": [
+          "Industrin",
+          "Transportsektorn",
+          "Fjärrvärme",
+          "Jordbruket"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vad är kommunens utsläppsmål till 2030? Skriv ditt svar.",
+        "accept": [
+          "en halvering",
+          "halvera utsläppen",
+          "halvering",
+          "minska med hälften",
+          "halvera"
+        ]
+      }
+    ],
+    "sort_order": 2
+  },
+  {
+    "id": "d-nyh-004",
+    "course": "D",
+    "type": "news",
+    "intro": "Här kommer en nyhet om forskning.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Forskare vid Norrvik universitet har utvecklat en metod som gör det möjligt att återvinna sällsynta metaller ur uttjänta batterier betydligt billigare än tidigare. I laboratorieförsök kunde forskarna återvinna upp till 95 procent av metallerna med hälften så mycket energi som dagens teknik kräver. Forskningsledaren understryker dock att det dröjer minst fem år innan metoden kan användas i stor skala. Resultaten har väckt internationellt intresse, och två industriföretag har redan inlett samtal om att finansiera fortsatta studier."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur stor andel av metallerna kunde återvinnas i försöken?",
+        "options": [
+          "95 procent",
+          "50 procent",
+          "28 procent",
+          "75 procent"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad är den största fördelen med den nya metoden?",
+        "options": [
+          "Den är snabbare att lära sig",
+          "Den kräver fler anställda",
+          "Den ger renare luft",
+          "Den är billigare och kräver mindre energi"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad säger forskningsledaren om tidsperspektivet?",
+        "options": [
+          "Den kommer aldrig att fungera",
+          "Det dröjer minst fem år innan stor skala",
+          "Den är klar inom ett år",
+          "Metoden används redan i stor skala"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 3
+  },
+  {
+    "id": "d-nyh-005",
+    "course": "D",
+    "type": "news",
+    "intro": "Du lyssnar på en kulturnyhet.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Stadsbiblioteket i Hagalund firar hundra år och inviger samtidigt en ny avdelning för digitala medier. Under jubileumsåret planeras ett fyrtiotal evenemang, från författarsamtal till verkstäder för barn. Bibliotekschefen framhåller att antalet besökare ökat med en femtedel de senaste två åren, vilket går mot den nationella trenden där många bibliotek tappar besökare. Hon menar att framgången beror på att biblioteket blivit en mötesplats och inte bara en plats för att låna böcker. Inträdet till alla evenemang är fritt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många år fyller biblioteket?",
+        "options": [
+          "Femtio år",
+          "Tjugo år",
+          "Fyrtio år",
+          "Hundra år"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad är ovanligt med bibliotekets besöksutveckling?",
+        "options": [
+          "Den går mot den nationella trenden",
+          "Besöken har minskat",
+          "Besöken är oförändrade",
+          "Den följer den nationella trenden"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad menar bibliotekschefen att biblioteket har blivit? Skriv ditt svar.",
+        "accept": [
+          "en mötesplats",
+          "mötesplats",
+          "en plats att mötas",
+          "en social mötesplats"
+        ]
+      }
+    ],
+    "sort_order": 4
+  },
+  {
+    "id": "d-nyh-006",
+    "course": "D",
+    "type": "news",
+    "intro": "Här följer en nyhet om bostadsmarknaden.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Bostadsbyggandet i Ekstad har minskat kraftigt det senaste året. Enligt kommunens statistik påbörjades bara 340 nya lägenheter under förra året, jämfört med drygt 900 året innan. Byggföretagen pekar på höjda räntor och dyrare byggmaterial som främsta orsaker. Bostadsbristen riskerar därmed att förvärras, särskilt för unga som söker sin första bostad. Kommunen överväger nu att sänka markpriserna för byggföretag som åtar sig att bygga mindre och billigare lägenheter, i hopp om att få igång byggandet igen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många lägenheter påbörjades förra året?",
+        "options": [
+          "200 lägenheter",
+          "900 lägenheter",
+          "340 lägenheter",
+          "500 lägenheter"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad anges som huvudorsaker till nedgången?",
+        "options": [
+          "Brist på mark",
+          "Höjda räntor och dyrare material",
+          "Färre invånare",
+          "Strängare miljökrav"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilken grupp drabbas särskilt av bostadsbristen?",
+        "options": [
+          "Pensionärer",
+          "Turister",
+          "Byggföretag",
+          "Unga som söker första bostad"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 5
+  },
+  {
+    "id": "d-nyh-007",
+    "course": "D",
+    "type": "news",
+    "intro": "Du hör en nyhet om hälsa och sjukvård.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Vårdcentralen i Björkdalen inför från och med måndag digitala läkarbesök för patienter med lindriga besvär. Patienterna kan boka ett videomöte via en app och får ofta tid samma dag. Verksamhetschefen hoppas att reformen ska korta köerna till de fysiska besöken med upp till en tredjedel. Samtidigt påpekar äldreföreningen att alla inte har tillgång till smarta telefoner eller datorer, och kräver att den traditionella mottagningen behålls. Vårdcentralen lovar att ingen ska tvingas använda den digitala tjänsten."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad inför vårdcentralen från måndag?",
+        "options": [
+          "Fler sjuksköterskor",
+          "Gratis mediciner",
+          "Digitala läkarbesök via app",
+          "Längre öppettider"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad oroar sig äldreföreningen för?",
+        "options": [
+          "Att läkarna slutar",
+          "Att besöken blir dyrare",
+          "Att alla inte har smarta telefoner eller datorer",
+          "Att köerna växer"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Hur mycket hoppas man kunna korta köerna till fysiska besök? Skriv ditt svar.",
+        "accept": [
+          "en tredjedel",
+          "upp till en tredjedel",
+          "med en tredjedel",
+          "tredjedel",
+          "33 procent"
+        ]
+      }
+    ],
+    "sort_order": 6
+  },
+  {
+    "id": "d-nyh-008",
+    "course": "D",
+    "type": "news",
+    "intro": "Här kommer en nyhet om utbildning.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Allt fler vuxna väljer att studera vidare, visar en ny rapport från Kunskapsmyndigheten. Antalet inskrivna på vuxenutbildningen har ökat med 17 procent på två år. Den vanligaste anledningen är att man vill byta yrke eller komplettera sin utbildning för att möta arbetsmarknadens behov. Rapporten visar samtidigt att avhoppen är höga, runt en fjärdedel av deltagarna fullföljer inte sina kurser. Myndigheten föreslår mer flexibla studieformer och bättre stöd som lösning, eftersom många studerande samtidigt arbetar eller har familj att ta hand om."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur mycket har antalet inskrivna ökat på två år?",
+        "options": [
+          "25 procent",
+          "10 procent",
+          "28 procent",
+          "17 procent"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilket problem lyfter rapporten fram?",
+        "options": [
+          "För få lärare",
+          "Brist på lokaler",
+          "För dyra kurser",
+          "Höga avhopp"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Varför har många svårt att fullfölja kurserna?",
+        "options": [
+          "De saknar intresse",
+          "Lärarna är dåliga",
+          "De arbetar eller har familj samtidigt",
+          "Kurserna är för lätta"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 7
+  },
+  {
+    "id": "d-nyh-009",
+    "course": "D",
+    "type": "news",
+    "intro": "Du lyssnar på en nyhet om jordbruk.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Den torra sommaren har slagit hårt mot lantbruket i Sörmark. Spannmålsskörden väntas bli omkring 30 procent lägre än ett normalår, enligt lantbrukarnas förening. Många bönder tvingas köpa in foder till sina djur, vilket pressar ekonomin ytterligare. Föreningens ordförande efterlyser ett stödpaket från staten och varnar för att flera mindre gårdar annars kan tvingas lägga ned. Hon understryker också att återkommande torra somrar gör det allt viktigare att utveckla grödor som tål torka bättre."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur mycket lägre väntas spannmålsskörden bli?",
+        "options": [
+          "Omkring 17 procent",
+          "Omkring 30 procent",
+          "Omkring 50 procent",
+          "Omkring 10 procent"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vilken konsekvens nämns för många bönder?",
+        "options": [
+          "De säljer mer spannmål",
+          "De tvingas köpa in foder",
+          "De får högre priser",
+          "De anställer fler"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vad efterlyser föreningens ordförande från staten? Skriv ditt svar.",
+        "accept": [
+          "ett stödpaket",
+          "stödpaket",
+          "ekonomiskt stöd",
+          "statligt stöd",
+          "stöd"
+        ]
+      }
+    ],
+    "sort_order": 8
+  },
+  {
+    "id": "d-nyh-010",
+    "course": "D",
+    "type": "news",
+    "intro": "Här följer en nyhet om energi.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "En ny solcellspark utanför Klippan togs i drift under helgen och blir en av de största i landet. Anläggningen täcker en yta på cirka 80 hektar och beräknas producera el till ungefär femtontusen hushåll per år. Energibolaget bakom satsningen uppger att parken byggts på mark som tidigare var svår att bruka för jordbruk. Kritiker har dock invänt att även sådan mark behövs för framtida livsmedelsproduktion. Bolaget svarar att man valt platsen just för att den har låg odlingsvärde och gott om soltimmar."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många hushåll kan parken försörja per år?",
+        "options": [
+          "Femtusen hushåll",
+          "Åttiotusen hushåll",
+          "Femtontusen hushåll",
+          "Trettiotusen hushåll"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad har kritikerna invänt?",
+        "options": [
+          "Att den ligger för långt bort",
+          "Att den producerar för lite el",
+          "Att parken är för dyr",
+          "Att marken behövs för livsmedelsproduktion"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Varför valde bolaget just denna plats?",
+        "options": [
+          "Den var lätt att bygga på",
+          "Den låg nära staden",
+          "Den var billigast att köpa",
+          "Låg odlingsvärde och många soltimmar"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 9
+  },
+  {
+    "id": "d-nyh-011",
+    "course": "D",
+    "type": "news",
+    "intro": "Du hör en nyhet om arbetsmarknaden.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Allt fler företag i Vikbacka inför en kortare arbetsvecka på försök. Ett tjugotal arbetsgivare låter sina anställda arbeta fyra dagar i veckan med bibehållen lön. Enligt en första utvärdering har sjukfrånvaron minskat och de anställda uppger att de är mer nöjda. Samtidigt är produktiviteten oförändrad eller något högre, vilket förvånat flera arbetsgivare. Forskare som följer försöket manar ändå till försiktighet och påpekar att resultaten bygger på en kort period och att alla branscher inte passar för modellen."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad innebär försöket för de anställda?",
+        "options": [
+          "Fyra arbetsdagar med bibehållen lön",
+          "Fler semesterdagar",
+          "Lägre lön",
+          "Längre arbetsdagar"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad har hänt med produktiviteten?",
+        "options": [
+          "Den är oförändrad eller något högre",
+          "Den går inte att mäta",
+          "Den har sjunkit kraftigt",
+          "Den har halverats"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad har hänt med sjukfrånvaron under försöket? Skriv ditt svar.",
+        "accept": [
+          "den har minskat",
+          "minskat",
+          "den har gått ner",
+          "sjunkit",
+          "den har sjunkit",
+          "den minskade"
+        ]
+      }
+    ],
+    "sort_order": 10
+  },
+  {
+    "id": "d-nyh-012",
+    "course": "D",
+    "type": "news",
+    "intro": "Här kommer en nyhet om naturvård.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Ett område med gammal skog vid Tranemyren har fått status som naturreservat. Reservatet omfattar 450 hektar och hyser flera sällsynta arter, bland annat en hackspett som inte setts i området på decennier. Länsstyrelsen, som fattat beslutet, framhåller att skydd av gammelskog är avgörande för den biologiska mångfalden. Skogsägare i trakten är delvis kritiska eftersom de förlorar möjligheten att avverka, men de får ekonomisk ersättning. Reservatet öppnar för allmänheten i sommar med nya vandringsleder och fågeltorn."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur stort är det nya naturreservatet?",
+        "options": [
+          "900 hektar",
+          "100 hektar",
+          "80 hektar",
+          "450 hektar"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Varför är vissa skogsägare kritiska?",
+        "options": [
+          "De får för lite ersättning betalt i tid",
+          "De förlorar möjligheten att avverka",
+          "De vill bygga hus där",
+          "De gillar inte fåglar"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad framhåller länsstyrelsen som skälet till skyddet?",
+        "options": [
+          "Att stoppa byggande",
+          "Att locka turister",
+          "Att tjäna pengar",
+          "Att bevara den biologiska mångfalden"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 11
+  },
+  {
+    "id": "d-nyh-013",
+    "course": "D",
+    "type": "news",
+    "intro": "Du lyssnar på en nyhet om handeln.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Näthandeln fortsätter att växa medan flera butiker i centrala Malmberg tvingas stänga. Enligt köpmannaföreningen har var sjätte butik i city försvunnit de senaste tre åren. Samtidigt ökar intresset för små specialbutiker och caféer, som lockar besökare med en personlig prägel som näthandeln inte kan erbjuda. Kommunen planerar att göra centrum mer attraktivt genom fler uteserveringar och bilfria gator. Föreningens talesperson menar att stadskärnan måste bli en plats man besöker för upplevelsen, inte bara för att handla."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många butiker i city har försvunnit på tre år?",
+        "options": [
+          "Varannan butik",
+          "Var tionde butik",
+          "Var sjätte butik",
+          "Var tredje butik"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vilken typ av butiker ökar i intresse?",
+        "options": [
+          "Bilhandlare",
+          "Mataffärer",
+          "Små specialbutiker och caféer",
+          "Stora varuhus"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "type": "open",
+        "q": "Hur vill kommunen göra centrum mer attraktivt? Nämn en åtgärd. Skriv ditt svar.",
+        "accept": [
+          "fler uteserveringar",
+          "bilfria gator",
+          "uteserveringar",
+          "bilfria gator och uteserveringar",
+          "göra gator bilfria"
+        ]
+      }
+    ],
+    "sort_order": 12
+  },
+  {
+    "id": "d-nyh-014",
+    "course": "D",
+    "type": "news",
+    "intro": "Här följer en nyhet om kollektivtrafiken.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Från och med nästa månad blir all stadsbusstrafik i Östhamn avgiftsfri på vardagar mellan klockan nio och fjorton. Syftet är att avlasta vägarna under rusningstid och locka fler att resa kollektivt utanför de mest belastade timmarna. Kollektivtrafikmyndigheten beräknar att antalet resor kan öka med en femtedel. Försöket pågår i ett år och utvärderas sedan noggrant. Kritiker undrar hur reformen ska finansieras på lång sikt, medan förespråkare menar att minskad trängsel och bättre luft uppväger kostnaden."
+      }
+    ],
+    "questions": [
+      {
+        "q": "När blir busstrafiken avgiftsfri?",
+        "options": [
+          "På kvällarna",
+          "Vardagar mellan nio och fjorton",
+          "Hela dygnet",
+          "Bara på helger"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad är huvudsyftet med reformen?",
+        "options": [
+          "Att höja lönerna",
+          "Att köpa nya bussar",
+          "Att avlasta vägarna under rusningstid",
+          "Att tjäna mer pengar"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad oroar kritikerna sig för?",
+        "options": [
+          "Hur reformen ska finansieras på lång sikt",
+          "Att bussarna blir för fulla",
+          "Att luften försämras",
+          "Att resorna minskar"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 13
+  },
+  {
+    "id": "d-nyh-015",
+    "course": "D",
+    "type": "news",
+    "intro": "Du hör en nyhet om vattenförsörjning.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Kommunen Sandvik inför bevattningsförbud från och med på torsdag på grund av låga grundvattennivåer. Förbudet innebär att det är förbjudet att vattna gräsmattor och fylla pooler med kommunalt vatten. Invånarna uppmanas också att duscha kortare och stänga av kranen när de borstar tänderna. Enligt kommunens vattenchef är nivåerna de lägsta på över tjugo år, vilket beror på en ovanligt nederbördsfattig vår. Förbudet gäller tills vidare och den som bryter mot det kan få betala en avgift."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är förbjudet under bevattningsförbudet?",
+        "options": [
+          "Att dricka kranvatten",
+          "Att tvätta bilen i tvätthall",
+          "Att duscha överhuvudtaget",
+          "Att vattna gräsmattor och fylla pooler"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Varför är grundvattennivåerna så låga?",
+        "options": [
+          "På grund av en nederbördsfattig vår",
+          "På grund av en läcka",
+          "På grund av många turister",
+          "På grund av ny industri"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad händer om man bryter mot förbudet? Skriv ditt svar.",
+        "accept": [
+          "man kan få betala en avgift",
+          "betala en avgift",
+          "böter",
+          "en avgift",
+          "man får betala en avgift",
+          "avgift"
+        ]
+      }
+    ],
+    "sort_order": 14
+  },
+  {
+    "id": "d-nyh-016",
+    "course": "D",
+    "type": "news",
+    "intro": "Här kommer en nyhet om idrott och samhälle.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "En ny idrottshall invigs i stadsdelen Rödberg där det länge saknats lokaler för föreningslivet. Hallen rymmer drygt sexhundra åskådare och ska användas för både skolidrott på dagtid och föreningsträningar på kvällar och helger. Kommunen har investerat 65 miljoner kronor i bygget och hoppas att satsningen ska få fler unga att röra på sig. En lokal forskare påpekar att tillgång till idrottsanläggningar i ett område har stor betydelse för folkhälsan, särskilt i stadsdelar där få familjer har råd med dyra fritidsaktiviteter."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många åskådare rymmer den nya hallen?",
+        "options": [
+          "Tusen",
+          "Drygt sexhundra",
+          "Sextiofem",
+          "Tvåhundra"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad hoppas kommunen att satsningen ska leda till?",
+        "options": [
+          "Att fler unga rör på sig",
+          "Högre skatter",
+          "Fler turister",
+          "Fler arbetstillfällen"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Varför är hallen särskilt viktig i denna stadsdel?",
+        "options": [
+          "Det finns redan många hallar",
+          "Det bor många idrottsstjärnor där",
+          "Skolan saknar lärare",
+          "Få familjer har råd med dyra fritidsaktiviteter"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 15
+  },
+  {
+    "id": "d-nyh-017",
+    "course": "D",
+    "type": "news",
+    "intro": "Du lyssnar på en nyhet om teknik.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Allt fler kommuner inför digitala system för att samla in och hantera invånarnas synpunkter. I Lundhagen har ett nytt system tagit emot över tretusen felanmälningar sedan i våras, allt från trasiga gatlyktor till nedskräpning. Enligt kommunen åtgärdas problemen nu snabbare eftersom anmälningarna automatiskt skickas till rätt avdelning. Samtidigt visar en undersökning att äldre invånare använder tjänsten i mindre utsträckning. Kommunen planerar därför kurser på biblioteket för att alla ska kunna delta, oavsett ålder och vana vid teknik."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många felanmälningar har systemet tagit emot?",
+        "options": [
+          "Trehundra",
+          "Tretusen om dagen",
+          "Trettio",
+          "Över tretusen"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Varför åtgärdas problemen snabbare nu?",
+        "options": [
+          "Invånarna betalar mer",
+          "Problemen har blivit färre",
+          "Fler anställda har anställts",
+          "Anmälningarna skickas automatiskt till rätt avdelning"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "type": "open",
+        "q": "Vad planerar kommunen för att äldre också ska kunna använda tjänsten? Skriv ditt svar.",
+        "accept": [
+          "kurser på biblioteket",
+          "kurser",
+          "utbildning",
+          "kurser på biblioteket i teknik",
+          "datakurser"
+        ]
+      }
+    ],
+    "sort_order": 16
+  },
+  {
+    "id": "d-nyh-018",
+    "course": "D",
+    "type": "news",
+    "intro": "Här följer en nyhet om turism.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Turismen till kustsamhället Fyrudden slog rekord i somras med uppskattningsvis 120 000 besökare, en ökning med 14 procent jämfört med året innan. De lokala företagen är nöjda med intäkterna, men många boende klagar på trängsel, fullsatta parkeringar och nedskräpning. Kommunen överväger nu att införa en besöksavgift för bilar och satsa pengarna på bättre toaletter och sophantering. En del företagare oroar sig för att avgiften ska skrämma bort besökare, medan andra menar att den behövs."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur mycket ökade antalet besökare jämfört med året innan?",
+        "options": [
+          "4 procent",
+          "14 procent",
+          "120 procent",
+          "40 procent"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad klagar många boende på?",
+        "options": [
+          "Brist på besökare",
+          "Trängsel, parkering och nedskräpning",
+          "Dåligt väder",
+          "Dyra priser i butikerna"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför är vissa företagare tveksamma till besöksavgiften?",
+        "options": [
+          "De gillar inte toaletter",
+          "De vill ha fler turister bort",
+          "De oroar sig att den skrämmer bort besökare",
+          "Den är för dyr att administrera"
+        ],
+        "correctIndex": 2
+      }
+    ],
+    "sort_order": 17
+  },
+  {
+    "id": "d-nyh-019",
+    "course": "D",
+    "type": "news",
+    "intro": "Du hör en nyhet om återvinning.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Invånarna i Granhult återvinner allt mer, visar ny statistik från avfallsbolaget. Mängden matavfall som sorteras ut har ökat med 22 procent på ett år, sedan kommunen delade ut gratis behållare och tydliga instruktioner till alla hushåll. Matavfallet blir biogas som driver kommunens bussar. Avfallschefen är nöjd men påpekar att en stor del av soporna fortfarande slängs fel, vilket gör återvinningen dyrare. Därför planeras nu en informationskampanj i skolor, eftersom barn ofta påminner sina föräldrar om att sortera rätt."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur mycket har utsorteringen av matavfall ökat på ett år?",
+        "options": [
+          "22 procent",
+          "32 procent",
+          "12 procent",
+          "2 procent"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "q": "Vad används matavfallet till?",
+        "options": [
+          "Djurfoder",
+          "Biogas till bussar",
+          "Gödsel till parker",
+          "El till hushåll"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Varför riktas kampanjen till skolor?",
+        "options": [
+          "Barn påminner ofta sina föräldrar att sortera",
+          "Barn slänger mest sopor",
+          "Skolorna betalar för kampanjen",
+          "Lärarna kräver det"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 18
+  },
+  {
+    "id": "d-nyh-020",
+    "course": "D",
+    "type": "news",
+    "intro": "Här kommer en nyhet om språk och integration.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Ett nytt projekt i Ängsby kopplar samman nyanlända med lokala föreningar för att de snabbare ska lära sig svenska och komma in i samhället. Under det första året har över tvåhundra personer deltagit, och flera har efteråt fått praktikplats eller arbete genom kontakterna de knutit. Projektledaren betonar att språket lärs bäst i vardagliga sammanhang, inte bara i klassrummet. Föreningarna uppger att de också vunnit på samarbetet genom nya medlemmar. Projektet får nu finansiering i tre år."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många har deltagit under det första året?",
+        "options": [
+          "Tjugo",
+          "Femtio",
+          "Över tvåhundra",
+          "Tvåtusen"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "q": "Vad betonar projektledaren om språkinlärning?",
+        "options": [
+          "Att den kräver dyra läromedel",
+          "Att språket lärs bäst i vardagliga sammanhang",
+          "Att den tar minst tre år",
+          "Att den sker bäst i klassrummet"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vad har flera deltagare fått efteråt tack vare projektet? Skriv ditt svar.",
+        "accept": [
+          "praktikplats eller arbete",
+          "arbete",
+          "praktik",
+          "praktikplats",
+          "jobb",
+          "praktik eller jobb"
+        ]
+      }
+    ],
+    "sort_order": 19
+  },
+  {
+    "id": "d-nyh-021",
+    "course": "D",
+    "type": "news",
+    "intro": "Du lyssnar på en nyhet om ekonomi och konsumtion.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Priserna på livsmedel fortsätter att stiga, om än långsammare än tidigare. Enligt en ny mätning ökade matpriserna med 3,1 procent det senaste året, jämfört med nästan nio procent året innan. Konsumenterna har samtidigt ändrat sina vanor och köper mer av billigare varumärken och planerar inköpen bättre för att slänga mindre mat. En konsumentforskare menar att en del av dessa vanor troligen blir bestående även när priserna stabiliseras, eftersom många upptäckt att de kan spara pengar utan att försämra sin matkvalitet."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur mycket ökade matpriserna det senaste året?",
+        "options": [
+          "13 procent",
+          "9 procent",
+          "0,3 procent",
+          "3,1 procent"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur har konsumenterna ändrat sina vanor?",
+        "options": [
+          "De äter ute mer",
+          "De köper dyrare varumärken",
+          "De handlar oftare",
+          "De köper billigare varor och slänger mindre mat"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vad tror forskaren om de nya vanorna?",
+        "options": [
+          "De ökar matsvinnet",
+          "De gör maten sämre",
+          "De försvinner direkt",
+          "En del blir troligen bestående"
+        ],
+        "correctIndex": 3
+      }
+    ],
+    "sort_order": 20
+  },
+  {
+    "id": "d-nyh-022",
+    "course": "D",
+    "type": "news",
+    "intro": "Här följer en nyhet om kulturarv.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Den gamla kvarnen i Stenby, byggd på sjuttonhundratalet, ska restaureras efter att ha stått förfallen i flera decennier. En lokal förening har samlat in pengar och fått bidrag från en kulturfond, sammanlagt drygt två miljoner kronor. Målet är att kvarnen åter ska kunna mala mjöl och bli ett besöksmål med visningar för skolklasser och turister. Föreningens ordförande hoppas att projektet ska väcka intresse för traktens historia. Restaureringen väntas ta omkring två år och utförs delvis av frivilliga hantverkare som vill bevara gamla tekniker."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Från vilket århundrade är kvarnen?",
+        "options": [
+          "Sextonhundratalet",
+          "Sjuttonhundratalet",
+          "Artonhundratalet",
+          "Nittonhundratalet"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Hur mycket pengar har samlats in totalt?",
+        "options": [
+          "Tvåhundra kronor",
+          "Två miljoner kronor",
+          "Tjugo miljoner kronor",
+          "Två tusen kronor"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "type": "open",
+        "q": "Vad är målet med restaureringen, förutom att bevara kvarnen? Skriv ditt svar.",
+        "accept": [
+          "att kvarnen ska kunna mala mjöl",
+          "bli ett besöksmål",
+          "mala mjöl",
+          "ett besöksmål med visningar",
+          "att den ska mala mjöl igen",
+          "visningar för skolklasser och turister"
+        ]
+      }
+    ],
+    "sort_order": 21
+  },
+  {
+    "id": "d-nyh-023",
+    "course": "D",
+    "type": "news",
+    "intro": "Du hör en nyhet om trafiksäkerhet.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Antalet olyckor vid den hårt trafikerade korsningen i Vallby har minskat kraftigt sedan kommunen byggde om den till en rondell förra året. Tidigare inträffade i genomsnitt åtta olyckor om året vid platsen, hittills i år har bara en rapporterats. Trafikingenjören förklarar att rondeller tvingar bilisterna att sänka farten, vilket gör eventuella krockar mindre allvarliga. Kommunen planerar nu att bygga om ytterligare två korsningar på samma sätt. Boende i området är nöjda men efterlyser också bättre belysning och säkrare övergångsställen för fotgängare."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Hur många olyckor inträffade i genomsnitt tidigare per år?",
+        "options": [
+          "Arton olyckor",
+          "Två olyckor",
+          "En olycka",
+          "Åtta olyckor"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Varför blir krockar mindre allvarliga i en rondell?",
+        "options": [
+          "Vägen är bredare",
+          "Bilisterna tvingas sänka farten",
+          "Det är färre bilar",
+          "Det är fler trafikljus"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "q": "Vad efterlyser de boende utöver rondellen?",
+        "options": [
+          "Bättre belysning och säkrare övergångsställen",
+          "Fler busshållplatser",
+          "Lägre hastighet på motorvägen",
+          "Fler parkeringar"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "sort_order": 22
+  },
+  {
+    "id": "d-nyh-024",
+    "course": "D",
+    "type": "news",
+    "intro": "Här kommer en nyhet om arbetsliv och hälsa.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Stress på jobbet är den vanligaste orsaken till sjukskrivning bland kontorsanställda i regionen Hällmark, visar en ny rapport. Nästan fyrtio procent av de längre sjukskrivningarna beror på stressrelaterade besvär. Forskarna bakom rapporten pekar på högt arbetstempo och otydliga gränser mellan arbete och fritid som viktiga orsaker, särskilt sedan distansarbete blivit vanligare. Flera arbetsgivare har börjat erbjuda kurser i återhämtning och tydligare regler för när man förväntas svara på mejl. Rapporten understryker att förebyggande arbete lönar sig både för individen och för ekonomin."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad är den vanligaste orsaken till sjukskrivning bland kontorsanställda?",
+        "options": [
+          "Fysiska skador",
+          "Olyckor",
+          "Förkylningar",
+          "Stress på jobbet"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilken orsak till stress lyfts fram?",
+        "options": [
+          "Otydliga gränser mellan arbete och fritid",
+          "Dålig arbetsmiljö i form av buller",
+          "För lite arbete",
+          "För låg lön"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "type": "open",
+        "q": "Vad har flera arbetsgivare börjat erbjuda? Nämn en åtgärd. Skriv ditt svar.",
+        "accept": [
+          "kurser i återhämtning",
+          "tydligare regler för mejl",
+          "återhämtningskurser",
+          "regler för när man svarar på mejl",
+          "kurser i återhämtning och tydligare regler"
+        ]
+      }
+    ],
+    "sort_order": 23
+  },
+  {
+    "id": "d-nyh-025",
+    "course": "D",
+    "type": "news",
+    "intro": "Du lyssnar på en nyhet om vetenskap och rymden.",
+    "transcript": [
+      {
+        "speaker": "Nyhetsuppläsare",
+        "text": "Ett team av studenter vid Fjälltorps tekniska högskola har byggt en liten satellit som ska skickas upp i rymden nästa år. Satelliten, som är ungefär lika stor som en mjölkkartong, ska mäta luftföroreningar i atmosfären och skicka data till forskare på marken. Projektet har pågått i tre år och involverat ett fyrtiotal studenter från olika program. Handledaren framhåller att studenterna lärt sig att samarbeta över ämnesgränser, en förmåga som är allt mer efterfrågad i arbetslivet. Om uppskjutningen lyckas blir det första gången högskolan får en egen satellit i omloppsbana."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Vad ska satelliten mäta?",
+        "options": [
+          "Temperaturen på marken",
+          "Solens styrka",
+          "Havsnivåer",
+          "Luftföroreningar i atmosfären"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Hur länge har projektet pågått?",
+        "options": [
+          "Ett år",
+          "Fyrtio år",
+          "Tio år",
+          "Tre år"
+        ],
+        "correctIndex": 3
+      },
+      {
+        "q": "Vilken förmåga framhåller handledaren att studenterna har lärt sig?",
+        "options": [
+          "Att tala flera språk",
+          "Att samarbeta över ämnesgränser",
+          "Att skriva rapporter snabbt",
+          "Att bygga raketer ensamma"
+        ],
+        "correctIndex": 1
+      }
+    ],
+    "sort_order": 24
+  }
+]
