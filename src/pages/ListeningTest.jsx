@@ -218,6 +218,31 @@ function Session({ course, title, sourceId, items, mode, onExit }) {
   const [revealed, setRevealed] = useState({}); // practice: which questions have been checked
   const [playsUsed, setPlaysUsed] = useState({});
   const [saved, setSaved] = useState(false);
+  const [trans, setTrans] = useState({});       // item id -> transcript with text_en
+  const [transBusy, setTransBusy] = useState({});
+
+  // The transcript to render — translated version if we have one.
+  const txOf = (it) => (it && trans[it.id]) || it?.transcript || [];
+
+  // On first open of a transcript, generate the English with AI and cache it
+  // (server-side via the function, plus this device's localStorage).
+  const ensureTranslation = async (it) => {
+    if (!it?.id || transBusy[it.id]) return;
+    if (txOf(it).some((l) => l.text_en)) return;
+    try {
+      const cached = JSON.parse(localStorage.getItem(`svenska:listening_en:${it.id}`) || "null");
+      if (Array.isArray(cached) && cached.some((l) => l.text_en)) { setTrans((p) => ({ ...p, [it.id]: cached })); return; }
+    } catch { /* ignore */ }
+    setTransBusy((p) => ({ ...p, [it.id]: true }));
+    try {
+      const res = await base44.functions.invoke("translateTranscript", { id: it.id, transcript: it.transcript });
+      if (res.data?.transcript) {
+        setTrans((p) => ({ ...p, [it.id]: res.data.transcript }));
+        try { localStorage.setItem(`svenska:listening_en:${it.id}`, JSON.stringify(res.data.transcript)); } catch { /* ignore */ }
+      }
+    } catch { /* ignore */ }
+    setTransBusy((p) => ({ ...p, [it.id]: false }));
+  };
 
   const item = items[itemIndex];
   const isLastItem = itemIndex === items.length - 1;
@@ -294,12 +319,16 @@ function Session({ course, title, sourceId, items, mode, onExit }) {
           {items.map((it, ii) => (
             <div key={it.id} className="rounded-2xl border-2 border-border/50 bg-card p-5">
               <p className="font-semibold text-sm mb-1">{it.typeEmoji} {it.typeLabel}: {it.intro}</p>
-              <details className="mb-3">
-                <summary className="text-xs text-primary cursor-pointer hover:underline">Visa utskrift · Show transcript</summary>
-                <div className="mt-2 space-y-1 text-sm text-muted-foreground border-l-2 border-border pl-3">
-                  {it.transcript.map((line, li) => (
-                    <p key={li}><span className="font-semibold text-foreground">{line.speaker}:</span> {line.text}</p>
+              <details className="mb-3" onToggle={(e) => { if (e.currentTarget.open) ensureTranslation(it); }}>
+                <summary className="text-xs text-primary cursor-pointer hover:underline">Visa utskrift · Show transcript (med engelska)</summary>
+                <div className="mt-2 space-y-1.5 text-sm text-muted-foreground border-l-2 border-border pl-3">
+                  {txOf(it).map((line, li) => (
+                    <div key={li}>
+                      <p><span className="font-semibold text-foreground">{line.speaker}:</span> {line.text}</p>
+                      {line.text_en && <p className="text-xs italic text-muted-foreground/70">{line.text_en}</p>}
+                    </div>
                   ))}
+                  {transBusy[it.id] && <p className="text-xs italic text-primary/70">Översätter… · Translating…</p>}
                 </div>
               </details>
               <div className="space-y-3">
@@ -372,12 +401,16 @@ function Session({ course, title, sourceId, items, mode, onExit }) {
           />
 
           {isPractice && (
-            <details className="mt-3">
-              <summary className="text-xs text-primary cursor-pointer hover:underline">Visa utskrift · Show transcript</summary>
-              <div className="mt-2 space-y-1 text-sm text-muted-foreground border-l-2 border-border pl-3">
-                {item.transcript.map((line, li) => (
-                  <p key={li}><span className="font-semibold text-foreground">{line.speaker}:</span> {line.text}</p>
+            <details className="mt-3" onToggle={(e) => { if (e.currentTarget.open) ensureTranslation(item); }}>
+              <summary className="text-xs text-primary cursor-pointer hover:underline">Visa utskrift · Show transcript (med engelska)</summary>
+              <div className="mt-2 space-y-1.5 text-sm text-muted-foreground border-l-2 border-border pl-3">
+                {txOf(item).map((line, li) => (
+                  <div key={li}>
+                    <p><span className="font-semibold text-foreground">{line.speaker}:</span> {line.text}</p>
+                    {line.text_en && <p className="text-xs italic text-muted-foreground/70">{line.text_en}</p>}
+                  </div>
                 ))}
+                {transBusy[item.id] && <p className="text-xs italic text-primary/70">Översätter… · Translating…</p>}
               </div>
             </details>
           )}
