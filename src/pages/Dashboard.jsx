@@ -262,7 +262,17 @@ export default function Dashboard() {
           </div>
 
           {user.email === "deepak2020rana@gmail.com" && (
-            <AdminBrevoSync />
+            <>
+              <a
+                href="/admin/users"
+                className="block p-4 rounded-xl border border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors"
+              >
+                <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">Admin</p>
+                <p className="font-semibold">📊 User Activity Board</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Track active, at-risk, and churned users</p>
+              </a>
+              <AdminBrevoSync />
+            </>
           )}
 
           <Card className="border-border/50 bg-gradient-to-r from-primary/5 to-transparent">
