@@ -15,7 +15,7 @@ const navItems = [
   { path: "/language", label: "Språk", icon: BookOpen },
   { path: "/civic", label: "Samhälle", icon: Landmark },
   { path: "/gym", label: "Träning", icon: Dumbbell },
-  { path: "/speaking", label: "Tala", icon: Mic },
+  { path: "/speaking", label: "Skriva", icon: PenSquare },
   { path: "/grammar", label: "Grammatik", icon: PenSquare },
   { path: "/listening/c", label: "Hörförståelse", icon: Headphones },
 ];
@@ -24,7 +24,7 @@ const bottomTabItems = [
   { path: "/dashboard", label: "Hem", icon: LayoutDashboard },
   { path: "/language", label: "Lär dig", icon: BookOpen },
   { path: "/gym", label: "Träning", icon: Dumbbell },
-  { path: "/speaking", label: "Tala", icon: Mic },
+  { path: "/speaking", label: "Skriva", icon: PenSquare },
   { path: "/grammar", label: "Grammatik", icon: PenSquare },
 ];
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { Mic, Sparkles, BookOpen } from "lucide-react";
+import { PenSquare, Sparkles, BookOpen } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import GymSessionV2 from "@/components/gym/GymSessionV2";
@@ -68,9 +68,9 @@ export default function Speaking() {
       {/* Hero */}
       <div className="text-center space-y-2">
         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 mb-2 shadow-md">
-          <Mic className="w-7 h-7 text-white" />
+          <PenSquare className="w-7 h-7 text-white" />
         </div>
-        <h1 className="font-display text-3xl font-bold">Tala</h1>
+        <h1 className="font-display text-3xl font-bold">Skriva</h1>
         <p className="text-muted-foreground max-w-md mx-auto">
           Översätt engelska meningar till hela svenska meningen från minnet.{" "}
           <SveaLogo className="text-base" /> rättar varje fel och förklarar grammatiken.
@@ -138,7 +138,7 @@ export default function Speaking() {
               </div>
             </div>
 
-            <LoginGate message="Logga in för att börja tala">
+            <LoginGate message="Logga in för att börja skriva">
               <Button
                 onClick={start}
                 size="lg"
@@ -155,7 +155,7 @@ export default function Speaking() {
       {/* How it works */}
       <Card className="border-border/50 bg-muted/30">
         <CardContent className="p-5 space-y-3">
-          <h3 className="font-semibold text-sm">Så fungerar Tala</h3>
+          <h3 className="font-semibold text-sm">Så fungerar Skriva</h3>
           <ol className="space-y-2 text-sm text-muted-foreground">
             <li className="flex gap-2"><span className="font-bold text-foreground">1.</span> Du ser en mening på engelska.</li>
             <li className="flex gap-2"><span className="font-bold text-foreground">2.</span> Du skriver hela meningen på svenska från minnet.</li>
