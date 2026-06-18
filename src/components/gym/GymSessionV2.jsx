@@ -36,6 +36,35 @@ Return JSON with:
   });
 }
 
+async function explainProductionAnswer(sentenceEn, correctSv, userSv) {
+  return base44.integrations.Core.InvokeLLM({
+    prompt: `You are a friendly Swedish language teacher for SFI students learning to PRODUCE Swedish from English.
+
+English prompt: "${sentenceEn}"
+Correct Swedish: "${correctSv}"
+Student wrote: "${userSv || "(nothing)"}"
+
+The student is doing active production — they had to recall and construct the whole Swedish sentence from memory.
+
+In simple English (max 2 sentences), point out the SPECIFIC mistake(s) the student made (wrong word, wrong word order, missing article, wrong verb form, etc.). Be encouraging but precise.
+Then give one short memory tip for the rule they got wrong.
+If they wrote nothing or only got a tiny part wrong, still explain the key construction.
+
+Return JSON with:
+- explanation: string (what they got wrong and why, max 2 sentences)
+- rule: string (grammar rule or pattern name, e.g. "V2 word order", "ett-word neuter article")
+- tip: string (one short memory tip)`,
+    response_json_schema: {
+      type: "object",
+      properties: {
+        explanation: { type: "string" },
+        rule: { type: "string" },
+        tip: { type: "string" },
+      },
+    },
+  });
+}
+
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -51,6 +80,16 @@ function normalize(str) {
     .replace(/[\.\,\!\?\:\;'"\(\)\[\]\{\}\–\-]/g, '') // remove punctuation
     .split(/\s+/)
     .filter(Boolean);
+}
+
+// Build the full Swedish sentence by filling all ___ blanks with comma-separated answers
+function fullSwedishSentence(sentence) {
+  const answers = (sentence.answer || "").split(",").map(a => a.trim());
+  let result = sentence.sentence_sv || "";
+  for (const ans of answers) {
+    result = result.replace("___", ans);
+  }
+  return result;
 }
 
 
@@ -69,22 +108,30 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
   useEffect(() => {
     if (!answered || correct) return;
     const sentence = sentences[current];
-    const cacheKey = `gym-cloze-${sentence.id}-${sentence.answer}`;
+    const isProduce = mode === "produce";
+    const cacheKey = isProduce
+      ? `gym-produce-${sentence.id}`
+      : `gym-cloze-${sentence.id}-${sentence.answer}`;
     setAiFeedback(null);
     setAiLoading(true);
     (async () => {
       try {
-        const cached = await getCachedFeedback(base44, cacheKey);
+        const userAns = typed || selected || "";
+        // Production-mode feedback is personalised to the student's specific mistake,
+        // so don't reuse a cached generic explanation — always call fresh.
+        const cached = isProduce ? null : await getCachedFeedback(base44, cacheKey);
         if (cached) { setAiFeedback(cached); setAiLoading(false); return; }
-        const result = await explainClozeAnswer(sentence.sentence_en, sentence.sentence_sv, sentence.answer, typed || selected || "");
+        const result = isProduce
+          ? await explainProductionAnswer(sentence.sentence_en, fullSwedishSentence(sentence), userAns)
+          : await explainClozeAnswer(sentence.sentence_en, sentence.sentence_sv, sentence.answer, userAns);
         if (result?.explanation) {
           setAiFeedback(result);
-          await setCachedFeedback(base44, cacheKey, result);
+          if (!isProduce) await setCachedFeedback(base44, cacheKey, result);
         }
       } catch {}
       setAiLoading(false);
     })();
-  }, [answered, correct, current]);
+  }, [answered, correct, current, mode]);
 
   if (!sentences || sentences.length === 0) {
     return (
@@ -109,9 +156,17 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
 
   const handleAnswer = (answer) => {
     if (answered) return;
-    const expectedWords = normalize(sentence.answer);
-    const givenWords = normalize(answer);
-    const isCorrect = expectedWords.length === givenWords.length && expectedWords.every((w, i) => w === givenWords[i]);
+    let isCorrect;
+    if (mode === "produce") {
+      // Compare against the full Swedish sentence (blanks filled), word-by-word
+      const expectedWords = normalize(fullSwedishSentence(sentence));
+      const givenWords = normalize(answer);
+      isCorrect = expectedWords.length === givenWords.length && expectedWords.every((w, i) => w === givenWords[i]);
+    } else {
+      const expectedWords = normalize(sentence.answer);
+      const givenWords = normalize(answer);
+      isCorrect = expectedWords.length === givenWords.length && expectedWords.every((w, i) => w === givenWords[i]);
+    }
     setSelected(answer);
     setAnswered(true);
     setCorrect(isCorrect);
@@ -223,7 +278,15 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                 <p className="text-base leading-relaxed text-blue-900">{sentence.sentence_en}</p>
               </div>
 
-              {/* Swedish sentence with blanks */}
+              {/* Production mode: hide Swedish until answered */}
+              {mode === "produce" && !answered ? (
+                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 flex items-start gap-2">
+                  <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                  <p className="text-sm text-amber-800 dark:text-amber-300">
+                    <strong>Produktionsläge:</strong> Translate the English sentence into full Swedish from memory — no hints. This is how you build real speaking recall. 💪
+                  </p>
+                </div>
+              ) : (
               <div className="bg-muted/40 rounded-xl p-4 space-y-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs font-semibold text-foreground uppercase">Swedish</span>
@@ -252,9 +315,33 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                   </div>
                 )}
               </div>
+              )}
 
-              {/* Listen mode - hide Swedish text, play audio */}
-              {mode === "listen" ? (
+              {/* Production mode - hide Swedish, type the full sentence from English */}
+              {mode === "produce" ? (
+                <div className="space-y-3">
+                  <textarea
+                    value={typed}
+                    onChange={e => setTyped(e.target.value)}
+                    disabled={answered}
+                    placeholder="Skriv hela meningen på svenska..."
+                    aria-label="Type the full Swedish sentence"
+                    autoFocus
+                    className="w-full border-2 border-border/50 rounded-xl px-4 py-3 text-base text-foreground bg-transparent focus:outline-none focus:border-primary transition-colors min-h-28 resize-none"
+                  />
+                  <div className="flex gap-2 text-sm text-muted-foreground">
+                    {["å", "ä", "ö"].map(c => (
+                      <button key={c} onClick={() => setTyped(t => t + c)}
+                        className="px-2.5 py-1 border rounded-lg hover:bg-muted transition-colors font-medium">{c}</button>
+                    ))}
+                  </div>
+                  {!answered && (
+                    <Button onClick={() => handleAnswer(typed)} disabled={!typed.trim()} className="w-full min-h-[44px]">
+                      Check
+                    </Button>
+                  )}
+                </div>
+              ) : mode === "listen" ? (
                 <div className="space-y-3">
                   <p className="text-sm text-muted-foreground mb-3">Listen to the sentence and type the missing word(s).</p>
                   <button
@@ -364,7 +451,11 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                 <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
                   <div aria-live="assertive" className={`p-3 rounded-lg ${correct ? "bg-green-50 border border-green-200 dark:bg-green-900/20 dark:border-green-800" : "bg-red-50 border border-red-200 dark:bg-red-900/20 dark:border-red-800"}`}>
                     <p className={`text-sm font-semibold ${correct ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"}`}>
-                      {correct ? "✓ Correct!" : `✗ Answer: ${sentence.answer}`}
+                      {correct
+                        ? "✓ Correct!"
+                        : mode === "produce"
+                          ? `✗ Correct: ${fullSwedishSentence(sentence)}`
+                          : `✗ Answer: ${sentence.answer}`}
                     </p>
                   </div>
 

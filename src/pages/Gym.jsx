@@ -324,7 +324,7 @@ function GymDashboard({ sentences, srsCards, onStartSession, sessionRef }) {
       {/* Exercise Mode Selection */}
       <div>
         <h2 className="font-semibold mb-3 text-sm text-muted-foreground uppercase tracking-wide">Övningstyp</h2>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <button
             onClick={() => setSelectedMode("listen")}
             className={`p-4 rounded-xl border-2 text-center transition-all ${
@@ -354,6 +354,17 @@ function GymDashboard({ sentences, srsCards, onStartSession, sessionRef }) {
             <p className="text-lg">⌨️</p>
             <p className="text-xs font-medium mt-1">Skriva</p>
             <p className="text-[10px] text-muted-foreground mt-0.5">Alltid skriva svar</p>
+          </button>
+          <button
+            onClick={() => setSelectedMode("produce")}
+            className={`p-4 rounded-xl border-2 text-center transition-all relative ${
+              selectedMode === "produce" ? "border-primary bg-primary/5" : "border-border/50 hover:border-primary/30"
+            }`}
+          >
+            <span className="absolute -top-1.5 -right-1.5 text-[9px] font-bold bg-amber-500 text-white px-1.5 py-0.5 rounded-full">NYTT</span>
+            <p className="text-lg">🗣️</p>
+            <p className="text-xs font-medium mt-1">Produktion</p>
+            <p className="text-[10px] text-muted-foreground mt-0.5">Engelska → hela svenska meningen</p>
           </button>
         </div>
       </div>

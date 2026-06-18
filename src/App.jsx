@@ -30,7 +30,6 @@ import Grammar from './pages/Grammar';
 import GrammarTopic from './pages/GrammarTopic';
 import AdminGrammar from './pages/AdminGrammar';
 import AdminUsers from './pages/AdminUsers';
-import VocabTreeMockup from './pages/VocabTreeMockup';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, authChecked } = useAuth();
@@ -74,7 +73,6 @@ const AuthenticatedApp = () => {
         <Route path="/grammar/:categoryId/:topicId" element={<GrammarTopic />} />
         <Route path="/admin/grammar" element={<AdminGrammar />} />
         <Route path="/admin/users" element={<AdminUsers />} />
-        <Route path="/vocab-tree-mockup" element={<VocabTreeMockup />} />
         <Route path="/citizenship-test" element={<CitizenshipTest />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<About />} />
