@@ -6,6 +6,52 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 const BREVO_API = 'https://api.brevo.com/v3';
 const APP_URL = 'https://sveapasset.se';
 
+function buildWelcomeEmail({ firstName }) {
+  // Fetches the canonical welcome email HTML from the repo so the preview always
+  // matches what new signups actually receive.
+  const html = `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Welcome to Sveapasset</title></head>
+<body style="margin:0;padding:0;background-color:#f4f4f5;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f5;padding:40px 0;"><tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+  <tr><td style="background:#fef3c7;color:#92400e;padding:10px 16px;font-size:12px;font-weight:600;text-align:center">⚠️ PREVIEW — This is the welcome email new signups receive</td></tr>
+  <tr><td style="background:linear-gradient(135deg,#1e40af 0%,#3b82f6 100%);padding:40px 40px 32px;text-align:center;">
+    <h1 style="margin:0;color:#ffffff;font-size:28px;font-weight:800;letter-spacing:-0.5px;">Sveapasset 🇸🇪</h1>
+    <p style="margin:8px 0 0;color:#bfdbfe;font-size:14px;font-weight:500;">Your Swedish Learning Companion</p>
+  </td></tr>
+  <tr><td style="padding:40px 40px 0;">
+    <h2 style="margin:0 0 12px;font-size:22px;font-weight:700;color:#111827;">Hi ${firstName} 👋</h2>
+    <p style="margin:0;font-size:16px;line-height:1.7;color:#4b5563;">Welcome to <strong>Sveapasset</strong> — your free app for learning Swedish and preparing for the citizenship test. We're excited to have you on board!</p>
+  </td></tr>
+  <tr><td style="padding:32px 40px 16px;"><h3 style="margin:0;font-size:16px;font-weight:700;color:#111827;">Here's what's waiting for you:</h3></td></tr>
+
+  <tr><td style="padding:0 40px 16px;"><table cellpadding="0" cellspacing="0" style="width:100%;background:#eff6ff;border-radius:12px;padding:16px;"><tr><td style="width:44px;vertical-align:top;font-size:26px;">📚</td><td style="padding-left:12px;vertical-align:top;"><p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#1e40af;">4 SFI Courses (Kurs A–D)</p><p style="margin:0;font-size:14px;color:#4b5563;line-height:1.5;">Structured lessons from absolute beginner to advanced — follow the same path as official Swedish SFI education.</p></td></tr></table></td></tr>
+
+  <tr><td style="padding:0 40px 16px;"><table cellpadding="0" cellspacing="0" style="width:100%;background:#f0fdf4;border-radius:12px;padding:16px;"><tr><td style="vertical-align:top;"><p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#15803d;">Meet <span style="font-weight:800;color:#7c3aed;">Svea</span> — your tutor</p><p style="margin:0;font-size:14px;color:#4b5563;line-height:1.5;"><span style="font-weight:800;color:#7c3aed;">Svea</span> is your personal Swedish tutor: write in Swedish for instant corrections, get explanations when you're stuck, and a daily plan made just for you.</p></td></tr></table></td></tr>
+
+  <tr><td style="padding:0 40px 16px;"><table cellpadding="0" cellspacing="0" style="width:100%;background:#fdf4ff;border-radius:12px;padding:16px;"><tr><td style="width:44px;vertical-align:top;font-size:26px;">📝</td><td style="padding-left:12px;vertical-align:top;"><p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#7e22ce;">Civic Knowledge (38 Topics)</p><p style="margin:0;font-size:14px;color:#4b5563;line-height:1.5;">Everything you need for the Swedish citizenship test — government, history, rights, society and more.</p></td></tr></table></td></tr>
+
+  <tr><td style="padding:0 40px 16px;"><table cellpadding="0" cellspacing="0" style="width:100%;background:#fff7ed;border-radius:12px;padding:16px;"><tr><td style="width:44px;vertical-align:top;font-size:26px;">🔥</td><td style="padding-left:12px;vertical-align:top;"><p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#c2410c;">Daily Challenges & Streaks</p><p style="margin:0;font-size:14px;color:#4b5563;line-height:1.5;">4 challenges unlocked throughout the day — morning, afternoon, evening and night. Build a streak and earn XP rewards.</p></td></tr></table></td></tr>
+
+  <tr><td style="padding:0 40px 16px;"><table cellpadding="0" cellspacing="0" style="width:100%;background:#f0fdfa;border-radius:12px;padding:16px;"><tr><td style="width:44px;vertical-align:top;font-size:26px;">🏋️</td><td style="padding-left:12px;vertical-align:top;"><p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#0f766e;">Gym & Vocabulary SRS</p><p style="margin:0;font-size:14px;color:#4b5563;line-height:1.5;">Words you learn are automatically saved to a spaced repetition deck. Review them at the right time to remember them forever.</p></td></tr></table></td></tr>
+
+  <tr><td style="padding:0 40px 16px;"><table cellpadding="0" cellspacing="0" style="width:100%;background:#fef2f2;border-radius:12px;padding:16px;"><tr><td style="width:44px;vertical-align:top;font-size:26px;">📖</td><td style="padding-left:12px;vertical-align:top;"><p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#b91c1c;">Grammar Hub</p><p style="margin:0;font-size:14px;color:#4b5563;line-height:1.5;">Master Swedish grammar level by level — verbs, en/ett, word order and more. Every rule comes with interactive exercises and AI-powered feedback on your mistakes.</p></td></tr></table></td></tr>
+
+  <tr><td style="padding:0 40px 16px;"><table cellpadding="0" cellspacing="0" style="width:100%;background:#eef2ff;border-radius:12px;padding:16px;"><tr><td style="width:44px;vertical-align:top;font-size:26px;">🎧</td><td style="padding-left:12px;vertical-align:top;"><p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#4338ca;">Listening Tests</p><p style="margin:0;font-size:14px;color:#4b5563;line-height:1.5;">Train your ear with real Swedish audio at every SFI level. Transcribe what you hear or pick the right answer — perfect prep for the listening section of the SFI exam.</p></td></tr></table></td></tr>
+
+  <tr><td style="padding:0 40px 16px;"><table cellpadding="0" cellspacing="0" style="width:100%;background:#ecfeff;border-radius:12px;padding:16px;"><tr><td style="width:44px;vertical-align:top;font-size:26px;">📅</td><td style="padding-left:12px;vertical-align:top;"><p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#0e7490;">Personalised Study Plan</p><p style="margin:0;font-size:14px;color:#4b5563;line-height:1.5;">Tell us your target SFI level and how many days you have — we'll build a day-by-day lesson schedule that keeps you on track and adapts as you progress.</p></td></tr></table></td></tr>
+
+  <tr><td style="padding:32px 40px;text-align:center;">
+    <p style="margin:0 0 24px;font-size:16px;color:#4b5563;line-height:1.7;">Ready to start? Open the app and complete your first lesson today — it only takes 5 minutes. 🚀</p>
+    <a href="${APP_URL}" style="display:inline-block;background:linear-gradient(135deg,#1e40af 0%,#3b82f6 100%);color:#ffffff;font-size:16px;font-weight:700;text-decoration:none;padding:16px 40px;border-radius:50px;letter-spacing:0.3px;">Start Learning Now →</a>
+  </td></tr>
+  <tr><td style="background:#f9fafb;padding:24px 40px;text-align:center;border-top:1px solid #e5e7eb;">
+    <p style="margin:0;font-size:13px;color:#9ca3af;">You're receiving this because you created an account at <a href="${APP_URL}" style="color:#3b82f6;text-decoration:none;">sveapasset.se</a></p>
+  </td></tr>
+</table></td></tr></table></body></html>`;
+  return { subject: `[PREVIEW] Welcome to Sveapasset 🇸🇪 — your Swedish learning starts here`, html };
+}
+
 function buildInactivityEmail({ firstName, streak }) {
   let subject, headline, body, cta;
   if (streak >= 30) {
@@ -104,14 +150,19 @@ Deno.serve(async (req) => {
   const to = me.email;
   const firstName = (me.full_name || '').split(' ')[0] || 'Deepak';
 
-  // Send 5 previews: 4 inactivity tiers + 1 weekly summary
-  const previews = [
+  // Optional ?only=welcome to test just the welcome email
+  const url = new URL(req.url);
+  const only = url.searchParams.get('only');
+
+  const allPreviews = [
+    { kind: 'welcome', ...buildWelcomeEmail({ firstName }) },
     { kind: 'inactivity-long', ...buildInactivityEmail({ firstName, streak: 47 }) },
     { kind: 'inactivity-mid', ...buildInactivityEmail({ firstName, streak: 12 }) },
     { kind: 'inactivity-early', ...buildInactivityEmail({ firstName, streak: 3 }) },
     { kind: 'inactivity-none', ...buildInactivityEmail({ firstName, streak: 0 }) },
     { kind: 'weekly', ...buildWeeklyEmail({ firstName, streak: 12, xp: 2340, quizzesThisWeek: 7, avgScore: 84 }) },
   ];
+  const previews = only ? allPreviews.filter(p => p.kind === only) : allPreviews;
 
   const results = [];
   for (const p of previews) {
