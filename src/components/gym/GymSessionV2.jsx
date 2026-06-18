@@ -304,14 +304,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
               </div>
 
               {/* Production mode: hide Swedish until answered */}
-              {mode === "produce" && !answered ? (
-                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 flex items-start gap-2">
-                  <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-                  <p className="text-sm text-amber-800 dark:text-amber-300">
-                    <strong>Produktionsläge:</strong> Translate the English sentence into full Swedish from memory — no hints. This is how you build real speaking recall. 💪
-                  </p>
-                </div>
-              ) : (
+              {mode === "produce" && !answered ? null : (
               <div className="bg-muted/40 rounded-xl p-4 space-y-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs font-semibold text-foreground uppercase">Swedish</span>
