@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { Flame, Zap, Trophy, Target, LogOut, Trash2, CalendarDays } from "lucide-react";
+import { Flame, Zap, Trophy, Target, LogOut, Trash2, CalendarDays, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -26,6 +26,7 @@ import TodaysPlanCard from "../components/planner/TodaysPlanCard";
 import CreateStudyPlanModal from "../components/planner/CreateStudyPlanModal";
 import { useStudyPlan } from "@/hooks/useStudyPlan";
 import { usePageView } from "@/hooks/usePageView";
+import VocabTreeMockup from "./VocabTreeMockup";
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -143,8 +144,11 @@ export default function Dashboard() {
         </div>
       )}
       <Tabs defaultValue="home" className="w-full space-y-6">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="home">Hem</TabsTrigger>
+          <TabsTrigger value="tree" className="gap-1.5">
+            <Sparkles className="w-3.5 h-3.5" /> Ordträd
+          </TabsTrigger>
           <TabsTrigger value="settings">Inställningar</TabsTrigger>
         </TabsList>
 
@@ -248,6 +252,10 @@ export default function Dashboard() {
 
         </TabsContent>
 
+        {/* Vocab Tree Tab (mockup) */}
+        <TabsContent value="tree" className="-mx-4 sm:-mx-6 lg:-mx-8">
+          <VocabTreeMockup />
+        </TabsContent>
 
         {/* Settings Tab */}
         <TabsContent value="settings" className="space-y-6">
