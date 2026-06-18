@@ -6,51 +6,65 @@ import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
 
 // Bump this string with every release to re-show the dialog to all users
-const CURRENT_VERSION = "2026-06-v1";
+const CURRENT_VERSION = "2026-06-v2";
 const STORAGE_KEY = "svenska:whats_new_seen";
 
 const FEATURES = [
   {
-    emoji: "✨",
-    title: "Svea — din AI-tutor",
-    titleEn: "Svea — your AI tutor",
-    desc: "En personlig coach som planerar din dag, väljer rätt övningar och förklarar dina misstag.",
-    descEn: "A personal coach that plans your day, picks the right exercises, and explains your mistakes.",
+    emoji: "📚",
+    title: "Lektioner — Kurs A till D",
+    titleEn: "Lessons — Kurs A to D",
+    desc: "Hela SFI-resan i en app: ordförråd, fraser, läsning och skrivning per nivå.",
+    descEn: "The whole SFI journey in one app: vocabulary, phrases, reading and writing per level.",
   },
   {
-    emoji: "📋",
-    title: "Smart studieplan",
-    titleEn: "Smart study planner",
-    desc: "Väljer lektioner efter dina svagaste färdigheter, med repetition och ikapp-läsning om du missar en dag.",
-    descEn: "Picks lessons by your weakest skills, with spaced repetition and catch-up if you miss a day.",
+    emoji: "📝",
+    title: "Grammatik",
+    titleEn: "Grammar",
+    desc: "Tydliga regler och övningar — en-/ett-ord, verbtempus, ordföljd och mer.",
+    descEn: "Clear rules and exercises — en/ett words, verb tenses, word order and more.",
+  },
+  {
+    emoji: "🏋️",
+    title: "Träningssalen (Gym)",
+    titleEn: "The Gym",
+    desc: "Lucktexter och repetition med smart spaced repetition så orden fastnar.",
+    descEn: "Cloze drills with spaced repetition so words actually stick.",
+  },
+  {
+    emoji: "✍️",
+    title: "Skriva",
+    titleEn: "Skriva — write from memory",
+    desc: "Översätt engelska meningar till hela svenska meningar. Svea rättar varje fel.",
+    descEn: "Translate English sentences into full Swedish. Svea fixes every mistake.",
   },
   {
     emoji: "🎧",
     title: "Hörförståelse",
     titleEn: "Listening practice",
-    desc: "Riktiga ljudklipp — samtal, telefonsamtal, nyheter och meddelanden — för Kurs A och C.",
-    descEn: "Real audio clips — dialogues, phone calls, news and messages — for Kurs A and C, like the national test.",
+    desc: "Riktiga ljudklipp — samtal, telefonsamtal, nyheter — som på nationella provet.",
+    descEn: "Real audio clips — dialogues, calls, news — like the national test.",
   },
   {
-    emoji: "🧠",
-    title: "Dagens quiz",
-    titleEn: "Daily quizzes",
-    desc: "Korta quiz vid fyra tillfällen under dagen som håller minnet färskt.",
-    descEn: "Short quiz check-ins at four points in the day to keep recall fresh.",
+    emoji: "🇸🇪",
+    title: "Samhälle & medborgarskap",
+    titleEn: "Civics & citizenship",
+    desc: "Sverige i fokus: lag, historia, rättigheter — allt du behöver för provet.",
+    descEn: "Sweden in focus: law, history, rights — everything you need for the test.",
+  },
+  {
+    emoji: "✨",
+    title: "Svea — din AI-tutor",
+    titleEn: "Svea — your AI tutor",
+    desc: "Planerar din dag, väljer övningar efter dina svagheter och förklarar varje fel.",
+    descEn: "Plans your day, picks exercises for your weak spots, and explains every mistake.",
   },
   {
     emoji: "📊",
-    title: "Nivå & provberedskap",
-    titleEn: "Mastery & test readiness",
-    desc: "Se din nivå per färdighet och hur redo du är för det nationella provet.",
-    descEn: "See your mastery per skill and how ready you are for the national test.",
-  },
-  {
-    emoji: "🔊",
-    title: "Naturligt uttal",
-    titleEn: "Natural pronunciation",
-    desc: "Tydligare, naturliga svenska röster i hela appen.",
-    descEn: "Clearer, natural Swedish voices across the whole app.",
+    title: "Framsteg & provberedskap",
+    titleEn: "Progress & test readiness",
+    desc: "Streaks, XP, nivå per färdighet och hur redo du är för nationella provet.",
+    descEn: "Streaks, XP, mastery per skill, and how ready you are for the national test.",
   },
 ];
 
@@ -103,9 +117,11 @@ export default function WhatsNewModal() {
                   </div>
                   <div>
                     <h2 id="whats-new-title" className="font-display text-lg font-bold leading-tight">
-                      Nyheter · What's new
+                      Allt-i-ett för SFI · All-in-one for SFI
                     </h2>
-                    <p className="text-xs text-muted-foreground">Sveapasset · Version {CURRENT_VERSION}</p>
+                    <p className="text-xs text-muted-foreground">
+                      Lär dig svenska från Kurs A till medborgarskap — i en app.
+                    </p>
                   </div>
                 </div>
                 <button
