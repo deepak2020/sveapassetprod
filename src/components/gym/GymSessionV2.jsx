@@ -7,6 +7,7 @@ import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { playAudio } from "@/lib/speech";
 import { getCachedFeedback, setCachedFeedback } from "@/lib/aiCache";
+import { addMissedWordsFromSkriva } from "@/hooks/useVocabSRS";
 import SveaProductionFeedback from "@/components/gym/SveaProductionFeedback";
 import SveaLogo from "@/components/shared/SveaLogo";
 
@@ -152,6 +153,10 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
         if (result && (result.explanation || result.corrected_text || result.overall)) {
           setAiFeedback(result);
           if (!isProduce) await setCachedFeedback(base44, cacheKey, result);
+          // Feed missed Swedish words back into the vocab SRS deck for repeat learning
+          if (isProduce && Array.isArray(result.grammar_issues) && result.grammar_issues.length > 0) {
+            addMissedWordsFromSkriva(result.grammar_issues, sentence.sentence_en);
+          }
         }
       } catch {}
       setAiLoading(false);

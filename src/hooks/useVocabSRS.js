@@ -67,6 +67,40 @@ export function addVocabSRSCards(wordPairs, lessonId, lessonTitle) {
   return newCards.length;
 }
 
+// Add words the student got wrong in Skriva (production mode) to the SRS deck.
+// `issues` is an array of { wrong, correct, explanation } from Svea feedback.
+// `context` is the English prompt sentence (used as the "translation" hint on flip).
+export function addMissedWordsFromSkriva(issues, contextEn) {
+  if (!Array.isArray(issues) || issues.length === 0) return 0;
+  const existing = readCards();
+  const existingIds = new Set(existing.map((c) => c.id));
+  const today = new Date().toISOString().split("T")[0];
+  const newCards = issues
+    .map((iss) => {
+      const sv = (iss?.correct || "").trim();
+      if (!sv) return null;
+      const id = `skriva::${sv.toLowerCase()}`;
+      if (existingIds.has(id)) return null;
+      existingIds.add(id);
+      return {
+        id,
+        swedish: sv,
+        english: contextEn || iss?.explanation || "",
+        lessonId: null,
+        lessonTitle: "Skriva — missed words",
+        due_date: today,
+        interval_days: 1,
+        ease_factor: 2.5,
+        times_seen: 0,
+        times_correct: 0,
+        status: "new",
+      };
+    })
+    .filter(Boolean);
+  if (newCards.length > 0) saveCards([...existing, ...newCards]);
+  return newCards.length;
+}
+
 // Add words from UserVocabulary (saved words) to SRS deck
 export function addSavedWordToSRS(word) {
   const id = `saved::${word.id || word.swedish}`;
