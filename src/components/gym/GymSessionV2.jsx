@@ -7,6 +7,8 @@ import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { playAudio } from "@/lib/speech";
 import { getCachedFeedback, setCachedFeedback } from "@/lib/aiCache";
+import SveaProductionFeedback from "@/components/gym/SveaProductionFeedback";
+import SveaLogo from "@/components/shared/SveaLogo";
 
 async function explainClozeAnswer(sentenceEn, sentenceSv, blankAnswer, userAnswer) {
   return base44.integrations.Core.InvokeLLM({
@@ -36,30 +38,53 @@ Return JSON with:
   });
 }
 
-async function explainProductionAnswer(sentenceEn, correctSv, userSv) {
+async function evaluateProductionAnswer(sentenceEn, correctSv, userSv) {
   return base44.integrations.Core.InvokeLLM({
-    prompt: `You are a friendly Swedish language teacher for SFI students learning to PRODUCE Swedish from English.
+    prompt: `You are Svea, a Swedish language teacher evaluating an SFI student who is doing active PRODUCTION — translating an English sentence into full Swedish from memory.
 
 English prompt: "${sentenceEn}"
-Correct Swedish: "${correctSv}"
+Model Swedish answer: "${correctSv}"
 Student wrote: "${userSv || "(nothing)"}"
 
-The student is doing active production — they had to recall and construct the whole Swedish sentence from memory.
+Step 1 — Read the student's text word by word.
+Step 2 — In a single pass, fix EVERY error across ALL categories at once:
+  a) Spelling mistakes (skip proper nouns and names)
+  b) Wrong verb form or tense
+  c) Wrong article (en/ett)
+  d) Wrong word order (Swedish V2 rule, inversion after time/place)
+  e) Wrong or unnatural vocabulary choice
+  f) Missing words
 
-In simple English (max 2 sentences), point out the SPECIFIC mistake(s) the student made (wrong word, wrong word order, missing article, wrong verb form, etc.). Be encouraging but precise.
-Then give one short memory tip for the rule they got wrong.
-If they wrote nothing or only got a tiny part wrong, still explain the key construction.
+Step 3 — Write corrected_text: the student's FULL answer with ALL corrections applied. Keep correct words exactly as written. Only fix the errors. If the student wrote nothing, corrected_text is the model Swedish answer.
 
-Return JSON with:
-- explanation: string (what they got wrong and why, max 2 sentences)
-- rule: string (grammar rule or pattern name, e.g. "V2 word order", "ett-word neuter article")
-- tip: string (one short memory tip)`,
+Step 4 — List every change you made in grammar_issues. For each issue write a clear educational explanation of the Swedish grammar RULE that was broken — explain WHY it is wrong (e.g. "Swedish present tense verbs end in -r", "ett-words use ett not en as article", "V2 rule: verb must be in second position").
+
+Step 5 — Write one practical tip and an overall encouraging sentence.
+
+Return JSON:
+- corrected_text: string
+- grammar_issues: array, each: wrong (string), correct (string), explanation (English, max 15 words explaining the grammar rule)
+- suggestion: string (English, one practical tip)
+- score: "great" | "good" | "needs_work"
+- overall: string (English, one encouraging sentence)`,
     response_json_schema: {
       type: "object",
       properties: {
-        explanation: { type: "string" },
-        rule: { type: "string" },
-        tip: { type: "string" },
+        corrected_text: { type: "string" },
+        grammar_issues: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              wrong: { type: "string" },
+              correct: { type: "string" },
+              explanation: { type: "string" },
+            },
+          },
+        },
+        suggestion: { type: "string" },
+        score: { type: "string" },
+        overall: { type: "string" },
       },
     },
   });
@@ -122,7 +147,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
         const cached = isProduce ? null : await getCachedFeedback(base44, cacheKey);
         if (cached) { setAiFeedback(cached); setAiLoading(false); return; }
         const result = isProduce
-          ? await explainProductionAnswer(sentence.sentence_en, fullSwedishSentence(sentence), userAns)
+          ? await evaluateProductionAnswer(sentence.sentence_en, fullSwedishSentence(sentence), userAns)
           : await explainClozeAnswer(sentence.sentence_en, sentence.sentence_sv, sentence.answer, userAns);
         if (result?.explanation) {
           setAiFeedback(result);
@@ -465,12 +490,19 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                     </div>
                   )}
 
-                  {/* AI Grammar Explanation — shown on wrong answers */}
-                  {!correct && (
+                  {/* Svea feedback on wrong answers */}
+                  {!correct && mode === "produce" && (
+                    <SveaProductionFeedback
+                      userAnswer={typed || selected || ""}
+                      feedback={aiFeedback}
+                      loading={aiLoading}
+                    />
+                  )}
+                  {!correct && mode !== "produce" && (
                     <div className="rounded-xl border border-violet-200 bg-violet-50 dark:bg-violet-900/20 dark:border-violet-800 p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Sparkles className="w-4 h-4 text-violet-600 dark:text-violet-400 shrink-0" />
-                        <span className="text-xs font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide">AI Grammar Tip</span>
+                      <div className="flex items-baseline gap-2 mb-2">
+                        <SveaLogo className="text-base" />
+                        <span className="text-xs text-violet-600 dark:text-violet-400 italic">your tutor</span>
                       </div>
                       {aiLoading ? (
                         <div className="flex items-center gap-2 text-sm text-violet-600 dark:text-violet-400">
