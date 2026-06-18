@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { Play, BookOpen, Upload, Brain, CheckCircle2, XCircle, Mic, Sparkles } from "lucide-react";
+import { Play, BookOpen, Upload, Brain, CheckCircle2, XCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -228,99 +228,9 @@ export default function Gym() {
           </CardContent>
         </Card>
       ) : (
-        <>
-          <ProductionModeCard sentences={sentences} onStartSession={setSession} />
-          <GymDashboard sentences={sentences} srsCards={srsCards} onStartSession={setSession} sessionRef={sessionRef} />
-        </>
+        <GymDashboard sentences={sentences} srsCards={srsCards} onStartSession={setSession} sessionRef={sessionRef} />
       )}
     </div>
-  );
-}
-
-function ProductionModeCard({ sentences, onStartSession }) {
-  const [level, setLevel] = useState("A");
-  const [count, setCount] = useState(10);
-
-  const levelSentences = sentences.filter(s => s.sfi_level === level);
-  const available = Math.min(count, levelSentences.length);
-
-  const start = () => {
-    const quiz = shuffle(levelSentences).slice(0, available);
-    base44.analytics.track({
-      eventName: "gym_session_started",
-      properties: { mode: "produce", sfi_level: level, sentence_count: quiz.length, source: "production_hero" },
-    });
-    onStartSession({ sentences: quiz, mode: "produce" });
-  };
-
-  return (
-    <Card className="border-2 border-amber-300 dark:border-amber-700 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 dark:from-amber-950/30 dark:via-orange-950/20 dark:to-rose-950/20 overflow-hidden">
-      <CardContent className="p-5 space-y-4">
-        <div className="flex items-start gap-3">
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shrink-0 shadow-sm">
-            <Mic className="w-5 h-5 text-white" />
-          </div>
-          <div className="flex-1">
-            <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="font-display font-bold text-lg">Production Mode</h3>
-              <span className="text-[10px] font-bold bg-amber-500 text-white px-2 py-0.5 rounded-full uppercase tracking-wider">Nytt</span>
-            </div>
-            <p className="text-sm text-muted-foreground leading-snug mt-0.5">
-              Engelska → hela svenska meningen från minnet. <span className="italic">Svea</span> ger feedback på varje fel.
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">SFI-nivå</p>
-          <div className="grid grid-cols-4 gap-2">
-            {SFI_LEVELS.map(l => (
-              <button
-                key={l}
-                onClick={() => setLevel(l)}
-                className={`py-2 rounded-lg border-2 text-sm font-bold transition-all ${
-                  level === l
-                    ? "border-amber-500 bg-amber-500 text-white"
-                    : "border-amber-200 dark:border-amber-800/60 bg-white/60 dark:bg-black/20 hover:border-amber-400"
-                }`}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Antal meningar</p>
-          <div className="grid grid-cols-3 gap-2">
-            {SENTENCE_COUNTS.map(n => (
-              <button
-                key={n}
-                onClick={() => setCount(n)}
-                className={`py-2 rounded-lg border-2 text-sm font-semibold transition-all ${
-                  count === n
-                    ? "border-amber-500 bg-amber-500 text-white"
-                    : "border-amber-200 dark:border-amber-800/60 bg-white/60 dark:bg-black/20 hover:border-amber-400"
-                }`}
-              >
-                {n}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <LoginGate message="Logga in för att starta Production Mode">
-          <Button
-            onClick={start}
-            size="lg"
-            className="w-full gap-2 text-base bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 shadow-md"
-            disabled={available === 0}
-          >
-            <Sparkles className="w-5 h-5" /> Starta Production ({available} meningar)
-          </Button>
-        </LoginGate>
-      </CardContent>
-    </Card>
   );
 }
 

@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { BookOpen, Landmark, Home, Menu, X, LogIn, LogOut, Headphones, Flame, Zap, LayoutDashboard, Dumbbell, PenSquare } from "lucide-react";
+import { BookOpen, Landmark, Home, Menu, X, LogIn, LogOut, Headphones, Flame, Zap, LayoutDashboard, Dumbbell, PenSquare, Mic } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/AuthContext";
@@ -15,6 +15,7 @@ const navItems = [
   { path: "/language", label: "Språk", icon: BookOpen },
   { path: "/civic", label: "Samhälle", icon: Landmark },
   { path: "/gym", label: "Träning", icon: Dumbbell },
+  { path: "/speaking", label: "Tala", icon: Mic },
   { path: "/grammar", label: "Grammatik", icon: PenSquare },
   { path: "/listening/c", label: "Hörförståelse", icon: Headphones },
 ];
@@ -22,9 +23,9 @@ const navItems = [
 const bottomTabItems = [
   { path: "/dashboard", label: "Hem", icon: LayoutDashboard },
   { path: "/language", label: "Lär dig", icon: BookOpen },
-  { path: "/grammar", label: "Grammatik", icon: PenSquare },
   { path: "/gym", label: "Träning", icon: Dumbbell },
-  { path: "/listening/c", label: "Hörförståelse", icon: Headphones },
+  { path: "/speaking", label: "Tala", icon: Mic },
+  { path: "/grammar", label: "Grammatik", icon: PenSquare },
 ];
 
 // Root path for each bottom tab
@@ -33,6 +34,7 @@ const TAB_ROOTS = {
   "/language": "/language",
   "/civic": "/civic",
   "/gym": "/gym",
+  "/speaking": "/speaking",
   "/grammar": "/grammar",
   "/listening": "/listening",
 };

@@ -17,6 +17,7 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Onboarding from './pages/Onboarding';
 import Gym from './pages/Gym';
+import Speaking from './pages/Speaking';
 import CitizenshipTest from './pages/CitizenshipTest';
 import Privacy from './pages/Privacy';
 import About from './pages/About';
@@ -69,6 +70,7 @@ const AuthenticatedApp = () => {
         <Route path="/civic/:id" element={<TopicDetail />} />
         <Route path="/listening/:course" element={<ListeningTest />} />
         <Route path="/gym" element={<Gym />} />
+        <Route path="/speaking" element={<Speaking />} />
         <Route path="/grammar" element={<Grammar />} />
         <Route path="/grammar/:categoryId/:topicId" element={<GrammarTopic />} />
         <Route path="/admin/grammar" element={<AdminGrammar />} />
