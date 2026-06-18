@@ -53,6 +53,11 @@
       "type": "string",
       "format": "date",
       "description": "Last date the user completed the Daily Warm-up vocabulary review"
+    },
+    "email_reminders_disabled": {
+      "type": "boolean",
+      "description": "User has opted out of automated reminder emails (inactivity nudges, weekly summaries)",
+      "default": false
     }
   },
   "required": [
