@@ -149,7 +149,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
         const result = isProduce
           ? await evaluateProductionAnswer(sentence.sentence_en, fullSwedishSentence(sentence), userAns)
           : await explainClozeAnswer(sentence.sentence_en, sentence.sentence_sv, sentence.answer, userAns);
-        if (result?.explanation) {
+        if (result && (result.explanation || result.corrected_text || result.overall)) {
           setAiFeedback(result);
           if (!isProduce) await setCachedFeedback(base44, cacheKey, result);
         }
