@@ -303,8 +303,8 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
                 <p className="text-base leading-relaxed text-blue-900">{sentence.sentence_en}</p>
               </div>
 
-              {/* Production mode: hide Swedish until answered */}
-              {mode === "produce" && !answered ? null : (
+              {/* Hide Swedish panel entirely in production mode (Skriva) */}
+              {mode === "produce" ? null : (
               <div className="bg-muted/40 rounded-xl p-4 space-y-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs font-semibold text-foreground uppercase">Swedish</span>
