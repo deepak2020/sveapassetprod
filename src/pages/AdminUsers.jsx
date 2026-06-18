@@ -4,6 +4,7 @@ import { Users, UserCheck, UserMinus, UserX, Flame, Zap, TrendingUp, MailX } fro
 import StatCard from "../components/admin/StatCard";
 import ActivityChart from "../components/admin/ActivityChart";
 import UserTable from "../components/admin/UserTable";
+import EmailStats from "../components/admin/EmailStats";
 
 function daysSince(dateStr) {
   if (!dateStr) return null;
@@ -78,6 +79,9 @@ export default function AdminUsers() {
 
           {/* Activity chart */}
           <ActivityChart users={users} />
+
+          {/* Email performance */}
+          <EmailStats />
 
           {/* User table */}
           <UserTable users={users} />
