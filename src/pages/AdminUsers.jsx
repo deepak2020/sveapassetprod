@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
-import { Users, UserCheck, UserMinus, UserX, Flame, Zap, TrendingUp, MailX } from "lucide-react";
+import { Users, UserCheck, UserMinus, UserX, Flame, Zap, TrendingUp, MailX, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import StatCard from "../components/admin/StatCard";
 import ActivityChart from "../components/admin/ActivityChart";
 import UserTable from "../components/admin/UserTable";
@@ -50,9 +52,16 @@ export default function AdminUsers() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
-      <div>
-        <h1 className="font-display text-3xl font-bold">User Activity Board</h1>
-        <p className="text-muted-foreground mt-1">Track who's active, who's at risk, and who's churning.</p>
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <h1 className="font-display text-3xl font-bold">User Activity Board</h1>
+          <p className="text-muted-foreground mt-1">Track who's active, who's at risk, and who's churning.</p>
+        </div>
+        <Button asChild variant="outline" size="sm" className="gap-2">
+          <Link to="/admin/feedback">
+            <MessageSquare className="w-4 h-4" /> Feedback
+          </Link>
+        </Button>
       </div>
 
       {isLoading ? (
