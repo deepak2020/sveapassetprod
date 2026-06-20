@@ -24,17 +24,25 @@ ${hint ? `Hint: ${hint}` : ""}
 ${exampleAnswer ? `Model answer: ${exampleAnswer}` : ""}
 Student wrote: "${userAnswer}"
 
+CRITICAL RULE — read this twice:
+The model answer is ONE possible answer, not THE answer. If the student's sentence is grammatically correct and natural Swedish that answers the question, it is RIGHT — even if it uses different words, a different verb, or a different structure than the model. DO NOT rewrite valid Swedish to match the model. DO NOT flag stylistic preferences. Examples of sentences you must accept as correct:
+- "Jag heter Anna." (valid even if model says "Jag är Anna.")
+- "Han kommer från Indien." (valid even if model says "Han är från Indien.")
+- "Hon äter frukost." (valid even if model says "Hon är hungrig.")
+A sentence is only wrong if it contains a real error: misspelling, wrong verb form, wrong article (en/ett), wrong word order, or vocabulary that is actually incorrect (not just different).
+
 Step 1 — Read the student's text word by word.
-Step 2 — In a single pass, fix EVERY error across ALL categories at once:
+Step 2 — Fix ONLY real errors in this list:
   a) Spelling mistakes (skip proper nouns and names)
   b) Wrong verb form or tense
   c) Wrong article (en/ett)
-  d) Wrong word order
-  e) Wrong or unnatural vocabulary choice
+  d) Wrong word order (V2 rule, inversion)
+  e) Vocabulary that is genuinely wrong or ungrammatical in context — NOT just different from the model
+If the student's sentence has none of these errors, corrected_text MUST equal the student's text exactly and grammar_issues MUST be an empty array.
 
-Step 3 — Write corrected_text: the student's FULL answer with ALL corrections applied. Keep names, punctuation, and correct words exactly as written. Only fix the errors.
+Step 3 — Write corrected_text: the student's FULL answer with ONLY real corrections applied. Keep names, punctuation, and all correct words exactly as written.
 
-Step 4 — List every change you made in grammar_issues. For each issue write a clear educational explanation of the Swedish grammar RULE that was broken — explain WHY it is wrong (e.g. "Swedish present tense verbs end in -r", "ett-words use ett not en as article").
+Step 4 — List every real change in grammar_issues. For each, explain the Swedish grammar RULE that was broken — explain WHY it is wrong (e.g. "Swedish present tense verbs end in -r", "ett-words use ett not en as article"). Do NOT add entries for stylistic rewrites.
 
 Step 5 — Decide if the answer addresses the question, write one tip, one overall sentence.
 

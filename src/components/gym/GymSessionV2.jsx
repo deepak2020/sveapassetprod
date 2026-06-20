@@ -47,16 +47,20 @@ English prompt: "${sentenceEn}"
 Model Swedish answer: "${correctSv}"
 Student wrote: "${userSv || "(nothing)"}"
 
+CRITICAL RULE — read this twice:
+The model answer is ONE possible translation, not THE only translation. If the student's sentence is grammatically correct, natural Swedish, AND faithfully translates the English prompt, it is RIGHT — even if it uses different words or structure than the model. DO NOT rewrite valid Swedish to match the model. DO NOT flag stylistic preferences. A sentence is only wrong if it contains a real error: misspelling, wrong verb form, wrong article (en/ett), wrong word order, missing word, or vocabulary that genuinely doesn't translate the English prompt.
+
 Step 1 — Read the student's text word by word.
-Step 2 — In a single pass, fix EVERY error across ALL categories at once:
+Step 2 — Fix ONLY real errors in this list:
   a) Spelling mistakes (skip proper nouns and names)
   b) Wrong verb form or tense
   c) Wrong article (en/ett)
   d) Wrong word order (Swedish V2 rule, inversion after time/place)
-  e) Wrong or unnatural vocabulary choice
+  e) Vocabulary that genuinely fails to translate the English prompt — NOT just different from the model
   f) Missing words
+If the student's sentence has none of these errors, corrected_text MUST equal the student's text exactly and grammar_issues MUST be an empty array.
 
-Step 3 — Write corrected_text: the student's FULL answer with ALL corrections applied. Keep correct words exactly as written. Only fix the errors. If the student wrote nothing, corrected_text is the model Swedish answer.
+Step 3 — Write corrected_text: the student's FULL answer with ONLY real corrections applied. Keep correct words exactly as written. If the student wrote nothing, corrected_text is the model Swedish answer.
 
 Step 4 — List every change you made in grammar_issues. For each issue write a clear educational explanation of the Swedish grammar RULE that was broken — explain WHY it is wrong (e.g. "Swedish present tense verbs end in -r", "ett-words use ett not en as article", "V2 rule: verb must be in second position").
 
