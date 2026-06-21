@@ -124,6 +124,8 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
     setAnswered(false);
     setScore(0);
     setFinished(false);
+    setAiExplain(null);
+    setExplaining(false);
   };
 
   const wrongCount = wrongIndices.length;
