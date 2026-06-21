@@ -3,14 +3,15 @@ import { Volume2, Sparkles } from "lucide-react";
 import { playAudio } from "@/lib/speech";
 
 // Heuristically bucket a Swedish word into a semantic/grammatical group.
-// Keeps it simple: nouns (en/ett), verbs (att …), phrases, other.
+// Conservative: only confident verbs (att …) get tagged as verbs.
+// Single-word -r endings are ambiguous (mor, far, bror, syster, dotter, doktor,
+// flicka→flickor plural…) so they fall through to "other" rather than be
+// mislabeled as verbs.
 function classify(swedish) {
   const s = (swedish || "").trim().toLowerCase();
   if (!s) return "other";
   if (/^(en|ett)\s+/.test(s)) return "noun";
   if (/^att\s+/.test(s)) return "verb";
-  // verbs in present often end in -r and are a single word
-  if (/^\S+r$/.test(s) && !s.includes(" ")) return "verb";
   if (s.split(/\s+/).length >= 3) return "phrase";
   return "other";
 }
