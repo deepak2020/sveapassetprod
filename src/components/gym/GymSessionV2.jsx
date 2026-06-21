@@ -157,8 +157,17 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
         if (result && (result.explanation || result.corrected_text || result.overall)) {
           setAiFeedback(result);
           if (!isProduce) await setCachedFeedback(base44, cacheKey, result);
-          // Feed missed Swedish words back into the vocab SRS deck for repeat learning
-          if (isProduce && Array.isArray(result.grammar_issues) && result.grammar_issues.length > 0) {
+          // In Skriva mode, trust Svea: if she finds no grammar issues, the answer is valid
+          // even if it doesn't match the model sentence word-for-word (alternative phrasings).
+          if (isProduce && Array.isArray(result.grammar_issues) && result.grammar_issues.length === 0) {
+            // Svea says the answer is valid — override the strict string match.
+            // handleAnswer already recorded a miss; reverse it now.
+            setCorrect(true);
+            setScore(s => s + 1);
+            awardXP(base44, XP_REWARDS.cloze_correct);
+            updateSRS(sentence.id, true, srsCards);
+          } else if (isProduce && Array.isArray(result.grammar_issues) && result.grammar_issues.length > 0) {
+            // Feed missed Swedish words back into the vocab SRS deck for repeat learning
             addMissedWordsFromSkriva(result.grammar_issues, sentence.sentence_en);
           }
         }
