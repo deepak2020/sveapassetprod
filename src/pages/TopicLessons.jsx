@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { ArrowLeft, ArrowRight, CheckCircle2, PlayCircle, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, PlayCircle, RotateCcw, BookOpen, Network } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import OrdtradTab from "@/components/language/OrdtradTab";
 
 function getLessonProgress(lessonId) {
   try {
@@ -43,6 +45,7 @@ const SKILL_META = {
 export default function TopicLessons() {
   const { course, topic: encodedTopic } = useParams();
   const topic = decodeURIComponent(encodedTopic || "");
+  const [tab, setTab] = useState("lessons");
 
   const { data: lessons = [], isLoading } = useQuery({
     queryKey: ["topic-lessons", course, topic],
@@ -81,7 +84,7 @@ export default function TopicLessons() {
         <ArrowLeft className="w-4 h-4" /> Back to topics
       </Link>
 
-      <div className="mb-8">
+      <div className="mb-6">
         <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">SFI {course} · Topic</p>
         <h1 className="font-display text-3xl sm:text-4xl font-bold text-foreground">{topic}</h1>
         <p className="text-muted-foreground mt-1 text-sm">
@@ -89,6 +92,35 @@ export default function TopicLessons() {
         </p>
       </div>
 
+      {/* Tabs */}
+      <div className="flex gap-1 mb-6 border-b border-border/50">
+        <button
+          onClick={() => setTab("lessons")}
+          className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
+            tab === "lessons"
+              ? "border-primary text-primary"
+              : "border-transparent text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          <BookOpen className="w-4 h-4" />
+          Lektioner
+        </button>
+        <button
+          onClick={() => setTab("ordtrad")}
+          className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
+            tab === "ordtrad"
+              ? "border-primary text-primary"
+              : "border-transparent text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          <Network className="w-4 h-4" />
+          Ordtråd
+        </button>
+      </div>
+
+      {tab === "ordtrad" ? (
+        <OrdtradTab lessons={lessons} />
+      ) : (
       <ol className="space-y-3">
         {lessons.map((lesson, idx) => {
           const available = getAvailableKeys(lesson);
@@ -169,6 +201,7 @@ export default function TopicLessons() {
           );
         })}
       </ol>
+      )}
     </div>
   );
 }
