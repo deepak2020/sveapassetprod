@@ -92,25 +92,37 @@ export default function GrammarTopic() {
     const seenKey = `svenska:grammar_seen:${topicId}`;
     let seen = [];
     try { seen = JSON.parse(localStorage.getItem(seenKey) || "[]"); } catch { seen = []; }
-    const seenSet = new Set(seen);
-    let pool = allExercises.filter((e) => !seenSet.has(e.q));
-    if (pool.length < SESSION_SIZE) { pool = allExercises; seen = []; }
+    let seenSet = new Set(seen);
 
-    const shuffled = shuffle(pool);
-    const easy = shuffled.filter((e) => e.difficulty === "easy");
-    const medium = shuffled.filter((e) => e.difficulty === "medium" || !e.difficulty);
-    const hard = shuffled.filter((e) => e.difficulty === "hard");
+    // If almost all questions have been seen, reset the cycle so the user
+    // doesn't keep replaying the same residual handful.
+    const unseenCount = allExercises.filter((e) => !seenSet.has(e.q)).length;
+    if (unseenCount < SESSION_SIZE) { seen = []; seenSet = new Set(); }
+
+    // Bucket the FULL bank by difficulty, then prefer unseen within each bucket.
+    const byDiff = { easy: [], medium: [], hard: [] };
+    for (const e of allExercises) {
+      const d = e.difficulty === "easy" ? "easy" : e.difficulty === "hard" ? "hard" : "medium";
+      byDiff[d].push(e);
+    }
+    const draw = (bucket, n) => {
+      const unseen = shuffle(bucket.filter((e) => !seenSet.has(e.q)));
+      const seenOnes = shuffle(bucket.filter((e) => seenSet.has(e.q)));
+      return [...unseen, ...seenOnes].slice(0, n);
+    };
 
     let picked;
-    if (easy.length && hard.length && easy.length + medium.length + hard.length >= SESSION_SIZE) {
-      // Balanced pick: ~2 easy, ~4 medium, ~2 hard
-      picked = shuffle([...easy.slice(0, 2), ...medium.slice(0, 4), ...hard.slice(0, 2)]).slice(0, SESSION_SIZE);
+    if (byDiff.easy.length && byDiff.hard.length && allExercises.length >= SESSION_SIZE) {
+      // Balanced pick: ~2 easy, ~4 medium, ~2 hard — drawn from unseen-first
+      picked = [...draw(byDiff.easy, 2), ...draw(byDiff.medium, 4), ...draw(byDiff.hard, 2)];
       if (picked.length < SESSION_SIZE) {
         const have = new Set(picked.map((e) => e.q));
-        picked = [...picked, ...shuffled.filter((e) => !have.has(e.q))].slice(0, SESSION_SIZE);
+        const fillers = shuffle(allExercises.filter((e) => !have.has(e.q) && !seenSet.has(e.q)));
+        picked = [...picked, ...fillers].slice(0, SESSION_SIZE);
       }
+      picked = shuffle(picked);
     } else {
-      picked = shuffled.slice(0, SESSION_SIZE);
+      picked = draw(allExercises, SESSION_SIZE);
     }
 
     // Remember what we showed (cap stored history).
