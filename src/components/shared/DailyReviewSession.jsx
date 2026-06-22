@@ -66,7 +66,13 @@ export default function DailyReviewSession({ items, onComplete, onExit }) {
 
   const handleCheck = () => {
     if (answered || !item) return;
-    const isCorrect = normalizeAnswer(typed) === normalizeAnswer(item.swedish);
+    // Accept any variant when the stored answer lists alternatives ("de / dom", "a, b", "x; y")
+    const userNorm = normalizeAnswer(typed);
+    const acceptable = (item.swedish || "")
+      .split(/[\/,;]| eller /i)
+      .map(s => normalizeAnswer(s))
+      .filter(Boolean);
+    const isCorrect = acceptable.some(a => a === userNorm);
     setAnswered(true);
     setCorrect(isCorrect);
     if (isCorrect) setScore(s => s + 1);
