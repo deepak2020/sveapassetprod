@@ -54,3 +54,27 @@ export function diffWords(original, corrected) {
   while (j < m) { segs.push({ type: "ins", text: b[j++] }); }
   return segs;
 }
+
+// Pair adjacent del-runs with ins-runs so the UI can render "wrong → right"
+// inline instead of one big strikethrough block followed by one big green block.
+// Returns segments of type: "same" | "del" | "ins" | "replace" ({ del:[], ins:[] })
+export function diffWordsInline(original, corrected) {
+  const raw = diffWords(original, corrected);
+  const out = [];
+  let k = 0;
+  while (k < raw.length) {
+    const s = raw[k];
+    if (s.type === "same") { out.push(s); k++; continue; }
+    // collect a run of del/ins (in any order)
+    const dels = [], inses = [];
+    while (k < raw.length && raw[k].type !== "same") {
+      if (raw[k].type === "del") dels.push(raw[k].text);
+      else inses.push(raw[k].text);
+      k++;
+    }
+    if (dels.length && inses.length) out.push({ type: "replace", del: dels, ins: inses });
+    else if (dels.length) out.push({ type: "del", text: dels.join(" ") });
+    else if (inses.length) out.push({ type: "ins", text: inses.join(" ") });
+  }
+  return out;
+}

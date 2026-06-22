@@ -2,7 +2,7 @@ import { Lightbulb, ThumbsUp, CheckCircle2, MessageSquare, BookOpen, Loader2 } f
 import { motion } from "framer-motion";
 import SveaLogo from "@/components/shared/SveaLogo";
 import SpeakButton from "@/components/shared/SpeakButton";
-import { diffWords } from "@/lib/wordDiff";
+import { diffWordsInline } from "@/lib/wordDiff";
 
 function normalize(text) {
   return text?.trim().replace(/\s+/g, " ") || "";
@@ -10,19 +10,25 @@ function normalize(text) {
 
 function AnnotatedText({ original, correctedText }) {
   if (!correctedText || normalize(original) === normalize(correctedText)) return null;
-  const segments = diffWords(original || "", correctedText);
+  const segments = diffWordsInline(original || "", correctedText);
   return (
     <span className="text-sm leading-relaxed">
       {segments.map((seg, i) => {
         if (seg.type === "same")
           return <span key={i} className="text-foreground">{seg.text} </span>;
         if (seg.type === "del")
+          return <s key={i} className="text-red-500 dark:text-red-400 mr-1">{seg.text}</s>;
+        if (seg.type === "ins")
           return (
-            <s key={i} className="text-red-500 dark:text-red-400 mr-1">{seg.text}</s>
+            <span key={i} className="font-semibold text-green-700 dark:text-green-400 mr-1">
+              {seg.text}{" "}
+            </span>
           );
+        // replace: wrong → right, inline
         return (
-          <span key={i} className="font-semibold text-green-700 dark:text-green-400 mr-1">
-            {seg.text}
+          <span key={i} className="mr-1">
+            <s className="text-red-500 dark:text-red-400">{seg.del.join(" ")}</s>{" "}
+            <span className="font-semibold text-green-700 dark:text-green-400">{seg.ins.join(" ")}</span>{" "}
           </span>
         );
       })}
