@@ -23,15 +23,19 @@ async function getAIExplanation(question, correctAnswer, userAnswer, rule) {
   if (aiCache.has(key)) return aiCache.get(key);
   try {
     const result = await base44.integrations.Core.InvokeLLM({
-      prompt: `A student is practising Swedish grammar.
+      prompt: `You are helping a Swedish learner understand ONE specific multiple-choice grammar question.
 
-Grammar rule being tested: ${rule}
+Grammar rule being tested:
+${rule}
 
-Question: ${question}
-Correct answer: ${correctAnswer}
-Student's wrong answer: ${userAnswer}
+The exact question (do NOT invent or substitute a different sentence):
+${question}
 
-Give a short, friendly explanation (2-3 sentences max) of WHY the correct answer is right and what mistake the student made. Use one simple example. No bullet points — just clear natural English.`,
+The two answer choices being compared:
+- Correct: "${correctAnswer}"
+- Student picked: "${userAnswer}"
+
+Write 2-3 short sentences in plain English explaining WHY "${correctAnswer}" is right and "${userAnswer}" is wrong IN THIS QUESTION. Stay strictly on the grammar rule above and the two choices shown — do not bring in unrelated words, verbs, or sentences that aren't in the question. If you want to give an example, base it on the same grammar pattern. No bullet points.`,
       add_context_from_history: false,
       response_json_schema: {
         type: "object",
