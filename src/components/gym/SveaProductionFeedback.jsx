@@ -2,54 +2,27 @@ import { Lightbulb, ThumbsUp, CheckCircle2, MessageSquare, BookOpen, Loader2 } f
 import { motion } from "framer-motion";
 import SveaLogo from "@/components/shared/SveaLogo";
 import SpeakButton from "@/components/shared/SpeakButton";
-
-// --- Word diff: highlight what changed between the student's text and the correction ---
-function tokenize(text) {
-  return text.split(/(\s+)/);
-}
+import { diffWords } from "@/lib/wordDiff";
 
 function normalize(text) {
   return text?.trim().replace(/\s+/g, " ") || "";
 }
 
-function wordDiff(original, corrected) {
-  if (!corrected || original === corrected) return [{ type: "same", orig: original }];
-  const origTokens = tokenize(original);
-  const corrTokens = tokenize(corrected);
-  if (origTokens.length === corrTokens.length) {
-    return origTokens.map((tok, i) => {
-      const same =
-        tok.toLowerCase().replace(/[^a-zåäöA-ZÅÄÖ]/g, "") ===
-        corrTokens[i].toLowerCase().replace(/[^a-zåäöA-ZÅÄÖ]/g, "");
-      return same
-        ? { type: "same", orig: tok }
-        : { type: "changed", orig: tok, corr: corrTokens[i] };
-    });
-  }
-  return [
-    { type: "same", orig: original + " " },
-    { type: "corrected_block", corr: corrected },
-  ];
-}
-
 function AnnotatedText({ original, correctedText }) {
   if (!correctedText || normalize(original) === normalize(correctedText)) return null;
-  const segments = wordDiff(original, correctedText);
+  const segments = diffWords(original || "", correctedText);
   return (
     <span className="text-sm leading-relaxed">
       {segments.map((seg, i) => {
-        if (seg.type === "same") return <span key={i} className="text-foreground">{seg.orig}</span>;
-        if (seg.type === "changed")
+        if (seg.type === "same")
+          return <span key={i} className="text-foreground">{seg.text} </span>;
+        if (seg.type === "del")
           return (
-            <span key={i}>
-              <s className="text-red-500 dark:text-red-400">{seg.orig}</s>{" "}
-              <span className="font-semibold text-green-700 dark:text-green-400">{seg.corr}</span>
-            </span>
+            <s key={i} className="text-red-500 dark:text-red-400 mr-1">{seg.text}</s>
           );
         return (
-          <span key={i}>
-            <s className="text-red-400">{seg.orig}</s>{" "}
-            <span className="font-semibold text-green-700 dark:text-green-400">{seg.corr}</span>
+          <span key={i} className="font-semibold text-green-700 dark:text-green-400 mr-1">
+            {seg.text}
           </span>
         );
       })}

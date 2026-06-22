@@ -14,6 +14,7 @@ import { useWritingRevision } from "@/hooks/useWritingRevision";
 import { getCachedFeedback, setCachedFeedback, writingCacheKey } from "@/lib/aiCache";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import SpeakButton from "@/components/shared/SpeakButton";
+import { diffWords } from "@/lib/wordDiff";
 
 async function evaluateAnswer(prompt, hint, exampleAnswer, userAnswer) {
   const result = await base44.integrations.Core.InvokeLLM({
@@ -80,55 +81,25 @@ Return JSON:
   return result;
 }
 
-function tokenize(text) {
-  return text.split(/(\s+)/);
-}
-
-function wordDiff(original, corrected) {
-  if (!corrected || original === corrected) return [{ type: "same", orig: original }];
-  const origTokens = tokenize(original);
-  const corrTokens = tokenize(corrected);
-  if (origTokens.length === corrTokens.length) {
-    return origTokens.map((tok, i) => {
-      const same =
-        tok.toLowerCase().replace(/[^a-zåäöA-ZÅÄÖ]/g, "") ===
-        corrTokens[i].toLowerCase().replace(/[^a-zåäöA-ZÅÄÖ]/g, "");
-      return same
-        ? { type: "same", orig: tok }
-        : { type: "changed", orig: tok, corr: corrTokens[i] };
-    });
-  }
-  return [
-    { type: "same", orig: original + " " },
-    { type: "corrected_block", corr: corrected },
-  ];
-}
-
 function normalize(text) {
   return text?.trim().replace(/\s+/g, " ") || "";
 }
 
 function AnnotatedText({ original, correctedText }) {
   if (!correctedText || normalize(original) === normalize(correctedText)) return null;
-  const segments = wordDiff(original, correctedText);
+  const segments = diffWords(original || "", correctedText);
   return (
     <span className="text-sm leading-relaxed">
       {segments.map((seg, i) => {
         if (seg.type === "same")
-          return <span key={i} className="text-foreground">{seg.orig}</span>;
-        if (seg.type === "changed")
+          return <span key={i} className="text-foreground">{seg.text} </span>;
+        if (seg.type === "del")
           return (
-            <span key={i}>
-              <s className="text-red-500 dark:text-red-400">{seg.orig}</s>
-              {" "}
-              <span className="font-semibold text-green-700 dark:text-green-400">{seg.corr}</span>
-            </span>
+            <s key={i} className="text-red-500 dark:text-red-400 mr-1">{seg.text}</s>
           );
         return (
-          <span key={i}>
-            <s className="text-red-400">{seg.orig}</s>
-            {" "}
-            <span className="font-semibold text-green-700 dark:text-green-400">{seg.corr}</span>
+          <span key={i} className="font-semibold text-green-700 dark:text-green-400 mr-1">
+            {seg.text}
           </span>
         );
       })}
