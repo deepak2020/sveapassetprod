@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, XCircle, ArrowRight, RotateCcw, Trophy, Lightbulb } from "lucide-react";
@@ -52,6 +52,28 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
     }
   }, [initialProgress]);
 
+  const rawQuestion = questionPool[currentQ];
+  // Shuffle options once per question so the correct answer isn't always in
+  // the same slot. Stable for this question via useMemo — re-selecting an
+  // option won't reshuffle mid-answer. Must run before any early return so
+  // hook order stays consistent across renders.
+  const question = useMemo(() => {
+    if (!rawQuestion || !Array.isArray(rawQuestion.options)) return rawQuestion;
+    const correctValue = rawQuestion.options[rawQuestion.correct_index];
+    const indexed = rawQuestion.options.map((opt, i) => ({ opt, i }));
+    for (let i = indexed.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indexed[i], indexed[j]] = [indexed[j], indexed[i]];
+    }
+    const shuffledOptions = indexed.map(x => x.opt);
+    return {
+      ...rawQuestion,
+      options: shuffledOptions,
+      correct_index: shuffledOptions.indexOf(correctValue),
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rawQuestion, currentQ]);
+
   if (!questions || questions.length === 0) {
     return (
       <Card className="border-border/50">
@@ -62,7 +84,6 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
     );
   }
 
-  const question = questionPool[currentQ];
   const isCorrect = selected === question.correct_index;
 
   const handleSelect = async (index) => {
