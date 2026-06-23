@@ -9,8 +9,21 @@ import SpeakButton from "@/components/shared/SpeakButton";
 import SveaLogo from "@/components/shared/SveaLogo";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
 
+// Tiny stable hash of question content. When admins fix a question, the hash
+// changes and any stored "you were on Q3, score 0/5" snapshot is abandoned so
+// users don't keep seeing their old mistake from before the fix.
+function hashQuestions(qs) {
+  const src = (qs || []).map(q =>
+    `${q.question_sv || ""}|${q.question_en || q.question || ""}|${(q.options || []).join("~")}|${q.correct_index}`
+  ).join("§");
+  let h = 0;
+  for (let i = 0; i < src.length; i++) h = ((h << 5) - h + src.charCodeAt(i)) | 0;
+  return (h >>> 0).toString(36);
+}
+
 export default function QuizRunner({ questions, quizType, sourceId, sourceTitle, onComplete, previousResult, storageKey, userId, tab, initialProgress }) {
-  const { load, save, clear } = useExerciseProgress(storageKey, userId, sourceId, tab);
+  const versionedKey = storageKey ? `${storageKey}:v${hashQuestions(questions)}` : storageKey;
+  const { load, save, clear } = useExerciseProgress(versionedKey, userId, sourceId, tab);
   const remoteApplied = useRef(false);
   const [questionPool, setQuestionPool] = useState(questions);
   const [wrongIndices, setWrongIndices] = useState([]);
