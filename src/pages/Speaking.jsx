@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { PenSquare, Sparkles, BookOpen } from "lucide-react";
+import { PenSquare, Sparkles, BookOpen, RotateCcw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import GymSessionV2 from "@/components/gym/GymSessionV2";
 import LoginGate from "@/components/shared/LoginGate";
 import SveaLogo from "@/components/shared/SveaLogo";
 import { shuffle } from "@/lib/shuffle";
+import { useSkrivaRevision } from "@/hooks/useSkrivaRevision";
 
 const SFI_LEVELS = ["A", "B", "C", "D"];
 const SENTENCE_COUNTS = [10, 25, 50];
@@ -16,6 +17,7 @@ export default function Speaking() {
   const [level, setLevel] = useState("A");
   const [count, setCount] = useState(10);
   const [session, setSession] = useState(null);
+  const { items: revisionItems } = useSkrivaRevision();
 
   useEffect(() => {
     base44.analytics.track({ eventName: "page_viewed", properties: { page: "speaking" } });
@@ -52,6 +54,17 @@ export default function Speaking() {
     setSession({ sentences: quiz, mode: "produce" });
   };
 
+  const startRevision = () => {
+    // Re-quiz only the sentences the user got wrong before
+    const quiz = shuffle(revisionItems.map(i => i.sentence)).filter(Boolean);
+    if (!quiz.length) return;
+    base44.analytics.track({
+      eventName: "gym_session_started",
+      properties: { mode: "produce", sentence_count: quiz.length, source: "skriva_revision" },
+    });
+    setSession({ sentences: quiz, mode: "produce" });
+  };
+
   if (session) {
     return (
       <GymSessionV2
@@ -76,6 +89,29 @@ export default function Speaking() {
           <SveaLogo className="text-base" /> rättar varje fel och förklarar grammatiken.
         </p>
       </div>
+
+      {/* Revision: re-quiz only the sentences the user got wrong before */}
+      {revisionItems.length > 0 && (
+        <LoginGate message="Logga in för att repetera dina misstag">
+          <Card className="border-2 border-rose-300 dark:border-rose-800 bg-gradient-to-br from-rose-50 to-amber-50 dark:from-rose-950/30 dark:to-amber-950/20">
+            <CardContent className="p-5 flex items-center gap-4">
+              <div className="w-11 h-11 rounded-xl bg-rose-500/15 dark:bg-rose-500/20 flex items-center justify-center shrink-0">
+                <RotateCcw className="w-5 h-5 text-rose-600 dark:text-rose-400" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-sm leading-tight">Repetera dina misstag</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {revisionItems.length} mening{revisionItems.length === 1 ? "" : "ar"} att öva igen ·{" "}
+                  <span className="italic">Revise {revisionItems.length} sentence{revisionItems.length === 1 ? "" : "s"} you got wrong</span>
+                </p>
+              </div>
+              <Button onClick={startRevision} size="sm" className="bg-rose-500 hover:bg-rose-600 text-white border-0 shrink-0">
+                Starta
+              </Button>
+            </CardContent>
+          </Card>
+        </LoginGate>
+      )}
 
       {sentences.length === 0 ? (
         <Card className="border-border/50">

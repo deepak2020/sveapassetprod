@@ -8,6 +8,7 @@ import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { playAudio } from "@/lib/speech";
 import { getCachedFeedback, setCachedFeedback } from "@/lib/aiCache";
 import { addMissedWordsFromSkriva } from "@/hooks/useVocabSRS";
+import { useSkrivaRevision } from "@/hooks/useSkrivaRevision";
 import SveaProductionFeedback from "@/components/gym/SveaProductionFeedback";
 import SveaLogo from "@/components/shared/SveaLogo";
 
@@ -134,6 +135,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
   const [listening, setListening] = useState(false);
   const [aiFeedback, setAiFeedback] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
+  const { addMistake, removeMistake } = useSkrivaRevision();
 
   useEffect(() => {
     if (!answered || correct) return;
@@ -166,9 +168,18 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
             setScore(s => s + 1);
             awardXP(base44, XP_REWARDS.cloze_correct);
             updateSRS(sentence.id, true, srsCards);
+            // If this sentence was on the revision list, the user nailed it — drop it.
+            removeMistake(sentence.id);
           } else if (isProduce && Array.isArray(result.grammar_issues) && result.grammar_issues.length > 0) {
             // Feed missed Swedish words back into the vocab SRS deck for repeat learning
             addMissedWordsFromSkriva(result.grammar_issues, sentence.sentence_en);
+            // Save this sentence for later focused revision on the Skriva home screen
+            addMistake({
+              sentence,
+              userAnswer: userAns,
+              grammarIssues: result.grammar_issues,
+              correctedText: result.corrected_text,
+            });
           }
         }
       } catch {}
@@ -216,6 +227,8 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
     if (isCorrect) setScore(s => s + 1);
     awardXP(base44, isCorrect ? XP_REWARDS.cloze_correct : 0);
     updateSRS(sentence.id, isCorrect, srsCards);
+    // Skriva: instant-correct answers also clear this sentence from revision.
+    if (isCorrect && mode === "produce") removeMistake(sentence.id);
   };
 
   const handleNext = () => {
