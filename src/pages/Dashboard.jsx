@@ -22,6 +22,7 @@ import MasteryCard from "../components/dashboard/MasteryCard";
 import CoachCard from "../components/dashboard/CoachCard";
 import DailyQuizCard from "../components/dashboard/DailyQuizCard";
 import DailyReviewCard from "../components/dashboard/DailyReviewCard";
+import SkrivaRevisionCard from "../components/dashboard/SkrivaRevisionCard";
 import TodaysPlanCard from "../components/planner/TodaysPlanCard";
 import CreateStudyPlanModal from "../components/planner/CreateStudyPlanModal";
 import { useStudyPlan } from "@/hooks/useStudyPlan";
@@ -229,6 +230,9 @@ export default function Dashboard() {
           </div>
         </button>
       )}
+
+      {/* Skriva mistakes to revise — only shows when user has any */}
+      <SkrivaRevisionCard />
 
       {/* Daily warm-up review nudge */}
       <DailyReviewCard />
