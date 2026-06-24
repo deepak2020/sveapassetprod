@@ -180,29 +180,101 @@ const SLOT_COLORS = {
 };
 
 const STORAGE_KEY_PREFIX = "svenska:daily_challenge_v2:";
+const HISTORY_KEY = "svenska:daily_challenge_history";
 const QUESTIONS_PER_SLOT = 5;
+const HISTORY_DAYS = 5;
 
 function getTodayKey() {
   return new Date().toISOString().split("T")[0];
 }
 
-// Pick QUESTIONS_PER_SLOT unique questions for a given slot, seeded by date + slot index
+// History: per-question record { askedDates: [], wrongCategories: { cat: count } }
+// Stored as { questions: { [q]: lastAskedDate }, wrongByCategory: { [cat]: [dates] } }
+function loadHistory() {
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    if (!raw) return { questions: {}, wrongByCategory: {} };
+    return JSON.parse(raw);
+  } catch {
+    return { questions: {}, wrongByCategory: {} };
+  }
+}
+
+function saveHistory(h) {
+  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(h)); } catch { /* quota */ }
+}
+
+function daysAgo(dateStr) {
+  const d = new Date(dateStr).getTime();
+  return (Date.now() - d) / (24 * 60 * 60 * 1000);
+}
+
+// Prune history older than HISTORY_DAYS so the file stays small
+function prunedHistory(h) {
+  const fresh = { questions: {}, wrongByCategory: {} };
+  for (const [k, v] of Object.entries(h.questions || {})) {
+    if (daysAgo(v) <= HISTORY_DAYS) fresh.questions[k] = v;
+  }
+  for (const [cat, dates] of Object.entries(h.wrongByCategory || {})) {
+    const keep = (dates || []).filter((d) => daysAgo(d) <= HISTORY_DAYS);
+    if (keep.length) fresh.wrongByCategory[cat] = keep;
+  }
+  return fresh;
+}
+
+// Record a question shown + whether the user got it right
+export function recordChallengeAnswer(question, correct) {
+  const h = prunedHistory(loadHistory());
+  const key = question.q;
+  const today = getTodayKey();
+  h.questions[key] = today;
+  if (!correct && question.category) {
+    h.wrongByCategory[question.category] = [...(h.wrongByCategory[question.category] || []), today];
+  }
+  saveHistory(h);
+}
+
+// Pick QUESTIONS_PER_SLOT questions for a slot — biased toward weak categories,
+// avoiding any question shown in the last HISTORY_DAYS days.
 function getSlotQuestions(slotIndex, pool) {
   if (!pool || pool.length === 0) return [];
-  const today = getTodayKey();
-  // Mix date digits with slot to get a varied seed each day per slot
-  const dateParts = today.replace(/-/g, "");
-  const base = (parseInt(dateParts, 10) + slotIndex * 997) >>> 0;
-  const seed = (base ^ (slotIndex * 0x9e3779b9)) >>> 0;
-  const indices = [];
-  let n = seed >>> 0;
-  const need = Math.min(QUESTIONS_PER_SLOT, pool.length);
-  while (indices.length < need) {
-    n = ((n * 1664525 + 1013904223) >>> 0);
-    const idx = n % pool.length;
-    if (!indices.includes(idx)) indices.push(idx);
+  const history = prunedHistory(loadHistory());
+  const seenSet = new Set(Object.keys(history.questions));
+
+  // Categories where the user got something wrong recently → higher priority
+  const weakCats = new Set(Object.keys(history.wrongByCategory));
+
+  const unseen = pool.filter((q) => !seenSet.has(q.q));
+  // If we've exhausted unseen, fall back to the full pool (very dedicated users)
+  const workingPool = unseen.length >= QUESTIONS_PER_SLOT ? unseen : pool;
+
+  const weak = workingPool.filter((q) => q.category && weakCats.has(q.category));
+  const others = workingPool.filter((q) => !q.category || !weakCats.has(q.category));
+
+  // Shuffle helpers (Fisher–Yates, non-deterministic so refreshing rotates)
+  const shuffle = (arr) => {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  // Aim for ~60% weak-area review when available, rest fresh topics
+  const targetWeak = Math.min(weak.length, Math.ceil(QUESTIONS_PER_SLOT * 0.6));
+  const picked = [
+    ...shuffle(weak).slice(0, targetWeak),
+    ...shuffle(others).slice(0, QUESTIONS_PER_SLOT - targetWeak),
+  ];
+
+  // Top up if we somehow came up short
+  if (picked.length < QUESTIONS_PER_SLOT) {
+    const rest = shuffle(workingPool.filter((q) => !picked.includes(q)));
+    picked.push(...rest.slice(0, QUESTIONS_PER_SLOT - picked.length));
   }
-  return indices.map((i) => pool[i]);
+
+  return picked.slice(0, QUESTIONS_PER_SLOT);
 }
 
 function loadSlotState(slotKey) {
@@ -292,7 +364,27 @@ export default function DailyChallenge() {
     staleTime: 24 * 60 * 60 * 1000,
   });
   const pool = dbPool && dbPool.length > 0 ? dbPool : QUESTION_POOL;
-  const allQuestions = useMemo(() => TIME_SLOTS.map((_, i) => getSlotQuestions(i, pool)), [pool]);
+  // Stabilize today's picks: cache per (date + slot) so the question set doesn't
+  // shuffle while the user is answering. New day → fresh picks automatically.
+  const allQuestions = useMemo(() => {
+    const today = getTodayKey();
+    return TIME_SLOTS.map((s, i) => {
+      const cacheKey = `svenska:daily_challenge_picks:${today}:${s.key}`;
+      try {
+        const cached = localStorage.getItem(cacheKey);
+        if (cached) {
+          const ids = JSON.parse(cached);
+          const byQ = new Map(pool.map((q) => [q.q, q]));
+          const restored = ids.map((id) => byQ.get(id)).filter(Boolean);
+          if (restored.length === QUESTIONS_PER_SLOT) return restored;
+        }
+      } catch { /* ignore */ }
+      const picks = getSlotQuestions(i, pool);
+      try { localStorage.setItem(cacheKey, JSON.stringify(picks.map((p) => p.q))); } catch { /* quota */ }
+      return picks;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pool]);
 
   const [activeSlot, setActiveSlot] = useState(() => getActiveSlotKey());
   const [slotStates, setSlotStates] = useState(() =>
@@ -331,6 +423,9 @@ export default function DailyChallenge() {
     setTimeout(() => {
       const newAnswers = [...answers];
       newAnswers[currentQ] = { choice, correct };
+      // Track this question + any mistake category so future picks avoid repeats
+      // and bias toward weak areas.
+      recordChallengeAnswer(q, correct);
 
       const nowDone = newAnswers.every((a) => a !== null);
       const alreadyAwardedXP = state.xpAwarded;
