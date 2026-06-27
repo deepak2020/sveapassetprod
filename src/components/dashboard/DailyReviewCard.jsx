@@ -17,7 +17,7 @@ export default function DailyReviewCard() {
   const { checkUserAuth } = useAuth();
   const queryClient = useQueryClient();
 
-  if (totalDue === 0) return null;
+  // Always render — even if no cards are due yet, show a soft empty state.
 
   const handleComplete = async () => {
     // Guard against double-awarding (e.g. stale UI, concurrent tabs) by checking
@@ -70,6 +70,7 @@ export default function DailyReviewCard() {
               <Button
                 size="sm"
                 onClick={() => setSessionOpen(true)}
+                disabled={totalDue === 0}
                 className="bg-amber-500 hover:bg-amber-600 text-white border-0"
               >
                 Start
@@ -83,7 +84,9 @@ export default function DailyReviewCard() {
           <div className="mt-3 flex items-center gap-2">
             <BookOpen className="w-3.5 h-3.5 text-amber-500 shrink-0" />
             <p className="text-xs text-amber-700 dark:text-amber-400">
-              {totalDue} word{totalDue !== 1 ? "s" : ""} due today · ~{Math.ceil(Math.min(totalDue, 10) * 0.4)} min
+              {totalDue === 0
+                ? "No words due yet — finish a lesson to add some!"
+                : `${totalDue} word${totalDue !== 1 ? "s" : ""} due today · ~${Math.ceil(Math.min(totalDue, 10) * 0.4)} min`}
             </p>
           </div>
         </CardContent>
