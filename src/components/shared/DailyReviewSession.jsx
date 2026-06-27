@@ -145,11 +145,15 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
     })();
   }, [answered, correct, current]);
 
+  // Accept both the full string (e.g. "de / dom") and each alternative ("de", "dom")
+  // so that the answer tile itself is recognized in multiple-choice mode.
   const acceptableAnswers = useMemo(() => {
-    return (item?.swedish || "")
+    const full = normalizeAnswer(item?.swedish || "");
+    const parts = (item?.swedish || "")
       .split(/[\/,;]| eller /i)
       .map(s => normalizeAnswer(s))
       .filter(Boolean);
+    return Array.from(new Set([full, ...parts].filter(Boolean)));
   }, [item]);
 
   const finishAnswer = (isCorrect) => {
