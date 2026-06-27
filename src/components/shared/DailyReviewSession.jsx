@@ -33,7 +33,7 @@ Return JSON:
   });
 }
 
-export default function DailyReviewSession({ items, onComplete, onExit }) {
+export default function DailyReviewSession({ items, onAnswer, onComplete, onExit }) {
   const [current, setCurrent] = useState(0);
   const [typed, setTyped] = useState("");
   const [answered, setAnswered] = useState(false);
@@ -76,6 +76,9 @@ export default function DailyReviewSession({ items, onComplete, onExit }) {
     setAnswered(true);
     setCorrect(isCorrect);
     if (isCorrect) setScore(s => s + 1);
+    // Reschedule this card via SM-2 so it stops resurfacing every day:
+    // correct → push out; wrong → keep due tomorrow.
+    if (onAnswer && item?.id) onAnswer(item.id, isCorrect ? 2 : 0);
   };
 
   const handleNext = () => {
