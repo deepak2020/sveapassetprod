@@ -12,7 +12,8 @@ import { useQueryClient } from "@tanstack/react-query";
 
 export default function DailyReviewCard() {
   const [sessionOpen, setSessionOpen] = useState(false);
-  const { isDone, reviewItems, totalDue, showNudge, today, updateCard, refresh } = useDailyReview();
+  const [batchOffset, setBatchOffset] = useState(0);
+  const { isDone, reviewItems, totalDue, hasMore, showNudge, today, updateCard, refresh } = useDailyReview(batchOffset);
   const { checkUserAuth } = useAuth();
   const queryClient = useQueryClient();
 
@@ -74,6 +75,19 @@ export default function DailyReviewCard() {
               </Button>
             </div>
           </div>
+
+          {hasMore && (
+            <div className="mt-3 flex justify-end">
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setBatchOffset((o) => o + 10)}
+                className="h-7 text-xs text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/40"
+              >
+                Next 10 →
+              </Button>
+            </div>
+          )}
 
           {/* Mini progress hint */}
           <div className="mt-3 flex items-center gap-2">
