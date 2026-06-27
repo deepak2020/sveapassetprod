@@ -364,8 +364,12 @@ export default function DailyChallenge() {
     staleTime: 24 * 60 * 60 * 1000,
   });
   const pool = dbPool && dbPool.length > 0 ? dbPool : QUESTION_POOL;
+  // refreshTick lets the user manually re-roll a slot's picks.
+  const [refreshTick, setRefreshTick] = useState(0);
   // Stabilize today's picks: cache per (date + slot) so the question set doesn't
   // shuffle while the user is answering. New day → fresh picks automatically.
+  // Showing a question = it gets recorded in history so it isn't picked again
+  // for HISTORY_DAYS, preventing the "same questions every time" loop.
   const allQuestions = useMemo(() => {
     const today = getTodayKey();
     return TIME_SLOTS.map((s, i) => {
@@ -380,11 +384,29 @@ export default function DailyChallenge() {
         }
       } catch { /* ignore */ }
       const picks = getSlotQuestions(i, pool);
+      // Record each shown question in history immediately, so tomorrow's pick
+      // excludes them even if the user never tapped an answer today.
+      const h = prunedHistory(loadHistory());
+      picks.forEach((p) => { h.questions[p.q] = today; });
+      saveHistory(h);
       try { localStorage.setItem(cacheKey, JSON.stringify(picks.map((p) => p.q))); } catch { /* quota */ }
       return picks;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pool]);
+  }, [pool, refreshTick]);
+
+  // Wipe the cached picks for the active slot and re-roll a fresh batch.
+  const handleRefreshSlot = () => {
+    const today = getTodayKey();
+    try { localStorage.removeItem(`svenska:daily_challenge_picks:${today}:${activeSlot}`); } catch { /* ignore */ }
+    // Reset progress for this slot so user starts fresh on the new questions
+    const fresh = { answers: Array(QUESTIONS_PER_SLOT).fill(null), xpAwarded: state.xpAwarded };
+    setSlotStates({ ...slotStates, [activeSlot]: fresh });
+    saveSlotState(activeSlot, fresh);
+    setCurrentQ(0);
+    setPendingChoice(null);
+    setRefreshTick((t) => t + 1);
+  };
 
   const [activeSlot, setActiveSlot] = useState(() => getActiveSlotKey());
   const [slotStates, setSlotStates] = useState(() =>
@@ -560,6 +582,14 @@ export default function DailyChallenge() {
               />
             ))}
             <span className="text-xs text-muted-foreground ml-auto">{currentQ + 1} / {QUESTIONS_PER_SLOT}</span>
+            <button
+              onClick={handleRefreshSlot}
+              title="Get new questions"
+              aria-label="Get new questions"
+              className="p-1 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+            </button>
           </div>
         )}
 
