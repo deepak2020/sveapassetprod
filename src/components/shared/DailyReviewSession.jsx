@@ -36,12 +36,31 @@ Return JSON:
 }
 
 // Pick 3 distractors from the same pool, falling back to a small generic set.
+// Critical: also exclude anything that overlaps with the answer's accepted
+// alternatives (e.g. answer "de / dom" — neither "de" nor "dom" may be a distractor).
 const FALLBACK_WORDS = ["hus", "bil", "katt", "hund", "bok", "vatten", "mat", "stol", "dag", "natt"];
+function splitAlternatives(s) {
+  return (s || "").split(/[\/,;]| eller /i).map(x => x.trim().toLowerCase()).filter(Boolean);
+}
 function buildDistractors(item, pool) {
+  const forbidden = new Set(splitAlternatives(item.swedish));
   const others = pool
-    .filter(p => p.id !== item.id && p.swedish && p.swedish.toLowerCase() !== (item.swedish || "").toLowerCase())
-    .map(p => p.swedish);
-  const unique = Array.from(new Set(others));
+    .filter(p => p.id !== item.id && p.swedish)
+    .map(p => p.swedish)
+    .filter(sv => {
+      const alts = splitAlternatives(sv);
+      // skip if any alternative collides with the answer's alternatives
+      return alts.length > 0 && !alts.some(a => forbidden.has(a));
+    });
+  // dedupe by lowercase first form
+  const seen = new Set();
+  const unique = [];
+  for (const sv of others) {
+    const key = (sv || "").trim().toLowerCase();
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    unique.push(sv);
+  }
   // shuffle
   for (let i = unique.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -51,7 +70,7 @@ function buildDistractors(item, pool) {
   let i = 0;
   while (picked.length < 3) {
     const f = FALLBACK_WORDS[(i++) % FALLBACK_WORDS.length];
-    if (f.toLowerCase() !== (item.swedish || "").toLowerCase() && !picked.includes(f)) picked.push(f);
+    if (!forbidden.has(f.toLowerCase()) && !picked.some(p => p.toLowerCase() === f.toLowerCase())) picked.push(f);
   }
   return picked;
 }
@@ -79,18 +98,19 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
   const item = items[current];
   const mode = useMemo(() => pickMode(current), [current]);
 
-  // Memo distractors per question
+  // Memo distractors per question — keyed only by the item's id so this
+  // never reshuffles mid-question (parent rerenders pass new array refs).
   const options = useMemo(() => {
     if (!item || mode === "type") return [];
     const distractors = buildDistractors(item, pool.length ? pool : items);
     const all = [item.swedish, ...distractors];
-    // shuffle
     for (let i = all.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [all[i], all[j]] = [all[j], all[i]];
     }
     return all;
-  }, [current, item, mode, pool, items]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [item?.id, mode]);
 
   // Auto-play audio for listening questions
   useEffect(() => {
