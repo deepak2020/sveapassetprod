@@ -77,6 +77,16 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
   const doneToday = planned.filter((l) => completed.includes(l.id)).length;
   const allDoneToday = planned.length > 0 && doneToday === planned.length;
 
+  // Preview tomorrow's lessons — picked the same way, excluding everything
+  // already completed AND everything in today's plan, so the user can get
+  // a head start.
+  const [showTomorrow, setShowTomorrow] = useState(false);
+  const completedPlusToday = [...completed, ...(todayIds || [])];
+  const tomorrowSelection = applyPrerequisites(
+    selectDailyLessons({ lessons: catalog, completedIds: completedPlusToday, focusSkills: plan.focus_skills || [], mastery, perDay: dailyTarget }),
+    catalog, completedPlusToday, dailyTarget
+  );
+
   return (
     <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
       <CardContent className="p-5 space-y-4">
@@ -153,7 +163,8 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
             </div>
           ) : planned.length === 0 ? (
             <p className="text-sm text-muted-foreground italic">You've finished everything in your plan 🎉</p>
-          ) : (
+          ) : null}
+          {planned.length > 0 && (
             <div className="space-y-2">
               {planned.map(lesson => {
                 const isDone = completed.includes(lesson.id);
@@ -185,6 +196,43 @@ export default function TodaysPlanCard({ plan, onDelete, getDayNumber, getProgre
                   </Link>
                 );
               })}
+            </div>
+          )}
+
+          {/* Head start on tomorrow */}
+          {!isLoading && tomorrowSelection.length > 0 && (
+            <div className="pt-2">
+              {!showTomorrow ? (
+                <button
+                  onClick={() => setShowTomorrow(true)}
+                  className="w-full text-xs font-medium text-primary hover:underline flex items-center justify-center gap-1.5 py-2"
+                >
+                  <ArrowRight className="w-3.5 h-3.5" /> Get a head start on tomorrow's lessons
+                </button>
+              ) : (
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Tomorrow's lessons · preview
+                  </p>
+                  {tomorrowSelection.map(lesson => (
+                    <Link
+                      key={lesson.id}
+                      to={`/language/${lesson.id}`}
+                      state={{ from: "/dashboard" }}
+                      className="flex items-center gap-3 p-3 rounded-lg border bg-background border-border hover:border-primary/50 transition-all"
+                    >
+                      <Circle className="w-4 h-4 text-muted-foreground shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">{lesson.title}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {lesson.skill || lesson.category} · Kurs {lesson.sfi_course}
+                        </p>
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
