@@ -68,7 +68,7 @@ export default function LessonDetail() {
   // Where to return to (e.g. the study planner) when arriving from somewhere
   // other than the lesson browser. Carried via router state.
   const backTo = location.state?.from || null;
-  const { completed, scores, markComplete } = useLessonCompletion(lessonId);
+  const { completed, scores, markComplete: _markComplete } = useLessonCompletion(lessonId);
   const { user } = useAuth();
   const confettiFired = useRef(false);
   const planSyncFired = useRef(false);
@@ -101,6 +101,15 @@ export default function LessonDetail() {
     },
     enabled: !!user?.id && !!lessonId,
   });
+
+  // Wrap markComplete so finishing ANY tab seeds the lesson's vocab into the SRS deck.
+  // Without this, the Daily Warm-up has nothing to review unless the user does Flashcards.
+  const markComplete = (tab, result) => {
+    _markComplete(tab, result);
+    if (lesson?.word_pairs?.length) {
+      addVocabSRSCards(lesson.word_pairs, lesson.id, lesson.title);
+    }
+  };
 
   const currentIdx = siblings.findIndex((l) => l.id === lessonId);
   const prevLesson = currentIdx > 0 ? siblings[currentIdx - 1] : null;
