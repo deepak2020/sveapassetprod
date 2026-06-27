@@ -27,6 +27,7 @@ import TodaysPlanCard from "../components/planner/TodaysPlanCard";
 import CreateStudyPlanModal from "../components/planner/CreateStudyPlanModal";
 import { useStudyPlan } from "@/hooks/useStudyPlan";
 import { usePageView } from "@/hooks/usePageView";
+import { useBackfillSRSFromHistory } from "@/hooks/useBackfillSRSFromHistory";
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -57,6 +58,7 @@ export default function Dashboard() {
   });
 
   usePageView("dashboard");
+  useBackfillSRSFromHistory();
 
   useEffect(() => { healStreak(base44); }, []);
 
