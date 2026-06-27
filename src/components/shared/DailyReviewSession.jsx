@@ -82,6 +82,12 @@ function pickMode(index) {
 }
 
 export default function DailyReviewSession({ items, pool = [], onAnswer, onComplete, onExit }) {
+  // Lock the session's question set at mount — the parent rebuilds `items`
+  // after every answer (because updateCard triggers a re-rank), which was
+  // making the current question swap out the moment the user picked an option.
+  const [sessionItems] = useState(() => items);
+  const [sessionPool] = useState(() => pool);
+
   const [current, setCurrent] = useState(0);
   const [typed, setTyped] = useState("");
   const [chosen, setChosen] = useState(null);
@@ -95,14 +101,14 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
   const [aiLoading, setAiLoading] = useState(false);
   const { speak } = useSpeech();
 
-  const item = items[current];
+  const item = sessionItems[current];
   const mode = useMemo(() => pickMode(current), [current]);
 
   // Memo distractors per question — keyed only by the item's id so this
   // never reshuffles mid-question (parent rerenders pass new array refs).
   const options = useMemo(() => {
     if (!item || mode === "type") return [];
-    const distractors = buildDistractors(item, pool.length ? pool : items);
+    const distractors = buildDistractors(item, sessionPool.length ? sessionPool : sessionItems);
     const all = [item.swedish, ...distractors];
     for (let i = all.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -176,7 +182,7 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
   };
 
   const handleNext = () => {
-    if (current + 1 >= items.length) {
+    if (current + 1 >= sessionItems.length) {
       setFinished(true);
     } else {
       setCurrent(c => c + 1);
@@ -189,10 +195,10 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
     }
   };
 
-  if (!items.length) return null;
+  if (!sessionItems.length) return null;
 
   if (finished) {
-    const pct = Math.round((score / items.length) * 100);
+    const pct = Math.round((score / sessionItems.length) * 100);
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -204,7 +210,7 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
         </div>
         <h2 className="font-display text-3xl font-bold mb-1">Warm-up done! 🔥</h2>
         <p className="text-5xl font-bold text-primary my-3">{pct}%</p>
-        <p className="text-muted-foreground mb-1">{score} / {items.length} correct</p>
+        <p className="text-muted-foreground mb-1">{score} / {sessionItems.length} correct</p>
         {bestStreak >= 3 && (
           <p className="text-sm text-amber-700 dark:text-amber-400 mb-3 inline-flex items-center gap-1">
             <Flame className="w-4 h-4" /> Best streak: {bestStreak} in a row
@@ -231,7 +237,7 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
         >
           <ArrowLeft className="w-4 h-4" /> Exit review
         </button>
-        <span className="text-sm text-muted-foreground">{current + 1} / {items.length}</span>
+        <span className="text-sm text-muted-foreground">{current + 1} / {sessionItems.length}</span>
         <span className="text-sm font-semibold text-primary">Score: {score}</span>
       </div>
 
@@ -240,7 +246,7 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
         <div className="w-full h-1.5 bg-muted rounded-full">
           <div
             className="h-full bg-amber-500 rounded-full transition-all"
-            style={{ width: `${((current + 1) / items.length) * 100}%` }}
+            style={{ width: `${((current + 1) / sessionItems.length) * 100}%` }}
           />
         </div>
         <AnimatePresence>
@@ -415,7 +421,7 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
                   )}
 
                   <Button onClick={handleNext} className="w-full">
-                    {current + 1 >= items.length ? "See Results" : "Next →"}
+                    {current + 1 >= sessionItems.length ? "See Results" : "Next →"}
                   </Button>
                 </motion.div>
               )}
