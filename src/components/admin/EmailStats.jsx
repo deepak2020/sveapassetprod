@@ -69,12 +69,15 @@ export default function EmailStats() {
           <div className="space-y-3">
             {Object.entries(TAG_LABELS).map(([tag, meta]) => {
               const s = data.stats[tag];
-              if (!s || s.error) {
+              // Brevo returns an `error` numeric counter (count of errored emails) on
+              // success responses — only treat it as a failure when it's a string message.
+              const fetchError = s && typeof s.error === "string" ? s.error : null;
+              if (!s || fetchError) {
                 return (
                   <div key={tag} className={`rounded-xl border p-4 ${meta.color}`}>
                     <p className="font-semibold text-sm">{meta.label}</p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      {s?.error ? `Error: ${s.error}` : "No data"}
+                      {fetchError ? `Error: ${fetchError}` : "No data"}
                     </p>
                   </div>
                 );
