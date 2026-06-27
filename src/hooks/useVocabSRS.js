@@ -35,7 +35,7 @@ function sm2(card, quality) {
       : times_seen > 0
       ? "review"
       : "new";
-  return { ...card, interval_days, ease_factor, times_seen, times_correct, due_date, status };
+  return { ...card, interval_days, ease_factor, times_seen, times_correct, due_date, status, last_answer_correct: quality >= 2 };
 }
 
 // Standalone — safe to call outside React (e.g. in onComplete callbacks)

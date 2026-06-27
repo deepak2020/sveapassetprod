@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, XCircle, Trophy, ArrowLeft, Zap, Loader2, Sparkles } from "lucide-react";
+import { CheckCircle2, XCircle, Trophy, ArrowLeft, Zap, Loader2, Sparkles, Flame, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import { XP_REWARDS } from "@/lib/xp";
 import { base44 } from "@/api/base44Client";
 import { getCachedFeedback, setCachedFeedback } from "@/lib/aiCache";
+import SpeakButton from "@/components/shared/SpeakButton";
+import { useSpeech } from "@/hooks/useSpeech";
 
 async function explainVocabAnswer(english, swedish, userAnswer) {
   return base44.integrations.Core.InvokeLLM({
@@ -33,17 +35,70 @@ Return JSON:
   });
 }
 
-export default function DailyReviewSession({ items, onAnswer, onComplete, onExit }) {
+// Pick 3 distractors from the same pool, falling back to a small generic set.
+const FALLBACK_WORDS = ["hus", "bil", "katt", "hund", "bok", "vatten", "mat", "stol", "dag", "natt"];
+function buildDistractors(item, pool) {
+  const others = pool
+    .filter(p => p.id !== item.id && p.swedish && p.swedish.toLowerCase() !== (item.swedish || "").toLowerCase())
+    .map(p => p.swedish);
+  const unique = Array.from(new Set(others));
+  // shuffle
+  for (let i = unique.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [unique[i], unique[j]] = [unique[j], unique[i]];
+  }
+  const picked = unique.slice(0, 3);
+  let i = 0;
+  while (picked.length < 3) {
+    const f = FALLBACK_WORDS[(i++) % FALLBACK_WORDS.length];
+    if (f.toLowerCase() !== (item.swedish || "").toLowerCase() && !picked.includes(f)) picked.push(f);
+  }
+  return picked;
+}
+
+// Decide question type for each item: rotate typing → multiple choice → listening.
+function pickMode(index) {
+  const mods = ["type", "choice", "listen"];
+  return mods[index % mods.length];
+}
+
+export default function DailyReviewSession({ items, pool = [], onAnswer, onComplete, onExit }) {
   const [current, setCurrent] = useState(0);
   const [typed, setTyped] = useState("");
+  const [chosen, setChosen] = useState(null);
   const [answered, setAnswered] = useState(false);
   const [correct, setCorrect] = useState(false);
   const [score, setScore] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
   const [finished, setFinished] = useState(false);
   const [aiFeedback, setAiFeedback] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
+  const { speak } = useSpeech();
 
   const item = items[current];
+  const mode = useMemo(() => pickMode(current), [current]);
+
+  // Memo distractors per question
+  const options = useMemo(() => {
+    if (!item || mode === "type") return [];
+    const distractors = buildDistractors(item, pool.length ? pool : items);
+    const all = [item.swedish, ...distractors];
+    // shuffle
+    for (let i = all.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [all[i], all[j]] = [all[j], all[i]];
+    }
+    return all;
+  }, [current, item, mode, pool, items]);
+
+  // Auto-play audio for listening questions
+  useEffect(() => {
+    if (mode === "listen" && item && !answered) {
+      const t = setTimeout(() => speak(item.swedish, "sv-SE"), 250);
+      return () => clearTimeout(t);
+    }
+  }, [current, mode, item, answered, speak]);
 
   useEffect(() => {
     if (!answered || correct || !item) return;
@@ -54,7 +109,7 @@ export default function DailyReviewSession({ items, onAnswer, onComplete, onExit
       try {
         const cached = await getCachedFeedback(base44, cacheKey);
         if (cached) { setAiFeedback(cached); setAiLoading(false); return; }
-        const result = await explainVocabAnswer(item.english, item.swedish, typed);
+        const result = await explainVocabAnswer(item.english, item.swedish, typed || chosen || "");
         if (result?.explanation) {
           setAiFeedback(result);
           await setCachedFeedback(base44, cacheKey, result);
@@ -64,21 +119,40 @@ export default function DailyReviewSession({ items, onAnswer, onComplete, onExit
     })();
   }, [answered, correct, current]);
 
-  const handleCheck = () => {
-    if (answered || !item) return;
-    // Accept any variant when the stored answer lists alternatives ("de / dom", "a, b", "x; y")
-    const userNorm = normalizeAnswer(typed);
-    const acceptable = (item.swedish || "")
+  const acceptableAnswers = useMemo(() => {
+    return (item?.swedish || "")
       .split(/[\/,;]| eller /i)
       .map(s => normalizeAnswer(s))
       .filter(Boolean);
-    const isCorrect = acceptable.some(a => a === userNorm);
+  }, [item]);
+
+  const finishAnswer = (isCorrect) => {
     setAnswered(true);
     setCorrect(isCorrect);
-    if (isCorrect) setScore(s => s + 1);
-    // Reschedule this card via SM-2 so it stops resurfacing every day:
-    // correct → push out; wrong → keep due tomorrow.
+    if (isCorrect) {
+      setScore(s => s + 1);
+      setStreak(s => {
+        const ns = s + 1;
+        setBestStreak(b => Math.max(b, ns));
+        return ns;
+      });
+    } else {
+      setStreak(0);
+    }
     if (onAnswer && item?.id) onAnswer(item.id, isCorrect ? 2 : 0);
+  };
+
+  const handleCheckType = () => {
+    if (answered || !item) return;
+    const isCorrect = acceptableAnswers.some(a => a === normalizeAnswer(typed));
+    finishAnswer(isCorrect);
+  };
+
+  const handlePickChoice = (option) => {
+    if (answered || !item) return;
+    setChosen(option);
+    const isCorrect = acceptableAnswers.some(a => a === normalizeAnswer(option));
+    finishAnswer(isCorrect);
   };
 
   const handleNext = () => {
@@ -87,6 +161,7 @@ export default function DailyReviewSession({ items, onAnswer, onComplete, onExit
     } else {
       setCurrent(c => c + 1);
       setTyped("");
+      setChosen(null);
       setAnswered(false);
       setCorrect(false);
       setAiFeedback(null);
@@ -109,8 +184,13 @@ export default function DailyReviewSession({ items, onAnswer, onComplete, onExit
         </div>
         <h2 className="font-display text-3xl font-bold mb-1">Warm-up done! 🔥</h2>
         <p className="text-5xl font-bold text-primary my-3">{pct}%</p>
-        <p className="text-muted-foreground mb-3">{score} / {items.length} correct</p>
-        <div className="inline-flex items-center gap-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl px-4 py-2 mb-6">
+        <p className="text-muted-foreground mb-1">{score} / {items.length} correct</p>
+        {bestStreak >= 3 && (
+          <p className="text-sm text-amber-700 dark:text-amber-400 mb-3 inline-flex items-center gap-1">
+            <Flame className="w-4 h-4" /> Best streak: {bestStreak} in a row
+          </p>
+        )}
+        <div className="inline-flex items-center gap-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl px-4 py-2 mb-6 mt-2">
           <Zap className="w-4 h-4 text-amber-500" />
           <span className="font-semibold text-amber-700 dark:text-amber-400">+{XP_REWARDS.daily_review_bonus} XP bonus earned!</span>
         </div>
@@ -135,17 +215,32 @@ export default function DailyReviewSession({ items, onAnswer, onComplete, onExit
         <span className="text-sm font-semibold text-primary">Score: {score}</span>
       </div>
 
-      {/* Progress bar */}
-      <div className="w-full h-1.5 bg-muted rounded-full">
-        <div
-          className="h-full bg-amber-500 rounded-full transition-all"
-          style={{ width: `${((current + 1) / items.length) * 100}%` }}
-        />
+      {/* Progress bar + live streak */}
+      <div className="space-y-2">
+        <div className="w-full h-1.5 bg-muted rounded-full">
+          <div
+            className="h-full bg-amber-500 rounded-full transition-all"
+            style={{ width: `${((current + 1) / items.length) * 100}%` }}
+          />
+        </div>
+        <AnimatePresence>
+          {streak >= 2 && (
+            <motion.div
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="flex items-center justify-center gap-1.5 text-xs font-semibold text-amber-600 dark:text-amber-400"
+            >
+              <Flame className="w-3.5 h-3.5" />
+              <span>{streak} in a row!</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="text-center mb-2">
         <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-3 py-1 rounded-full">
-          🔥 Daily Warm-up · {item.lessonTitle || "Vocabulary"}
+          🔥 Daily Warm-up · {mode === "type" ? "Type it" : mode === "choice" ? "Multiple choice" : "Listen & pick"}
         </span>
       </div>
 
@@ -158,45 +253,96 @@ export default function DailyReviewSession({ items, onAnswer, onComplete, onExit
         >
           <Card className="border-border/50">
             <CardContent className="p-6 space-y-5">
-              {/* English prompt */}
-              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 text-center">
-                <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide mb-2">English</p>
-                <p className="text-xl font-semibold text-blue-900 dark:text-blue-100">{item.english}</p>
-              </div>
-
-              {/* Swedish input */}
-              <div className="space-y-3">
-                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                  Type in Swedish
-                </label>
-                <input
-                  type="text"
-                  value={typed}
-                  onChange={e => setTyped(e.target.value)}
-                  onKeyDown={e => { if (e.key === "Enter" && !answered) handleCheck(); }}
-                  disabled={answered}
-                  placeholder="Skriv på svenska…"
-                  autoFocus
-                  className="w-full border-2 border-border/50 rounded-xl px-4 py-3 text-base text-foreground bg-transparent focus:outline-none focus:border-primary transition-colors disabled:opacity-60"
-                />
-                <div className="flex gap-2">
-                  {["å", "ä", "ö"].map(c => (
-                    <button
-                      key={c}
-                      onClick={() => setTyped(t => t + c)}
-                      className="px-2.5 py-1 border rounded-lg hover:bg-muted transition-colors font-medium text-sm"
-                    >
-                      {c}
-                    </button>
-                  ))}
+              {/* Prompt area — varies by mode */}
+              {mode === "type" && (
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 text-center">
+                  <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide mb-2">English</p>
+                  <p className="text-xl font-semibold text-blue-900 dark:text-blue-100">{item.english}</p>
                 </div>
-              </div>
+              )}
 
-              {/* Check button */}
-              {!answered && (
-                <Button onClick={handleCheck} className="w-full min-h-[44px]" disabled={!typed.trim()}>
-                  Check
-                </Button>
+              {mode === "choice" && (
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 text-center">
+                  <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide mb-2">English</p>
+                  <p className="text-xl font-semibold text-blue-900 dark:text-blue-100">{item.english}</p>
+                  <p className="text-xs text-muted-foreground mt-2">Pick the correct Swedish translation</p>
+                </div>
+              )}
+
+              {mode === "listen" && (
+                <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-xl p-6 text-center">
+                  <div className="flex items-center justify-center gap-3 mb-2">
+                    <Headphones className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+                    <span className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide">Listen</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-3">Tap to hear the Swedish word again</p>
+                  <div className="flex justify-center">
+                    <SpeakButton text={item.swedish} className="w-12 h-12 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300" />
+                  </div>
+                  {answered && (
+                    <p className="text-xs text-muted-foreground mt-3">Meaning: <span className="font-medium text-foreground">{item.english}</span></p>
+                  )}
+                </div>
+              )}
+
+              {/* Answer area */}
+              {mode === "type" && (
+                <div className="space-y-3">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                    Type in Swedish
+                  </label>
+                  <input
+                    type="text"
+                    value={typed}
+                    onChange={e => setTyped(e.target.value)}
+                    onKeyDown={e => { if (e.key === "Enter" && !answered) handleCheckType(); }}
+                    disabled={answered}
+                    placeholder="Skriv på svenska…"
+                    autoFocus
+                    className="w-full border-2 border-border/50 rounded-xl px-4 py-3 text-base text-foreground bg-transparent focus:outline-none focus:border-primary transition-colors disabled:opacity-60"
+                  />
+                  <div className="flex gap-2">
+                    {["å", "ä", "ö"].map(c => (
+                      <button
+                        key={c}
+                        onClick={() => setTyped(t => t + c)}
+                        className="px-2.5 py-1 border rounded-lg hover:bg-muted transition-colors font-medium text-sm"
+                      >
+                        {c}
+                      </button>
+                    ))}
+                  </div>
+                  {!answered && (
+                    <Button onClick={handleCheckType} className="w-full min-h-[44px]" disabled={!typed.trim()}>
+                      Check
+                    </Button>
+                  )}
+                </div>
+              )}
+
+              {(mode === "choice" || mode === "listen") && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {options.map((opt) => {
+                    const isAnswerCorrect = acceptableAnswers.some(a => a === normalizeAnswer(opt));
+                    const isChosen = chosen === opt;
+                    let cls = "border-2 border-border/50 hover:border-primary hover:bg-muted";
+                    if (answered) {
+                      if (isAnswerCorrect) cls = "border-2 border-green-500 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300";
+                      else if (isChosen) cls = "border-2 border-red-500 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300";
+                      else cls = "border-2 border-border/30 opacity-60";
+                    }
+                    return (
+                      <button
+                        key={opt}
+                        onClick={() => handlePickChoice(opt)}
+                        disabled={answered}
+                        className={`px-4 py-3 rounded-xl text-left font-medium transition-colors ${cls}`}
+                      >
+                        {opt}
+                      </button>
+                    );
+                  })}
+                </div>
               )}
 
               {/* Result */}
@@ -215,8 +361,11 @@ export default function DailyReviewSession({ items, onAnswer, onComplete, onExit
                       <p className={`font-semibold text-sm ${correct ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"}`}>
                         {correct ? "Correct!" : `Correct answer: ${item.swedish}`}
                       </p>
-                      {!correct && typed.trim() && (
+                      {!correct && mode === "type" && typed.trim() && (
                         <p className="text-xs text-muted-foreground mt-0.5">You wrote: {typed}</p>
+                      )}
+                      {!correct && mode !== "type" && chosen && (
+                        <p className="text-xs text-muted-foreground mt-0.5">You picked: {chosen}</p>
                       )}
                     </div>
                   </div>

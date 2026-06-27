@@ -13,7 +13,7 @@ import { useQueryClient } from "@tanstack/react-query";
 export default function DailyReviewCard() {
   const [sessionOpen, setSessionOpen] = useState(false);
   const [batchOffset, setBatchOffset] = useState(0);
-  const { isDone, reviewItems, totalDue, hasMore, showNudge, today, updateCard, refresh } = useDailyReview(batchOffset);
+  const { isDone, reviewItems, totalDue, hasMore, showNudge, today, updateCard, refresh, allCards } = useDailyReview(batchOffset);
   const { checkUserAuth } = useAuth();
   const queryClient = useQueryClient();
 
@@ -36,6 +36,7 @@ export default function DailyReviewCard() {
     return (
       <DailyReviewSession
         items={reviewItems}
+        pool={allCards}
         onAnswer={updateCard}
         onComplete={handleComplete}
         onExit={() => { setSessionOpen(false); refresh?.(); }}
