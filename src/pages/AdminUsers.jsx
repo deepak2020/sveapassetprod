@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
-import { Users, UserCheck, UserMinus, UserX, Flame, Zap, TrendingUp, MailX, MessageSquare } from "lucide-react";
+import { Users, UserCheck, UserMinus, UserX, Flame, Zap, TrendingUp, MailX, MessageSquare, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import StatCard from "../components/admin/StatCard";
 import ActivityChart from "../components/admin/ActivityChart";
@@ -22,6 +22,12 @@ export default function AdminUsers() {
   const { data: users = [], isLoading } = useQuery({
     queryKey: ["admin-all-users"],
     queryFn: () => base44.entities.User.list("-created_date", 1000),
+    enabled: me?.role === "admin",
+  });
+
+  const { data: pushSubs = [] } = useQuery({
+    queryKey: ["admin-push-subs"],
+    queryFn: () => base44.entities.PushSubscription.list("-created_date", 1000),
     enabled: me?.role === "admin",
   });
 
@@ -46,6 +52,11 @@ export default function AdminUsers() {
   const withStreak = users.filter(u => (u.streak_days || 0) >= 3).length;
   const totalXp = users.reduce((s, u) => s + (u.xp_total || 0), 0);
   const unsubscribed = users.filter(u => u.email_reminders_disabled).length;
+
+  // Push notification opt-ins — count unique users with at least one subscription
+  const pushUserIds = new Set(pushSubs.map(s => s.user_id).filter(Boolean));
+  const pushOptedIn = pushUserIds.size;
+  const pushOptInRate = total ? Math.round((pushOptedIn / total) * 100) : 0;
 
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
   const newThisWeek = users.filter(u => u.created_date && u.created_date >= sevenDaysAgo).length;
@@ -84,6 +95,12 @@ export default function AdminUsers() {
             <StatCard icon={Flame} label="Streaks ≥ 3" value={withStreak} sublabel="Committed learners" color="orange" />
             <StatCard icon={Zap} label="Total XP" value={totalXp.toLocaleString()} sublabel="Across all users" color="primary" />
             <StatCard icon={MailX} label="Unsubscribed" value={unsubscribed} sublabel="Email opt-outs" color="gray" />
+          </div>
+
+          {/* Push notification opt-ins */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <StatCard icon={Bell} label="Push opt-ins" value={pushOptedIn} sublabel={`${pushOptInRate}% of users`} color="primary" />
+            <StatCard icon={Bell} label="Devices subscribed" value={pushSubs.length} sublabel="Across all browsers" color="blue" />
           </div>
 
           {/* Activity chart */}
