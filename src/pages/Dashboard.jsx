@@ -23,6 +23,7 @@ import CoachCard from "../components/dashboard/CoachCard";
 import DailyQuizCard from "../components/dashboard/DailyQuizCard";
 import DailyReviewCard from "../components/dashboard/DailyReviewCard";
 import SkrivaRevisionCard from "../components/dashboard/SkrivaRevisionCard";
+import PushOptInCard from "../components/dashboard/PushOptInCard";
 import TodaysPlanCard from "../components/planner/TodaysPlanCard";
 import CreateStudyPlanModal from "../components/planner/CreateStudyPlanModal";
 import { useStudyPlan } from "@/hooks/useStudyPlan";
@@ -232,6 +233,9 @@ export default function Dashboard() {
           </div>
         </button>
       )}
+
+      {/* Push notification opt-in — hides if subscribed, dismissed, or unsupported */}
+      <PushOptInCard />
 
       {/* Skriva mistakes to revise — only shows when user has any */}
       <SkrivaRevisionCard />

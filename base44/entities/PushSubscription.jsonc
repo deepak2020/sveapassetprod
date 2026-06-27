@@ -1,0 +1,83 @@
+{
+  "name": "PushSubscription",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "endpoint": {
+      "type": "string",
+      "description": "Push service endpoint URL (unique per browser/device)"
+    },
+    "p256dh": {
+      "type": "string",
+      "description": "Client public key for encryption"
+    },
+    "auth": {
+      "type": "string",
+      "description": "Client auth secret for encryption"
+    },
+    "user_agent": {
+      "type": "string",
+      "description": "Browser UA for debugging"
+    },
+    "last_sent_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Last date a push was sent to this subscription"
+    },
+    "failed_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Consecutive delivery failures (subscription pruned after 3)"
+    }
+  },
+  "required": [
+    "user_id",
+    "endpoint",
+    "p256dh",
+    "auth"
+  ],
+  "rls": {
+    "create": {
+      "data.user_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
