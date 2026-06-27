@@ -17,7 +17,7 @@ export default function DailyReviewCard() {
   const { checkUserAuth } = useAuth();
   const queryClient = useQueryClient();
 
-  if (isDone || !showNudge) return null;
+  if (totalDue === 0) return null;
 
   const handleComplete = async () => {
     // Guard against double-awarding (e.g. stale UI, concurrent tabs) by checking
