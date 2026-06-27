@@ -77,18 +77,7 @@ export default function DailyReviewCard() {
             </div>
           </div>
 
-          {hasMore && (
-            <div className="mt-3 flex justify-end">
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => setBatchOffset((o) => o + 10)}
-                className="h-7 text-xs text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/40"
-              >
-                Next 10 →
-              </Button>
-            </div>
-          )}
+
 
           {/* Mini progress hint */}
           <div className="mt-3 flex items-center gap-2">
