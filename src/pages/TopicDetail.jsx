@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import CategoryBadge from "../components/shared/CategoryBadge";
 import CivicQuizRunner from "../components/civic/CivicQuizRunner";
+import PageSEO from "../components/shared/PageSEO";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
@@ -50,8 +51,20 @@ export default function TopicDetail() {
     );
   }
 
+  const seoTitle = `${topic.title} — Swedish Citizenship Test Prep · Sveapasset`;
+  const seoDesc = (() => {
+    const prefix = topic.chapter ? `${topic.chapter}. ` : "";
+    const plain = (topic.content || "").replace(/[#*_>`-]/g, "").replace(/\s+/g, " ").trim().slice(0, 160);
+    return `${prefix}Free study material for the Swedish citizenship test (medborgarskapsprov). ${plain}`.slice(0, 300);
+  })();
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <PageSEO
+        title={seoTitle}
+        description={seoDesc}
+        canonical={`https://sveapasset.se/civic/${topic.id}`}
+      />
       {/* Back navigation */}
       <Link to="/civic" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8">
         <ArrowLeft className="w-4 h-4" /> Back to all topics

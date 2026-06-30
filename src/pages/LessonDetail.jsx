@@ -22,6 +22,7 @@ import SentenceTranslation from "../components/lesson/SentenceTranslation";
 import MatchingExercise from "../components/lesson/MatchingExercise";
 import ListeningExercise from "../components/lesson/ListeningExercise";
 import LessonBottomNav from "../components/lesson/LessonBottomNav";
+import PageSEO from "../components/shared/PageSEO";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
@@ -317,8 +318,26 @@ export default function LessonDetail() {
 
   const nextTabKey = allTabs[allTabs.indexOf(effectiveTab) + 1] ?? null;
 
+  // SEO: build a focused title + description from the lesson data so Google
+  // sees a unique, keyword-rich page for every lesson (not the static index.html title).
+  const seoTitle = `${lesson.title}${lesson.sfi_course ? ` · SFI Kurs ${lesson.sfi_course}` : ""} — Sveapasset`;
+  const seoDesc = (() => {
+    const bits = [];
+    if (lesson.sfi_course) bits.push(`SFI Kurs ${lesson.sfi_course}`);
+    if (lesson.topic) bits.push(lesson.topic);
+    if (lesson.skill) bits.push(lesson.skill);
+    const prefix = bits.length ? `${bits.join(" · ")}. ` : "";
+    const plain = (lesson.content || "").replace(/[#*_>`-]/g, "").replace(/\s+/g, " ").trim().slice(0, 140);
+    return `${prefix}Learn Swedish online with interactive flashcards, quizzes, and writing exercises. ${plain}`.slice(0, 300);
+  })();
+
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-40 md:pb-28">
+      <PageSEO
+        title={seoTitle}
+        description={seoDesc}
+        canonical={`https://sveapasset.se/language/${lesson.id}`}
+      />
       {/* Back — to the planner if we came from there, else the topic list */}
       <Link
         to={backTo || (lesson.topic ? `/language/topic/${lesson.sfi_course}/${encodeURIComponent(lesson.topic)}` : "/language")}
