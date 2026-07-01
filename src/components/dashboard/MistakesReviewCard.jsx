@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { RotateCcw, ChevronRight, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { RotateCcw, ChevronRight, PenSquare } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useMistakeLog } from "@/hooks/useMistakeLog";
 import MistakesReviewSession from "@/components/shared/MistakesReviewSession";
+
+// Skriva/writing mistakes need the full production UI on the Skriva page,
+// not the single-input review — route users there instead.
+const PRODUCTION_SOURCES = new Set(["gym_produce", "writing"]);
 
 // Unified mistakes card: shows ALL your wrong answers across lessons, grammar,
 // gym, and writing — click to review them in a focused session.
@@ -19,6 +24,10 @@ export default function MistakesReviewCard() {
     acc[key] = (acc[key] || 0) + 1;
     return acc;
   }, {});
+
+  const skrivaCount = mistakes.filter(m => PRODUCTION_SOURCES.has(m.source)).length;
+  const otherCount = count - skrivaCount;
+  const onlySkriva = skrivaCount > 0 && otherCount === 0;
 
   const labelMap = {
     lesson_quiz: "Lessons",
@@ -61,12 +70,36 @@ export default function MistakesReviewCard() {
           ))}
         </div>
 
-        <Button
-          onClick={() => setInSession(true)}
-          className="w-full mt-4 gap-2 bg-rose-600 hover:bg-rose-700 text-white"
-        >
-          Start review <ChevronRight className="w-4 h-4" />
-        </Button>
+        {onlySkriva ? (
+          <Button
+            asChild
+            className="w-full mt-4 gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0"
+          >
+            <Link to="/speaking">
+              <PenSquare className="w-4 h-4" /> Öva på Skriva
+            </Link>
+          </Button>
+        ) : (
+          <div className="mt-4 space-y-2">
+            <Button
+              onClick={() => setInSession(true)}
+              className="w-full gap-2 bg-rose-600 hover:bg-rose-700 text-white"
+            >
+              Start review ({otherCount}) <ChevronRight className="w-4 h-4" />
+            </Button>
+            {skrivaCount > 0 && (
+              <Button
+                asChild
+                variant="outline"
+                className="w-full gap-2 border-amber-300 dark:border-amber-800 text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30"
+              >
+                <Link to="/speaking">
+                  <PenSquare className="w-4 h-4" /> + {skrivaCount} Skriva-misstag
+                </Link>
+              </Button>
+            )}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
