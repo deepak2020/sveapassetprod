@@ -154,6 +154,12 @@ export default function MistakesReviewSession({ onExit }) {
                 </div>
               ) : (
                 <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
+                  {/* What the user just typed */}
+                  <div className="rounded-lg border border-border/50 bg-muted/30 p-3">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">You wrote</p>
+                    <p className="text-sm text-foreground">{answer}</p>
+                  </div>
+
                   <div className={`p-3 rounded-lg border ${correct
                     ? "bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800"
                     : "bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800"
@@ -175,10 +181,28 @@ export default function MistakesReviewSession({ onExit }) {
                     )}
                   </div>
 
+                  {/* Previous attempt — helpful reminder of the original mistake */}
+                  {item.user_answer && item.user_answer !== answer && (
+                    <div className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/20 p-3">
+                      <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wide mb-1">
+                        Last time you wrote
+                      </p>
+                      <p className="text-sm text-amber-900 dark:text-amber-100 line-through decoration-amber-500/60">
+                        {item.user_answer}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Svea's explanation (grammar rule / correction reason) */}
                   {item.explanation && (
                     <div className="rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/20 p-3 flex gap-2">
                       <Lightbulb className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
-                      <p className="text-sm text-blue-900 dark:text-blue-100 leading-relaxed">{item.explanation}</p>
+                      <div>
+                        <p className="text-xs font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wide mb-1">
+                          Svea's correction
+                        </p>
+                        <p className="text-sm text-blue-900 dark:text-blue-100 leading-relaxed">{item.explanation}</p>
+                      </div>
                     </div>
                   )}
 
