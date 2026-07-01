@@ -1,0 +1,80 @@
+{
+  "name": "MistakeLog",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "string",
+      "enum": [
+        "lesson_quiz",
+        "civic_quiz",
+        "lesson_blank",
+        "gym_cloze",
+        "gym_produce",
+        "grammar",
+        "writing"
+      ],
+      "description": "Where the mistake happened"
+    },
+    "source_id": {
+      "type": "string",
+      "description": "Lesson id, topic id, sentence id, or grammar topic id"
+    },
+    "source_title": {
+      "type": "string",
+      "description": "Human label of where the mistake came from"
+    },
+    "question": {
+      "type": "string",
+      "description": "Question or prompt text"
+    },
+    "question_en": {
+      "type": "string",
+      "description": "Optional English translation of the question"
+    },
+    "correct_answer": {
+      "type": "string",
+      "description": "The correct answer"
+    },
+    "user_answer": {
+      "type": "string",
+      "description": "What the user answered"
+    },
+    "explanation": {
+      "type": "string",
+      "description": "Optional explanation / grammar rule"
+    },
+    "attempts": {
+      "type": "number",
+      "default": 1,
+      "description": "How many times the user has gotten this wrong"
+    },
+    "resolved": {
+      "type": "boolean",
+      "default": false,
+      "description": "Marked mastered by the user"
+    },
+    "last_seen_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "source",
+    "question",
+    "correct_answer"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "update": {
+      "created_by": "{{user.email}}"
+    },
+    "delete": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}

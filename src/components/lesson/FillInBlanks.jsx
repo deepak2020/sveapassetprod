@@ -6,9 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
+import { useMistakeLog } from "@/hooks/useMistakeLog";
 
 export default function FillInBlanks({ exercises, onComplete, previousResult, storageKey, userId, lessonId, tab, initialProgress }) {
   const { load, save, clear } = useExerciseProgress(storageKey, userId, lessonId, tab);
+  const { logMistake } = useMistakeLog();
   const remoteApplied = useRef(false);
   const [exercisePool, setExercisePool] = useState(exercises);
   const [wrongIndices, setWrongIndices] = useState([]);
@@ -48,6 +50,14 @@ export default function FillInBlanks({ exercises, onComplete, previousResult, st
     } else {
       save({ current, score });
       setWrongIndices(prev => [...prev, current]);
+      logMistake({
+        source: "lesson_blank",
+        source_id: lessonId,
+        question: ex.sentence_sv,
+        question_en: ex.sentence_en,
+        correct_answer: ex.answer,
+        user_answer: option,
+      });
     }
     await awardXP(base44, correct ? XP_REWARDS.cloze_correct : XP_REWARDS.cloze_wrong);
   };

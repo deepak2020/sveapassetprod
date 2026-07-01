@@ -8,6 +8,7 @@ import { supabase } from "@/api/supabaseClient";
 import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { useGrammarProgress } from "@/hooks/useGrammarProgress";
+import { useMistakeLog } from "@/hooks/useMistakeLog";
 import { useAuth } from "@/lib/AuthContext";
 
 const COLOR = {
@@ -55,6 +56,7 @@ export default function GrammarTopic() {
   const { categoryId, topicId } = useParams();
   const navigate = useNavigate();
   const { saveProgress } = useGrammarProgress();
+  const { logMistake } = useMistakeLog();
   const { isAuthenticated } = useAuth();
 
   // Static fallback while DB loads
@@ -212,6 +214,16 @@ export default function GrammarTopic() {
     if (idx === ex.correct) {
       setScore(s => s + 1);
       if (isAuthenticated) awardXP(base44, XP_REWARDS.quiz_correct, "Grammar correct");
+    } else {
+      logMistake({
+        source: "grammar",
+        source_id: topicId,
+        source_title: topic?.title || "",
+        question: ex.q,
+        correct_answer: ex.options[ex.correct],
+        user_answer: ex.options[idx],
+        explanation: ex.explanation || "",
+      });
     }
     // Save in-progress state
     saveProgress(topicId, current, total, score + (idx === ex.correct ? 1 : 0), false);

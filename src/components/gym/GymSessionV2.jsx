@@ -9,6 +9,7 @@ import { playAudio } from "@/lib/speech";
 import { getCachedFeedback, setCachedFeedback } from "@/lib/aiCache";
 import { addMissedWordsFromSkriva } from "@/hooks/useVocabSRS";
 import { useSkrivaRevision } from "@/hooks/useSkrivaRevision";
+import { useMistakeLog } from "@/hooks/useMistakeLog";
 import SveaProductionFeedback from "@/components/gym/SveaProductionFeedback";
 import SveaLogo from "@/components/shared/SveaLogo";
 
@@ -136,6 +137,7 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
   const [aiFeedback, setAiFeedback] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
   const { addMistake, removeMistake } = useSkrivaRevision();
+  const { logMistake } = useMistakeLog();
 
   useEffect(() => {
     if (!answered || correct) return;
@@ -229,6 +231,18 @@ export default function GymSessionV2({ sentences, mode = "listen", level = "inte
     updateSRS(sentence.id, isCorrect, srsCards);
     // Skriva: instant-correct answers also clear this sentence from revision.
     if (isCorrect && mode === "produce") removeMistake(sentence.id);
+    // Log wrong answers to the unified mistake tracker
+    if (!isCorrect) {
+      logMistake({
+        source: mode === "produce" ? "gym_produce" : "gym_cloze",
+        source_id: sentence.id,
+        question: mode === "produce" ? sentence.sentence_en : sentence.sentence_sv,
+        question_en: mode === "produce" ? "" : sentence.sentence_en,
+        correct_answer: mode === "produce" ? fullSwedishSentence(sentence) : sentence.answer,
+        user_answer: answer,
+        explanation: sentence.grammar_note || "",
+      });
+    }
   };
 
   const handleNext = () => {

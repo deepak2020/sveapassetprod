@@ -11,6 +11,7 @@ import { base44 } from "@/api/base44Client";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { useWritingAnswers } from "@/hooks/useWritingAnswers";
 import { useWritingRevision } from "@/hooks/useWritingRevision";
+import { useMistakeLog } from "@/hooks/useMistakeLog";
 import { getCachedFeedback, setCachedFeedback, writingCacheKey } from "@/lib/aiCache";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import SpeakButton from "@/components/shared/SpeakButton";
@@ -470,6 +471,7 @@ function RevisionCard({ item, onMastered }) {
 export default function WritingExercise({ prompts, lessonId, onComplete }) {
   const { answers, saveAnswer, removeAnswer } = useWritingAnswers(lessonId);
   const { addToRevision, removeFromRevision, getForLesson } = useWritingRevision();
+  const { logMistake } = useMistakeLog();
   const [completionFired, setCompletionFired] = useState(false);
   const [feedbackState, setFeedbackState] = useState({});
 
@@ -496,6 +498,16 @@ export default function WritingExercise({ prompts, lessonId, onComplete }) {
           exampleAnswer: p.example_answer,
           userAnswer: answer,
           grammarIssues: feedback.grammar_issues || [],
+        });
+        // Also log to the unified mistake tracker (synced across devices)
+        const firstIssue = feedback.grammar_issues?.[0];
+        logMistake({
+          source: "writing",
+          source_id: lessonId,
+          question: p.prompt,
+          correct_answer: feedback.corrected_text || p.example_answer || "",
+          user_answer: answer,
+          explanation: firstIssue?.explanation || feedback.suggestion || "",
         });
       } else if (feedback.score === "great") {
         removeFromRevision(lessonId, index);

@@ -8,6 +8,7 @@ import { awardXP, XP_REWARDS } from "@/lib/xp";
 import SpeakButton from "@/components/shared/SpeakButton";
 import SveaLogo from "@/components/shared/SveaLogo";
 import { useExerciseProgress } from "@/hooks/useExerciseProgress";
+import { useMistakeLog } from "@/hooks/useMistakeLog";
 
 // Tiny stable hash of question content. When admins fix a question, the hash
 // changes and any stored "you were on Q3, score 0/5" snapshot is abandoned so
@@ -24,6 +25,7 @@ function hashQuestions(qs) {
 export default function QuizRunner({ questions, quizType, sourceId, sourceTitle, onComplete, previousResult, storageKey, userId, tab, initialProgress }) {
   const versionedKey = storageKey ? `${storageKey}:v${hashQuestions(questions)}` : storageKey;
   const { load, save, clear } = useExerciseProgress(versionedKey, userId, sourceId, tab);
+  const { logMistake } = useMistakeLog();
   const remoteApplied = useRef(false);
   const [questionPool, setQuestionPool] = useState(questions);
   const [wrongIndices, setWrongIndices] = useState([]);
@@ -96,6 +98,17 @@ export default function QuizRunner({ questions, quizType, sourceId, sourceTitle,
     } else {
       save({ current: currentQ, score });
       setWrongIndices(prev => [...prev, currentQ]);
+      // Log mistake for cross-device revision
+      logMistake({
+        source: quizType === "civic" ? "civic_quiz" : "lesson_quiz",
+        source_id: sourceId,
+        source_title: sourceTitle,
+        question: question.question_sv || question.question_en || question.question || "",
+        question_en: question.question_en,
+        correct_answer: question.options[question.correct_index],
+        user_answer: question.options[index],
+        explanation: question.explanation || "",
+      });
     }
     await awardXP(base44, correct ? XP_REWARDS.quiz_correct : 0);
   };
