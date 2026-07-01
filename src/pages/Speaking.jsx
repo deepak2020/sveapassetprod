@@ -9,6 +9,7 @@ import LoginGate from "@/components/shared/LoginGate";
 import SveaLogo from "@/components/shared/SveaLogo";
 import { shuffle } from "@/lib/shuffle";
 import { useSkrivaRevision } from "@/hooks/useSkrivaRevision";
+import { useMistakeLog } from "@/hooks/useMistakeLog";
 
 const SFI_LEVELS = ["A", "B", "C", "D"];
 const SENTENCE_COUNTS = [10, 25, 50];
@@ -18,10 +19,34 @@ export default function Speaking() {
   const [count, setCount] = useState(10);
   const [session, setSession] = useState(null);
   const { items: revisionItems } = useSkrivaRevision();
+  const { logMistake, mistakes: loggedMistakes } = useMistakeLog();
 
   useEffect(() => {
     base44.analytics.track({ eventName: "page_viewed", properties: { page: "speaking" } });
   }, []);
+
+  // Backfill legacy localStorage Skriva mistakes into the unified MistakeLog
+  // so they surface on the Dashboard's "Repetera dina misstag" card too.
+  useEffect(() => {
+    if (!revisionItems.length) return;
+    const alreadyLogged = new Set(
+      loggedMistakes
+        .filter(m => m.source === "gym_produce")
+        .map(m => m.source_id)
+    );
+    revisionItems.forEach(item => {
+      if (!item.sentence?.id || alreadyLogged.has(item.sentence.id)) return;
+      logMistake({
+        source: "gym_produce",
+        source_id: item.sentence.id,
+        question: item.sentence.sentence_en,
+        correct_answer: item.correctedText || item.sentence.sentence_sv,
+        user_answer: item.userAnswer || "",
+        explanation: item.grammarIssues?.[0]?.explanation || "",
+      });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [revisionItems.length, loggedMistakes.length]);
 
   const { data: sentences = [] } = useQuery({
     queryKey: ["cloze-sentences"],
