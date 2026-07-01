@@ -1,9 +1,15 @@
 import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, CheckCircle2, XCircle, Trophy, RotateCcw, Lightbulb } from "lucide-react";
+import { ArrowLeft, CheckCircle2, XCircle, Trophy, RotateCcw, Lightbulb, PenSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useMistakeLog } from "@/hooks/useMistakeLog";
+
+// Mistakes from full-sentence writing exercises. Reviewing them with a single
+// input box doesn't fit — we send the user to the Skriva page where the proper
+// production UI (with Svea's feedback) can re-quiz them.
+const PRODUCTION_SOURCES = new Set(["gym_produce", "writing"]);
 
 const SOURCE_LABELS = {
   lesson_quiz: "Lesson Quiz",
@@ -21,8 +27,16 @@ function normalize(s) {
 
 export default function MistakesReviewSession({ onExit }) {
   const { mistakes, resolveMistake } = useMistakeLog();
-  // Freeze the list at mount so resolving a mistake doesn't reshuffle mid-session
-  const items = useMemo(() => mistakes.slice(0, 20), []);
+  // Freeze the list at mount so resolving a mistake doesn't reshuffle mid-session.
+  // Full-sentence production mistakes are excluded — they're handled on the Skriva page.
+  const items = useMemo(
+    () => mistakes.filter(m => !PRODUCTION_SOURCES.has(m.source)).slice(0, 20),
+    []
+  );
+  const productionCount = useMemo(
+    () => mistakes.filter(m => PRODUCTION_SOURCES.has(m.source)).length,
+    []
+  );
   const [current, setCurrent] = useState(0);
   const [answer, setAnswer] = useState("");
   const [revealed, setRevealed] = useState(false);
@@ -31,6 +45,30 @@ export default function MistakesReviewSession({ onExit }) {
   const [done, setDone] = useState(false);
 
   if (items.length === 0) {
+    // Only Skriva/writing mistakes left → send the user to the Skriva page
+    if (productionCount > 0) {
+      return (
+        <div className="max-w-md mx-auto px-4 py-16 text-center space-y-4">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center mx-auto shadow-md">
+            <PenSquare className="w-8 h-8 text-white" />
+          </div>
+          <h2 className="font-display text-2xl font-bold">Öva på Skriva-sidan</h2>
+          <p className="text-sm text-muted-foreground">
+            Dina {productionCount} skriv-misstag repeteras bäst med hela meningar där Svea rättar dig i realtid.
+          </p>
+          <div className="flex gap-2 justify-center">
+            <Button onClick={onExit} variant="outline" className="gap-2">
+              <ArrowLeft className="w-4 h-4" /> Back
+            </Button>
+            <Button asChild className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 gap-2">
+              <Link to="/speaking">
+                <PenSquare className="w-4 h-4" /> Gå till Skriva
+              </Link>
+            </Button>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="max-w-2xl mx-auto px-4 py-10 text-center">
         <p className="text-muted-foreground">No mistakes to review — great work!</p>
