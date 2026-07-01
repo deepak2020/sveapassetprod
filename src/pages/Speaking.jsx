@@ -19,7 +19,7 @@ export default function Speaking() {
   const [count, setCount] = useState(10);
   const [session, setSession] = useState(null);
   const { items: revisionItems } = useSkrivaRevision();
-  const { logMistake, mistakes: loggedMistakes } = useMistakeLog();
+  const { logMistake, mistakes: loggedMistakes, resolveMistake } = useMistakeLog();
 
   useEffect(() => {
     base44.analytics.track({ eventName: "page_viewed", properties: { page: "speaking" } });
@@ -70,6 +70,25 @@ export default function Speaking() {
   const levelSentences = sentences.filter(s => s.sfi_level === level);
   const available = Math.min(count, levelSentences.length);
 
+  // Merge revision sources: legacy localStorage list + unified MistakeLog (gym_produce/writing).
+  // MistakeLog rows only have source_id → look up the full ClozeSentence from the loaded list.
+  const mistakeLogRevisions = loggedMistakes
+    .filter(m => (m.source === "gym_produce" || m.source === "writing") && m.source_id)
+    .map(m => {
+      const sentence = sentences.find(s => s.id === m.source_id);
+      return sentence ? { sentence, _mistakeId: m.id } : null;
+    })
+    .filter(Boolean);
+
+  // De-dupe by sentence id — a Skriva mistake may live in both stores
+  const revisionMap = new Map();
+  [...revisionItems, ...mistakeLogRevisions].forEach(item => {
+    if (item.sentence?.id && !revisionMap.has(item.sentence.id)) {
+      revisionMap.set(item.sentence.id, item);
+    }
+  });
+  const allRevisions = Array.from(revisionMap.values());
+
   const start = () => {
     const quiz = shuffle(levelSentences).slice(0, available);
     base44.analytics.track({
@@ -80,8 +99,8 @@ export default function Speaking() {
   };
 
   const startRevision = () => {
-    // Re-quiz only the sentences the user got wrong before
-    const quiz = shuffle(revisionItems.map(i => i.sentence)).filter(Boolean);
+    // Re-quiz only the sentences the user got wrong before (from both stores)
+    const quiz = shuffle(allRevisions.map(i => i.sentence)).filter(Boolean);
     if (!quiz.length) return;
     base44.analytics.track({
       eventName: "gym_session_started",
@@ -116,7 +135,7 @@ export default function Speaking() {
       </div>
 
       {/* Revision: re-quiz only the sentences the user got wrong before */}
-      {revisionItems.length > 0 && (
+      {allRevisions.length > 0 && (
         <LoginGate message="Logga in för att repetera dina misstag">
           <Card className="border-2 border-rose-300 dark:border-rose-800 bg-gradient-to-br from-rose-50 to-amber-50 dark:from-rose-950/30 dark:to-amber-950/20">
             <CardContent className="p-5 flex items-center gap-4">
@@ -126,8 +145,8 @@ export default function Speaking() {
               <div className="flex-1 min-w-0">
                 <h3 className="font-semibold text-sm leading-tight">Repetera dina misstag</h3>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  {revisionItems.length} mening{revisionItems.length === 1 ? "" : "ar"} att öva igen ·{" "}
-                  <span className="italic">Revise {revisionItems.length} sentence{revisionItems.length === 1 ? "" : "s"} you got wrong</span>
+                  {allRevisions.length} mening{allRevisions.length === 1 ? "" : "ar"} att öva igen ·{" "}
+                  <span className="italic">Revise {allRevisions.length} sentence{allRevisions.length === 1 ? "" : "s"} you got wrong</span>
                 </p>
               </div>
               <Button onClick={startRevision} size="sm" className="bg-rose-500 hover:bg-rose-600 text-white border-0 shrink-0">
