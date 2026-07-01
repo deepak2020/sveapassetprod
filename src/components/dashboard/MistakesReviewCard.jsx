@@ -18,16 +18,18 @@ export default function MistakesReviewCard() {
 
   if (mistakes.length === 0) return null;
 
-  const count = mistakes.length;
-  const bySource = mistakes.reduce((acc, m) => {
+  const skrivaCount = mistakes.filter(m => PRODUCTION_SOURCES.has(m.source)).length;
+  const otherMistakes = mistakes.filter(m => !PRODUCTION_SOURCES.has(m.source));
+  const otherCount = otherMistakes.length;
+  // Headline count excludes Skriva — those live on the Skriva page and have their own card there.
+  const count = otherCount;
+  const onlySkriva = skrivaCount > 0 && otherCount === 0;
+
+  const bySource = otherMistakes.reduce((acc, m) => {
     const key = m.source || "other";
     acc[key] = (acc[key] || 0) + 1;
     return acc;
   }, {});
-
-  const skrivaCount = mistakes.filter(m => PRODUCTION_SOURCES.has(m.source)).length;
-  const otherCount = count - skrivaCount;
-  const onlySkriva = skrivaCount > 0 && otherCount === 0;
 
   const labelMap = {
     lesson_quiz: "Lessons",
@@ -76,29 +78,16 @@ export default function MistakesReviewCard() {
             className="w-full mt-4 gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0"
           >
             <Link to="/speaking">
-              <PenSquare className="w-4 h-4" /> Öva på Skriva
+              <PenSquare className="w-4 h-4" /> Öva på Skriva ({skrivaCount})
             </Link>
           </Button>
         ) : (
-          <div className="mt-4 space-y-2">
-            <Button
-              onClick={() => setInSession(true)}
-              className="w-full gap-2 bg-rose-600 hover:bg-rose-700 text-white"
-            >
-              Start review ({otherCount}) <ChevronRight className="w-4 h-4" />
-            </Button>
-            {skrivaCount > 0 && (
-              <Button
-                asChild
-                variant="outline"
-                className="w-full gap-2 border-amber-300 dark:border-amber-800 text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30"
-              >
-                <Link to="/speaking">
-                  <PenSquare className="w-4 h-4" /> + {skrivaCount} Skriva-misstag
-                </Link>
-              </Button>
-            )}
-          </div>
+          <Button
+            onClick={() => setInSession(true)}
+            className="w-full mt-4 gap-2 bg-rose-600 hover:bg-rose-700 text-white"
+          >
+            Start review <ChevronRight className="w-4 h-4" />
+          </Button>
         )}
       </CardContent>
     </Card>
