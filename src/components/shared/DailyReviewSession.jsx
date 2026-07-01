@@ -81,7 +81,7 @@ function pickMode(index) {
   return mods[index % mods.length];
 }
 
-export default function DailyReviewSession({ items, pool = [], onAnswer, onComplete, onExit }) {
+export default function DailyReviewSession({ items, pool = [], onAnswer, onComplete, onContinue, canContinue = false, onExit }) {
   // Lock the session's question set at mount — the parent rebuilds `items`
   // after every answer (because updateCard triggers a re-rank), which was
   // making the current question swap out the moment the user picked an option.
@@ -224,9 +224,16 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
           <Zap className="w-4 h-4 text-amber-500" />
           <span className="font-semibold text-amber-700 dark:text-amber-400">+{XP_REWARDS.daily_review_bonus} XP bonus earned!</span>
         </div>
-        <Button onClick={onComplete} size="lg" className="w-full">
-          Continue learning
-        </Button>
+        <div className="space-y-2">
+          {canContinue && onContinue && (
+            <Button onClick={onContinue} size="lg" className="w-full bg-amber-500 hover:bg-amber-600 text-white gap-2">
+              <Flame className="w-4 h-4" /> Keep going — more words
+            </Button>
+          )}
+          <Button onClick={onComplete} size="lg" variant={canContinue ? "outline" : "default"} className="w-full">
+            {canContinue ? "I'm done for now" : "Continue learning"}
+          </Button>
+        </div>
       </motion.div>
     );
   }

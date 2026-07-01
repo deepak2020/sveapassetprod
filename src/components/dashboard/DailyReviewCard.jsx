@@ -35,11 +35,14 @@ export default function DailyReviewCard() {
   if (sessionOpen) {
     return (
       <DailyReviewSession
+        key={batchOffset}
         items={reviewItems}
         pool={allCards}
         onAnswer={updateCard}
         onComplete={handleComplete}
-        onExit={() => { setSessionOpen(false); refresh?.(); }}
+        canContinue={hasMore}
+        onContinue={() => setBatchOffset(o => o + 10)}
+        onExit={() => { setSessionOpen(false); setBatchOffset(0); refresh?.(); }}
       />
     );
   }
