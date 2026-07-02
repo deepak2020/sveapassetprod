@@ -50,7 +50,13 @@ Model Swedish answer: "${correctSv}"
 Student wrote: "${userSv || "(nothing)"}"
 
 CRITICAL RULE — read this twice:
-The model answer is ONE possible translation, not THE only translation. If the student's sentence is grammatically correct, natural Swedish, AND faithfully translates the English prompt, it is RIGHT — even if it uses different words or structure than the model. DO NOT rewrite valid Swedish to match the model. DO NOT flag stylistic preferences. A sentence is only wrong if it contains a real error: misspelling, wrong verb form, wrong article (en/ett), wrong word order, missing word, or vocabulary that genuinely doesn't translate the English prompt.
+The model answer is ONE possible translation, not THE only translation. If the student's sentence is grammatically correct, natural Swedish, AND faithfully translates the English prompt, it is RIGHT — even if it uses different words, a different preposition, a different article form (definite/indefinite), or different structure than the model. DO NOT rewrite valid Swedish to match the model. DO NOT flag stylistic preferences.
+
+PREPOSITIONS: Swedish often allows multiple prepositions in the same sentence (på/i/från/till/hos etc.). Example: "Han hämtar barnen från förskolan" and "Han hämtar barnen på förskolan" are BOTH correct Swedish translations of "He picks up the children from preschool" — accept either. Do not "correct" a grammatical preposition to the one in the model.
+
+DEFINITE vs INDEFINITE FORMS: If the student's choice (e.g. "förskola" vs "förskolan") is grammatical in their sentence, accept it. Only flag if the form is genuinely ungrammatical in context.
+
+A sentence is only wrong if it contains a real error: misspelling, wrong verb form, wrong word order (V2 rule violation), en/ett gender mistake on the article itself, missing word, or vocabulary that genuinely doesn't translate the English prompt.
 
 Step 1 — Read the student's text word by word.
 Step 2 — Fix ONLY real errors in this list:

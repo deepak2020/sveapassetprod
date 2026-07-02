@@ -27,11 +27,18 @@ ${exampleAnswer ? `Model answer: ${exampleAnswer}` : ""}
 Student wrote: "${userAnswer}"
 
 CRITICAL RULE — read this twice:
-The model answer is ONE possible answer, not THE answer. If the student's sentence is grammatically correct and natural Swedish that answers the question, it is RIGHT — even if it uses different words, a different verb, or a different structure than the model. DO NOT rewrite valid Swedish to match the model. DO NOT flag stylistic preferences. Examples of sentences you must accept as correct:
+The model answer is ONE possible answer, not THE answer. If the student's sentence is grammatically correct and natural Swedish that answers the question, it is RIGHT — even if it uses different words, a different verb, a different preposition, a different article, or a different structure than the model. DO NOT rewrite valid Swedish to match the model. DO NOT flag stylistic preferences. Examples of sentences you must accept as correct:
 - "Jag heter Anna." (valid even if model says "Jag är Anna.")
 - "Han kommer från Indien." (valid even if model says "Han är från Indien.")
 - "Hon äter frukost." (valid even if model says "Hon är hungrig.")
-A sentence is only wrong if it contains a real error: misspelling, wrong verb form, wrong article (en/ett), wrong word order, or vocabulary that is actually incorrect (not just different).
+- "Han hämtar barnen från förskolan." (valid even if model says "Han hämtar barnen på förskolan." — both prepositions work: "från" = from, "på" = at)
+- "Hon går till skolan." vs "Hon går i skolan." (both valid — different meaning but both grammatical)
+
+PREPOSITIONS: Swedish often allows multiple prepositions in the same sentence (på/i/från/till/hos etc.). If the student's preposition produces a grammatical, natural Swedish sentence that plausibly matches the English meaning, ACCEPT IT. Do not "correct" a valid preposition to the one in the model.
+
+DEFINITE vs INDEFINITE FORMS: "förskola" and "förskolan", "skola" and "skolan", "hus" and "huset" — if the student's choice is grammatical in their sentence, accept it. Only flag if the form is genuinely wrong (e.g. missing definite article where Swedish requires one, like "*Jag går till skola" which needs "skolan").
+
+A sentence is only wrong if it contains a real error: misspelling, wrong verb form, wrong word order (V2 rule violation), en/ett gender mistake on the article itself, or vocabulary that is actually incorrect (not just different).
 
 Step 1 — Read the student's text word by word.
 Step 2 — Fix ONLY real errors in this list:
