@@ -174,6 +174,8 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
   const [score, setScore] = useState(() => previousResult ? (previousResult.score ?? 0) : (initialProgress?.score ?? load()?.score ?? 0));
   const [finished, setFinished] = useState(() => !!previousResult);
   const [explanation, setExplanation] = useState({ issues: [], loading: false });
+  const [sveaVerdict, setSveaVerdict] = useState(null); // { correct, feedback, had_typo } | null
+  const [checking, setChecking] = useState(false);
 
   useEffect(() => {
     if (remoteApplied.current || finished || initialProgress == null) return;
