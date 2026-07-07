@@ -394,27 +394,8 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
                 {!isCorrect && (
                   <div className="mt-2 space-y-2.5">
                     <p className="text-sm text-foreground">
-                      Correct: <span className="font-semibold">{ex.example_sv}</span>
+                      Example answer: <span className="font-semibold">{ex.example_sv}</span>
                     </p>
-
-                    {/* AI grammar explanations */}
-                    {explanation.loading && (
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <Loader2 className="w-3 h-3 animate-spin" />
-                        Explaining the differences…
-                      </div>
-                    )}
-                    {!explanation.loading && explanation.issues.length > 0 && (
-                      <div className="space-y-2">
-                        <p className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                          <BookOpen className="w-3.5 h-3.5 text-amber-500" />
-                          Why these words?
-                        </p>
-                        {explanation.issues.map((issue, i) => (
-                          <GrammarIssueCard key={i} issue={issue} />
-                        ))}
-                      </div>
-                    )}
 
                     <p className="text-xs text-muted-foreground flex items-center gap-1">
                       <RotateCcw className="w-3 h-3" />
