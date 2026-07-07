@@ -1,0 +1,100 @@
+{
+  "name": "SpeakingConversation",
+  "type": "object",
+  "properties": {
+    "topic_id": {
+      "type": "string",
+      "description": "SpeakingTopic id"
+    },
+    "topic_title": {
+      "type": "string",
+      "description": "Snapshot of the topic title"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "A1",
+        "A2",
+        "B1",
+        "B2",
+        "C1"
+      ]
+    },
+    "turns": {
+      "type": "array",
+      "description": "Ordered list of conversation turns",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "svea",
+              "user"
+            ]
+          },
+          "text_sv": {
+            "type": "string",
+            "description": "Swedish text (what was said/written)"
+          },
+          "text_en": {
+            "type": "string",
+            "description": "Optional English translation"
+          },
+          "corrected_sv": {
+            "type": "string",
+            "description": "Corrected version of the user's Swedish, if any"
+          },
+          "mistakes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "wrong": {
+                  "type": "string"
+                },
+                "correct": {
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "grammar_score": {
+            "type": "number",
+            "description": "0-100 score for the user turn"
+          },
+          "encouragement_en": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ended": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "topic_id"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "update": {
+      "created_by": "{{user.email}}"
+    },
+    "delete": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}

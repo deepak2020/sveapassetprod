@@ -1,0 +1,76 @@
+{
+  "name": "SpeakingTopic",
+  "type": "object",
+  "properties": {
+    "title_sv": {
+      "type": "string",
+      "description": "Topic title in Swedish"
+    },
+    "title_en": {
+      "type": "string",
+      "description": "Topic title in English"
+    },
+    "description_en": {
+      "type": "string",
+      "description": "Short description of what the conversation is about"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "A1",
+        "A2",
+        "B1",
+        "B2",
+        "C1"
+      ],
+      "description": "CEFR level"
+    },
+    "opener_sv": {
+      "type": "string",
+      "description": "Svea's opening line in Swedish"
+    },
+    "opener_en": {
+      "type": "string",
+      "description": "English translation of Svea's opening line"
+    },
+    "suggested_vocab": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Handy Swedish words/phrases learners can use in this conversation"
+    },
+    "emoji": {
+      "type": "string",
+      "description": "Emoji icon for the topic card"
+    },
+    "order": {
+      "type": "number",
+      "description": "Display order"
+    }
+  },
+  "required": [
+    "title_sv",
+    "title_en",
+    "level",
+    "opener_sv"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
