@@ -1,20 +1,23 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { RotateCcw, ChevronRight, PenSquare } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useMistakeLog } from "@/hooks/useMistakeLog";
-import MistakesReviewSession from "@/components/shared/MistakesReviewSession";
 
 // Skriva/writing mistakes need the full production UI on the Skriva page,
 // not the single-input review — route users there instead.
 const PRODUCTION_SOURCES = new Set(["gym_produce", "writing"]);
 
+// Map a mistake's source → the lesson tab to open on the lesson page.
+const SOURCE_TO_TAB = {
+  lesson_quiz: "quiz",
+  lesson_blank: "practice",
+};
+
 // Unified mistakes card: shows ALL your wrong answers across lessons, grammar,
-// gym, and writing — click to review them in a focused session.
+// gym, and writing — click to review them at the source lesson.
 export default function MistakesReviewCard() {
   const { mistakes } = useMistakeLog();
-  const [inSession, setInSession] = useState(false);
 
   if (mistakes.length === 0) return null;
 
@@ -41,9 +44,11 @@ export default function MistakesReviewCard() {
     writing: "Writing",
   };
 
-  if (inSession) {
-    return <MistakesReviewSession onExit={() => setInSession(false)} />;
-  }
+  // Pick the first non-Skriva mistake and send the user to that lesson's tab.
+  const target = otherMistakes.find(m => m.source_id && SOURCE_TO_TAB[m.source]);
+  const targetHref = target
+    ? `/language/${target.source_id}?tab=${SOURCE_TO_TAB[target.source]}`
+    : null;
 
   return (
     <Card className="border-2 border-rose-300 dark:border-rose-800 bg-gradient-to-br from-rose-50 to-amber-50 dark:from-rose-950/30 dark:to-amber-950/20">
@@ -81,14 +86,16 @@ export default function MistakesReviewCard() {
               <PenSquare className="w-4 h-4" /> Öva på Skriva ({skrivaCount})
             </Link>
           </Button>
-        ) : (
+        ) : targetHref ? (
           <Button
-            onClick={() => setInSession(true)}
+            asChild
             className="w-full mt-4 gap-2 bg-rose-600 hover:bg-rose-700 text-white"
           >
-            Start review <ChevronRight className="w-4 h-4" />
+            <Link to={targetHref}>
+              Start review <ChevronRight className="w-4 h-4" />
+            </Link>
           </Button>
-        )}
+        ) : null}
       </CardContent>
     </Card>
   );
