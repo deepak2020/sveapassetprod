@@ -11,6 +11,47 @@ import { awardXP, XP_REWARDS } from "@/lib/xp";
 import SpeakButton from "@/components/shared/SpeakButton";
 import { getCachedFeedback, setCachedFeedback, translateCacheKey } from "@/lib/aiCache";
 
+// Svea evaluates the student's Swedish translation semantically instead of
+// requiring an exact character match against the reference sentence. Accepts
+// any grammatical, natural Swedish that faithfully translates the English.
+async function evaluateTranslation(englishSentence, modelSwedish, userAnswer) {
+  const result = await base44.integrations.Core.InvokeLLM({
+    prompt: `You are Svea, a Swedish language teacher evaluating a student's translation.
+
+English prompt: "${englishSentence}"
+Model Swedish translation: "${modelSwedish}"
+Student wrote: "${userAnswer}"
+
+CRITICAL RULE — read this twice:
+The model translation is ONE possible answer, not THE only answer. If the student's sentence is grammatically correct, natural Swedish, AND faithfully translates the English prompt, it is CORRECT — even if it uses different words, a different preposition, a different article form, or different structure than the model. DO NOT reject valid Swedish just because it differs from the model.
+
+PREPOSITIONS: Swedish often allows multiple prepositions (på/i/från/till/hos/med etc.). Accept any grammatical choice that fits the meaning.
+
+DEFINITE vs INDEFINITE FORMS: If the student's noun form is grammatical in their sentence, accept it.
+
+SYNONYMS & PHRASING: "mycket" vs "så", "ha" vs "bära" (for wearing), "man" vs "du" — accept synonyms and alternative phrasings if they preserve the meaning.
+
+MINOR TYPOS: Single-character typos in an otherwise clearly-correct word (e.g. "hanskar" for "handskar") should be treated as correct but noted in the explanation.
+
+Mark as INCORRECT only if there is a real error: wrong meaning, missing key content, wrong verb form/tense that changes meaning, wrong word order (V2 violation), or the sentence doesn't actually translate the English prompt.
+
+Return JSON:
+- correct: boolean (true if the student's sentence is a valid Swedish translation)
+- had_typo: boolean (true if there was a minor typo but meaning was clear)
+- feedback: string, English, max 20 words. If correct, briefly confirm what makes their choice work (especially if different from model). If wrong, explain what needs fixing.`,
+    response_json_schema: {
+      type: "object",
+      properties: {
+        correct: { type: "boolean" },
+        had_typo: { type: "boolean" },
+        feedback: { type: "string" },
+      },
+      required: ["correct", "feedback"],
+    },
+  });
+  return result;
+}
+
 async function explainTranslation(englishSentence, correctSwedish) {
   const result = await base44.integrations.Core.InvokeLLM({
     prompt: `You are a Swedish language teacher. Explain the key words and grammar in this correct Swedish translation so a learner understands WHY each word is used.
@@ -147,12 +188,26 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
   }
 
   const ex = exercisePool[current];
-  const isCorrect = submitted && isCloseEnough(input, ex.example_sv);
+  const isCorrect = submitted && (sveaVerdict?.correct === true || (sveaVerdict === null && isCloseEnough(input, ex.example_sv)));
 
-  const handleSubmit = () => {
-    if (!input.trim()) return;
+  const handleSubmit = async () => {
+    if (!input.trim() || checking) return;
+    setChecking(true);
+
+    // Ask Svea to judge the translation semantically. If Svea fails, fall back to string match.
+    let verdict = null;
+    try {
+      verdict = await evaluateTranslation(ex.example_en, ex.example_sv, input);
+    } catch {
+      verdict = null;
+    }
+    setSveaVerdict(verdict);
+    setChecking(false);
     setSubmitted(true);
-    if (isCloseEnough(input, ex.example_sv)) {
+
+    const correct = verdict ? verdict.correct : isCloseEnough(input, ex.example_sv);
+
+    if (correct) {
       setScore(s => { save({ current, score: s + 1 }); return s + 1; });
       awardXP(base44, XP_REWARDS.translate_correct);
       if (lessonId) removeFromRevision(`translate-${lessonId}`, current);
@@ -160,7 +215,7 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
       save({ current, score });
       setWrongIndices(prev => [...prev, current]);
       awardXP(base44, XP_REWARDS.translate_wrong);
-      // Fetch explanation — from cache if available, otherwise call AI and cache result
+      // Fetch word-level explanation for the reference sentence
       setExplanation({ issues: [], loading: true });
       getExplanation(base44, lessonId, current, ex.example_en, ex.example_sv)
         .then(issues => setExplanation({ issues, loading: false }))
@@ -189,6 +244,7 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
       setCurrent(next);
       setInput("");
       setSubmitted(false);
+      setSveaVerdict(null);
       setExplanation({ issues: [], loading: false });
     }
   };
@@ -202,7 +258,7 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
       : allExercises;
     setExercisePool(retryPool);
     setWrongIndices([]);
-    setCurrent(0); setInput(""); setSubmitted(false);
+    setCurrent(0); setInput(""); setSubmitted(false); setSveaVerdict(null);
     setScore(0); setFinished(false);
   };
 
@@ -317,11 +373,22 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
                       ? <CheckCircle2 className="w-5 h-5 text-green-600" />
                       : <XCircle className="w-5 h-5 text-red-500" />}
                     <span className={`font-semibold text-sm ${isCorrect ? "text-green-700 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
-                      {isCorrect ? "Correct!" : "Not quite"}
+                      {isCorrect ? (sveaVerdict?.had_typo ? "Correct (small typo)" : "Correct!") : "Not quite"}
                     </span>
                   </div>
                   <SpeakButton text={ex.example_sv} lang="sv-SE" />
                 </div>
+                {/* Svea's semantic feedback — shown for both correct and incorrect */}
+                {sveaVerdict?.feedback && (
+                  <p className={`text-xs mt-2 ${isCorrect ? "text-green-700 dark:text-green-400" : "text-foreground"}`}>
+                    <span className="font-semibold">Svea:</span> {sveaVerdict.feedback}
+                  </p>
+                )}
+                {isCorrect && input.trim() && normalizeAnswer(input) !== normalizeAnswer(ex.example_sv) && (
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Reference: <span className="font-medium text-foreground">{ex.example_sv}</span>
+                  </p>
+                )}
                 {!isCorrect && (
                   <div className="mt-2 space-y-2.5">
                     <p className="text-sm text-foreground">
@@ -360,8 +427,9 @@ export default function SentenceTranslation({ wordPairs, onComplete, storageKey,
 
         <div className="flex justify-between items-center pt-1">
           {!submitted ? (
-            <Button onClick={handleSubmit} disabled={!input.trim()} className="ml-auto">
-              Check
+            <Button onClick={handleSubmit} disabled={!input.trim() || checking} className="ml-auto gap-1.5">
+              {checking && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+              {checking ? "Svea is checking…" : "Check"}
             </Button>
           ) : (
             <Button onClick={handleNext} className="ml-auto">
