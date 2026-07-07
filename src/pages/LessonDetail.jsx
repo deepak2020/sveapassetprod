@@ -210,7 +210,7 @@ export default function LessonDetail() {
   const hasSpeaking = lesson.speaking_phrases?.length > 0;
   const hasListening = lesson.listening_phrases?.length > 0;
   const hasTranslate = lesson.word_pairs?.some(wp => wp.example_en && wp.example_sv);
-  const hasMatch = lesson.match_pairs?.length > 0;
+  const hasMatch = lesson.match_pairs?.some(p => p?.left && p?.right);
 
   const availableKeys = [
     hasVocab && "learn",
