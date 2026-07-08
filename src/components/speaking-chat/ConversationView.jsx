@@ -114,37 +114,39 @@ export default function ConversationView({ topic, onExit }) {
     const recognition = new SpeechRecognitionAPI();
     recognition.lang = "sv-SE";
     recognition.interimResults = true;
-    recognition.continuous = false;
+    recognition.continuous = true;
     recognition.maxAlternatives = 1;
 
-    let finalTranscript = "";
+    // User controls start/stop; recognition should keep listening until they tap stop.
+    let stoppedByUser = false;
+    recognition.__stopByUser = () => { stoppedByUser = true; recognition.stop(); };
 
     recognition.onresult = (event) => {
       let interimText = "";
+      let newFinal = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const t = event.results[i][0].transcript;
-        if (event.results[i].isFinal) finalTranscript += t;
+        if (event.results[i].isFinal) newFinal += t;
         else interimText += t;
       }
       setInterim(interimText);
-      if (finalTranscript) setInput((v) => (v ? v + " " : "") + finalTranscript.trim());
+      if (newFinal) setInput((v) => (v ? v + " " : "") + newFinal.trim());
     };
 
     recognition.onerror = (e) => {
-      setListening(false);
       if (e.error !== "no-speech" && e.error !== "aborted") {
         setError(`Mic error: ${e.error}`);
+        setListening(false);
       }
     };
 
     recognition.onend = () => {
+      // Chrome auto-ends after a pause even in continuous mode — restart unless the user stopped.
+      if (!stoppedByUser) {
+        try { recognition.start(); return; } catch { /* fall through */ }
+      }
       setListening(false);
       setInterim("");
-      // Auto-send if we captured something
-      const text = (finalTranscript || "").trim();
-      if (text) {
-        setTimeout(() => send(text), 100);
-      }
     };
 
     recognitionRef.current = recognition;
@@ -153,8 +155,18 @@ export default function ConversationView({ topic, onExit }) {
   };
 
   const stopListening = () => {
-    recognitionRef.current?.stop();
+    const rec = recognitionRef.current;
+    if (rec?.__stopByUser) rec.__stopByUser();
+    else rec?.stop();
     setListening(false);
+    // Send whatever was captured when the user chooses to stop
+    setTimeout(() => {
+      setInput((current) => {
+        const text = current.trim();
+        if (text) send(text);
+        return current;
+      });
+    }, 150);
   };
 
   const toggleAutoSpeak = () => {
