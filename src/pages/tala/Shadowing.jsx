@@ -9,6 +9,7 @@ import PageSEO from "@/components/shared/PageSEO";
 import LoginGate from "@/components/shared/LoginGate";
 import { useAuth } from "@/lib/AuthContext";
 import { useSpeech } from "@/hooks/useSpeech";
+import { prefetchTts } from "@/lib/tts";
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
 import { similarityPercent } from "@/lib/similarity";
 import { shuffle } from "@/lib/shuffle";
@@ -59,19 +60,25 @@ export default function Shadowing() {
   const startRound = () => {
     if (!pool.length) return;
     const picked = shuffle(pool).slice(0, ROUND_SIZE);
+    // Warm up Azure TTS for the whole round so first playback uses the cached URL.
+    picked.forEach((s) => prefetchTts(s.text_sv));
     setQueue(picked);
     setIndex(0);
     setScores([]);
     setPhase("listen");
   };
 
-  // Auto-play the sentence when entering "listen" phase
+  // Auto-play the sentence when entering "listen" phase.
+  // Prefetch the *next* sentence at the same time so its Azure URL is cached
+  // before we advance — keeps playback in the Azure path, not the browser fallback.
   useEffect(() => {
     if (phase === "listen" && current) {
       const t = setTimeout(() => speak(current.text_sv, "sv-SE"), 300);
+      const nextItem = queue[index + 1];
+      if (nextItem) prefetchTts(nextItem.text_sv);
       return () => clearTimeout(t);
     }
-  }, [phase, current, speak]);
+  }, [phase, current, index, queue, speak]);
 
   const goRepeat = () => {
     setShowText(false);
