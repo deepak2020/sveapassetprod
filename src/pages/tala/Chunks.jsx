@@ -1,10 +1,10 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Puzzle, Volume2, Check, X, Trophy, RotateCw } from "lucide-react";
+import { ArrowLeft, Puzzle, Volume2, Check, Trophy, RotateCw, Loader2 } from "lucide-react";
 import PageSEO from "@/components/shared/PageSEO";
 import LoginGate from "@/components/shared/LoginGate";
 import { useAuth } from "@/lib/AuthContext";
@@ -15,16 +15,11 @@ import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import { shuffle } from "@/lib/shuffle";
 import MicButton from "@/components/tala/MicButton";
 
-const LEVELS = ["A", "B", "C", "D"];
+// Chunks pulls from the same natural spoken-Swedish corpus as Shadowing
+// (ShadowingChunk). No textbook fill-ins, no `___` placeholders — every
+// sentence is a real phrase a learner will actually hear.
+const LEVELS = ["A1", "A2", "B1", "B2"];
 const ROUND_SIZE = 6;
-
-// ClozeSentence stores its Swedish with `___` where the answer goes. Rebuild the
-// full sentence before splitting into blocks so the puzzle contains every word.
-function fullSwedish(sentence) {
-  const raw = sentence?.sentence_sv || "";
-  const answer = sentence?.answer || "";
-  return raw.replace(/_{2,}/g, answer);
-}
 
 // Split a Swedish sentence into token pieces to arrange.
 function tokenizeForBlocks(text) {
@@ -35,8 +30,9 @@ export default function Chunks() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const { speak } = useSpeech();
+  const queryClient = useQueryClient();
 
-  const [level, setLevel] = useState("A");
+  const [level, setLevel] = useState("A2");
   const [phase, setPhase] = useState("intro"); // intro | arrange | speak | feedback | done
   const [queue, setQueue] = useState([]);
   const [index, setIndex] = useState(0);
@@ -44,11 +40,11 @@ export default function Chunks() {
   const [chosen, setChosen] = useState([]); // ids in order
   const [lastResult, setLastResult] = useState(null);
   const [scores, setScores] = useState([]);
+  const [generating, setGenerating] = useState(false);
 
-  const { data: sentences = [], isLoading } = useQuery({
-    queryKey: ["chunks-sentences", level],
-    queryFn: () =>
-      base44.entities.ClozeSentence.filter({ sfi_level: level, source: "tatoeba" }, "-created_date", 200),
+  const { data: pool = [], isLoading } = useQuery({
+    queryKey: ["chunks-shadowing", level],
+    queryFn: () => base44.entities.ShadowingChunk.filter({ level }),
     enabled: isAuthenticated,
   });
 
@@ -58,12 +54,28 @@ export default function Chunks() {
     onFinal: (transcript) => handleTranscript(transcript),
   });
 
-  const startRound = () => {
-    // Prefer sentences with 4–8 words so arranging stays doable.
-    const usable = sentences.filter((s) => {
-      const n = tokenizeForBlocks(fullSwedish(s)).length;
+  // Only sentences that make good arrange-the-blocks puzzles (4–8 words).
+  const usable = useMemo(
+    () => pool.filter((s) => {
+      const n = tokenizeForBlocks(s.text_sv).length;
       return n >= 4 && n <= 8;
-    });
+    }),
+    [pool]
+  );
+
+  const generate = async () => {
+    setGenerating(true);
+    try {
+      const res = await base44.functions.invoke("generateShadowingBatch", { level, count: 10 });
+      if (res?.data?.sentences?.length) {
+        queryClient.invalidateQueries({ queryKey: ["chunks-shadowing", level] });
+      }
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  const startRound = () => {
     if (!usable.length) return;
     const picked = shuffle(usable).slice(0, ROUND_SIZE);
     setQueue(picked);
@@ -74,7 +86,7 @@ export default function Chunks() {
   };
 
   const loadSentence = (sentence) => {
-    const words = tokenizeForBlocks(fullSwedish(sentence));
+    const words = tokenizeForBlocks(sentence.text_sv);
     const shuffled = shuffle(words).map((w, i) => ({ word: w, id: `${i}-${w}`, used: false }));
     setPieces(shuffled);
     setChosen([]);
@@ -102,18 +114,17 @@ export default function Chunks() {
 
   const arrangementCorrect = useMemo(() => {
     if (!current) return false;
-    return normalizeAnswer(chosenSentence) === normalizeAnswer(fullSwedish(current));
+    return normalizeAnswer(chosenSentence) === normalizeAnswer(current.text_sv);
   }, [chosenSentence, current]);
 
   const checkArrangement = () => {
     if (arrangementCorrect) setPhase("speak");
-    // if wrong, we do nothing yet — let them re-arrange
   };
 
   const handleTranscript = (transcript) => {
     if (!current || phase !== "speak") return;
     if (listening) stop();
-    const target = fullSwedish(current);
+    const target = current.text_sv;
     const match = similarityPercent(transcript, target);
     setLastResult({ match, transcript, target });
     setScores((s) => [...s, match]);
@@ -121,7 +132,7 @@ export default function Chunks() {
     if (isAuthenticated) {
       base44.entities.SpeakingDrillResult.create({
         station: "chunks",
-        prompt: current.sentence_en || target,
+        prompt: current.text_en || target,
         expected: target,
         user_response: transcript,
         correct: match >= 70,
@@ -146,11 +157,6 @@ export default function Chunks() {
   };
 
   const avgScore = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
-
-  const usable = sentences.filter((s) => {
-    const n = tokenizeForBlocks(fullSwedish(s)).length;
-    return n >= 4 && n <= 8;
-  });
 
   if (!isAuthenticated) {
     return (
@@ -189,13 +195,13 @@ export default function Chunks() {
               <h2 className="font-display text-2xl font-bold">Bygg och tala</h2>
               <p className="text-sm text-muted-foreground max-w-sm mx-auto">
                 Ordna orden i rätt ordning — sedan säger du hela meningen högt.
-                Tränar meningsbyggnad och uttal samtidigt.
+                Naturliga vardagsfraser du faktiskt kommer att höra.
               </p>
             </div>
 
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                SFI-nivå
+                Nivå
               </p>
               <div className="grid grid-cols-4 gap-2">
                 {LEVELS.map((l) => (
@@ -223,14 +229,42 @@ export default function Chunks() {
               </p>
             )}
 
-            <Button
-              onClick={startRound}
-              disabled={usable.length < ROUND_SIZE || !supported}
-              size="lg"
-              className="w-full gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-0"
-            >
-              <Puzzle className="w-4 h-4" /> Starta ({Math.min(ROUND_SIZE, usable.length)} meningar)
-            </Button>
+            <div className="flex gap-2">
+              {usable.length < ROUND_SIZE ? (
+                <Button
+                  onClick={generate}
+                  disabled={generating}
+                  size="lg"
+                  className="flex-1 gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-0"
+                >
+                  {generating ? (
+                    <><Loader2 className="w-4 h-4 animate-spin" /> Skapar meningar…</>
+                  ) : (
+                    <><Puzzle className="w-4 h-4" /> Skapa {level}-meningar</>
+                  )}
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    onClick={startRound}
+                    disabled={!supported}
+                    size="lg"
+                    className="flex-1 gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-0"
+                  >
+                    <Puzzle className="w-4 h-4" /> Starta ({ROUND_SIZE} meningar)
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={generate}
+                    disabled={generating}
+                    size="lg"
+                    title="Skapa fler meningar"
+                  >
+                    {generating ? <Loader2 className="w-4 h-4 animate-spin" /> : <RotateCw className="w-4 h-4" />}
+                  </Button>
+                </>
+              )}
+            </div>
           </CardContent>
         </Card>
       )}
@@ -249,7 +283,12 @@ export default function Chunks() {
               <p className="text-[11px] uppercase tracking-widest text-muted-foreground mb-1">
                 Say in Swedish
               </p>
-              <p className="font-display text-xl font-semibold">{current.sentence_en}</p>
+              <p className="font-display text-xl font-semibold">{current.text_en}</p>
+              {current.chunk_hint && (
+                <p className="text-xs text-emerald-700 dark:text-emerald-400 mt-1">
+                  🧠 Chunk: <strong>{current.chunk_hint}</strong>
+                </p>
+              )}
             </div>
 
             {/* Assembled sentence slot */}
@@ -313,9 +352,9 @@ export default function Chunks() {
                 Nu — säg meningen högt
               </p>
               <p className="font-display text-2xl sm:text-3xl font-semibold leading-snug">
-                {fullSwedish(current)}
+                {current.text_sv}
               </p>
-              <p className="text-sm text-muted-foreground italic">{current.sentence_en}</p>
+              <p className="text-sm text-muted-foreground italic">{current.text_en}</p>
               {interim && (
                 <p className="pt-2 text-sm italic text-foreground min-h-[1.5rem]">
                   🎙️ {interim}
@@ -325,7 +364,7 @@ export default function Chunks() {
 
             <div className="flex items-center justify-center gap-6">
               <button
-                onClick={() => speak(fullSwedish(current), "sv-SE")}
+                onClick={() => speak(current.text_sv, "sv-SE")}
                 className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1"
               >
                 <Volume2 className="w-3.5 h-3.5" /> Hör
