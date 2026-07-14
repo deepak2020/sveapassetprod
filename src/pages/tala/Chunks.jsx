@@ -18,9 +18,17 @@ import MicButton from "@/components/tala/MicButton";
 const LEVELS = ["A", "B", "C", "D"];
 const ROUND_SIZE = 6;
 
+// ClozeSentence stores its Swedish with `___` where the answer goes. Rebuild the
+// full sentence before splitting into blocks so the puzzle contains every word.
+function fullSwedish(sentence) {
+  const raw = sentence?.sentence_sv || "";
+  const answer = sentence?.answer || "";
+  return raw.replace(/_{2,}/g, answer);
+}
+
 // Split a Swedish sentence into token pieces to arrange.
-function tokenizeForBlocks(sentence) {
-  return normalizeAnswer(sentence).split(" ").filter(Boolean);
+function tokenizeForBlocks(text) {
+  return normalizeAnswer(text).split(" ").filter(Boolean);
 }
 
 export default function Chunks() {
@@ -53,7 +61,7 @@ export default function Chunks() {
   const startRound = () => {
     // Prefer sentences with 4–8 words so arranging stays doable.
     const usable = sentences.filter((s) => {
-      const n = tokenizeForBlocks(s.sentence_sv).length;
+      const n = tokenizeForBlocks(fullSwedish(s)).length;
       return n >= 4 && n <= 8;
     });
     if (!usable.length) return;
@@ -66,7 +74,7 @@ export default function Chunks() {
   };
 
   const loadSentence = (sentence) => {
-    const words = tokenizeForBlocks(sentence.sentence_sv);
+    const words = tokenizeForBlocks(fullSwedish(sentence));
     const shuffled = shuffle(words).map((w, i) => ({ word: w, id: `${i}-${w}`, used: false }));
     setPieces(shuffled);
     setChosen([]);
@@ -94,7 +102,7 @@ export default function Chunks() {
 
   const arrangementCorrect = useMemo(() => {
     if (!current) return false;
-    return normalizeAnswer(chosenSentence) === normalizeAnswer(current.sentence_sv);
+    return normalizeAnswer(chosenSentence) === normalizeAnswer(fullSwedish(current));
   }, [chosenSentence, current]);
 
   const checkArrangement = () => {
@@ -105,15 +113,16 @@ export default function Chunks() {
   const handleTranscript = (transcript) => {
     if (!current || phase !== "speak") return;
     if (listening) stop();
-    const match = similarityPercent(transcript, current.sentence_sv);
-    setLastResult({ match, transcript, target: current.sentence_sv });
+    const target = fullSwedish(current);
+    const match = similarityPercent(transcript, target);
+    setLastResult({ match, transcript, target });
     setScores((s) => [...s, match]);
 
     if (isAuthenticated) {
       base44.entities.SpeakingDrillResult.create({
         station: "chunks",
-        prompt: current.sentence_en || current.sentence_sv,
-        expected: current.sentence_sv,
+        prompt: current.sentence_en || target,
+        expected: target,
         user_response: transcript,
         correct: match >= 70,
         match_percent: match,
@@ -139,7 +148,7 @@ export default function Chunks() {
   const avgScore = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
 
   const usable = sentences.filter((s) => {
-    const n = tokenizeForBlocks(s.sentence_sv).length;
+    const n = tokenizeForBlocks(fullSwedish(s)).length;
     return n >= 4 && n <= 8;
   });
 
@@ -304,7 +313,7 @@ export default function Chunks() {
                 Nu — säg meningen högt
               </p>
               <p className="font-display text-2xl sm:text-3xl font-semibold leading-snug">
-                {current.sentence_sv}
+                {fullSwedish(current)}
               </p>
               <p className="text-sm text-muted-foreground italic">{current.sentence_en}</p>
               {interim && (
@@ -316,7 +325,7 @@ export default function Chunks() {
 
             <div className="flex items-center justify-center gap-6">
               <button
-                onClick={() => speak(current.sentence_sv, "sv-SE")}
+                onClick={() => speak(fullSwedish(current), "sv-SE")}
                 className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1"
               >
                 <Volume2 className="w-3.5 h-3.5" /> Hör
