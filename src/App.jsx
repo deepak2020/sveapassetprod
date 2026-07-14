@@ -20,6 +20,10 @@ import Gym from './pages/Gym';
 import Speaking from './pages/Speaking';
 import SpeakingChat from './pages/SpeakingChat';
 import Tala from './pages/Tala';
+import TalaShadowing from './pages/tala/Shadowing';
+import TalaSprint from './pages/tala/WordSprint';
+import TalaChunks from './pages/tala/Chunks';
+import TalaDailyWorkout from './pages/tala/DailyWorkout';
 import CitizenshipTest from './pages/CitizenshipTest';
 import Privacy from './pages/Privacy';
 import About from './pages/About';
@@ -77,6 +81,10 @@ const AuthenticatedApp = () => {
         <Route path="/speaking" element={<Speaking />} />
         <Route path="/prata" element={<SpeakingChat />} />
         <Route path="/tala" element={<Tala />} />
+        <Route path="/tala/daily" element={<TalaDailyWorkout />} />
+        <Route path="/tala/shadowing" element={<TalaShadowing />} />
+        <Route path="/tala/sprint" element={<TalaSprint />} />
+        <Route path="/tala/chunks" element={<TalaChunks />} />
         <Route path="/grammar" element={<Grammar />} />
         <Route path="/grammar/:categoryId/:topicId" element={<GrammarTopic />} />
         <Route path="/admin/grammar" element={<AdminGrammar />} />

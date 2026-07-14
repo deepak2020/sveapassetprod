@@ -23,7 +23,7 @@ const STATIONS = [
     color: "from-blue-500 to-indigo-500",
     ring: "border-blue-300 dark:border-blue-800",
     tint: "from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/20",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: "sprint",
@@ -39,7 +39,7 @@ const STATIONS = [
     color: "from-amber-500 to-orange-500",
     ring: "border-amber-300 dark:border-amber-800",
     tint: "from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/20",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: "chunks",
@@ -55,7 +55,7 @@ const STATIONS = [
     color: "from-emerald-500 to-teal-500",
     ring: "border-emerald-300 dark:border-emerald-800",
     tint: "from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/20",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: "prata",
@@ -183,9 +183,11 @@ export default function Tala() {
               <span className="italic">Four stations in a row — builds fluency in 6 weeks.</span>
             </p>
           </div>
-          <Button size="lg" disabled className="gap-2 shrink-0 opacity-70" title="Kommer snart">
-            Starta pass
-            <ArrowRight className="w-4 h-4" />
+          <Button size="lg" asChild className="gap-2 shrink-0">
+            <Link to="/tala/daily">
+              Starta pass
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </Button>
         </CardContent>
       </Card>

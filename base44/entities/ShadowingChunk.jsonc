@@ -1,0 +1,59 @@
+{
+  "name": "ShadowingChunk",
+  "type": "object",
+  "properties": {
+    "text_sv": {
+      "type": "string",
+      "description": "Swedish sentence to shadow"
+    },
+    "text_en": {
+      "type": "string",
+      "description": "English translation"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "A1",
+        "A2",
+        "B1",
+        "B2",
+        "C1"
+      ],
+      "description": "CEFR level"
+    },
+    "topic": {
+      "type": "string",
+      "description": "Optional topic label (caf\u00e9, work, small talk, etc.)"
+    },
+    "chunk_hint": {
+      "type": "string",
+      "description": "Which words form the memorizable chunk (e.g. 'skulle vilja ha')"
+    },
+    "order": {
+      "type": "number",
+      "description": "Display order within a level"
+    }
+  },
+  "required": [
+    "text_sv",
+    "level"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

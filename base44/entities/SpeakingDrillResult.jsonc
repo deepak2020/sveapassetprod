@@ -1,0 +1,69 @@
+{
+  "name": "SpeakingDrillResult",
+  "type": "object",
+  "properties": {
+    "station": {
+      "type": "string",
+      "enum": [
+        "shadowing",
+        "sprint",
+        "chunks",
+        "prata"
+      ],
+      "description": "Which Tala station this rep came from"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "What the user was asked to say"
+    },
+    "expected": {
+      "type": "string",
+      "description": "The target Swedish answer"
+    },
+    "user_response": {
+      "type": "string",
+      "description": "What the user actually said/typed"
+    },
+    "correct": {
+      "type": "boolean",
+      "description": "Whether the response was accepted"
+    },
+    "match_percent": {
+      "type": "number",
+      "description": "0-100 similarity score (for shadowing)"
+    },
+    "time_ms": {
+      "type": "number",
+      "description": "Response time in milliseconds"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "A1",
+        "A2",
+        "B1",
+        "B2",
+        "C1"
+      ]
+    }
+  },
+  "required": [
+    "station",
+    "prompt",
+    "correct"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "update": {
+      "created_by": "{{user.email}}"
+    },
+    "delete": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}
