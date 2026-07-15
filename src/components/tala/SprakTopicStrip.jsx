@@ -42,7 +42,7 @@ export default function SprakTopicStrip() {
 
   const startConversation = () => {
     if (!selected) return;
-    navigate(`/prata?topic=${encodeURIComponent(selected.name)}`);
+    navigate(`/tala/daily?topic=${encodeURIComponent(selected.name)}`);
     setSelected(null);
   };
 
@@ -109,15 +109,15 @@ export default function SprakTopicStrip() {
 
               <div className="space-y-3 py-1">
                 <p className="text-sm text-foreground/90">
-                  Du har lärt dig detta i Språk. Nu — prata om det med SveAI på svenska.
+                  Kör hela 15-min tal-passet med fokus på <strong>{selected.name}</strong> — Shadowing, Word Sprint, Chunks och Samtal.
                 </p>
                 <p className="text-xs text-muted-foreground italic">
-                  You've been learning this in Språk. Now — talk about it with SveAI in Swedish.
+                  Run the full 15-min speaking circuit focused on {selected.en || selected.name} — Shadowing, Word Sprint, Chunks and Conversation.
                 </p>
 
                 <div className="rounded-lg bg-muted/50 border border-border/60 p-3">
                   <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
-                    SveAI kan öppna med
+                    SveAI öppnar samtalet med
                   </p>
                   <p className="text-sm italic text-foreground/90">
                     "{selected.opener_sv}"
@@ -128,7 +128,7 @@ export default function SprakTopicStrip() {
               <DialogFooter>
                 <Button onClick={startConversation} className="w-full gap-2">
                   <MessageCircle className="w-4 h-4" />
-                  Starta samtal
+                  Starta dagens pass
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </DialogFooter>

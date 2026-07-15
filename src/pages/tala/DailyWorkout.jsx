@@ -6,6 +6,7 @@ import { ArrowLeft, Headphones, Zap, Puzzle, MessageCircle, Check, ArrowRight, T
 import PageSEO from "@/components/shared/PageSEO";
 import LoginGate from "@/components/shared/LoginGate";
 import { useAuth } from "@/lib/AuthContext";
+import { getTopicMeta } from "@/lib/topicMeta";
 
 // Guides the user through the 4-station daily circuit.
 // Each station opens in its own page — we just orchestrate order & completion.
@@ -79,6 +80,11 @@ export default function DailyWorkout() {
   const { isAuthenticated } = useAuth();
   const [progress, setProgress] = useState(loadProgress());
 
+  // Optional Språk topic scoping — passed via ?topic=Mat from Tala hub.
+  const urlParams = new URLSearchParams(window.location.search);
+  const topic = urlParams.get("topic");
+  const topicMeta = topic ? getTopicMeta(topic) : null;
+
   const doneCount = progress.completed.length;
   const total = CIRCUIT.length;
   const allDone = doneCount >= total;
@@ -94,7 +100,11 @@ export default function DailyWorkout() {
     // Mark as attempted when they leave — a soft completion. Full "come back and mark done"
     // is unnecessary complexity for step 1; we optimistically credit the attempt.
     markDone(station.id);
-    navigate(station.path);
+    // Forward the topic to Prata so Samtal opens on the same theme.
+    const qs = topic && station.id === "prata"
+      ? `?topic=${encodeURIComponent(topic)}`
+      : "";
+    navigate(`${station.path}${qs}`);
   };
 
   const reset = () => {
@@ -129,6 +139,25 @@ export default function DailyWorkout() {
           </p>
         </div>
       </div>
+
+      {topic && (
+        <Card className="border-2 border-emerald-300/60 dark:border-emerald-800/60 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/20">
+          <CardContent className="p-4 flex items-center gap-3">
+            <div className="text-3xl">{topicMeta?.emoji || "💬"}</div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                Ämne från Språk · Topic from Språk
+              </p>
+              <p className="font-display text-lg font-bold leading-tight">
+                {topic} <span className="text-sm text-muted-foreground italic font-normal">· {topicMeta?.en || topic}</span>
+              </p>
+            </div>
+            <Button variant="ghost" size="sm" onClick={() => navigate("/tala/daily")}>
+              Ta bort
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Progress hero */}
       <Card className="border-2 border-primary/40 bg-gradient-to-br from-primary/10 via-blue-50 to-indigo-50 dark:from-primary/15 dark:via-blue-950/30 dark:to-indigo-950/20">
