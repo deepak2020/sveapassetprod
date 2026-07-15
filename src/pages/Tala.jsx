@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Headphones, Zap, Puzzle, MessageCircle, PenSquare, Mic, Sparkles, Clock, ArrowRight, Brain, Repeat, Image as ImageIcon, Link2, Ear } from "lucide-react";
+import { Headphones, Zap, Puzzle, MessageCircle, PenSquare, Mic, Sparkles, Clock, ArrowRight, Brain, Repeat, Image as ImageIcon, Link2, Ear, Music } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import PageSEO from "@/components/shared/PageSEO";
@@ -96,6 +96,38 @@ const LEVELS = [
         tint: "from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/20",
       },
     ],
+    memoryTips: [
+      {
+        icon: Music,
+        title: "Kopiera melodin, inte bara orden",
+        title_en: "Copy the melody, not just the words",
+        body: "Svenska har sång i sig — går upp och ner. Härma tonhöjden först, uttalet sen.",
+        body_en: "Swedish has a sing-song rhythm — up and down. Copy the pitch first, sounds second.",
+      },
+      {
+        icon: ImageIcon,
+        title: "Sj-ljudet: som att blåsa på soppa",
+        title_en: "The sj-sound: like blowing on hot soup",
+        body: "sju, sjö, station. Rund mun, mjuk luft — inte som engelska 'sh'.",
+        body_en: "sju, sjö, station. Round lips, soft airstream — not like English 'sh'.",
+      },
+      {
+        icon: Ear,
+        title: "Långa och korta vokaler avgör betydelsen",
+        title_en: "Long vs short vowels change the meaning",
+        body: "vit (white) ≠ vitt (broadly). Håll ut vokalen när det bara är en konsonant efter.",
+        body_en: "vit (white) ≠ vitt (broadly). Hold the vowel when only one consonant follows.",
+      },
+      {
+        icon: Repeat,
+        title: "Spela in, jämför, gör om",
+        title_en: "Record, compare, redo",
+        body: "Din hjärna hör inte sig själv rätt. Lyssna på inspelningen bredvid Svea.",
+        body_en: "Your brain doesn't hear itself accurately. Play your recording next to Svea's.",
+      },
+    ],
+    memoryHeading: "Så uttalar du svenska",
+    memoryHeading_en: "How to pronounce Swedish",
   },
   {
     id: 3,
@@ -225,19 +257,26 @@ function LevelBlock({ level, isFirst }) {
           <StationCard key={s.id} station={s} />
         ))}
       </div>
-      {level.memoryTips && <MemoryTips tips={level.memoryTips} level={level} />}
+      {level.memoryTips && (
+        <MemoryTips
+          tips={level.memoryTips}
+          level={level}
+          heading={level.memoryHeading || "Så minns du ord"}
+          heading_en={level.memoryHeading_en || "How to remember words"}
+        />
+      )}
     </div>
   );
 }
 
-function MemoryTips({ tips, level }) {
+function MemoryTips({ tips, level, heading, heading_en }) {
   return (
     <Card className={`border-2 border-dashed ${level.ring} bg-gradient-to-br ${level.tint}`}>
       <CardContent className="p-5 space-y-3">
         <div className="flex items-center gap-2">
           <Brain className={`w-4 h-4 ${level.accent}`} />
           <h4 className="font-semibold text-sm">
-            Så minns du ord · <span className="italic font-normal text-muted-foreground">How to remember words</span>
+            {heading} · <span className="italic font-normal text-muted-foreground">{heading_en}</span>
           </h4>
         </div>
         <div className="grid sm:grid-cols-2 gap-3">
