@@ -11,15 +11,43 @@ Deno.serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const { level = 'A2', count = 10, topic } = body || {};
 
-    const prompt = `Generate ${count} short Swedish sentences for a SHADOWING exercise at CEFR level ${level}.
+    const levelGuide: Record<string, string> = {
+      A1: `A1 = ABSOLUTE BEGINNER. Rules:
+- Length: 3–6 words only. Never longer.
+- Present tense only. No past, no future, no modals except "kan" and "vill".
+- Only the most common 300 words (jag, du, är, har, heter, bor, gillar, vill, kan, en, ett, den, det, hej, tack, god morgon…).
+- One clause only. No "och" joining two clauses, no "att", no "som".
+- Topics: greetings, name, where you live, family, numbers, food/drink orders, yes/no.
+- Examples of RIGHT length/complexity: "Jag heter Anna.", "Var bor du?", "En kaffe, tack.", "Jag gillar kaffe.", "Hur mår du?", "Vi ses imorgon."
+- Chunks are 2–3 words max, e.g. "en kaffe tack", "jag heter", "var bor du".`,
+      A2: `A2 = ELEMENTARY. Rules:
+- Length: 5–8 words.
+- Present + simple past ("var", "hade", "gick", "åt"). No perfect, no conditional.
+- Everyday vocabulary only. Avoid abstract or work-specific words.
+- Simple "och"/"men"/"eller" joins allowed. No subordinate clauses.
+- Topics: daily routine, weekend plans, café, shopping, weather, family, feelings.
+- Examples: "Jag åt frukost klockan sju.", "Vad gjorde du i helgen?", "Det var kul igår."
+- Chunks are 3–4 word everyday phrases: "i helgen", "det var kul", "vad gjorde du".`,
+      B1: `B1 = INTERMEDIATE. Rules:
+- Length: 6–12 words.
+- All common tenses (present, past, perfect, future). Modals ok.
+- Subordinate clauses with "att", "som", "när", "om" allowed.
+- Topics: work, opinions, plans, describing experiences, small talk.
+- Chunks: "jag skulle vilja", "det var kul att", "vad tycker du om".`,
+      B2: `B2 = UPPER-INTERMEDIATE. Rules:
+- Length: 8–14 words.
+- Complex clauses, conditionals ("skulle", "hade kunnat"), passive ok.
+- Nuanced vocabulary, hedging, opinions.
+- Topics: current events, work challenges, comparing options, negotiating.`,
+    };
 
-Rules:
-- Each sentence is natural SPOKEN Swedish that a learner will actually hear in daily life.
-- Length: 5–12 words. Not too long — shadowing needs full sentences the ear can hold.
-- Use common lexical chunks (e.g. "skulle vilja ha", "det var kul att", "vad tycker du om").
-- Vary the topics${topic ? ` — focus on: ${topic}` : ' — mix café, work, weather, weekends, small talk, feelings, plans'}.
-- No idioms that a ${level} learner would not recognize.
-- Difficulty must genuinely fit ${level}. A1 = present tense, simple; A2 = past tense allowed; B1+ = subordinate clauses ok.
+    const prompt = `Generate ${count} Swedish sentences for a SHADOWING exercise at CEFR level ${level}.
+
+Sentences must be natural SPOKEN Swedish a learner actually hears in daily life. Vary the topics${topic ? ` — focus on: ${topic}` : ''}. No idioms a ${level} learner would not recognize.
+
+${levelGuide[level] || levelGuide.A2}
+
+CRITICAL: Difficulty must GENUINELY fit ${level}. If unsure, err on the EASIER side. An A1 learner cannot shadow a 10-word sentence — keep A1 SHORT.
 
 For each sentence, also identify ONE memorizable chunk (the phrase inside worth learning as a unit).
 
