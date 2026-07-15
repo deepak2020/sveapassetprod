@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Headphones, Zap, Puzzle, MessageCircle, PenSquare, Mic, Sparkles, Clock, ArrowRight } from "lucide-react";
+import { Headphones, Zap, Puzzle, MessageCircle, PenSquare, Mic, Sparkles, Clock, ArrowRight, Brain, Repeat, Image as ImageIcon, Link2, Ear } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import PageSEO from "@/components/shared/PageSEO";
@@ -36,6 +36,36 @@ const LEVELS = [
         color: "from-amber-500 to-orange-500",
         ring: "border-amber-300 dark:border-amber-800",
         tint: "from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/20",
+      },
+    ],
+    memoryTips: [
+      {
+        icon: ImageIcon,
+        title: "Se ordet — inte översätt det",
+        title_en: "Picture it — don't translate it",
+        body: "När du hör mjölk, se en vit tetra i huvudet. Hoppa över engelska helt.",
+        body_en: "When you hear mjölk, see a white carton in your head. Skip English entirely.",
+      },
+      {
+        icon: Link2,
+        title: "Koppla till något du redan vet",
+        title_en: "Link it to something you know",
+        body: "fönster låter som 'fönster' i tyska Fenster. Hitta en krok — vilken som helst.",
+        body_en: "fönster sounds like German Fenster. Find any hook — silly ones stick best.",
+      },
+      {
+        icon: Ear,
+        title: "Säg det högt, tre gånger",
+        title_en: "Say it out loud, three times",
+        body: "Munnen minns det öronen och ögonen glömmer. Viska om du är på bussen.",
+        body_en: "Your mouth remembers what eyes and ears forget. Whisper it if you're on the bus.",
+      },
+      {
+        icon: Repeat,
+        title: "Möt ordet igen imorgon",
+        title_en: "Meet the word again tomorrow",
+        body: "Ett ord ses 5–7 gånger innan det sitter. Sprint gör det åt dig automatiskt.",
+        body_en: "A word needs 5–7 encounters to stick. Sprint spaces them out for you automatically.",
       },
     ],
   },
@@ -195,7 +225,43 @@ function LevelBlock({ level, isFirst }) {
           <StationCard key={s.id} station={s} />
         ))}
       </div>
+      {level.memoryTips && <MemoryTips tips={level.memoryTips} level={level} />}
     </div>
+  );
+}
+
+function MemoryTips({ tips, level }) {
+  return (
+    <Card className={`border-2 border-dashed ${level.ring} bg-gradient-to-br ${level.tint}`}>
+      <CardContent className="p-5 space-y-3">
+        <div className="flex items-center gap-2">
+          <Brain className={`w-4 h-4 ${level.accent}`} />
+          <h4 className="font-semibold text-sm">
+            Så minns du ord · <span className="italic font-normal text-muted-foreground">How to remember words</span>
+          </h4>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {tips.map((tip, i) => {
+            const TipIcon = tip.icon;
+            return (
+              <div key={i} className="flex gap-2.5">
+                <div className={`shrink-0 w-7 h-7 rounded-lg bg-background/70 border ${level.ring} flex items-center justify-center`}>
+                  <TipIcon className={`w-3.5 h-3.5 ${level.accent}`} />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold leading-snug">
+                    {tip.title} <span className="italic font-normal text-muted-foreground">· {tip.title_en}</span>
+                  </p>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed mt-0.5">
+                    {tip.body} <span className="italic">{tip.body_en}</span>
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
