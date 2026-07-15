@@ -257,14 +257,6 @@ function LevelBlock({ level, isFirst }) {
           <StationCard key={s.id} station={s} />
         ))}
       </div>
-      {level.memoryTips && (
-        <MemoryTips
-          tips={level.memoryTips}
-          level={level}
-          heading={level.memoryHeading || "Så minns du ord"}
-          heading_en={level.memoryHeading_en || "How to remember words"}
-        />
-      )}
     </div>
   );
 }
