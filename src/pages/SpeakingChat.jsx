@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { MessageCircle, Sparkles } from "lucide-react";
 import { base44 } from "@/api/base44Client";
@@ -8,6 +8,7 @@ import LoginGate from "@/components/shared/LoginGate";
 import PageSEO from "@/components/shared/PageSEO";
 import TopicPicker from "@/components/speaking-chat/TopicPicker";
 import ConversationView from "@/components/speaking-chat/ConversationView";
+import { getTopicMeta } from "@/lib/topicMeta";
 
 // v1 seed topics — used if no SpeakingTopic entities exist yet in the DB.
 const SEED_TOPICS = [
@@ -96,6 +97,36 @@ export default function SpeakingChat() {
 
   // Use DB topics if any exist, else fall back to hard-coded seed set.
   const topics = topicsFromDb.length > 0 ? topicsFromDb : SEED_TOPICS;
+
+  // If launched with ?topic=Mat (from Tala's Språk topic strip), build a
+  // topic on the fly from Språk metadata and jump straight into Samtal.
+  useEffect(() => {
+    if (isLoading || activeTopic) return;
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramTopic = urlParams.get("topic");
+    if (!paramTopic) return;
+
+    const match = topics.find(
+      (t) => t.title_sv?.toLowerCase() === paramTopic.toLowerCase()
+    );
+    if (match) {
+      setActiveTopic(match);
+      return;
+    }
+
+    const meta = getTopicMeta(paramTopic);
+    setActiveTopic({
+      id: `sprak-${paramTopic}`,
+      title_sv: paramTopic,
+      title_en: meta.en || paramTopic,
+      description_en: `Talk with SveAI about ${meta.en || paramTopic}.`,
+      level: "A2",
+      opener_sv: meta.opener_sv,
+      opener_en: "",
+      suggested_vocab: [],
+      emoji: meta.emoji,
+    });
+  }, [isLoading, topics, activeTopic]);
 
   if (!isAuthenticated) {
     return (

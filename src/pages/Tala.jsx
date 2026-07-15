@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import PageSEO from "@/components/shared/PageSEO";
 import LoginGate from "@/components/shared/LoginGate";
 import { useAuth } from "@/lib/AuthContext";
+import SprakTopicStrip from "@/components/tala/SprakTopicStrip";
 
 // Tala is organised by how speaking skill actually develops in a learner:
 // single words → memorised phrases → self-built sentences → free conversation.
@@ -362,6 +363,9 @@ export default function Tala() {
           </Button>
         </CardContent>
       </Card>
+
+      {/* Språk topic bridge — jump into Prata on a topic you're learning */}
+      <SprakTopicStrip />
 
       {/* Or pick a level */}
       <div className="space-y-6">
