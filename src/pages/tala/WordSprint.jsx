@@ -60,25 +60,34 @@ export default function WordSprint() {
   const startRound = () => {
     if (!vocab.length) return;
 
+    // Deduplicate vocab by Swedish word (users often save the same word from multiple lessons).
+    const seen = new Set();
+    const uniqueVocab = vocab.filter((v) => {
+      const key = (v.swedish || "").toLowerCase().trim();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+
     // Mix: ~60% weak (words that appear in unresolved mistakes), ~40% random fresh.
     const weakKeys = new Set(
       (mistakes || [])
         .map((m) => (m.correct_answer || "").toLowerCase().trim())
         .filter(Boolean)
     );
-    const weakPool = vocab.filter((v) => weakKeys.has((v.swedish || "").toLowerCase().trim()));
-    const freshPool = vocab.filter((v) => !weakKeys.has((v.swedish || "").toLowerCase().trim()));
+    const weakPool = uniqueVocab.filter((v) => weakKeys.has((v.swedish || "").toLowerCase().trim()));
+    const freshPool = uniqueVocab.filter((v) => !weakKeys.has((v.swedish || "").toLowerCase().trim()));
 
     const weakTarget = Math.round(ROUND_SIZE * 0.6);
     const weakPicked = shuffle(weakPool).slice(0, weakTarget);
     const remaining = ROUND_SIZE - weakPicked.length;
     const freshPicked = shuffle(freshPool).slice(0, remaining);
 
-    // If not enough fresh words, top up from unused weak words
+    // If not enough fresh words, top up from unused unique vocab
     let picked = [...weakPicked, ...freshPicked];
     if (picked.length < ROUND_SIZE) {
       const usedIds = new Set(picked.map((p) => p.id));
-      const topUp = shuffle(vocab.filter((v) => !usedIds.has(v.id))).slice(0, ROUND_SIZE - picked.length);
+      const topUp = shuffle(uniqueVocab.filter((v) => !usedIds.has(v.id))).slice(0, ROUND_SIZE - picked.length);
       picked = [...picked, ...topUp];
     }
     picked = shuffle(picked); // interleave weak & fresh
