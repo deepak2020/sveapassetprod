@@ -33,9 +33,26 @@ export default function WordSprint() {
   const { speak } = useSpeech();
   const { logMistake } = useMistakeLog();
 
+  // Source: word pairs from all Språk lessons (not user-saved vocab).
   const { data: vocab = [], isLoading } = useQuery({
-    queryKey: ["user-vocabulary"],
-    queryFn: () => base44.entities.UserVocabulary.list("-created_date", 300),
+    queryKey: ["sprint-vocab-from-lessons"],
+    queryFn: async () => {
+      const lessons = await base44.entities.Lesson.list("-created_date", 500);
+      const pairs = [];
+      for (const l of lessons) {
+        for (const wp of (l.word_pairs || [])) {
+          if (wp?.swedish && wp?.english) {
+            pairs.push({
+              id: `${l.id}::${wp.swedish}`,
+              swedish: wp.swedish,
+              english: wp.english,
+              lesson_title: l.title,
+            });
+          }
+        }
+      }
+      return pairs;
+    },
     enabled: isAuthenticated,
   });
 
@@ -210,7 +227,7 @@ export default function WordSprint() {
             {vocab.length === 0 ? (
               <div className="pt-2">
                 <p className="text-sm text-amber-700 dark:text-amber-400">
-                  Du behöver spara några ord först.
+                  Inga ord hittades i lektionerna än.
                 </p>
                 <Button variant="outline" className="mt-3" onClick={() => navigate("/language")}>
                   Utforska lektioner
@@ -218,7 +235,7 @@ export default function WordSprint() {
               </div>
             ) : (
               <>
-                <p className="text-xs text-muted-foreground">{vocab.length} ord i din ordbank</p>
+                <p className="text-xs text-muted-foreground">{vocab.length} ord från Språk-lektionerna</p>
                 {!supported && (
                   <p className="text-xs text-red-600 dark:text-red-400">
                     Din webbläsare stödjer inte röstinspelning. Prova Chrome eller Edge.
