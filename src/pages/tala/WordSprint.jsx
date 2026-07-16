@@ -15,7 +15,7 @@ import { normalizeAnswer } from "@/lib/normalizeAnswer";
 import { shuffle } from "@/lib/shuffle";
 import MicButton from "@/components/tala/MicButton";
 
-const ROUND_SIZE = 15;
+const ROUND_SIZE = 30;
 const TIMER_SECONDS = 5; // soft timer; missing it counts as skip but never blocks
 
 function scoreAnswer(said, target) {
