@@ -159,9 +159,6 @@ export default function WordSprint() {
           <h1 className="font-display text-xl font-bold flex items-center gap-2">
             <Zap className="w-5 h-5 text-amber-500" /> Word Sprint
           </h1>
-          <p className="text-xs text-muted-foreground">
-            Säg det svenska ordet så snabbt du kan · <span className="italic">Say the Swedish word fast</span>
-          </p>
         </div>
       </div>
 
