@@ -39,6 +39,8 @@ export default function WordSprint() {
     enabled: isAuthenticated,
   });
 
+  const { mistakes } = useMistakeLog();
+
   const [phase, setPhase] = useState("intro"); // intro | play | feedback | done
   const [queue, setQueue] = useState([]);
   const [index, setIndex] = useState(0);
@@ -57,7 +59,30 @@ export default function WordSprint() {
 
   const startRound = () => {
     if (!vocab.length) return;
-    const picked = shuffle(vocab).slice(0, ROUND_SIZE);
+
+    // Mix: ~60% weak (words that appear in unresolved mistakes), ~40% random fresh.
+    const weakKeys = new Set(
+      (mistakes || [])
+        .map((m) => (m.correct_answer || "").toLowerCase().trim())
+        .filter(Boolean)
+    );
+    const weakPool = vocab.filter((v) => weakKeys.has((v.swedish || "").toLowerCase().trim()));
+    const freshPool = vocab.filter((v) => !weakKeys.has((v.swedish || "").toLowerCase().trim()));
+
+    const weakTarget = Math.round(ROUND_SIZE * 0.6);
+    const weakPicked = shuffle(weakPool).slice(0, weakTarget);
+    const remaining = ROUND_SIZE - weakPicked.length;
+    const freshPicked = shuffle(freshPool).slice(0, remaining);
+
+    // If not enough fresh words, top up from unused weak words
+    let picked = [...weakPicked, ...freshPicked];
+    if (picked.length < ROUND_SIZE) {
+      const usedIds = new Set(picked.map((p) => p.id));
+      const topUp = shuffle(vocab.filter((v) => !usedIds.has(v.id))).slice(0, ROUND_SIZE - picked.length);
+      picked = [...picked, ...topUp];
+    }
+    picked = shuffle(picked); // interleave weak & fresh
+
     setQueue(picked);
     setIndex(0);
     setCorrectCount(0);
