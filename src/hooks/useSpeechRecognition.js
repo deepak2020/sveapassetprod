@@ -35,19 +35,21 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
     rec.continuous = continuous;
     rec.maxAlternatives = 1;
 
+    // Rebuild the transcript within THIS recognition session on every event
+    // (finals from earlier sessions are preserved in sessionFinalsRef).
+    // Appending deltas caused duplicated phrases because Chrome sometimes
+    // re-emits earlier results as final, producing "vädret vädret vädret var…".
+    let sessionFinal = "";
     rec.onresult = (event) => {
+      let finalText = "";
       let interimText = "";
-      let newFinal = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
+      for (let i = 0; i < event.results.length; i++) {
         const t = event.results[i][0].transcript;
-        if (event.results[i].isFinal) newFinal += t;
+        if (event.results[i].isFinal) finalText += t + " ";
         else interimText += t;
       }
+      sessionFinal = finalText.trim();
       setInterim(interimText);
-      if (newFinal) {
-        finalTranscriptRef.current =
-          (finalTranscriptRef.current ? finalTranscriptRef.current + " " : "") + newFinal.trim();
-      }
     };
 
     rec.onerror = (e) => {
@@ -55,6 +57,14 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
     };
 
     rec.onend = () => {
+      // Fold this session's final into the persistent ref before any restart.
+      if (sessionFinal) {
+        finalTranscriptRef.current = [finalTranscriptRef.current, sessionFinal]
+          .filter(Boolean)
+          .join(" ")
+          .trim();
+        sessionFinal = "";
+      }
       // Chrome auto-ends on pause. Restart unless the user tapped stop.
       if (!stoppedByUserRef.current && continuous) {
         try { rec.start(); return; } catch { /* fall through */ }
