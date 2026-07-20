@@ -39,6 +39,7 @@ import GrammarTopic from './pages/GrammarTopic';
 import AdminGrammar from './pages/AdminGrammar';
 import AdminUsers from './pages/AdminUsers';
 import AdminFeedback from './pages/AdminFeedback';
+import AdminMissions from './pages/AdminMissions';
 import Showcase from './pages/Showcase';
 
 const AuthenticatedApp = () => {
@@ -92,6 +93,7 @@ const AuthenticatedApp = () => {
         <Route path="/admin/grammar" element={<AdminGrammar />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/feedback" element={<AdminFeedback />} />
+        <Route path="/admin/missions" element={<AdminMissions />} />
         <Route path="/showcase" element={<Showcase />} />
         <Route path="/citizenship-test" element={<CitizenshipTest />} />
         <Route path="/privacy" element={<Privacy />} />
