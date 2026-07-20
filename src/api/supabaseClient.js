@@ -145,4 +145,15 @@ export const supabase = {
       return sbFetch('listening_bank?select=course');
     },
   },
+
+  speakingTopics: {
+    async list() {
+      const { data } = await sbFetch('speaking_topics?order=order.asc.nullslast');
+      return Array.isArray(data) ? data : [];
+    },
+    async get(id) {
+      const { data } = await sbFetch(`speaking_topics?id=eq.${encodeURIComponent(id)}&limit=1`);
+      return Array.isArray(data) && data.length > 0 ? data[0] : null;
+    },
+  },
 };

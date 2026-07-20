@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, X } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/lib/AuthContext";
@@ -30,7 +30,7 @@ export default function MissionPlayer() {
 
   const { data: topic, isLoading, error } = useQuery({
     queryKey: ["speaking-topic", id],
-    queryFn: () => base44.entities.SpeakingTopic.get(id),
+    queryFn: () => supabase.speakingTopics.get(id),
     enabled: !!id && isAuthenticated,
   });
 

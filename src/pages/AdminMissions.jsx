@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Search, BookOpenCheck } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,7 @@ export default function AdminMissions() {
 
   const { data: existing = [], isLoading } = useQuery({
     queryKey: ["speaking-topics-all-admin"],
-    queryFn: () => base44.entities.SpeakingTopic.list("order", 500),
+    queryFn: () => supabase.speakingTopics.list(),
     enabled: !!user && user.role === "admin",
   });
 
@@ -81,9 +81,9 @@ export default function AdminMissions() {
           <h1 className="font-display text-2xl font-bold">Mission catalog</h1>
         </div>
         <p className="text-sm text-muted-foreground">
-          Every planned speaking mission. Copy a prompt, feed it to your Claude agent, then paste the
-          returned JSON into the <code className="text-[11px] bg-muted px-1 py-0.5 rounded">SpeakingTopic</code>{" "}
-          entity in the DB. Cards turn green once the topic exists in the database.
+          Every planned speaking mission. Copy a prompt, feed it to your Claude agent, then insert the
+          returned JSON into the <code className="text-[11px] bg-muted px-1 py-0.5 rounded">speaking_topics</code>{" "}
+          table in Supabase. Cards turn green once the topic exists in the database.
         </p>
         <p className="text-xs text-muted-foreground mt-2">
           <span className="font-semibold text-foreground">{seededCount} / {MISSION_CATALOG.length}</span> missions in DB.
