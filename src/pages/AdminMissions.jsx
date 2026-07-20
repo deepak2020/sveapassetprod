@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Search, BookOpenCheck } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Search, BookOpenCheck, DatabaseZap, Loader2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,21 @@ import { Skeleton } from "@/components/ui/skeleton";
 import PageSEO from "@/components/shared/PageSEO";
 import MissionCatalogCard from "@/components/admin/MissionCatalogCard";
 import { MISSION_CATALOG } from "@/data/missionCatalog";
+import { MISSION_CONTENT } from "@/data/missionContent";
+
+function buildTopicRecord(mission) {
+  const content = MISSION_CONTENT[mission.title_sv];
+  if (!content) return null;
+  return {
+    title_sv: mission.title_sv,
+    title_en: mission.title_en,
+    level: mission.level,
+    category: mission.category,
+    emoji: mission.emoji,
+    order: mission.order,
+    ...content,
+  };
+}
 
 const LEVELS = ["all", "A1", "A2", "B1", "B2", "C1"];
 
@@ -18,9 +33,12 @@ const LEVELS = ["all", "A1", "A2", "B1", "B2", "C1"];
 // and drop the returned JSON into the DB (SpeakingTopic entity).
 export default function AdminMissions() {
   const { user, isLoadingAuth } = useAuth();
+  const queryClient = useQueryClient();
   const [levelFilter, setLevelFilter] = useState("all");
   const [showOnly, setShowOnly] = useState("all"); // 'all' | 'missing' | 'seeded'
   const [q, setQ] = useState("");
+  const [seedingAll, setSeedingAll] = useState(false);
+  const [seedProgress, setSeedProgress] = useState(null); // "12/38" while running
 
   const { data: existing = [], isLoading } = useQuery({
     queryKey: ["speaking-topics-all-admin"],
@@ -53,6 +71,40 @@ export default function AdminMissions() {
   }, [levelFilter, showOnly, q, seededTitles]);
 
   const seededCount = MISSION_CATALOG.filter((m) => seededTitles.has(m.title_sv)).length;
+  const missingWithContent = MISSION_CATALOG.filter(
+    (m) => !seededTitles.has(m.title_sv) && MISSION_CONTENT[m.title_sv]
+  );
+
+  const seedOne = async (mission) => {
+    const record = buildTopicRecord(mission);
+    if (!record) throw new Error(`No content bank entry for "${mission.title_sv}"`);
+    await base44.entities.SpeakingTopic.create(record);
+    await queryClient.invalidateQueries({ queryKey: ["speaking-topics-all-admin"] });
+  };
+
+  const seedAllMissing = async () => {
+    setSeedingAll(true);
+    let done = 0;
+    const failed = [];
+    try {
+      for (const m of missingWithContent) {
+        setSeedProgress(`${done + 1}/${missingWithContent.length}`);
+        try {
+          await base44.entities.SpeakingTopic.create(buildTopicRecord(m));
+          done++;
+        } catch {
+          failed.push(m.title_sv);
+        }
+      }
+    } finally {
+      setSeedingAll(false);
+      setSeedProgress(null);
+      await queryClient.invalidateQueries({ queryKey: ["speaking-topics-all-admin"] });
+    }
+    if (failed.length > 0) {
+      alert(`Seeded ${done}, failed ${failed.length}:\n${failed.join("\n")}`);
+    }
+  };
 
   if (isLoadingAuth) {
     return (
@@ -89,15 +141,41 @@ export default function AdminMissions() {
           <span className="font-semibold text-foreground">{seededCount} / {MISSION_CATALOG.length}</span> missions in DB.
           {isLoading && <span className="ml-2 italic">Checking DB…</span>}
         </p>
+        {!isLoading && missingWithContent.length > 0 && (
+          <Button
+            size="sm"
+            className="mt-3 gap-1.5"
+            onClick={seedAllMissing}
+            disabled={seedingAll}
+          >
+            {seedingAll ? (
+              <>
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                Seeding {seedProgress}…
+              </>
+            ) : (
+              <>
+                <DatabaseZap className="w-3.5 h-3.5" />
+                Seed all {missingWithContent.length} missing missions
+              </>
+            )}
+          </Button>
+        )}
       </div>
 
       {/* How-to */}
       <Card className="border-dashed">
         <CardContent className="p-4 text-xs text-muted-foreground space-y-1.5 leading-relaxed">
-          <p><span className="font-semibold text-foreground">1.</span> Click <strong>Copy Claude prompt</strong> on a card.</p>
-          <p><span className="font-semibold text-foreground">2.</span> Paste it into Claude — it returns a single JSON object with the mission content.</p>
-          <p><span className="font-semibold text-foreground">3.</span> Combine that JSON with the card's <strong>metadata</strong> (title_sv, title_en, level, category, emoji, order) and create a new <code className="bg-muted px-1 rounded">SpeakingTopic</code> record with all fields.</p>
-          <p className="pt-1"><span className="font-semibold text-foreground">Tip:</span> the prompt already tells Claude to skip the metadata fields so you don't get duplicates.</p>
+          <p>
+            Missions with pre-generated content show a <strong>Seed to DB</strong> button — one click creates the{" "}
+            <code className="bg-muted px-1 rounded">SpeakingTopic</code> record. Use <strong>Seed all missing</strong>{" "}
+            above to load everything at once.
+          </p>
+          <p className="pt-1">
+            For missions without banked content: <strong>Copy Claude prompt</strong>, run it in Claude, then add the
+            returned JSON to <code className="bg-muted px-1 rounded">src/data/missionContent/</code> or create the
+            record manually with the card's metadata.
+          </p>
         </CardContent>
       </Card>
 
@@ -154,6 +232,8 @@ export default function AdminMissions() {
               key={m.title_sv}
               mission={m}
               seeded={seededTitles.has(m.title_sv)}
+              hasContent={!!MISSION_CONTENT[m.title_sv]}
+              onSeed={seedOne}
             />
           ))}
         </div>
