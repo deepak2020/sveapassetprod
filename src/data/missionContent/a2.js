@@ -571,4 +571,194 @@ export const MISSION_CONTENT_A2 = {
       { type: "quick_response", prompt_sv: "Vill du lägga till gruppass för hundra kronor extra i månaden?", prompt_en: "Do you want to add group classes for a hundred kronor extra per month?", expected_answer_sv: "Nej tack, inte just nu. Jag kanske lägger till det senare.", expected_answer_en: "No thanks, not right now. Maybe I'll add it later.", hint_en: "Decline but leave the door open with 'kanske senare'.", options: null }
     ]
   },
+  "Anmäla borttappat kort": {
+    description_en: "Call the bank to block your lost card and order a replacement.",
+    opener_sv: "Välkommen till banken, du talar med Svea. Hur kan jag hjälpa dig?",
+    opener_en: "Welcome to the bank, you're speaking with Svea. How can I help you?",
+    goal: "Block the lost card, order a new one, and confirm where it will be sent.",
+    success_criteria: [
+      "Explain that you lost your card and want to block it right away",
+      "Answer security questions, like your personnummer",
+      "Order a new card and confirm your delivery address"
+    ],
+    curveballs: [
+      "She asks when and where you last used the card",
+      "She asks if there are any purchases you don't recognise",
+      "She says the new card takes up to a week and offers a temporary solution"
+    ],
+    cultural_notes: "Swedish banks verify you by personnummer and often BankID even on the phone, so blocking a card is quick once you're identified.",
+    suggested_vocab: ["tappa bort", "spärra", "kortet", "ett nytt kort", "misstänkt", "i går kväll"],
+    key_vocabulary: [
+      { swedish: "tappa bort", english: "to lose (an object)", example_sv: "Jag har tappat bort mitt bankkort.", example_en: "I have lost my bank card.", pronunciation_tip: "Stress the particle: tappa BORT." },
+      { swedish: "spärra", english: "to block", example_sv: "Kan ni spärra kortet direkt?", example_en: "Can you block the card right away?", pronunciation_tip: "SPAIR-ra, rolled r if you can." },
+      { swedish: "köp", english: "purchase", example_sv: "Jag ser inga konstiga köp.", example_en: "I don't see any strange purchases.", pronunciation_tip: "Sounds like 'shup' — k is soft before ö." },
+      { swedish: "senast", english: "most recently / last", example_sv: "Jag använde kortet senast i går kväll.", example_en: "I last used the card yesterday evening.", pronunciation_tip: "SEH-nast." },
+      { swedish: "beställa", english: "to order", example_sv: "Jag vill beställa ett nytt kort.", example_en: "I want to order a new card.", pronunciation_tip: "beh-STELL-a." },
+      { swedish: "misstänkt", english: "suspicious", example_sv: "Finns det något misstänkt på kontot?", example_en: "Is there anything suspicious on the account?", pronunciation_tip: "MISS-tenkt." }
+    ],
+    key_phrases: [
+      { situation_en: "Explaining the emergency", phrase_sv: "Hej! Jag har tappat bort mitt kort och vill spärra det direkt.", phrase_en: "Hi! I have lost my card and want to block it right away.", pronunciation_tip: "'Direkt' = dee-REKT, means 'immediately'." },
+      { situation_en: "Saying when you last used it", phrase_sv: "Jag använde det senast i går kväll på ICA.", phrase_en: "I last used it yesterday evening at ICA.", pronunciation_tip: "'I går kväll' = yesterday evening." },
+      { situation_en: "Checking for strange purchases", phrase_sv: "Kan du se om det finns några köp som inte är mina?", phrase_en: "Can you see if there are any purchases that aren't mine?", pronunciation_tip: "'Köp' with the soft sh-like k." },
+      { situation_en: "Ordering a new card", phrase_sv: "Kan jag beställa ett nytt kort samtidigt?", phrase_en: "Can I order a new card at the same time?", pronunciation_tip: "'Samtidigt' = sam-TEE-digt." },
+      { situation_en: "Confirming the address", phrase_sv: "Skicka det till min hemadress, Solvägen tre i Uppsala.", phrase_en: "Send it to my home address, Solvägen three in Uppsala.", pronunciation_tip: "'Hemadress' = HEM-a-dress." }
+    ],
+    rehearsal_drills: [
+      { type: "gap_fill", prompt_sv: "Jag har tappat bort mitt kort och vill ___ det direkt.", prompt_en: "I have lost my card and want to ___ it right away.", expected_answer_sv: "spärra", expected_answer_en: "block", options: ["spärra", "tvätta", "sälja", "vika"], hint_en: "So no one else can use it.", },
+      { type: "quick_response", prompt_sv: "När och var använde du kortet senast?", prompt_en: "When and where did you last use the card?", expected_answer_sv: "Senast i går kväll, på ICA här i stan.", expected_answer_en: "Most recently yesterday evening, at ICA here in town.", hint_en: "Give a time and a place.", options: null },
+      { type: "quick_response", prompt_sv: "Det nya kortet tar ungefär en vecka. Klarar du dig utan kort så länge?", prompt_en: "The new card takes about a week. Can you manage without a card until then?", expected_answer_sv: "Ja, det går bra. Jag kan betala med mobilen så länge.", expected_answer_en: "Yes, that's fine. I can pay with my phone in the meantime.", hint_en: "'Så länge' = in the meantime.", options: null }
+    ]
+  },
+  "Boka läkartid för barn": {
+    description_en: "Call to book a doctor's appointment for your child who has an ear infection.",
+    opener_sv: "Barnavårdscentralen, hej! Vad kan jag hjälpa dig med?",
+    opener_en: "The child health centre, hello! What can I help you with?",
+    goal: "Describe your child's symptoms and get an appointment today.",
+    success_criteria: [
+      "Describe the child's symptoms and how long they have lasted",
+      "Give the child's age and personnummer",
+      "Get an appointment and repeat back the time"
+    ],
+    curveballs: [
+      "The nurse asks if the child has a fever and if you have given any medicine",
+      "She asks how old the child is and if this has happened before",
+      "The only time today is during your work hours — you have to accept or negotiate"
+    ],
+    cultural_notes: "Swedish parents have the right to stay home with a sick child ('vabba'), so it's completely normal to take time off for a doctor's visit.",
+    suggested_vocab: ["ont i örat", "feber", "min dotter", "min son", "en tid i dag", "medicin"],
+    key_vocabulary: [
+      { swedish: "öra", english: "ear", example_sv: "Hon har ont i örat.", example_en: "She has ear pain.", pronunciation_tip: "UR-a with rounded ö; 'örat' = the ear." },
+      { swedish: "öroninflammation", english: "ear infection", example_sv: "Jag tror att det är en öroninflammation.", example_en: "I think it's an ear infection.", pronunciation_tip: "UR-on-in-flam-ma-SHOON — take it slowly." },
+      { swedish: "gråta", english: "to cry", example_sv: "Hon grät hela natten.", example_en: "She cried all night.", pronunciation_tip: "GROH-ta; past tense 'grät'." },
+      { swedish: "feber", english: "fever", example_sv: "Han har trettioåtta komma fem i feber.", example_en: "He has a fever of thirty-eight point five.", pronunciation_tip: "FEH-ber." },
+      { swedish: "medicin", english: "medicine", example_sv: "Jag gav henne medicin i morse.", example_en: "I gave her medicine this morning.", pronunciation_tip: "me-di-SEEN, stress at the end." },
+      { swedish: "vabba", english: "to stay home with a sick child", example_sv: "Jag vabbar i dag, så jag kan komma när som helst.", example_en: "I'm home with my sick child today, so I can come any time.", pronunciation_tip: "VAB-ba — a very Swedish everyday verb." }
+    ],
+    key_phrases: [
+      { situation_en: "Explaining why you are calling", phrase_sv: "Hej! Min dotter har ont i örat och grät hela natten.", phrase_en: "Hi! My daughter has ear pain and cried all night.", pronunciation_tip: "'Dotter' = DOT-ter; 'son' = sohn." },
+      { situation_en: "Giving the child's details", phrase_sv: "Hon är tre år, och hennes personnummer är tjugotvå noll fem...", phrase_en: "She is three years old, and her personal number is twenty-two zero five...", pronunciation_tip: "Children's personnummer are asked for too." },
+      { situation_en: "Answering about fever", phrase_sv: "Ja, hon har lite feber, trettioåtta komma två i morse.", phrase_en: "Yes, she has a slight fever, thirty-eight point two this morning.", pronunciation_tip: "Use 'komma' for the decimal." },
+      { situation_en: "Asking for a time today", phrase_sv: "Kan vi komma in i dag? Hon har väldigt ont.", phrase_en: "Can we come in today? She is in a lot of pain.", pronunciation_tip: "'Väldigt' = VEL-digt, means 'very'." },
+      { situation_en: "Confirming the time", phrase_sv: "Klockan kvart över två i dag — vi kommer då. Tack snälla!", phrase_en: "Quarter past two today — we'll come then. Thank you so much!", pronunciation_tip: "'Kvart över två' = 2:15." }
+    ],
+    rehearsal_drills: [
+      { type: "gap_fill", prompt_sv: "Min dotter har ont i ___ och grät hela natten.", prompt_en: "My daughter has pain in her ___ and cried all night.", expected_answer_sv: "örat", expected_answer_en: "the ear", options: ["örat", "handen", "foten", "ryggen"], hint_en: "The body part for an ear infection.", },
+      { type: "quick_response", prompt_sv: "Har hon feber, och har du gett henne någon medicin?", prompt_en: "Does she have a fever, and have you given her any medicine?", expected_answer_sv: "Ja, lite feber. Jag gav henne Alvedon i morse.", expected_answer_en: "Yes, a slight fever. I gave her Alvedon this morning.", hint_en: "Answer both questions — fever and medicine.", options: null },
+      { type: "quick_response", prompt_sv: "Den enda tiden i dag är klockan elva. Hinner du komma då?", prompt_en: "The only time today is at eleven o'clock. Can you make it then?", expected_answer_sv: "Ja, det löser jag. Jag vabbar i dag, så vi kommer klockan elva.", expected_answer_en: "Yes, I'll sort that out. I'm home with her today, so we'll come at eleven.", hint_en: "'Det löser jag' = I'll sort it out.", options: null }
+    ]
+  },
+  "Kontakta försäkringen efter olycka": {
+    description_en: "Call your insurance company to report a minor car accident and learn the next steps.",
+    opener_sv: "Försäkringsbolaget, du talar med Svea. Vad har hänt?",
+    opener_en: "The insurance company, you're speaking with Svea. What has happened?",
+    goal: "Report the accident with the key details and understand what happens next.",
+    success_criteria: [
+      "Describe what happened, where, and when",
+      "Give your registration number and policy details",
+      "Ask about the next steps and the deductible"
+    ],
+    curveballs: [
+      "She asks if anyone was injured",
+      "She asks if you took photos and got the other driver's details",
+      "She explains you must pay a deductible and asks if you want to proceed"
+    ],
+    cultural_notes: "After a minor accident in Sweden, drivers usually fill in a joint damage report ('skadeanmälan') together calmly — no shouting, just paperwork.",
+    suggested_vocab: ["en olycka", "krockade", "registreringsnummer", "skada", "självrisk", "skadeanmälan"],
+    key_vocabulary: [
+      { swedish: "olycka", english: "accident", example_sv: "Jag var med om en liten olycka i morse.", example_en: "I was in a small accident this morning.", pronunciation_tip: "OO-luck-a, stress first syllable." },
+      { swedish: "krocka", english: "to crash / collide", example_sv: "Jag krockade med en annan bil.", example_en: "I collided with another car.", pronunciation_tip: "KROCK-a, short o." },
+      { swedish: "skada", english: "damage / injury", example_sv: "Det är en skada på dörren.", example_en: "There is damage on the door.", pronunciation_tip: "SKAH-da, long a." },
+      { swedish: "registreringsnummer", english: "registration number", example_sv: "Registreringsnumret är ABC ett två tre.", example_en: "The registration number is ABC one two three.", pronunciation_tip: "Long word — say it in parts: re-gi-STREH-rings-noommer." },
+      { swedish: "självrisk", english: "deductible / excess", example_sv: "Hur hög är självrisken?", example_en: "How high is the deductible?", pronunciation_tip: "HWELV-risk — 'sj' is the soft Swedish sound." },
+      { swedish: "skadeanmälan", english: "damage report", example_sv: "Vi fyllde i en skadeanmälan tillsammans.", example_en: "We filled in a damage report together.", pronunciation_tip: "SKAH-de-an-mai-lan." }
+    ],
+    key_phrases: [
+      { situation_en: "Reporting the accident", phrase_sv: "Hej! Jag ringer för att anmäla en liten bilolycka.", phrase_en: "Hi! I'm calling to report a small car accident.", pronunciation_tip: "'Anmäla' = AN-mai-la." },
+      { situation_en: "Describing what happened", phrase_sv: "En bil körde in i mig bakifrån vid en rödljus i morse.", phrase_en: "A car drove into me from behind at a red light this morning.", pronunciation_tip: "'Bakifrån' = from behind." },
+      { situation_en: "Confirming no injuries", phrase_sv: "Ingen blev skadad, det är bara plåtskador.", phrase_en: "No one was injured, it's only bodywork damage.", pronunciation_tip: "'Plåtskador' = damage to the metal, a common phrase." },
+      { situation_en: "Giving car details", phrase_sv: "Mitt registreringsnummer är ABC ett två tre.", phrase_en: "My registration number is ABC one two three.", pronunciation_tip: "Say letters and numbers slowly and clearly." },
+      { situation_en: "Asking about next steps", phrase_sv: "Vad händer nu, och hur hög är självrisken?", phrase_en: "What happens now, and how high is the deductible?", pronunciation_tip: "Two key questions — ask them together." }
+    ],
+    rehearsal_drills: [
+      { type: "gap_fill", prompt_sv: "Ingen blev skadad — det är bara ___ på bilen.", prompt_en: "No one was injured — there is only ___ on the car.", expected_answer_sv: "skador", expected_answer_en: "damage", options: ["skador", "blommor", "paket", "biljetter"], hint_en: "What a crash leaves on the bodywork.", },
+      { type: "quick_response", prompt_sv: "Blev någon skadad i olyckan?", prompt_en: "Was anyone injured in the accident?", expected_answer_sv: "Nej, som tur var blev ingen skadad. Det är bara plåtskador.", expected_answer_en: "No, luckily no one was injured. It's only bodywork damage.", hint_en: "'Som tur var' = luckily.", options: null },
+      { type: "quick_response", prompt_sv: "Tog du bilder på skadorna och fick du den andra förarens uppgifter?", prompt_en: "Did you take photos of the damage and get the other driver's details?", expected_answer_sv: "Ja, jag tog bilder med mobilen, och vi bytte telefonnummer och registreringsnummer.", expected_answer_en: "Yes, I took photos with my phone, and we exchanged phone numbers and registration numbers.", hint_en: "'Vi bytte' = we exchanged.", options: null }
+    ]
+  },
+  "Fråga om SL-kort": {
+    description_en: "Buy a monthly transit card and find out which zones your commute needs.",
+    opener_sv: "Hej! Hur kan jag hjälpa dig?",
+    opener_en: "Hi! How can I help you?",
+    goal: "Buy the right monthly card for your commute and know how to use it.",
+    success_criteria: [
+      "Explain where you travel from and to every day",
+      "Ask which card or zone you need and what it costs",
+      "Buy the card and ask how to load it or renew it"
+    ],
+    curveballs: [
+      "She asks if you want the card on your phone in the app instead of a plastic card",
+      "She asks if you are a student or have a discount",
+      "She mentions the card starts today unless you choose a later start date"
+    ],
+    cultural_notes: "In Stockholm one SL monthly card covers the whole county — buses, metro, and commuter trains — and most people carry it in the app rather than as a plastic card.",
+    suggested_vocab: ["månadskort", "pendla", "zon", "gäller", "ladda", "rabatt"],
+    key_vocabulary: [
+      { swedish: "månadskort", english: "monthly card", example_sv: "Jag skulle vilja köpa ett månadskort.", example_en: "I would like to buy a monthly card.", pronunciation_tip: "MOH-nads-court." },
+      { swedish: "pendla", english: "to commute", example_sv: "Jag pendlar mellan Solna och T-centralen.", example_en: "I commute between Solna and T-centralen.", pronunciation_tip: "PEND-la." },
+      { swedish: "gälla", english: "to be valid", example_sv: "Gäller kortet på pendeltåget också?", example_en: "Is the card valid on the commuter train too?", pronunciation_tip: "YELL-a — g is soft before ä." },
+      { swedish: "ladda", english: "to load / top up", example_sv: "Hur laddar jag kortet nästa månad?", example_en: "How do I top up the card next month?", pronunciation_tip: "LAD-da." },
+      { swedish: "rabatt", english: "discount", example_sv: "Finns det rabatt för studenter?", example_en: "Is there a discount for students?", pronunciation_tip: "ra-BATT, stress at the end." },
+      { swedish: "spärren", english: "the ticket barrier", example_sv: "Du blippar kortet vid spärren.", example_en: "You tap the card at the barrier.", pronunciation_tip: "SPAIR-ren; 'blippa' = to tap." }
+    ],
+    key_phrases: [
+      { situation_en: "Explaining your commute", phrase_sv: "Hej! Jag pendlar varje dag mellan Solna och city. Vilket kort behöver jag?", phrase_en: "Hi! I commute every day between Solna and the city centre. Which card do I need?", pronunciation_tip: "'Pendlar' — a word you'll use a lot in Stockholm." },
+      { situation_en: "Asking about coverage", phrase_sv: "Gäller månadskortet på både tunnelbana och buss?", phrase_en: "Is the monthly card valid on both the metro and the bus?", pronunciation_tip: "'Tunnelbana' = TOON-nel-bah-na, the metro." },
+      { situation_en: "Asking the price", phrase_sv: "Vad kostar ett månadskort för vuxen?", phrase_en: "What does a monthly card for an adult cost?", pronunciation_tip: "'Vuxen' = VOOK-sen, means 'adult'." },
+      { situation_en: "Choosing app or card", phrase_sv: "Jag tar det i appen, det är smidigare.", phrase_en: "I'll take it in the app, that's more convenient.", pronunciation_tip: "'Smidigare' = SMEE-di-ga-reh, means 'smoother/easier'." },
+      { situation_en: "Choosing the start date", phrase_sv: "Kan kortet börja gälla på måndag i stället för i dag?", phrase_en: "Can the card start being valid on Monday instead of today?", pronunciation_tip: "'Börja gälla' = start being valid." }
+    ],
+    rehearsal_drills: [
+      { type: "gap_fill", prompt_sv: "Jag ___ varje dag mellan Solna och T-centralen.", prompt_en: "I ___ every day between Solna and T-centralen.", expected_answer_sv: "pendlar", expected_answer_en: "commute", options: ["pendlar", "sover", "simmar", "sjunger"], hint_en: "Travelling the same route to work daily.", },
+      { type: "quick_response", prompt_sv: "Vill du ha kortet i appen eller som ett plastkort?", prompt_en: "Do you want the card in the app or as a plastic card?", expected_answer_sv: "I appen, tack. Då kan jag inte tappa bort det.", expected_answer_en: "In the app, please. Then I can't lose it.", hint_en: "Choose one and give a simple reason.", options: null },
+      { type: "quick_response", prompt_sv: "Kortet börjar gälla i dag. Är det okej, eller vill du ha ett senare startdatum?", prompt_en: "The card starts today. Is that okay, or do you want a later start date?", expected_answer_sv: "Kan det börja gälla på måndag i stället? Jag börjar jobba då.", expected_answer_en: "Can it start on Monday instead? I start work then.", hint_en: "Ask for Monday with 'i stället'.", options: null }
+    ]
+  },
+  "Beställa glasögon hos optiker": {
+    description_en: "Order new glasses at the optician — choose lenses and frames within your budget.",
+    opener_sv: "Hej och välkommen! Vad kan jag hjälpa dig med i dag?",
+    opener_en: "Hello and welcome! What can I help you with today?",
+    goal: "Order glasses that fit your needs and budget, and agree on a pickup date.",
+    success_criteria: [
+      "Explain what you need glasses for, for example reading or a computer",
+      "Choose frames and lens type, and state your budget",
+      "Agree on the price and ask when the glasses will be ready"
+    ],
+    curveballs: [
+      "She asks when you last had an eye test and suggests a new one",
+      "She recommends extras like anti-reflective coating that cost more",
+      "The frames you like are over your budget and she suggests alternatives"
+    ],
+    cultural_notes: "Swedish opticians usually offer a free or cheap eye test ('synundersökning') when you buy glasses, so it's normal to ask for one in the same visit.",
+    suggested_vocab: ["glasögon", "synundersökning", "bågar", "glas", "budget", "hämta ut"],
+    key_vocabulary: [
+      { swedish: "glasögon", english: "glasses", example_sv: "Jag behöver nya glasögon.", example_en: "I need new glasses.", pronunciation_tip: "GLAHS-ur-gon — 'ögon' means 'eyes'." },
+      { swedish: "synundersökning", english: "eye test", example_sv: "När gjorde du en synundersökning senast?", example_en: "When did you last have an eye test?", pronunciation_tip: "SUEN-un-der-suk-ning — say it in parts." },
+      { swedish: "bågar", english: "frames", example_sv: "Jag gillar de där svarta bågarna.", example_en: "I like those black frames.", pronunciation_tip: "BOH-gar, long å." },
+      { swedish: "glas", english: "lenses (glass)", example_sv: "Vad kostar glasen utan extra behandling?", example_en: "What do the lenses cost without extra treatment?", pronunciation_tip: "Same word as 'glass' the material; long a." },
+      { swedish: "antireflex", english: "anti-reflective coating", example_sv: "Behöver jag verkligen antireflex?", example_en: "Do I really need anti-reflective coating?", pronunciation_tip: "AN-ti-re-flex, like English." },
+      { swedish: "hämta ut", english: "to pick up (an order)", example_sv: "När kan jag hämta ut glasögonen?", example_en: "When can I pick up the glasses?", pronunciation_tip: "Stress the particle: hämta UT." }
+    ],
+    key_phrases: [
+      { situation_en: "Explaining what you need", phrase_sv: "Hej! Jag behöver nya glasögon, framför allt för datorn.", phrase_en: "Hi! I need new glasses, mainly for the computer.", pronunciation_tip: "'Framför allt' = above all / mainly." },
+      { situation_en: "Answering about your last eye test", phrase_sv: "Min senaste synundersökning var för tre år sedan.", phrase_en: "My last eye test was three years ago.", pronunciation_tip: "'För ... sedan' = ... ago." },
+      { situation_en: "Stating your budget", phrase_sv: "Jag vill helst inte betala mer än tvåtusen kronor totalt.", phrase_en: "I'd prefer not to pay more than two thousand kronor in total.", pronunciation_tip: "'Tvåtusen' = TVOH-too-sen." },
+      { situation_en: "Questioning an extra", phrase_sv: "Behöver jag verkligen det, eller går det bra utan?", phrase_en: "Do I really need that, or is it fine without?", pronunciation_tip: "'Verkligen' = VERK-li-gen, means 'really'." },
+      { situation_en: "Asking about pickup", phrase_sv: "När är glasögonen klara att hämta ut?", phrase_en: "When are the glasses ready to pick up?", pronunciation_tip: "'Klara' = ready." }
+    ],
+    rehearsal_drills: [
+      { type: "gap_fill", prompt_sv: "Jag behöver nya glasögon, framför allt för ___.", prompt_en: "I need new glasses, mainly for ___.", expected_answer_sv: "datorn", expected_answer_en: "the computer", options: ["datorn", "maten", "duschen", "musiken"], hint_en: "The screen you work at all day.", },
+      { type: "quick_response", prompt_sv: "När gjorde du en synundersökning senast? Vi kan göra en ny i dag.", prompt_en: "When did you last have an eye test? We can do a new one today.", expected_answer_sv: "För tre år sedan, så en ny undersökning låter bra.", expected_answer_en: "Three years ago, so a new test sounds good.", hint_en: "Say how long ago and accept the offer.", options: null },
+      { type: "quick_response", prompt_sv: "De här bågarna kostar tretusen kronor. Vad har du för budget?", prompt_en: "These frames cost three thousand kronor. What is your budget?", expected_answer_sv: "Det är för dyrt för mig. Jag vill ligga under tvåtusen totalt.", expected_answer_en: "That's too expensive for me. I want to stay under two thousand in total.", hint_en: "'Ligga under' = stay under (an amount).", options: null }
+    ]
+  },
 };
