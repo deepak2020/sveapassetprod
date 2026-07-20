@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import PageSEO from "@/components/shared/PageSEO";
 import LoginGate from "@/components/shared/LoginGate";
 import { useAuth } from "@/lib/AuthContext";
+import MissionCardsSection from "@/components/missions/MissionCardsSection";
 
 // Tala is organised by how speaking skill actually develops in a learner:
 // single words → memorised phrases → self-built sentences → free conversation.
@@ -355,10 +356,13 @@ export default function Tala() {
         </CardContent>
       </Card>
 
+      {/* Uppdrag — mission scenarios */}
+      <MissionCardsSection />
+
       {/* Or pick a level */}
       <div className="space-y-6">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          Eller välj en nivå · <span className="italic normal-case font-normal">or pick a level</span>
+          Eller välj en station · <span className="italic normal-case font-normal">or pick a station</span>
         </p>
         {LEVELS.map((lvl, i) => (
           <LevelBlock key={lvl.id} level={lvl} isFirst={i === 0} />

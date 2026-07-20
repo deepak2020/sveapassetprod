@@ -20,6 +20,7 @@ import Gym from './pages/Gym';
 import Speaking from './pages/Speaking';
 import SpeakingChat from './pages/SpeakingChat';
 import Tala from './pages/Tala';
+import MissionPlayer from './pages/MissionPlayer';
 import TalaShadowing from './pages/tala/Shadowing';
 import TalaSprint from './pages/tala/WordSprint';
 import TalaChunks from './pages/tala/Chunks';
@@ -81,6 +82,7 @@ const AuthenticatedApp = () => {
         <Route path="/speaking" element={<Speaking />} />
         <Route path="/prata" element={<SpeakingChat />} />
         <Route path="/tala" element={<Tala />} />
+        <Route path="/tala/mission/:id" element={<MissionPlayer />} />
         <Route path="/tala/daily" element={<TalaDailyWorkout />} />
         <Route path="/tala/shadowing" element={<TalaShadowing />} />
         <Route path="/tala/sprint" element={<TalaSprint />} />
