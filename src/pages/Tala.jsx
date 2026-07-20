@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Zap, Headphones, Puzzle, MessageCircle, PenSquare, Mic, Sparkles, ArrowRight, ChevronDown } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Zap, Headphones, Puzzle, MessageCircle, PenSquare, Mic, ChevronDown } from "lucide-react";
 import PageSEO from "@/components/shared/PageSEO";
 import LoginGate from "@/components/shared/LoginGate";
 import { useAuth } from "@/lib/AuthContext";
@@ -71,25 +69,6 @@ export default function Tala() {
           <span className="italic">Practice real conversations, step by step.</span>
         </p>
       </div>
-
-      {/* Daily workout — compact hero */}
-      <Card className="border-2 border-primary/40 bg-gradient-to-br from-primary/5 to-blue-50 dark:from-primary/10 dark:to-blue-950/20">
-        <CardContent className="p-4 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shrink-0">
-            <Sparkles className="w-5 h-5 text-white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-semibold text-sm leading-tight">Dagens tal-pass</p>
-            <p className="text-[11px] text-muted-foreground">15 min · alla nivåer</p>
-          </div>
-          <Button size="sm" asChild className="gap-1.5 shrink-0">
-            <Link to="/tala/daily">
-              Starta
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </Button>
-        </CardContent>
-      </Card>
 
       {/* Uppdrag — the main event */}
       <MissionCardsSection />
