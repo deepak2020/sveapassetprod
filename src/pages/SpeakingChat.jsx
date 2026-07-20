@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { MessageCircle, Sparkles } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/lib/AuthContext";
 import LoginGate from "@/components/shared/LoginGate";
@@ -92,7 +92,7 @@ export default function SpeakingChat() {
 
   const { data: topicsFromDb = [], isLoading } = useQuery({
     queryKey: ["speaking-topics"],
-    queryFn: () => base44.entities.SpeakingTopic.list("order", 100),
+    queryFn: () => supabase.speakingTopics.list(),
   });
 
   // Use DB topics if any exist, else fall back to hard-coded seed set.

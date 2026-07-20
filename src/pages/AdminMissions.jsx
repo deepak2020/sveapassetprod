@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Search, BookOpenCheck, DatabaseZap, Loader2 } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { Search, BookOpenCheck, Download, DatabaseZap, Loader2 } from "lucide-react";
+import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,7 @@ export default function AdminMissions() {
 
   const { data: existing = [], isLoading } = useQuery({
     queryKey: ["speaking-topics-all-admin"],
-    queryFn: () => base44.entities.SpeakingTopic.list("order", 500),
+    queryFn: () => supabase.speakingTopics.list(),
     enabled: !!user && user.role === "admin",
   });
 
@@ -78,7 +78,8 @@ export default function AdminMissions() {
   const seedOne = async (mission) => {
     const record = buildTopicRecord(mission);
     if (!record) throw new Error(`No content bank entry for "${mission.title_sv}"`);
-    await base44.entities.SpeakingTopic.create(record);
+    const { error } = await supabase.speakingTopics.insert(record);
+    if (error) throw new Error(typeof error === "string" ? error : JSON.stringify(error));
     await queryClient.invalidateQueries({ queryKey: ["speaking-topics-all-admin"] });
   };
 
@@ -90,7 +91,8 @@ export default function AdminMissions() {
       for (const m of missingWithContent) {
         setSeedProgress(`${done + 1}/${missingWithContent.length}`);
         try {
-          await base44.entities.SpeakingTopic.create(buildTopicRecord(m));
+          const { error } = await supabase.speakingTopics.insert(buildTopicRecord(m));
+          if (error) throw error;
           done++;
         } catch {
           failed.push(m.title_sv);
@@ -133,9 +135,9 @@ export default function AdminMissions() {
           <h1 className="font-display text-2xl font-bold">Mission catalog</h1>
         </div>
         <p className="text-sm text-muted-foreground">
-          Every planned speaking mission. Copy a prompt, feed it to your Claude agent, then paste the
-          returned JSON into the <code className="text-[11px] bg-muted px-1 py-0.5 rounded">SpeakingTopic</code>{" "}
-          entity in the DB. Cards turn green once the topic exists in the database.
+          Every planned speaking mission. Copy a prompt, feed it to your Claude agent, then insert the
+          returned JSON into the <code className="text-[11px] bg-muted px-1 py-0.5 rounded">speaking_topics</code>{" "}
+          table in Supabase. Cards turn green once the topic exists in the database.
         </p>
         <p className="text-xs text-muted-foreground mt-2">
           <span className="font-semibold text-foreground">{seededCount} / {MISSION_CATALOG.length}</span> missions in DB.
@@ -163,19 +165,38 @@ export default function AdminMissions() {
         )}
       </div>
 
-      {/* How-to */}
+      {/* Bulk generation */}
+      <Card className="border-primary/40 bg-primary/5">
+        <CardContent className="p-4 space-y-2">
+          <div className="flex items-start justify-between gap-3 flex-wrap">
+            <div className="min-w-0">
+              <p className="text-sm font-semibold">Bulk generate all missing missions</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                One document with the full brief, all {MISSION_CATALOG.length - seededCount} missing scenarios, and the SQL to import Claude's output straight into Supabase.
+              </p>
+            </div>
+            <Button asChild size="sm">
+              <a href="/mission-generation.md" download>
+                <Download className="w-4 h-4" />
+                Download brief
+              </a>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* How-to (per-mission) */}
       <Card className="border-dashed">
         <CardContent className="p-4 text-xs text-muted-foreground space-y-1.5 leading-relaxed">
           <p>
-            Missions with pre-generated content show a <strong>Seed to DB</strong> button — one click creates the{" "}
-            <code className="bg-muted px-1 rounded">SpeakingTopic</code> record. Use <strong>Seed all missing</strong>{" "}
-            above to load everything at once.
+            Missions with pre-generated content show a <strong>Seed to DB</strong> button — one click inserts the
+            row into the <code className="bg-muted px-1 rounded">speaking_topics</code> table. Use{" "}
+            <strong>Seed all missing</strong> above to load everything at once.
           </p>
-          <p className="pt-1">
-            For missions without banked content: <strong>Copy Claude prompt</strong>, run it in Claude, then add the
-            returned JSON to <code className="bg-muted px-1 rounded">src/data/missionContent/</code> or create the
-            record manually with the card's metadata.
-          </p>
+          <p className="font-semibold text-foreground pt-1">Or generate one at a time:</p>
+          <p><span className="font-semibold text-foreground">1.</span> Click <strong>Copy Claude prompt</strong> on a card.</p>
+          <p><span className="font-semibold text-foreground">2.</span> Paste it into Claude — it returns a single JSON object with the mission content.</p>
+          <p><span className="font-semibold text-foreground">3.</span> Insert that JSON plus the card's metadata into the <code className="bg-muted px-1 rounded">speaking_topics</code> table in Supabase.</p>
         </CardContent>
       </Card>
 

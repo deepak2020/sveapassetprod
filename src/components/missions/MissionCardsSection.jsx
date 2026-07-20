@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Target, ArrowRight } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -19,7 +19,7 @@ const LEVEL_LABEL = {
 export default function MissionCardsSection() {
   const { data: allTopics = [], isLoading } = useQuery({
     queryKey: ["speaking-topics-missions"],
-    queryFn: () => base44.entities.SpeakingTopic.list("order", 200),
+    queryFn: () => supabase.speakingTopics.list(),
   });
 
   // Only include topics that have a real mission (goal + success criteria).

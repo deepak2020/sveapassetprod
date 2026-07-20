@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
+import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
 
 // Ordered list of missions (linear path) + which have been completed.
@@ -23,7 +24,7 @@ export function useMissionProgress() {
 
   const missionsQuery = useQuery({
     queryKey: ["speaking-topics-missions"],
-    queryFn: () => base44.entities.SpeakingTopic.list("order", 500),
+    queryFn: () => supabase.speakingTopics.list(),
   });
 
   const completionsQuery = useQuery({
