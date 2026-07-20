@@ -5,6 +5,7 @@ import PageSEO from "@/components/shared/PageSEO";
 import LoginGate from "@/components/shared/LoginGate";
 import { useAuth } from "@/lib/AuthContext";
 import MissionPath from "@/components/missions/MissionPath";
+import TopicsCatalog from "@/components/missions/TopicsCatalog";
 import { cn } from "@/lib/utils";
 
 // Compact list of individual practice stations, shown collapsed by default.
@@ -72,6 +73,19 @@ export default function Tala() {
 
       {/* Uppdrag — Duolingo-style linear unlock path */}
       <MissionPath />
+
+      {/* Browsable topics catalog — grouped by level, expandable */}
+      <div className="border-t border-border pt-4">
+        <div className="mb-3">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Alla ämnen
+          </p>
+          <p className="text-[11px] text-muted-foreground italic">
+            Browse all topics · locked ones open once you reach them
+          </p>
+        </div>
+        <TopicsCatalog />
+      </div>
 
       {/* Individual stations — collapsed by default */}
       <div className="border-t border-border pt-4">
