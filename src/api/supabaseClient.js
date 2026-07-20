@@ -155,5 +155,12 @@ export const supabase = {
       const { data } = await sbFetch(`speaking_topics?id=eq.${encodeURIComponent(id)}&limit=1`);
       return Array.isArray(data) && data.length > 0 ? data[0] : null;
     },
+    async insert(row) {
+      return sbFetch('speaking_topics', {
+        method: 'POST',
+        headers: { 'Prefer': 'return=minimal' },
+        body: JSON.stringify(row),
+      });
+    },
   },
 };

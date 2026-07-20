@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Copy, Check, CheckCircle2, Circle } from "lucide-react";
+import { Copy, Check, CheckCircle2, Circle, DatabaseZap, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { buildMissionPrompt } from "@/lib/missionPrompt";
@@ -12,8 +12,20 @@ const LEVEL_COLOR = {
   C1: "bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-950/40 dark:text-purple-300 dark:border-purple-900",
 };
 
-export default function MissionCatalogCard({ mission, seeded }) {
+export default function MissionCatalogCard({ mission, seeded, hasContent, onSeed }) {
   const [copied, setCopied] = useState(null); // 'prompt' | 'meta' | null
+  const [seedState, setSeedState] = useState("idle"); // 'idle' | 'seeding' | 'error'
+
+  const seed = async () => {
+    setSeedState("seeding");
+    try {
+      await onSeed(mission);
+      setSeedState("idle");
+    } catch {
+      setSeedState("error");
+      setTimeout(() => setSeedState("idle"), 2500);
+    }
+  };
 
   const copyPrompt = async () => {
     await navigator.clipboard.writeText(buildMissionPrompt(mission));
@@ -76,7 +88,17 @@ export default function MissionCatalogCard({ mission, seeded }) {
         </p>
 
         <div className="flex flex-wrap gap-2 pt-1">
-          <Button size="sm" variant="default" onClick={copyPrompt} className="gap-1.5 h-7 text-xs">
+          {!seeded && hasContent && (
+            <Button size="sm" variant="default" onClick={seed} disabled={seedState === "seeding"} className="gap-1.5 h-7 text-xs">
+              {seedState === "seeding" ? (
+                <Loader2 className="w-3 h-3 animate-spin" />
+              ) : (
+                <DatabaseZap className="w-3 h-3" />
+              )}
+              {seedState === "error" ? "Failed — retry" : seedState === "seeding" ? "Seeding…" : "Seed to DB"}
+            </Button>
+          )}
+          <Button size="sm" variant={!seeded && hasContent ? "outline" : "default"} onClick={copyPrompt} className="gap-1.5 h-7 text-xs">
             {copied === "prompt" ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
             {copied === "prompt" ? "Copied" : "Copy Claude prompt"}
           </Button>
