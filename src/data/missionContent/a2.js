@@ -381,4 +381,194 @@ export const MISSION_CONTENT_A2 = {
       { type: "quick_response", prompt_sv: "Den tidigaste teknikertiden är om fyra dagar, på fredag. Går det bra?", prompt_en: "The earliest technician slot is in four days, on Friday. Is that okay?", expected_answer_sv: "Det är länge, men okej. Fredag går bra. Vilken tid kommer han?", expected_answer_en: "That's a long time, but okay. Friday works. What time will he come?", hint_en: "Accept, but ask for the time window.", options: null }
     ]
   },
+  "Beställa hemleverans av mat": {
+    description_en: "Call a grocery service to ask about home delivery times, minimum order, and payment.",
+    opener_sv: "Hej, du har kommit till Matkassen! Vad kan jag hjälpa dig med?",
+    opener_en: "Hi, you have reached Matkassen! What can I help you with?",
+    goal: "Find out delivery times, minimum order, and payment options, and place a first order.",
+    success_criteria: [
+      "Ask which days and times they deliver to your area",
+      "Ask about the minimum order and the delivery fee",
+      "Ask how to pay and choose a delivery window"
+    ],
+    curveballs: [
+      "She asks for your postcode to check if they deliver to your area",
+      "The evening slots are full and she offers a morning delivery",
+      "She mentions the delivery is free over a certain amount"
+    ],
+    cultural_notes: "Grocery delivery is very common in Sweden and almost everyone pays by card or Swish — cash is rarely an option.",
+    suggested_vocab: ["hemleverans", "leveranstid", "postnummer", "minsta beställning", "avgift", "betala med kort"],
+    key_vocabulary: [
+      { swedish: "hemleverans", english: "home delivery", example_sv: "Har ni hemleverans i mitt område?", example_en: "Do you have home delivery in my area?", pronunciation_tip: "HEM-le-ve-rans, stress the first syllable." },
+      { swedish: "postnummer", english: "postcode", example_sv: "Mitt postnummer är ett två tre fyra fem.", example_en: "My postcode is one two three four five.", pronunciation_tip: "POST-noommer." },
+      { swedish: "avgift", english: "fee", example_sv: "Hur stor är avgiften för leverans?", example_en: "How big is the delivery fee?", pronunciation_tip: "AHV-yift — the g sounds like y." },
+      { swedish: "beställning", english: "order", example_sv: "Finns det en minsta beställning?", example_en: "Is there a minimum order?", pronunciation_tip: "beh-STELL-ning." },
+      { swedish: "leverera", english: "to deliver", example_sv: "Vilka dagar levererar ni?", example_en: "Which days do you deliver?", pronunciation_tip: "le-ve-REH-ra, stress near the end." },
+      { swedish: "Swish", english: "Swish (Swedish payment app)", example_sv: "Kan jag betala med Swish?", example_en: "Can I pay with Swish?", pronunciation_tip: "Said like English 'swish'." }
+    ],
+    key_phrases: [
+      { situation_en: "Asking if they deliver to you", phrase_sv: "Hej! Levererar ni hem till Solvägen i Uppsala?", phrase_en: "Hi! Do you deliver to Solvägen in Uppsala?", pronunciation_tip: "'Levererar ni' — verb first in a yes/no question." },
+      { situation_en: "Asking about delivery times", phrase_sv: "Vilka dagar och tider kan man få leverans?", phrase_en: "Which days and times can you get a delivery?", pronunciation_tip: "'Man' here means 'one/you' in general." },
+      { situation_en: "Asking about minimum order", phrase_sv: "Finns det någon minsta beställning, och vad kostar leveransen?", phrase_en: "Is there any minimum order, and what does the delivery cost?", pronunciation_tip: "'Minsta' = smallest." },
+      { situation_en: "Asking about payment", phrase_sv: "Hur betalar man — med kort eller Swish?", phrase_en: "How do you pay — by card or Swish?", pronunciation_tip: "'Betalar' = beh-TAH-lar." },
+      { situation_en: "Choosing a time window", phrase_sv: "Då tar jag torsdag mellan sjutton och tjugo, tack.", phrase_en: "Then I'll take Thursday between five and eight pm, thanks.", pronunciation_tip: "Swedes often use the 24-hour clock: 'sjutton' = 17." }
+    ],
+    rehearsal_drills: [
+      { type: "gap_fill", prompt_sv: "Finns det någon minsta ___ för hemleverans?", prompt_en: "Is there any minimum ___ for home delivery?", expected_answer_sv: "beställning", expected_answer_en: "order", options: ["beställning", "våning", "tidning", "räkning"], hint_en: "What you place when you buy something.", },
+      { type: "quick_response", prompt_sv: "Vad har du för postnummer, så kollar jag om vi levererar dit?", prompt_en: "What is your postcode, so I can check if we deliver there?", expected_answer_sv: "Det är sju fem tre två ett.", expected_answer_en: "It's seven five three two one.", hint_en: "Say the five digits one by one.", options: null },
+      { type: "quick_response", prompt_sv: "Kvällstiderna på torsdag är fulla. Fungerar en leverans på förmiddagen i stället?", prompt_en: "The evening slots on Thursday are full. Would a morning delivery work instead?", expected_answer_sv: "Ja, det går bra. Mellan nio och tolv passar mig.", expected_answer_en: "Yes, that's fine. Between nine and twelve suits me.", hint_en: "Accept and pick a time window.", options: null }
+    ]
+  },
+  "Prova kläder i butik": {
+    description_en: "Ask a shop assistant for a bigger size, try the jacket on, and decide whether to buy it.",
+    opener_sv: "Hej! Går det bra, eller behöver du hjälp med något?",
+    opener_en: "Hi! Are you doing okay, or do you need help with anything?",
+    goal: "Get the right size jacket, try it on, and decide if you want to buy it.",
+    success_criteria: [
+      "Ask for the jacket in a bigger size",
+      "Ask where the fitting rooms are and try it on",
+      "Say how it fits and decide to buy it or not"
+    ],
+    curveballs: [
+      "The bigger size is sold out in that colour, but exists in another colour",
+      "The assistant asks if you want to become a member for a discount",
+      "She offers to order the size to the store or online"
+    ],
+    cultural_notes: "In Swedish shops the staff usually leave you alone until you ask — saying 'Jag vill bara titta' (I'm just looking) is a normal, polite phrase.",
+    suggested_vocab: ["storlek", "provrum", "för liten", "en större", "passar", "slutsåld"],
+    key_vocabulary: [
+      { swedish: "storlek", english: "size", example_sv: "Har ni den här i en större storlek?", example_en: "Do you have this in a bigger size?", pronunciation_tip: "STOOR-lehk, stress first syllable." },
+      { swedish: "provrum", english: "fitting room", example_sv: "Var ligger provrummen?", example_en: "Where are the fitting rooms?", pronunciation_tip: "PROOV-room." },
+      { swedish: "prova", english: "to try on", example_sv: "Kan jag prova den här jackan?", example_en: "Can I try on this jacket?", pronunciation_tip: "PROO-va, long o." },
+      { swedish: "passa", english: "to fit", example_sv: "Den passar perfekt!", example_en: "It fits perfectly!", pronunciation_tip: "PAS-sa, short a." },
+      { swedish: "för liten", english: "too small", example_sv: "Den här är tyvärr för liten.", example_en: "This one is unfortunately too small.", pronunciation_tip: "'För' + adjective = 'too ...'." },
+      { swedish: "slutsåld", english: "sold out", example_sv: "Den storleken är tyvärr slutsåld.", example_en: "That size is unfortunately sold out.", pronunciation_tip: "SLOOT-sold." }
+    ],
+    key_phrases: [
+      { situation_en: "Asking for a bigger size", phrase_sv: "Ursäkta, har ni den här jackan i medium?", phrase_en: "Excuse me, do you have this jacket in medium?", pronunciation_tip: "'Ursäkta' = ur-SHECK-ta, to get attention politely." },
+      { situation_en: "Asking for the fitting room", phrase_sv: "Var kan jag prova den?", phrase_en: "Where can I try it on?", pronunciation_tip: "Short and simple works best." },
+      { situation_en: "Saying it doesn't fit", phrase_sv: "Den är lite för trång över axlarna.", phrase_en: "It's a bit too tight over the shoulders.", pronunciation_tip: "'Trång' = trong, means 'tight'." },
+      { situation_en: "Deciding to buy", phrase_sv: "Den här passar bra — jag tar den!", phrase_en: "This one fits well — I'll take it!", pronunciation_tip: "'Jag tar den' = I'll take it." },
+      { situation_en: "Declining politely", phrase_sv: "Nej tack, jag funderar lite till.", phrase_en: "No thanks, I'll think about it a bit more.", pronunciation_tip: "'Funderar' = foon-DEH-rar, means 'thinking it over'." }
+    ],
+    rehearsal_drills: [
+      { type: "gap_fill", prompt_sv: "Ursäkta, har ni den här jackan i en större ___?", prompt_en: "Excuse me, do you have this jacket in a bigger ___?", expected_answer_sv: "storlek", expected_answer_en: "size", options: ["storlek", "färg", "påse", "vecka"], hint_en: "S, M, L...", },
+      { type: "quick_response", prompt_sv: "Medium är tyvärr slutsåld i svart, men vi har den i mörkblått. Vill du prova?", prompt_en: "Medium is unfortunately sold out in black, but we have it in dark blue. Do you want to try it?", expected_answer_sv: "Ja, varför inte? Jag kan prova den mörkblå.", expected_answer_en: "Yes, why not? I can try the dark blue one.", hint_en: "'Varför inte?' is a relaxed way to say yes.", options: null },
+      { type: "quick_response", prompt_sv: "Vill du bli medlem? Då får du tio procent rabatt i dag.", prompt_en: "Do you want to become a member? Then you get ten percent off today.", expected_answer_sv: "Nej tack, det är bra ändå. Jag tar bara jackan.", expected_answer_en: "No thanks, I'm fine anyway. I'll just take the jacket.", hint_en: "Decline the offer politely with 'nej tack'.", options: null }
+    ]
+  },
+  "Klaga hos hyresvärden om buller": {
+    description_en: "Call your landlord to complain about neighbours who have loud parties every weekend.",
+    opener_sv: "Fastighetskontoret, hej! Vad kan jag hjälpa dig med?",
+    opener_en: "The property office, hello! What can I help you with?",
+    goal: "Describe the noise problem clearly and find out what the landlord will do.",
+    success_criteria: [
+      "Explain what the noise is, when it happens, and how often",
+      "Say how it affects you, for example that you cannot sleep",
+      "Ask what the landlord will do and what happens next"
+    ],
+    curveballs: [
+      "The landlord asks if you have talked to the neighbours yourself",
+      "She asks for exact dates and times, so she can document it",
+      "She asks which apartment the noise comes from"
+    ],
+    cultural_notes: "In Swedish apartment buildings there is usually quiet time ('nattro') from around 10 pm, and landlords want written, dated examples before they act.",
+    suggested_vocab: ["buller", "grannarna", "fest", "varje helg", "sova", "störa"],
+    key_vocabulary: [
+      { swedish: "buller", english: "noise", example_sv: "Det är mycket buller på helgerna.", example_en: "There is a lot of noise on weekends.", pronunciation_tip: "BULL-er, short u." },
+      { swedish: "granne", english: "neighbour", example_sv: "Mina grannar har fest varje helg.", example_en: "My neighbours have a party every weekend.", pronunciation_tip: "GRAN-neh; plural 'grannar'." },
+      { swedish: "störa", english: "to disturb", example_sv: "Musiken stör hela huset.", example_en: "The music disturbs the whole building.", pronunciation_tip: "STUR-a with rounded ö." },
+      { swedish: "hög musik", english: "loud music", example_sv: "De spelar hög musik till klockan tre.", example_en: "They play loud music until three o'clock.", pronunciation_tip: "'Hög' = hug with rounded ö, means 'loud/high'." },
+      { swedish: "somna", english: "to fall asleep", example_sv: "Barnen kan inte somna på fredagarna.", example_en: "The children can't fall asleep on Fridays.", pronunciation_tip: "SOM-na, short o." },
+      { swedish: "anteckna", english: "to write down / note", example_sv: "Jag har antecknat datum och tider.", example_en: "I have written down dates and times.", pronunciation_tip: "AN-teck-na, stress first syllable." }
+    ],
+    key_phrases: [
+      { situation_en: "Explaining the problem", phrase_sv: "Jag ringer för att mina grannar har högljudda fester varje helg.", phrase_en: "I'm calling because my neighbours have loud parties every weekend.", pronunciation_tip: "'Högljudda' = HUG-yood-da, means 'loud'." },
+      { situation_en: "Saying how it affects you", phrase_sv: "Musiken håller på till tre på natten, så vi kan inte sova.", phrase_en: "The music goes on until three at night, so we can't sleep.", pronunciation_tip: "'Håller på' = keeps going." },
+      { situation_en: "Saying you already tried talking", phrase_sv: "Jag har pratat med dem två gånger, men det hjälper inte.", phrase_en: "I have talked to them twice, but it doesn't help.", pronunciation_tip: "'Gånger' = GONG-er, means 'times'." },
+      { situation_en: "Giving documented examples", phrase_sv: "I fredags spelade de hög musik från elva till halv tre.", phrase_en: "Last Friday they played loud music from eleven to half past two.", pronunciation_tip: "'I fredags' = last Friday." },
+      { situation_en: "Asking what happens now", phrase_sv: "Vad kan ni göra åt det här? Kan ni skicka en varning?", phrase_en: "What can you do about this? Can you send a warning?", pronunciation_tip: "'Göra åt' = do about." }
+    ],
+    rehearsal_drills: [
+      { type: "gap_fill", prompt_sv: "Mina grannar har fest varje helg, och musiken ___ hela huset.", prompt_en: "My neighbours have a party every weekend, and the music ___ the whole building.", expected_answer_sv: "stör", expected_answer_en: "disturbs", options: ["stör", "städar", "målar", "köper"], hint_en: "What loud noise does to your sleep.", },
+      { type: "quick_response", prompt_sv: "Har du pratat med grannarna själv om det här?", prompt_en: "Have you talked to the neighbours yourself about this?", expected_answer_sv: "Ja, två gånger, men det blir ingen skillnad.", expected_answer_en: "Yes, twice, but it makes no difference.", hint_en: "'Ingen skillnad' = no difference.", options: null },
+      { type: "quick_response", prompt_sv: "Kan du ge mig några exakta datum och tider? Vi behöver dokumentera det.", prompt_en: "Can you give me some exact dates and times? We need to document it.", expected_answer_sv: "Ja, i fredags spelade de hög musik från elva till halv tre på natten.", expected_answer_en: "Yes, last Friday they played loud music from eleven to half past two at night.", hint_en: "Give one concrete example with day and times.", options: null }
+    ]
+  },
+  "Byta pengar på Forex": {
+    description_en: "Exchange 200 euros for Swedish crowns and check the rate and the fee first.",
+    opener_sv: "Hej! Vad kan jag hjälpa dig med i dag?",
+    opener_en: "Hi! What can I help you with today?",
+    goal: "Change 200 euros to crowns, knowing the rate and fee before you say yes.",
+    success_criteria: [
+      "Say that you want to change 200 euros to Swedish crowns",
+      "Ask about today's exchange rate and the fee",
+      "Confirm how much you will get and complete the exchange"
+    ],
+    curveballs: [
+      "The clerk asks to see your ID for the exchange",
+      "She offers a better rate if you exchange a larger amount",
+      "She asks if you want the money in small or large notes"
+    ],
+    cultural_notes: "Sweden is nearly cashless, so the clerk may gently ask if you really need cash — cards work almost everywhere.",
+    suggested_vocab: ["växla", "euro", "kronor", "växelkurs", "avgift", "sedlar"],
+    key_vocabulary: [
+      { swedish: "växla", english: "to exchange (money)", example_sv: "Jag vill växla tvåhundra euro.", example_en: "I want to exchange two hundred euros.", pronunciation_tip: "VEX-la." },
+      { swedish: "växelkurs", english: "exchange rate", example_sv: "Vad är växelkursen i dag?", example_en: "What is the exchange rate today?", pronunciation_tip: "VEX-el-koosh — 'rs' becomes a sh-sound." },
+      { swedish: "avgift", english: "fee", example_sv: "Tar ni någon avgift?", example_en: "Do you charge a fee?", pronunciation_tip: "AHV-yift, the g sounds like y." },
+      { swedish: "kronor", english: "crowns (SEK)", example_sv: "Hur många kronor får jag?", example_en: "How many crowns do I get?", pronunciation_tip: "KROO-nor, long o." },
+      { swedish: "sedel", english: "banknote", example_sv: "Kan jag få små sedlar, tack?", example_en: "Can I have small notes, please?", pronunciation_tip: "SEH-del; plural 'sedlar'." },
+      { swedish: "sammanlagt", english: "in total", example_sv: "Hur mycket blir det sammanlagt?", example_en: "How much is it in total?", pronunciation_tip: "SAM-man-lagt." }
+    ],
+    key_phrases: [
+      { situation_en: "Stating what you want", phrase_sv: "Hej! Jag skulle vilja växla tvåhundra euro till svenska kronor.", phrase_en: "Hi! I would like to exchange two hundred euros to Swedish crowns.", pronunciation_tip: "'Tvåhundra' = TVOH-hoon-dra." },
+      { situation_en: "Asking about the rate", phrase_sv: "Vad är kursen i dag?", phrase_en: "What is the rate today?", pronunciation_tip: "'Kursen' = KOOSH-en." },
+      { situation_en: "Asking about the fee", phrase_sv: "Tillkommer det någon avgift?", phrase_en: "Is there an additional fee?", pronunciation_tip: "'Tillkommer' = is added on top." },
+      { situation_en: "Checking the total", phrase_sv: "Så hur mycket får jag sammanlagt i kronor?", phrase_en: "So how much do I get in total in crowns?", pronunciation_tip: "Always check the total before you agree." },
+      { situation_en: "Completing the exchange", phrase_sv: "Det låter bra. Då växlar jag, och gärna små sedlar.", phrase_en: "That sounds good. Then I'll exchange, and preferably small notes.", pronunciation_tip: "'Det låter bra' = that sounds good." }
+    ],
+    rehearsal_drills: [
+      { type: "gap_fill", prompt_sv: "Jag skulle vilja ___ tvåhundra euro till svenska kronor.", prompt_en: "I would like to ___ two hundred euros to Swedish crowns.", expected_answer_sv: "växla", expected_answer_en: "exchange", options: ["växla", "låna", "räkna", "tappa"], hint_en: "What you do with money at Forex.", },
+      { type: "quick_response", prompt_sv: "Kan jag få se din legitimation, tack?", prompt_en: "Can I see your ID, please?", expected_answer_sv: "Javisst, här är mitt pass.", expected_answer_en: "Of course, here is my passport.", hint_en: "Agree and hand over an ID document.", options: null },
+      { type: "quick_response", prompt_sv: "Vill du ha pengarna i stora eller små sedlar?", prompt_en: "Do you want the money in large or small notes?", expected_answer_sv: "Små sedlar, tack. Det är lättare att betala med dem.", expected_answer_en: "Small notes, please. It's easier to pay with them.", hint_en: "Choose one and give a short reason.", options: null }
+    ]
+  },
+  "Boka gymkort": {
+    description_en: "Sign up for a gym membership after comparing plans, prices, and cancellation rules.",
+    opener_sv: "Hej och välkommen! Är det första gången du är här?",
+    opener_en: "Hello and welcome! Is it your first time here?",
+    goal: "Choose a membership plan and sign up, knowing the price and how to cancel.",
+    success_criteria: [
+      "Ask about the different membership plans and prices",
+      "Ask about contract length and how to cancel",
+      "Choose a plan and sign up"
+    ],
+    curveballs: [
+      "She offers a cheaper plan that requires a twelve-month contract",
+      "She asks if you want to add group classes for extra money",
+      "She mentions a start-up fee you didn't expect"
+    ],
+    cultural_notes: "Swedish gym contracts often have a binding period ('bindningstid') and one month's notice, so always ask about 'uppsägningstid' before signing.",
+    suggested_vocab: ["gymkort", "medlemskap", "per månad", "bindningstid", "säga upp", "gruppass"],
+    key_vocabulary: [
+      { swedish: "medlemskap", english: "membership", example_sv: "Vad kostar ett medlemskap per månad?", example_en: "What does a membership cost per month?", pronunciation_tip: "MED-lems-kahp." },
+      { swedish: "bindningstid", english: "binding period", example_sv: "Hur lång är bindningstiden?", example_en: "How long is the binding period?", pronunciation_tip: "BIND-nings-teed." },
+      { swedish: "säga upp", english: "to cancel (a contract)", example_sv: "Hur säger jag upp kortet om jag flyttar?", example_en: "How do I cancel the card if I move?", pronunciation_tip: "Stress the particle: säga UPP." },
+      { swedish: "uppsägningstid", english: "notice period", example_sv: "Ni har en månads uppsägningstid.", example_en: "You have one month's notice period.", pronunciation_tip: "UPP-sayg-nings-teed — long but useful." },
+      { swedish: "gruppass", english: "group classes", example_sv: "Ingår gruppass i priset?", example_en: "Are group classes included in the price?", pronunciation_tip: "GROOP-pass." },
+      { swedish: "startavgift", english: "start-up fee", example_sv: "Tillkommer det en startavgift?", example_en: "Is there an additional start-up fee?", pronunciation_tip: "START-ahv-yift." }
+    ],
+    key_phrases: [
+      { situation_en: "Saying why you are there", phrase_sv: "Hej! Jag skulle vilja skaffa ett gymkort.", phrase_en: "Hi! I would like to get a gym membership.", pronunciation_tip: "'Skaffa' = to get/acquire." },
+      { situation_en: "Comparing plans", phrase_sv: "Vad är skillnaden mellan de olika medlemskapen?", phrase_en: "What is the difference between the different memberships?", pronunciation_tip: "'Skillnaden' = HWILL-na-den, soft sk before i." },
+      { situation_en: "Asking about cancellation", phrase_sv: "Hur lång är bindningstiden, och hur säger man upp?", phrase_en: "How long is the binding period, and how do you cancel?", pronunciation_tip: "Ask this before you sign anything." },
+      { situation_en: "Reacting to hidden fees", phrase_sv: "Oj, en startavgift också? Det visste jag inte.", phrase_en: "Oh, a start-up fee too? I didn't know that.", pronunciation_tip: "'Oj' is the natural Swedish 'oh/oops'." },
+      { situation_en: "Signing up", phrase_sv: "Då tar jag månadskortet utan bindningstid, tack.", phrase_en: "Then I'll take the monthly card without a binding period, thanks.", pronunciation_tip: "'Utan' = without." }
+    ],
+    rehearsal_drills: [
+      { type: "gap_fill", prompt_sv: "Hur lång är ___ om jag väljer det billigare kortet?", prompt_en: "How long is the ___ if I choose the cheaper card?", expected_answer_sv: "bindningstiden", expected_answer_en: "the binding period", options: ["bindningstiden", "öppettiden", "lunchen", "semestern"], hint_en: "The time you must stay in the contract.", },
+      { type: "quick_response", prompt_sv: "Det billigare kortet har tolv månaders bindningstid. Är det okej för dig?", prompt_en: "The cheaper card has a twelve-month binding period. Is that okay for you?", expected_answer_sv: "Nej, jag tar hellre kortet utan bindningstid, även om det kostar mer.", expected_answer_en: "No, I'd rather take the card without a binding period, even if it costs more.", hint_en: "'Hellre' = rather. Choose flexibility.", options: null },
+      { type: "quick_response", prompt_sv: "Vill du lägga till gruppass för hundra kronor extra i månaden?", prompt_en: "Do you want to add group classes for a hundred kronor extra per month?", expected_answer_sv: "Nej tack, inte just nu. Jag kanske lägger till det senare.", expected_answer_en: "No thanks, not right now. Maybe I'll add it later.", hint_en: "Decline but leave the door open with 'kanske senare'.", options: null }
+    ]
+  },
 };
