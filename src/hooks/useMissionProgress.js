@@ -39,15 +39,15 @@ export function useMissionProgress() {
   const ordered = sortMissions(allMissions);
   const completedIds = new Set((completionsQuery.data || []).map((c) => c.mission_id));
 
-  // Strict linear unlock: everything before the first uncompleted is done,
-  // that first uncompleted is the "current" (unlocked) one, everything after is locked.
+  // All missions are unlocked for everyone. The "current" one is still the first
+  // uncompleted mission (used for the "continue" CTA), but nothing is ever locked.
   const firstUncompletedIdx = ordered.findIndex((m) => !completedIds.has(m.id));
   const currentIdx = firstUncompletedIdx === -1 ? ordered.length : firstUncompletedIdx;
 
   const items = ordered.map((m, idx) => ({
     mission: m,
     completed: completedIds.has(m.id),
-    unlocked: idx <= currentIdx,
+    unlocked: true,
     isCurrent: idx === currentIdx,
   }));
 
