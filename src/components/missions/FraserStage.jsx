@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Volume2, Mic, ArrowRight, ArrowLeft, Check } from "lucide-react";
+import { Volume2, Turtle, ArrowRight, ArrowLeft } from "lucide-react";
 import { playAudio } from "@/lib/speech";
 import { cn } from "@/lib/utils";
+import SpeakOrTypeInput from "./SpeakOrTypeInput";
 
-// Stage 3 — Fraser (Key phrases with audio + shadowing option).
+// Stage 3 — Fraser. User hears the phrase, then must SHADOW it (or type it).
 export default function FraserStage({ topic, onNext, onBack }) {
   const phrases = topic.key_phrases || [];
   const [index, setIndex] = useState(0);
+  const [attempted, setAttempted] = useState(false);
 
   if (phrases.length === 0) {
     return (
@@ -25,8 +27,12 @@ export default function FraserStage({ topic, onNext, onBack }) {
   const isLast = index === phrases.length - 1;
 
   const advance = () => {
-    if (isLast) onNext();
-    else setIndex((i) => i + 1);
+    if (isLast) {
+      onNext();
+    } else {
+      setIndex((i) => i + 1);
+      setAttempted(false);
+    }
   };
 
   return (
@@ -54,29 +60,25 @@ export default function FraserStage({ topic, onNext, onBack }) {
           )}
 
           <div className="space-y-2 border-t border-border/50 pt-3">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">🇸🇪 Svenska</p>
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">🇸🇪 Säg efter</p>
             <p className="font-display text-xl sm:text-2xl font-semibold leading-snug">
               "{current.phrase_sv}"
             </p>
-          </div>
-
-          <div className="space-y-1">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">🇬🇧 English</p>
-            <p className="text-sm text-muted-foreground italic">"{current.phrase_en}"</p>
+            <p className="text-xs text-muted-foreground italic">"{current.phrase_en}"</p>
           </div>
 
           {current.pronunciation_tip && (
-            <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-md p-3">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-400 mb-1">
-                💡 Uttal
+            <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-md p-2.5">
+              <p className="text-[11px] text-blue-900 dark:text-blue-200">
+                💡 {current.pronunciation_tip}
               </p>
-              <p className="text-xs text-blue-900 dark:text-blue-200">{current.pronunciation_tip}</p>
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-2 pt-2">
+          <div className="grid grid-cols-2 gap-2">
             <Button
               variant="outline"
+              size="sm"
               onClick={() => playAudio(current.phrase_sv, "sv-SE", 0.9)}
               className="gap-1.5"
             >
@@ -85,22 +87,36 @@ export default function FraserStage({ topic, onNext, onBack }) {
             </Button>
             <Button
               variant="outline"
+              size="sm"
               onClick={() => playAudio(current.phrase_sv, "sv-SE", 0.65)}
               className="gap-1.5"
             >
-              <Mic className="w-4 h-4" />
+              <Turtle className="w-4 h-4" />
               Långsamt
             </Button>
+          </div>
+
+          <div className="border-t border-border/50 pt-3">
+            <SpeakOrTypeInput
+              key={index}
+              expected={current.phrase_sv}
+              threshold={60}
+              placeholder="Skriv frasen på svenska…"
+              onResult={() => setAttempted(true)}
+              onSkip={() => setAttempted(true)}
+            />
           </div>
         </CardContent>
       </Card>
 
-      <Button onClick={advance} className="w-full gap-1.5">
-        {isLast ? "Klart — till övningen" : "Nästa fras"}
-        {isLast ? <Check className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
-      </Button>
+      {attempted && (
+        <Button onClick={advance} className="w-full gap-1.5">
+          {isLast ? "Klart — till övningen" : "Nästa fras"}
+          <ArrowRight className="w-4 h-4" />
+        </Button>
+      )}
 
-      <div className="flex justify-between pt-2">
+      <div className="flex justify-between pt-1">
         <Button variant="ghost" size="sm" onClick={onBack} className="gap-1 text-muted-foreground">
           <ArrowLeft className="w-4 h-4" />
           Tillbaka

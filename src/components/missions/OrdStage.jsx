@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Volume2, ArrowRight, ArrowLeft, RotateCcw, Check } from "lucide-react";
+import { Volume2, ArrowRight, ArrowLeft } from "lucide-react";
 import { playAudio } from "@/lib/speech";
 import { cn } from "@/lib/utils";
+import SpeakOrTypeInput from "./SpeakOrTypeInput";
 
-// Stage 2 — Ord (Vocabulary flashcards). User flips each card, marks known/unsure.
+// Stage 2 — Ord. User HEARS each word, then SAYS it back. Advances only after
+// they've attempted the word (correctly, or after revealing the answer).
 export default function OrdStage({ topic, onNext, onBack }) {
   const words = topic.key_vocabulary || [];
   const [index, setIndex] = useState(0);
-  const [flipped, setFlipped] = useState(false);
+  const [attempted, setAttempted] = useState(false);
 
   if (words.length === 0) {
-    // Nothing to learn — skip straight through
     return (
       <div className="space-y-4">
         <p className="text-center text-sm text-muted-foreground">
@@ -31,14 +32,11 @@ export default function OrdStage({ topic, onNext, onBack }) {
       onNext();
     } else {
       setIndex((i) => i + 1);
-      setFlipped(false);
+      setAttempted(false);
     }
   };
 
-  const handleSpeak = (e) => {
-    e.stopPropagation();
-    playAudio(current.swedish, "sv-SE", 0.9);
-  };
+  const handleSpeak = () => playAudio(current.swedish, "sv-SE", 0.9);
 
   return (
     <div className="space-y-4">
@@ -53,55 +51,57 @@ export default function OrdStage({ topic, onNext, onBack }) {
         </div>
       </div>
 
-      <Card
-        className="min-h-[280px] cursor-pointer border-2 hover:border-primary/50 transition-colors"
-        onClick={() => setFlipped((f) => !f)}
-      >
-        <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full min-h-[280px]">
-          {!flipped ? (
-            <div className="space-y-4">
-              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Svenska</p>
-              <p className="font-display text-3xl sm:text-4xl font-bold">{current.swedish}</p>
-              <Button variant="ghost" size="sm" onClick={handleSpeak} className="gap-1.5">
-                <Volume2 className="w-4 h-4" />
-                Uttala
-              </Button>
-              <p className="text-xs text-muted-foreground pt-4 italic">Tryck för att se översättning</p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">English</p>
-              <p className="text-2xl font-semibold">{current.english}</p>
-              {current.example_sv && (
-                <div className="pt-3 space-y-1 border-t border-border/50 mt-3 w-full">
-                  <p className="text-sm font-medium">"{current.example_sv}"</p>
-                  {current.example_en && (
-                    <p className="text-xs text-muted-foreground italic">{current.example_en}</p>
-                  )}
-                </div>
-              )}
-              {current.pronunciation_tip && (
-                <p className="text-[11px] text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 px-2 py-1 rounded mt-2">
-                  💡 {current.pronunciation_tip}
-                </p>
+      <Card className="border-2">
+        <CardContent className="p-5 space-y-4 text-center">
+          <div>
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Betyder</p>
+            <p className="text-lg font-semibold">{current.english}</p>
+          </div>
+
+          <div className="border-t border-border/50 pt-4">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">Säg det på svenska</p>
+            <p className="font-display text-2xl sm:text-3xl font-bold mb-1">{current.swedish}</p>
+            <Button variant="ghost" size="sm" onClick={handleSpeak} className="gap-1.5">
+              <Volume2 className="w-4 h-4" />
+              Lyssna först
+            </Button>
+          </div>
+
+          {current.pronunciation_tip && (
+            <p className="text-[11px] text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 px-2 py-1.5 rounded">
+              💡 {current.pronunciation_tip}
+            </p>
+          )}
+
+          <SpeakOrTypeInput
+            key={index}
+            expected={current.swedish}
+            threshold={65}
+            placeholder="Skriv ordet på svenska…"
+            onResult={() => setAttempted(true)}
+            onSkip={() => setAttempted(true)}
+          />
+
+          {current.example_sv && (
+            <div className="pt-2 border-t border-border/50 text-left">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Exempel</p>
+              <p className="text-sm font-medium">"{current.example_sv}"</p>
+              {current.example_en && (
+                <p className="text-xs text-muted-foreground italic">"{current.example_en}"</p>
               )}
             </div>
           )}
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-2 gap-2">
-        <Button variant="outline" onClick={() => setFlipped(false)} className="gap-1.5">
-          <RotateCcw className="w-4 h-4" />
-          Öva igen
+      {attempted && (
+        <Button onClick={advance} className="w-full gap-1.5">
+          {isLast ? "Klart — till fraser" : "Nästa ord"}
+          <ArrowRight className="w-4 h-4" />
         </Button>
-        <Button onClick={advance} className="gap-1.5">
-          <Check className="w-4 h-4" />
-          Jag kan
-        </Button>
-      </div>
+      )}
 
-      <div className="flex justify-between pt-2">
+      <div className="flex justify-between pt-1">
         <Button variant="ghost" size="sm" onClick={onBack} className="gap-1 text-muted-foreground">
           <ArrowLeft className="w-4 h-4" />
           Briefing

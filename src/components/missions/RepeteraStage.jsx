@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Volume2, ArrowRight, ArrowLeft, Check, X, Lightbulb } from "lucide-react";
+import { Volume2, ArrowRight, ArrowLeft, Check, Lightbulb } from "lucide-react";
 import { playAudio } from "@/lib/speech";
 import { cn } from "@/lib/utils";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
+import SpeakOrTypeInput from "./SpeakOrTypeInput";
 
 // Stage 4 — Repetera. Rehearsal drills (gap_fill + quick_response) before going live.
-// Failures don't penalise — this is warm-up.
+// Gap-fill uses multiple choice tapping. Quick-response requires speaking or typing.
 export default function RepeteraStage({ topic, onNext, onBack }) {
   const drills = topic.rehearsal_drills || [];
   const [index, setIndex] = useState(0);
-  const [answer, setAnswer] = useState("");
-  const [checked, setChecked] = useState(false);
+  // gap_fill local state
+  const [gapAnswer, setGapAnswer] = useState("");
+  const [gapChecked, setGapChecked] = useState(false);
+  // quick_response uses SpeakOrTypeInput's internal state; parent tracks attempted
+  const [qrAttempted, setQrAttempted] = useState(false);
 
   if (drills.length === 0) {
     return (
@@ -28,18 +32,22 @@ export default function RepeteraStage({ topic, onNext, onBack }) {
   const current = drills[index];
   const isLast = index === drills.length - 1;
   const expected = current.expected_answer_sv || "";
-  const isCorrect =
-    checked && normalizeAnswer(answer) === normalizeAnswer(expected);
+  const gapIsCorrect =
+    gapChecked && normalizeAnswer(gapAnswer) === normalizeAnswer(expected);
 
   const advance = () => {
     if (isLast) {
       onNext();
     } else {
       setIndex((i) => i + 1);
-      setAnswer("");
-      setChecked(false);
+      setGapAnswer("");
+      setGapChecked(false);
+      setQrAttempted(false);
     }
   };
+
+  const canAdvance =
+    current.type === "gap_fill" ? gapChecked : qrAttempted;
 
   return (
     <div className="space-y-4">
@@ -57,73 +65,73 @@ export default function RepeteraStage({ topic, onNext, onBack }) {
       <Card className="border-2 border-emerald-200 dark:border-emerald-900">
         <CardContent className="p-5 space-y-4">
           {current.type === "gap_fill" ? (
-            <GapFillDrill
-              drill={current}
-              answer={answer}
-              setAnswer={setAnswer}
-              checked={checked}
-              isCorrect={isCorrect}
-            />
+            <>
+              <GapFillDrill
+                drill={current}
+                answer={gapAnswer}
+                setAnswer={setGapAnswer}
+                checked={gapChecked}
+                isCorrect={gapIsCorrect}
+              />
+              {gapChecked && (
+                <div
+                  className={cn(
+                    "rounded-md p-3 border text-sm",
+                    gapIsCorrect
+                      ? "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800"
+                      : "bg-amber-50 dark:bg-amber-950/30 border-amber-300 dark:border-amber-800"
+                  )}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    {gapIsCorrect ? (
+                      <>
+                        <Check className="w-4 h-4 text-emerald-600" />
+                        <span className="font-semibold text-emerald-800 dark:text-emerald-300">Rätt!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Lightbulb className="w-4 h-4 text-amber-600" />
+                        <span className="font-semibold text-amber-800 dark:text-amber-300">Nästan</span>
+                      </>
+                    )}
+                  </div>
+                  <p className="text-xs">
+                    <span className="font-semibold">Rätt svar:</span>{" "}
+                    <span className="italic">"{expected}"</span>
+                  </p>
+                  {current.expected_answer_en && (
+                    <p className="text-xs text-muted-foreground italic mt-0.5">"{current.expected_answer_en}"</p>
+                  )}
+                </div>
+              )}
+              {!gapChecked && (
+                <Button
+                  onClick={() => setGapChecked(true)}
+                  disabled={!gapAnswer.trim()}
+                  className="w-full"
+                >
+                  Kontrollera
+                </Button>
+              )}
+            </>
           ) : (
             <QuickResponseDrill
+              key={index}
               drill={current}
-              answer={answer}
-              setAnswer={setAnswer}
-              checked={checked}
-              isCorrect={isCorrect}
+              onAttempted={() => setQrAttempted(true)}
             />
-          )}
-
-          {checked && (
-            <div
-              className={cn(
-                "rounded-md p-3 border text-sm",
-                isCorrect
-                  ? "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800"
-                  : "bg-amber-50 dark:bg-amber-950/30 border-amber-300 dark:border-amber-800"
-              )}
-            >
-              <div className="flex items-center gap-2 mb-1">
-                {isCorrect ? (
-                  <>
-                    <Check className="w-4 h-4 text-emerald-600" />
-                    <span className="font-semibold text-emerald-800 dark:text-emerald-300">Rätt!</span>
-                  </>
-                ) : (
-                  <>
-                    <Lightbulb className="w-4 h-4 text-amber-600" />
-                    <span className="font-semibold text-amber-800 dark:text-amber-300">Nästan</span>
-                  </>
-                )}
-              </div>
-              <p className="text-xs">
-                <span className="font-semibold">Ett bra svar:</span>{" "}
-                <span className="italic">"{expected}"</span>
-              </p>
-              {current.expected_answer_en && (
-                <p className="text-xs text-muted-foreground italic mt-0.5">"{current.expected_answer_en}"</p>
-              )}
-            </div>
-          )}
-
-          {!checked ? (
-            <Button
-              onClick={() => setChecked(true)}
-              disabled={!answer.trim()}
-              className="w-full"
-            >
-              Kontrollera
-            </Button>
-          ) : (
-            <Button onClick={advance} className="w-full gap-1.5">
-              {isLast ? "Klart — till Svea!" : "Nästa övning"}
-              <ArrowRight className="w-4 h-4" />
-            </Button>
           )}
         </CardContent>
       </Card>
 
-      <div className="flex justify-between pt-2">
+      {canAdvance && (
+        <Button onClick={advance} className="w-full gap-1.5">
+          {isLast ? "Klart — till Svea!" : "Nästa övning"}
+          <ArrowRight className="w-4 h-4" />
+        </Button>
+      )}
+
+      <div className="flex justify-between pt-1">
         <Button variant="ghost" size="sm" onClick={onBack} className="gap-1 text-muted-foreground">
           <ArrowLeft className="w-4 h-4" />
           Tillbaka
@@ -187,7 +195,7 @@ function GapFillDrill({ drill, answer, setAnswer, checked, isCorrect }) {
   );
 }
 
-function QuickResponseDrill({ drill, answer, setAnswer, checked }) {
+function QuickResponseDrill({ drill, onAttempted }) {
   return (
     <>
       <div className="space-y-2">
@@ -206,26 +214,25 @@ function QuickResponseDrill({ drill, answer, setAnswer, checked }) {
         {drill.prompt_en && (
           <p className="text-xs text-muted-foreground italic">"{drill.prompt_en}"</p>
         )}
-      </div>
-
-      <div className="space-y-1">
-        <label className="text-[10px] uppercase tracking-wider text-muted-foreground">
-          Ditt svar
-        </label>
-        <textarea
-          value={answer}
-          onChange={(e) => setAnswer(e.target.value)}
-          disabled={checked}
-          placeholder="Skriv ditt svar på svenska…"
-          className="w-full min-h-[70px] px-3 py-2 rounded-md border-2 border-border focus:border-primary focus:outline-none text-sm resize-none"
-          rows={2}
-        />
-        {drill.hint_en && !checked && (
+        {drill.hint_en && (
           <p className="text-[11px] text-muted-foreground flex items-center gap-1">
             <Lightbulb className="w-3 h-3" />
             {drill.hint_en}
           </p>
         )}
+      </div>
+
+      <div className="border-t border-border/50 pt-3">
+        <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">
+          Ditt svar
+        </p>
+        <SpeakOrTypeInput
+          expected={drill.expected_answer_sv || ""}
+          threshold={55}
+          placeholder="Skriv ditt svar på svenska…"
+          onResult={onAttempted}
+          onSkip={onAttempted}
+        />
       </div>
     </>
   );
