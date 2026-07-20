@@ -4,7 +4,7 @@ import { Zap, Headphones, Puzzle, MessageCircle, PenSquare, Mic, ChevronDown } f
 import PageSEO from "@/components/shared/PageSEO";
 import LoginGate from "@/components/shared/LoginGate";
 import { useAuth } from "@/lib/AuthContext";
-import MissionCardsSection from "@/components/missions/MissionCardsSection";
+import MissionPath from "@/components/missions/MissionPath";
 import { cn } from "@/lib/utils";
 
 // Compact list of individual practice stations, shown collapsed by default.
@@ -70,8 +70,8 @@ export default function Tala() {
         </p>
       </div>
 
-      {/* Uppdrag — the main event */}
-      <MissionCardsSection />
+      {/* Uppdrag — Duolingo-style linear unlock path */}
+      <MissionPath />
 
       {/* Individual stations — collapsed by default */}
       <div className="border-t border-border pt-4">

@@ -1,0 +1,32 @@
+{
+  "name": "MissionCompletion",
+  "type": "object",
+  "properties": {
+    "mission_id": {
+      "type": "string",
+      "description": "SpeakingTopic id of the completed mission"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the user finished all 5 stages"
+    }
+  },
+  "required": [
+    "mission_id"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "update": {
+      "created_by": "{{user.email}}"
+    },
+    "delete": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}

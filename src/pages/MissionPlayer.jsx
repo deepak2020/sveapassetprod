@@ -14,6 +14,7 @@ import OrdStage from "@/components/missions/OrdStage";
 import FraserStage from "@/components/missions/FraserStage";
 import RepeteraStage from "@/components/missions/RepeteraStage";
 import ConversationView from "@/components/speaking-chat/ConversationView";
+import { useCompleteMission } from "@/hooks/useMissionProgress";
 
 const STAGE_ORDER = ["briefing", "ord", "fraser", "repetera", "live"];
 
@@ -25,12 +26,20 @@ export default function MissionPlayer() {
 
   const [stage, setStage] = useState("briefing");
   const [completedStages, setCompletedStages] = useState([]);
+  const completeMission = useCompleteMission();
 
   const { data: topic, isLoading, error } = useQuery({
     queryKey: ["speaking-topic", id],
     queryFn: () => base44.entities.SpeakingTopic.get(id),
     enabled: !!id && isAuthenticated,
   });
+
+  // When the user enters the Live stage after finishing the 4 rehearsal stages,
+  // record the mission as complete so the next one unlocks on the path.
+  const handleExitLive = () => {
+    if (id) completeMission.mutate(id);
+    navigate("/tala");
+  };
 
   const markComplete = (s) => {
     setCompletedStages((prev) => (prev.includes(s) ? prev : [...prev, s]));
@@ -118,7 +127,7 @@ export default function MissionPlayer() {
               Du är redo. Använd orden och fraserna du just övat.
             </p>
           </div>
-          <ConversationView topic={topic} onExit={() => navigate("/tala")} />
+          <ConversationView topic={topic} onExit={handleExitLive} />
         </div>
       )}
     </div>
