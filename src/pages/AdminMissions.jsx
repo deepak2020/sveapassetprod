@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Search, BookOpenCheck } from "lucide-react";
+import { Search, BookOpenCheck, Download } from "lucide-react";
 import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
 import { Input } from "@/components/ui/input";
@@ -91,13 +91,33 @@ export default function AdminMissions() {
         </p>
       </div>
 
-      {/* How-to */}
+      {/* Bulk generation */}
+      <Card className="border-primary/40 bg-primary/5">
+        <CardContent className="p-4 space-y-2">
+          <div className="flex items-start justify-between gap-3 flex-wrap">
+            <div className="min-w-0">
+              <p className="text-sm font-semibold">Bulk generate all missing missions</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                One document with the full brief, all {MISSION_CATALOG.length - seededCount} missing scenarios, and the SQL to import Claude's output straight into Supabase.
+              </p>
+            </div>
+            <Button asChild size="sm">
+              <a href="/mission-generation.md" download>
+                <Download className="w-4 h-4" />
+                Download brief
+              </a>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* How-to (per-mission) */}
       <Card className="border-dashed">
         <CardContent className="p-4 text-xs text-muted-foreground space-y-1.5 leading-relaxed">
+          <p className="font-semibold text-foreground">Or generate one at a time:</p>
           <p><span className="font-semibold text-foreground">1.</span> Click <strong>Copy Claude prompt</strong> on a card.</p>
           <p><span className="font-semibold text-foreground">2.</span> Paste it into Claude — it returns a single JSON object with the mission content.</p>
-          <p><span className="font-semibold text-foreground">3.</span> Combine that JSON with the card's <strong>metadata</strong> (title_sv, title_en, level, category, emoji, order) and create a new <code className="bg-muted px-1 rounded">SpeakingTopic</code> record with all fields.</p>
-          <p className="pt-1"><span className="font-semibold text-foreground">Tip:</span> the prompt already tells Claude to skip the metadata fields so you don't get duplicates.</p>
+          <p><span className="font-semibold text-foreground">3.</span> Insert that JSON plus the card's metadata into the <code className="bg-muted px-1 rounded">speaking_topics</code> table in Supabase.</p>
         </CardContent>
       </Card>
 
