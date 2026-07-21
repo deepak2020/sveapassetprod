@@ -36,8 +36,13 @@ export default function SpeakOrTypeInput({
   const handleFinal = (transcript) => {
     if (!transcript || !transcript.trim()) {
       // User tapped stop before speaking anything (or Chrome heard silence).
-      // Give clear feedback instead of leaving the button looking dead.
-      setMicNotice("Hörde inget — försök igen eller skriv istället.");
+      // Show a full result card with a retry button so it's obvious what to do.
+      setSubmitted({
+        correct: false,
+        transcript: "",
+        percent: 0,
+        noSpeech: true,
+      });
       return;
     }
     setMicNotice(null);
@@ -133,7 +138,11 @@ export default function SpeakOrTypeInput({
             <>
               <X className="w-4 h-4 text-amber-600" />
               <span className="font-semibold text-amber-800 dark:text-amber-300">
-                {submitted.revealed ? "Så här säger man" : `Nästan (${submitted.percent}%)`}
+                {submitted.revealed
+                  ? "Så här säger man"
+                  : submitted.noSpeech
+                    ? "Hörde inget — försök igen"
+                    : `Nästan (${submitted.percent}%)`}
               </span>
             </>
           )}
