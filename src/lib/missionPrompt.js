@@ -112,6 +112,72 @@ ${SCHEMA_SNIPPET}
 7. Output ONLY the JSON object. No prose before or after. No markdown fences.`;
 }
 
+// Builds ONE mega top-up prompt covering many missions at once. Claude
+// returns a JSON object keyed by title_sv, each holding the extra items.
+export function buildBulkMissionTopUpPrompt(missions) {
+  const missionList = missions
+    .map(
+      (m, i) => `${i + 1}. title_sv: "${m.title_sv}"
+   title_en: "${m.title_en}"
+   level: ${m.level}
+   category: ${m.category}
+   situation: ${m.situation}
+   goal: ${m.goal_hint}`
+    )
+    .join("\n\n");
+
+  return `You are ADDING EXTRA content to ${missions.length} existing Swedish speaking missions on Sveapasset. Each mission was already generated with core vocab and phrases — do NOT redo them. Only produce the additional items below, for EVERY mission in the list.
+
+━━━ MISSIONS TO TOP UP (${missions.length}) ━━━
+${missionList}
+
+━━━ WHAT TO PRODUCE ━━━
+Return ONE JSON object, keyed by the exact title_sv of each mission. Each value must contain EXACTLY these three fields:
+
+{
+  "<title_sv of mission 1>": {
+    "extra_key_vocabulary": [
+      {
+        "swedish": "…",
+        "english": "…",
+        "example_sv": "short natural example using the word",
+        "example_en": "English translation",
+        "pronunciation_tip": "ONE short English tip"
+      }
+      // EXACTLY 2 items per mission.
+    ],
+    "extra_key_phrases": [
+      {
+        "situation_en": "when to use it",
+        "phrase_sv": "natural spoken Swedish phrase",
+        "phrase_en": "English translation",
+        "pronunciation_tip": "ONE short English tip"
+      }
+      // EXACTLY 2 items per mission.
+    ],
+    "extra_rehearsal_drill": {
+      "type": "quick_response",
+      "prompt_sv": "one more curveball Svea might throw in this scenario",
+      "prompt_en": "…",
+      "expected_answer_sv": "natural short reply",
+      "expected_answer_en": "…",
+      "hint_en": "short English hint",
+      "options": null
+    }
+  },
+  "<title_sv of mission 2>": { … same shape … },
+  …
+}
+
+━━━ HARD RULES ━━━
+1. Every mission's content must match its own CEFR level — vocab, grammar, sentence length.
+2. Swedish must sound natural to a native speaker in Sweden today.
+3. Do NOT repeat obvious core items a first-pass generation would already contain (skip "kaffe" for café, "biljett" for ticket booking, etc.). Go one layer deeper — recovery lines, clarification phrases, slightly rarer scenario-specific words.
+4. Counts are exact per mission: 2 vocab, 2 phrases, 1 drill.
+5. Include EVERY title_sv from the list above as a key in the returned object — no skips.
+6. Output ONLY the JSON object. No prose before or after. No markdown fences.`;
+}
+
 // Builds a "top-up" prompt for missions that were already generated with the
 // old counts (6 vocab, 5 phrases, 3 drills). Asks Claude for ONLY the extra
 // items so we can APPEND them to the existing record — no full regeneration.
