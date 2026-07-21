@@ -19,7 +19,7 @@ const SCHEMA_SNIPPET = `{
       "example_en": "English translation",
       "pronunciation_tip": "ONE short English tip, e.g. 'Long a, stress on first syllable'"
     }
-    // EXACTLY 6 items. No trivial words like 'jag', 'och', 'är'.
+    // EXACTLY 8 items. No trivial words like 'jag', 'och', 'är'.
   ],
   "key_phrases": [
     {
@@ -28,7 +28,7 @@ const SCHEMA_SNIPPET = `{
       "phrase_en": "English translation",
       "pronunciation_tip": "ONE short English tip"
     }
-    // EXACTLY 5 items. Phrases must be things the learner will actually use.
+    // EXACTLY 7 items. Phrases must be things the learner will actually use.
   ],
   "rehearsal_drills": [
     {
@@ -57,8 +57,17 @@ const SCHEMA_SNIPPET = `{
       "expected_answer_en": "…",
       "hint_en": "…",
       "options": null
+    },
+    {
+      "type": "quick_response",
+      "prompt_sv": "ANOTHER different curveball or follow-up Svea might throw",
+      "prompt_en": "…",
+      "expected_answer_sv": "…",
+      "expected_answer_en": "…",
+      "hint_en": "…",
+      "options": null
     }
-    // EXACTLY 3 drills, in this order and shape.
+    // EXACTLY 4 drills, in this order and shape (1 gap_fill + 3 quick_response).
   ]
 }`;
 
@@ -98,7 +107,7 @@ ${SCHEMA_SNIPPET}
 2. Swedish must sound natural to a native speaker in Sweden today (not textbook, not archaic).
 3. All English text must be plain, direct, learner-facing English.
 4. The rehearsal drills MUST rehearse the actual curveballs / key phrases from this scenario — they are the user's warm-up before facing Svea live.
-5. Counts are exact: 6 key_vocabulary, 5 key_phrases, 3 rehearsal_drills (in the order gap_fill → quick_response → quick_response).
+5. Counts are exact: 8 key_vocabulary, 7 key_phrases, 4 rehearsal_drills (in the order gap_fill → quick_response → quick_response → quick_response).
 6. Do NOT include the metadata fields (title_sv, title_en, level, category, emoji, order) in your JSON — only the content fields shown in the schema.
 7. Output ONLY the JSON object. No prose before or after. No markdown fences.`;
 }
