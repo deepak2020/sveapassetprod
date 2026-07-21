@@ -28,11 +28,23 @@ function lcsLength(a, b) {
 /**
  * 0–100 similarity between two Swedish sentences.
  * 100 = perfect match, 0 = nothing in common.
+ *
+ * For short answers (≤2 target words) we ALSO compute character-level
+ * similarity and take the higher score. Chrome's Swedish recognizer often
+ * mangles uncommon words (e.g. "påtår" → "på dör") — those are phonetically
+ * close, so char-level matching keeps the user unblocked.
  */
 export function similarityPercent(a, b) {
   const ta = tokens(a);
   const tb = tokens(b);
   if (!ta.length || !tb.length) return 0;
-  const common = lcsLength(ta, tb);
-  return Math.round((common * 2 * 100) / (ta.length + tb.length));
+  const wordScore = Math.round((lcsLength(ta, tb) * 2 * 100) / (ta.length + tb.length));
+
+  if (tb.length <= 2) {
+    const ca = ta.join("").split("");
+    const cb = tb.join("").split("");
+    const charScore = Math.round((lcsLength(ca, cb) * 2 * 100) / (ca.length + cb.length));
+    return Math.max(wordScore, charScore);
+  }
+  return wordScore;
 }

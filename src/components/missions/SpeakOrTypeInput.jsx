@@ -87,7 +87,12 @@ export default function SpeakOrTypeInput({
   const submit = (raw) => {
     const percent = similarityPercent(raw, expected);
     const exact = normalizeAnswer(raw) === normalizeAnswer(expected);
-    const correct = exact || percent >= threshold;
+    // For very short targets (single Swedish word), Chrome often mishears
+    // uncommon words (e.g. "påtår" → "på dör"). Loosen the threshold so
+    // phonetically-close attempts still count.
+    const expectedWords = normalizeAnswer(expected).split(" ").filter(Boolean).length;
+    const effectiveThreshold = expectedWords <= 1 ? Math.min(threshold, 55) : threshold;
+    const correct = exact || percent >= effectiveThreshold;
     const result = { correct, transcript: raw.trim(), percent };
     setSubmitted(result);
     onResult?.(result);
