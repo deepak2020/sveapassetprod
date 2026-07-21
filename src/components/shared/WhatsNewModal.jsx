@@ -11,32 +11,39 @@ const STORAGE_KEY = "svenska:whats_new_seen";
 
 const FEATURES = [
   {
+    emoji: "🗣️",
+    title: "Varför Tala finns",
+    titleEn: "Why we built Tala",
+    desc: "Det svåraste med svenska är inte att förstå — det är att våga prata. Tala är en trygg plats där du övar högt, om och om igen, tills orden kommer automatiskt.",
+    descEn: "The hardest part of Swedish isn't understanding — it's daring to speak. Tala is a safe place to practice out loud, over and over, until the words come automatically.",
+  },
+  {
     emoji: "🎯",
-    title: "Uppdrag sparas automatiskt",
-    titleEn: "Missions save your progress",
-    desc: "Börja ett taluppdrag, ta en paus, kom tillbaka — du fortsätter precis där du var. Varje steg (briefing, ord, fraser, repetera, live) sparas.",
-    descEn: "Start a speaking mission, take a break, come back — you resume exactly where you left off. Every stage is saved.",
+    title: "Uppdrag med tydligt mål",
+    titleEn: "Missions with a clear goal",
+    desc: "Varje uppdrag är en verklig situation — beställa fika, boka läkartid, småprata på jobbet. Du vet exakt vad du ska klara av innan du börjar.",
+    descEn: "Every mission is a real-life situation — ordering coffee, booking a doctor, small talk at work. You know exactly what you need to pull off before you start.",
+  },
+  {
+    emoji: "🪜",
+    title: "Fem steg — inga genvägar",
+    titleEn: "Five stages — no shortcuts",
+    desc: "Briefing → Ord → Fraser → Repetera → Live. Du bygger upp orden och fraserna först, så när du pratar med Svea på riktigt sitter det redan.",
+    descEn: "Briefing → Words → Phrases → Rehearsal → Live. You build the vocabulary and phrases first, so when you actually talk to Svea, it's already in your mouth.",
   },
   {
     emoji: "🎤",
-    title: "Smartare röstsamtal med Svea",
-    titleEn: "Smarter voice chat with Svea",
-    desc: "Bättre mikrofonhantering — inga dubblerade ord, renare transkription, och Svea rättar bara riktiga fel (inte kommatecken eller 'Det/Den är gott').",
-    descEn: "Cleaner mic handling — no duplicated words, sharper transcripts, and Svea only corrects real mistakes (not commas or 'Det/Den är gott').",
+    title: "Prata på riktigt med Svea",
+    titleEn: "Actually speak with Svea",
+    desc: "Slutstationen är en riktig röstkonversation. Svea lyssnar, svarar, och rättar bara det som verkligen är fel — inga påhoppade kommatecken.",
+    descEn: "The final stage is a real voice conversation. Svea listens, replies, and only corrects what's actually wrong — no nit-picking on commas.",
   },
   {
-    emoji: "🔁",
-    title: "Försök igen på uttal",
-    titleEn: "Retry weak matches",
-    desc: "Om mikrofonen hörde dig fel får du nu alltid en 'Försök igen'-knapp — inga fastlåsta halva träffar.",
-    descEn: "If the mic mishears you, you now always get a 'Try again' option — no more locked-in half-matches.",
-  },
-  {
-    emoji: "⭐",
-    title: "75 XP per klarat uppdrag",
-    titleEn: "75 XP per completed mission",
-    desc: "Slutför alla fem stegen i ett taluppdrag och tjäna 75 XP. Din totala uppdrags-XP visas överst i Tala.",
-    descEn: "Finish all five stages of a speaking mission to earn 75 XP. Your total mission XP shows at the top of Tala.",
+    emoji: "💾",
+    title: "Du kan alltid fortsätta senare",
+    titleEn: "Pick up right where you left off",
+    desc: "Ta en paus mitt i ett uppdrag — nästa gång du öppnar det landar du på exakt samma steg. Klara alla fem för 75 XP.",
+    descEn: "Pause mid-mission — next time you open it, you land on the exact same stage. Clear all five to earn 75 XP.",
   },
 ];
 
@@ -89,10 +96,10 @@ export default function WhatsNewModal() {
                   </div>
                   <div>
                     <h2 id="whats-new-title" className="font-display text-lg font-bold leading-tight">
-                      Nytt i Sveapasset · What's new
+                      Nytt: Tala · Introducing Tala
                     </h2>
                     <p className="text-xs text-muted-foreground">
-                      Färska förbättringar i Tala och röstsamtalen med Svea.
+                      Äntligen en plats att öva svenska högt — utan att skämmas.
                     </p>
                   </div>
                 </div>
