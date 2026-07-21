@@ -67,20 +67,26 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
     };
 
     rec.onend = () => {
-      // Fold this session's final into the persistent ref before any restart.
-      // If the user tapped stop and Chrome hadn't marked the result final yet
-      // (common for short single words like "här"), fall back to the latest
-      // interim — otherwise the captured word is silently discarded.
-      const captured = sessionFinal || (stoppedByUserRef.current ? sessionInterim : "");
+      // Fold this session's final (or its interim fallback) into the persistent
+      // ref. Chrome sometimes re-emits earlier results across auto-restart
+      // cycles, so we dedupe: only append the tail that isn't already there.
+      const captured = (sessionFinal || sessionInterim || "").trim();
       if (captured) {
-        finalTranscriptRef.current = [finalTranscriptRef.current, captured]
-          .filter(Boolean)
-          .join(" ")
-          .trim();
+        const prev = finalTranscriptRef.current.trim();
+        let addition = captured;
+        if (prev) {
+          if (captured === prev || prev.endsWith(captured)) {
+            addition = "";
+          } else if (captured.startsWith(prev)) {
+            addition = captured.slice(prev.length).trim();
+          }
+        }
+        if (addition) {
+          finalTranscriptRef.current = [prev, addition].filter(Boolean).join(" ").trim();
+          setFinalSoFar(finalTranscriptRef.current);
+        }
         sessionFinal = "";
         sessionInterim = "";
-        // Keep the captured text visible across Chrome's auto-restart cycles.
-        setFinalSoFar(finalTranscriptRef.current);
       }
       // Chrome auto-ends on pause. Restart unless the user tapped stop.
       if (!stoppedByUserRef.current && continuous) {
