@@ -53,7 +53,13 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
     };
 
     rec.onerror = (e) => {
-      if (e.error !== "no-speech" && e.error !== "aborted") setError(e.error);
+      // Real errors (mic denied, network, etc.) must stop the loop so the UI
+      // doesn't stay stuck in "listening" forever. Only benign events (no-speech,
+      // aborted from an auto-restart) are ignored.
+      if (e.error && e.error !== "no-speech" && e.error !== "aborted") {
+        setError(e.error);
+        stoppedByUserRef.current = true;
+      }
     };
 
     rec.onend = () => {

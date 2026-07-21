@@ -31,16 +31,43 @@ export default function SpeakOrTypeInput({
   const [text, setText] = useState("");
   const [submitted, setSubmitted] = useState(null); // { correct, transcript, percent }
 
+  const [micNotice, setMicNotice] = useState(null);
+
   const handleFinal = (transcript) => {
-    if (!transcript || !transcript.trim()) return;
+    if (!transcript || !transcript.trim()) {
+      // User tapped stop before speaking anything (or Chrome heard silence).
+      // Give clear feedback instead of leaving the button looking dead.
+      setMicNotice("Hörde inget — försök igen eller skriv istället.");
+      return;
+    }
+    setMicNotice(null);
     submit(transcript);
   };
 
-  const { listening, interim, supported, start, stop, toggle } = useSpeechRecognition({
+  const { listening, interim, error, supported, start, stop, toggle } = useSpeechRecognition({
     onFinal: handleFinal,
     lang: "sv-SE",
     continuous: true,
   });
+
+  // Translate low-level SpeechRecognition errors into a friendly Swedish hint.
+  useEffect(() => {
+    if (!error) return;
+    if (error === "not-allowed" || error === "service-not-allowed") {
+      setMicNotice("Mikrofonen är blockerad. Tillåt mikrofon i webbläsaren, eller skriv istället.");
+    } else if (error === "audio-capture") {
+      setMicNotice("Ingen mikrofon hittades. Skriv istället.");
+    } else if (error === "network") {
+      setMicNotice("Nätverksfel — försök igen eller skriv istället.");
+    } else {
+      setMicNotice("Något gick fel med mikrofonen. Skriv istället.");
+    }
+  }, [error]);
+
+  const handleMicPress = () => {
+    setMicNotice(null);
+    toggle();
+  };
 
   useEffect(() => {
     if (autoStart && supported && mode === "voice") start();
@@ -119,7 +146,7 @@ export default function SpeakOrTypeInput({
           <div className="flex items-center justify-center py-3">
             <button
               type="button"
-              onClick={toggle}
+              onClick={handleMicPress}
               className={cn(
                 "w-16 h-16 rounded-full flex items-center justify-center transition-all shadow-md",
                 listening
@@ -136,6 +163,11 @@ export default function SpeakOrTypeInput({
               ? interim || "Lyssnar… säg det på svenska"
               : "Tryck och säg det på svenska"}
           </p>
+          {micNotice && !listening && (
+            <p className="text-center text-[11px] text-amber-700 dark:text-amber-400">
+              {micNotice}
+            </p>
+          )}
         </div>
       ) : (
         <div className="space-y-2">
