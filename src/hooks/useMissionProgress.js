@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
+import { awardXP, XP_REWARDS } from "@/lib/xp";
 
 // Ordered list of missions (linear path) + which have been completed.
 // Linear order: CEFR level first (A1 → C1), then the topic's own `order` field.
@@ -66,11 +67,14 @@ export function useCompleteMission() {
   return useMutation({
     mutationFn: async (missionId) => {
       const existing = await base44.entities.MissionCompletion.filter({ mission_id: missionId }, "-completed_at", 1);
-      if (existing && existing.length > 0) return existing[0];
-      return base44.entities.MissionCompletion.create({
+      if (existing && existing.length > 0) return { record: existing[0], firstTime: false };
+      const record = await base44.entities.MissionCompletion.create({
         mission_id: missionId,
         completed_at: new Date().toISOString(),
       });
+      // First completion → award XP + bump streak.
+      await awardXP(base44, XP_REWARDS.mission_complete, "🎯 Uppdrag klart!");
+      return { record, firstTime: true };
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["mission-completions"] });

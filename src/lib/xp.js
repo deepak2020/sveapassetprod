@@ -26,6 +26,7 @@ export const XP_REWARDS = {
   daily_goal_met: 25,
   streak_7days: 50,
   daily_review_bonus: 50,
+  mission_complete: 75,
 };
 
 export function getLevel(xp) {

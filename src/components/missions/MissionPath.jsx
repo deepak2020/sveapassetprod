@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { Check, Lock, Play, Target } from "lucide-react";
+import { Check, Lock, Play, Target, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
 import { useMissionProgress } from "@/hooks/useMissionProgress";
+import { XP_REWARDS } from "@/lib/xp";
 
 const LEVEL_META = {
   A1: { name: "Överlevnad", tint: "from-rose-50 to-orange-50 dark:from-rose-950/30 dark:to-orange-950/20", accent: "text-rose-700 dark:text-rose-400", ring: "border-rose-200 dark:border-rose-900" },
@@ -44,6 +45,7 @@ export default function MissionPath() {
   }
 
   const progressPct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+  const xpEarned = completedCount * XP_REWARDS.mission_complete;
 
   return (
     <div className="space-y-5">
@@ -60,10 +62,18 @@ export default function MissionPath() {
             {completedCount} / {totalCount}
           </span>
         </div>
-        <p className="text-[11px] text-muted-foreground mt-2">
-          Klara ett uppdrag för att låsa upp nästa.{" "}
-          <span className="italic">Complete one mission to unlock the next.</span>
-        </p>
+        <div className="flex items-center justify-between gap-2 mt-2 flex-wrap">
+          <p className="text-[11px] text-muted-foreground">
+            +{XP_REWARDS.mission_complete} XP per uppdrag.{" "}
+            <span className="italic">Earn XP for every mission you complete.</span>
+          </p>
+          {xpEarned > 0 && (
+            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 dark:text-amber-400 bg-amber-100/70 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 rounded-full px-2 py-0.5">
+              <Sparkles className="w-3 h-3" />
+              {xpEarned} XP intjänat
+            </span>
+          )}
+        </div>
       </div>
 
       {groups.map((group) => {
