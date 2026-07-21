@@ -197,6 +197,10 @@ export default function AdminMissions() {
           <p><span className="font-semibold text-foreground">1.</span> Click <strong>Copy Claude prompt</strong> on a card.</p>
           <p><span className="font-semibold text-foreground">2.</span> Paste it into Claude — it returns a single JSON object with the mission content.</p>
           <p><span className="font-semibold text-foreground">3.</span> Insert that JSON plus the card's metadata into the <code className="bg-muted px-1 rounded">speaking_topics</code> table in Supabase.</p>
+          <p className="font-semibold text-foreground pt-1">Top up an already-seeded mission with extra vocab &amp; phrases:</p>
+          <p><span className="font-semibold text-foreground">1.</span> On a green (In DB) card, click <strong>Copy top-up prompt</strong>.</p>
+          <p><span className="font-semibold text-foreground">2.</span> Paste to Claude — it returns 2 extra vocab items, 2 extra phrases, and 1 extra drill.</p>
+          <p><span className="font-semibold text-foreground">3.</span> In Supabase, append those items to the existing <code className="bg-muted px-1 rounded">key_vocabulary</code>, <code className="bg-muted px-1 rounded">key_phrases</code>, and <code className="bg-muted px-1 rounded">rehearsal_drills</code> arrays on the row.</p>
         </CardContent>
       </Card>
 
