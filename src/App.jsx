@@ -18,7 +18,6 @@ import Profile from './pages/Profile';
 import Onboarding from './pages/Onboarding';
 import Gym from './pages/Gym';
 import Speaking from './pages/Speaking';
-import SpeakingChat from './pages/SpeakingChat';
 import Tala from './pages/Tala';
 import MissionPlayer from './pages/MissionPlayer';
 import TalaShadowing from './pages/tala/Shadowing';
@@ -81,7 +80,6 @@ const AuthenticatedApp = () => {
         <Route path="/listening/:course" element={<ListeningTest />} />
         <Route path="/gym" element={<Gym />} />
         <Route path="/speaking" element={<Speaking />} />
-        <Route path="/prata" element={<SpeakingChat />} />
         <Route path="/tala" element={<Tala />} />
         <Route path="/tala/mission/:id" element={<MissionPlayer />} />
         <Route path="/tala/daily" element={<TalaDailyWorkout />} />

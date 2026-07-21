@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Headphones, Zap, Puzzle, MessageCircle, Check, ArrowRight, Trophy, Sparkles } from "lucide-react";
+import { ArrowLeft, Headphones, Zap, Puzzle, Check, ArrowRight, Trophy, Sparkles } from "lucide-react";
 import PageSEO from "@/components/shared/PageSEO";
 import LoginGate from "@/components/shared/LoginGate";
 import { useAuth } from "@/lib/AuthContext";
@@ -37,15 +37,6 @@ const CIRCUIT = [
     title: "Chunks",
     duration: "3 min",
     description: "Bygg meningar och säg dem högt.",
-  },
-  {
-    id: "prata",
-    path: "/prata",
-    icon: MessageCircle,
-    color: "from-purple-500 to-pink-500",
-    title: "Prata",
-    duration: "5 min",
-    description: "Fri konversation med SveAI.",
   },
 ];
 
@@ -100,11 +91,7 @@ export default function DailyWorkout() {
     // Mark as attempted when they leave — a soft completion. Full "come back and mark done"
     // is unnecessary complexity for step 1; we optimistically credit the attempt.
     markDone(station.id);
-    // Forward the topic to Prata so Samtal opens on the same theme.
-    const qs = topic && station.id === "prata"
-      ? `?topic=${encodeURIComponent(topic)}`
-      : "";
-    navigate(`${station.path}${qs}`);
+    navigate(station.path);
   };
 
   const reset = () => {

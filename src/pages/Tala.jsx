@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Zap, Headphones, Puzzle, MessageCircle, PenSquare, Mic, ChevronDown } from "lucide-react";
+import { Zap, Headphones, Puzzle, PenSquare, Mic, ChevronDown } from "lucide-react";
 import PageSEO from "@/components/shared/PageSEO";
 import LoginGate from "@/components/shared/LoginGate";
 import { useAuth } from "@/lib/AuthContext";
@@ -14,7 +14,6 @@ const STATIONS = [
   { id: "shadowing", path: "/tala/shadowing", icon: Headphones,    title: "Shadowing",   subtitle: "Härma Svea",          duration: "5 min" },
   { id: "chunks",    path: "/tala/chunks",    icon: Puzzle,        title: "Chunks",      subtitle: "Bygg meningar",       duration: "3 min" },
   { id: "skriva",    path: "/speaking",       icon: PenSquare,     title: "Skriva",      subtitle: "Översätt till svenska", duration: "öppet" },
-  { id: "prata",     path: "/prata",          icon: MessageCircle, title: "Prata",       subtitle: "Fritt samtal med SveAI", duration: "5+ min" },
 ];
 
 function StationRow({ station }) {
