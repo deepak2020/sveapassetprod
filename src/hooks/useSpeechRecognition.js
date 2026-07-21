@@ -42,6 +42,7 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
     // Appending deltas caused duplicated phrases because Chrome sometimes
     // re-emits earlier results as final, producing "vädret vädret vädret var…".
     let sessionFinal = "";
+    let sessionInterim = "";
     rec.onresult = (event) => {
       let finalText = "";
       let interimText = "";
@@ -51,6 +52,7 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
         else interimText += t;
       }
       sessionFinal = finalText.trim();
+      sessionInterim = interimText.trim();
       setInterim(interimText);
     };
 
@@ -66,12 +68,17 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
 
     rec.onend = () => {
       // Fold this session's final into the persistent ref before any restart.
-      if (sessionFinal) {
-        finalTranscriptRef.current = [finalTranscriptRef.current, sessionFinal]
+      // If the user tapped stop and Chrome hadn't marked the result final yet
+      // (common for short single words like "här"), fall back to the latest
+      // interim — otherwise the captured word is silently discarded.
+      const captured = sessionFinal || (stoppedByUserRef.current ? sessionInterim : "");
+      if (captured) {
+        finalTranscriptRef.current = [finalTranscriptRef.current, captured]
           .filter(Boolean)
           .join(" ")
           .trim();
         sessionFinal = "";
+        sessionInterim = "";
         // Keep the captured text visible across Chrome's auto-restart cycles.
         setFinalSoFar(finalTranscriptRef.current);
       }
