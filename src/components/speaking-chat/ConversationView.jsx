@@ -107,6 +107,8 @@ export default function ConversationView({ topic, onExit }) {
     if (!SpeechRecognitionAPI || listening || sending) return;
     setError(null);
     setInterim("");
+    // Fresh session — don't carry over text from the previous turn.
+    setInput("");
 
     // Cut Svea off if she's still speaking so mic doesn't pick her up
     window.speechSynthesis?.cancel();
@@ -121,16 +123,35 @@ export default function ConversationView({ topic, onExit }) {
     let stoppedByUser = false;
     recognition.__stopByUser = () => { stoppedByUser = true; recognition.stop(); };
 
+    // Text finalized in previous recognizer sessions (across Chrome's silence
+    // auto-restarts). Each session's event.results resets, so we snapshot
+    // the finals into this ref before letting the recognizer restart.
+    let priorFinal = "";
+
     recognition.onresult = (event) => {
+      let sessionFinal = "";
       let interimText = "";
-      let newFinal = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
+      // Rebuild from the full results list (not resultIndex) — Chrome sometimes
+      // re-emits earlier entries, so scanning everything and taking the current
+      // snapshot avoids double-appending the same word.
+      for (let i = 0; i < event.results.length; i++) {
         const t = event.results[i][0].transcript;
-        if (event.results[i].isFinal) newFinal += t;
+        if (event.results[i].isFinal) sessionFinal += t + " ";
         else interimText += t;
       }
       setInterim(interimText);
-      if (newFinal) setInput((v) => (v ? v + " " : "") + newFinal.trim());
+      const combined = [priorFinal, sessionFinal.trim()].filter(Boolean).join(" ").trim();
+      setInput(combined);
+    };
+
+    // On auto-restart, freeze this session's finals into priorFinal so the
+    // next session starts from a clean event.results list without losing text.
+    recognition.__snapshotFinals = () => {
+      // input already contains prior + current session finals from onresult.
+      setInput((current) => {
+        priorFinal = current.trim();
+        return priorFinal;
+      });
     };
 
     recognition.onerror = (e) => {
@@ -141,8 +162,10 @@ export default function ConversationView({ topic, onExit }) {
     };
 
     recognition.onend = () => {
-      // Chrome auto-ends after a pause even in continuous mode — restart unless the user stopped.
+      // Chrome auto-ends after a pause even in continuous mode — snapshot the
+      // finals and restart unless the user stopped.
       if (!stoppedByUser) {
+        recognition.__snapshotFinals?.();
         try { recognition.start(); return; } catch { /* fall through */ }
       }
       setListening(false);
