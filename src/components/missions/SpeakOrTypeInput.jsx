@@ -120,8 +120,11 @@ export default function SpeakOrTypeInput({
 
   // Once submitted, render the feedback pill (parent controls "Next").
   if (submitted) {
-    // Allow retry unless the user already got it right or explicitly asked for the answer.
-    const canRetry = !submitted.correct && !submitted.revealed;
+    // Allow retry unless the user got a strong match or explicitly asked for the answer.
+    // Even "correct" but low-confidence matches (e.g. 57%) should offer a retry so the
+    // user isn't locked in on a mic mishearing.
+    const strongMatch = submitted.correct && submitted.percent >= 80;
+    const canRetry = !strongMatch && !submitted.revealed;
     return (
       <div
         className={cn(
