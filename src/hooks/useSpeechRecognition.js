@@ -101,7 +101,12 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
     const rec = recognitionRef.current;
     if (!rec) return;
     stoppedByUserRef.current = true;
-    try { rec.stop(); } catch { /* ignore */ }
+    // Give the recognizer a beat to flush a pending final result for very
+    // short utterances (e.g. "här") where onend can otherwise fire before
+    // onresult, causing the captured word to be silently dropped.
+    setTimeout(() => {
+      try { rec.stop(); } catch { /* ignore */ }
+    }, 350);
   }, []);
 
   const toggle = useCallback(() => {
