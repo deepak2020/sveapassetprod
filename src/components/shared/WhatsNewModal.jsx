@@ -6,65 +6,37 @@ import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
 
 // Bump this string with every release to re-show the dialog to all users
-const CURRENT_VERSION = "2026-06-v2";
+const CURRENT_VERSION = "2026-07-v1";
 const STORAGE_KEY = "svenska:whats_new_seen";
 
 const FEATURES = [
   {
-    emoji: "📚",
-    title: "Lektioner — Kurs A till D",
-    titleEn: "Lessons — Kurs A to D",
-    desc: "Hela SFI-resan i en app: ordförråd, fraser, läsning och skrivning per nivå.",
-    descEn: "The whole SFI journey in one app: vocabulary, phrases, reading and writing per level.",
+    emoji: "🎯",
+    title: "Uppdrag sparas automatiskt",
+    titleEn: "Missions save your progress",
+    desc: "Börja ett taluppdrag, ta en paus, kom tillbaka — du fortsätter precis där du var. Varje steg (briefing, ord, fraser, repetera, live) sparas.",
+    descEn: "Start a speaking mission, take a break, come back — you resume exactly where you left off. Every stage is saved.",
   },
   {
-    emoji: "📝",
-    title: "Grammatik",
-    titleEn: "Grammar",
-    desc: "Tydliga regler och övningar — en-/ett-ord, verbtempus, ordföljd och mer.",
-    descEn: "Clear rules and exercises — en/ett words, verb tenses, word order and more.",
+    emoji: "🎤",
+    title: "Smartare röstsamtal med Svea",
+    titleEn: "Smarter voice chat with Svea",
+    desc: "Bättre mikrofonhantering — inga dubblerade ord, renare transkription, och Svea rättar bara riktiga fel (inte kommatecken eller 'Det/Den är gott').",
+    descEn: "Cleaner mic handling — no duplicated words, sharper transcripts, and Svea only corrects real mistakes (not commas or 'Det/Den är gott').",
   },
   {
-    emoji: "🏋️",
-    title: "Träningssalen (Gym)",
-    titleEn: "The Gym",
-    desc: "Lucktexter och repetition med smart spaced repetition så orden fastnar.",
-    descEn: "Cloze drills with spaced repetition so words actually stick.",
+    emoji: "🔁",
+    title: "Försök igen på uttal",
+    titleEn: "Retry weak matches",
+    desc: "Om mikrofonen hörde dig fel får du nu alltid en 'Försök igen'-knapp — inga fastlåsta halva träffar.",
+    descEn: "If the mic mishears you, you now always get a 'Try again' option — no more locked-in half-matches.",
   },
   {
-    emoji: "✍️",
-    title: "Skriva",
-    titleEn: "Skriva — write from memory",
-    desc: "Översätt engelska meningar till hela svenska meningar. Svea rättar varje fel.",
-    descEn: "Translate English sentences into full Swedish. Svea fixes every mistake.",
-  },
-  {
-    emoji: "🎧",
-    title: "Hörförståelse",
-    titleEn: "Listening practice",
-    desc: "Riktiga ljudklipp — samtal, telefonsamtal, nyheter — som på nationella provet.",
-    descEn: "Real audio clips — dialogues, calls, news — like the national test.",
-  },
-  {
-    emoji: "🇸🇪",
-    title: "Samhälle & medborgarskap",
-    titleEn: "Civics & citizenship",
-    desc: "Sverige i fokus: lag, historia, rättigheter — allt du behöver för provet.",
-    descEn: "Sweden in focus: law, history, rights — everything you need for the test.",
-  },
-  {
-    emoji: "✨",
-    title: "Svea — din AI-tutor",
-    titleEn: "Svea — your AI tutor",
-    desc: "Planerar din dag, väljer övningar efter dina svagheter och förklarar varje fel.",
-    descEn: "Plans your day, picks exercises for your weak spots, and explains every mistake.",
-  },
-  {
-    emoji: "📊",
-    title: "Framsteg & provberedskap",
-    titleEn: "Progress & test readiness",
-    desc: "Streaks, XP, nivå per färdighet och hur redo du är för nationella provet.",
-    descEn: "Streaks, XP, mastery per skill, and how ready you are for the national test.",
+    emoji: "⭐",
+    title: "75 XP per klarat uppdrag",
+    titleEn: "75 XP per completed mission",
+    desc: "Slutför alla fem stegen i ett taluppdrag och tjäna 75 XP. Din totala uppdrags-XP visas överst i Tala.",
+    descEn: "Finish all five stages of a speaking mission to earn 75 XP. Your total mission XP shows at the top of Tala.",
   },
 ];
 
@@ -117,10 +89,10 @@ export default function WhatsNewModal() {
                   </div>
                   <div>
                     <h2 id="whats-new-title" className="font-display text-lg font-bold leading-tight">
-                      Allt-i-ett för SFI · All-in-one for SFI
+                      Nytt i Sveapasset · What's new
                     </h2>
                     <p className="text-xs text-muted-foreground">
-                      Lär dig svenska från Kurs A till medborgarskap — i en app.
+                      Färska förbättringar i Tala och röstsamtalen med Svea.
                     </p>
                   </div>
                 </div>
