@@ -6,8 +6,18 @@ const SpeechRecognitionAPI =
     : null;
 
 /**
- * Simple click-to-start/click-to-stop Swedish speech recognition hook.
- * onFinal is called with the final transcript when recognition ends.
+ * Swedish speech recognition hook.
+ *
+ * Design notes:
+ * - Chrome auto-ends recognition on ~2s of silence. We restart it under the
+ *   hood so a single user "session" can span many recognizer sessions.
+ * - We keep ONE growing transcript across restarts in `finalTranscriptRef`.
+ *   Each Chrome session starts its own `event.results` list from scratch, so
+ *   the transcript from session N is appended to what session N-1 produced.
+ * - When the user taps stop we do NOT call rec.stop() — we set a flag and let
+ *   the current session finish naturally. This is the ONLY reliable way to
+ *   get Chrome to flush the pending final result for short utterances on
+ *   mobile; calling stop() while a result is mid-flight loses it.
  */
 export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = true } = {}) {
   const [listening, setListening] = useState(false);
@@ -19,6 +29,13 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
   const stoppedByUserRef = useRef(false);
 
   const supported = !!SpeechRecognitionAPI;
+
+  const finish = useCallback(() => {
+    setListening(false);
+    setInterim("");
+    setFinalSoFar("");
+    if (onFinal) onFinal(finalTranscriptRef.current.trim());
+  }, [onFinal]);
 
   const start = useCallback(() => {
     if (!supported || listening) return;
@@ -37,12 +54,10 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
     rec.continuous = continuous;
     rec.maxAlternatives = 1;
 
-    // Rebuild the transcript within THIS recognition session on every event
-    // (finals from earlier sessions are preserved in sessionFinalsRef).
-    // Appending deltas caused duplicated phrases because Chrome sometimes
-    // re-emits earlier results as final, producing "vädret vädret vädret var…".
+    // Text captured during THIS recognizer session only.
     let sessionFinal = "";
     let sessionInterim = "";
+
     rec.onresult = (event) => {
       let finalText = "";
       let interimText = "";
@@ -54,12 +69,15 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
       sessionFinal = finalText.trim();
       sessionInterim = interimText.trim();
       setInterim(interimText);
+
+      // If the user has asked to stop and we now have a final result,
+      // end cleanly right away instead of waiting for silence timeout.
+      if (stoppedByUserRef.current && sessionFinal) {
+        try { rec.stop(); } catch { /* ignore */ }
+      }
     };
 
     rec.onerror = (e) => {
-      // Real errors (mic denied, network, etc.) must stop the loop so the UI
-      // doesn't stay stuck in "listening" forever. Only benign events (no-speech,
-      // aborted from an auto-restart) are ignored.
       if (e.error && e.error !== "no-speech" && e.error !== "aborted") {
         setError(e.error);
         stoppedByUserRef.current = true;
@@ -67,9 +85,8 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
     };
 
     rec.onend = () => {
-      // Fold this session's final (or its interim fallback) into the persistent
-      // ref. Chrome sometimes re-emits earlier results across auto-restart
-      // cycles, so we dedupe: only append the tail that isn't already there.
+      // Fold this session's text (final preferred, interim as fallback) into
+      // the persistent transcript, deduping against what came before.
       const captured = (sessionFinal || sessionInterim || "").trim();
       if (captured) {
         const prev = finalTranscriptRef.current.trim();
@@ -85,34 +102,30 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
           finalTranscriptRef.current = [prev, addition].filter(Boolean).join(" ").trim();
           setFinalSoFar(finalTranscriptRef.current);
         }
-        sessionFinal = "";
-        sessionInterim = "";
       }
-      // Chrome auto-ends on pause. Restart unless the user tapped stop.
+      sessionFinal = "";
+      sessionInterim = "";
+
+      // Auto-restart on Chrome's silence timeout unless the user tapped stop.
       if (!stoppedByUserRef.current && continuous) {
         try { rec.start(); return; } catch { /* fall through */ }
       }
-      setListening(false);
-      setInterim("");
-      setFinalSoFar("");
-      if (onFinal) onFinal(finalTranscriptRef.current.trim());
+      finish();
     };
 
     recognitionRef.current = rec;
     setListening(true);
     rec.start();
-  }, [supported, listening, lang, continuous, onFinal]);
+  }, [supported, listening, lang, continuous, finish]);
 
   const stop = useCallback(() => {
     const rec = recognitionRef.current;
     if (!rec) return;
+    // Mark the intent to stop — the recognizer's own onresult/onend cycle
+    // will finish the session cleanly. This preserves short final results
+    // (e.g. "här") that a direct rec.stop() would otherwise drop on mobile.
     stoppedByUserRef.current = true;
-    // Give the recognizer a beat to flush a pending final result for very
-    // short utterances (e.g. "här") where onend can otherwise fire before
-    // onresult, causing the captured word to be silently dropped.
-    setTimeout(() => {
-      try { rec.stop(); } catch { /* ignore */ }
-    }, 350);
+    try { rec.stop(); } catch { /* ignore */ }
   }, []);
 
   const toggle = useCallback(() => {
