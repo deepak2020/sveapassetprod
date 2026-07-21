@@ -49,7 +49,7 @@ export default function SpeakOrTypeInput({
     submit(transcript);
   };
 
-  const { listening, interim, error, supported, start, stop, toggle } = useSpeechRecognition({
+  const { listening, interim, finalSoFar, error, supported, start, stop, toggle } = useSpeechRecognition({
     onFinal: handleFinal,
     lang: "sv-SE",
     continuous: true,
@@ -201,9 +201,9 @@ export default function SpeakOrTypeInput({
               {listening ? "Tryck för att stoppa" : "Tryck och säg det på svenska"}
             </p>
           </div>
-          {listening && interim && (
-            <p className="text-center text-xs text-foreground italic min-h-[1rem]">
-              "{interim}"
+          {listening && (finalSoFar || interim) && (
+            <p className="text-center text-sm text-foreground italic min-h-[1rem] px-2">
+              "{[finalSoFar, interim].filter(Boolean).join(" ")}"
             </p>
           )}
           {micNotice && !listening && (

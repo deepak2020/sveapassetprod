@@ -12,6 +12,7 @@ const SpeechRecognitionAPI =
 export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = true } = {}) {
   const [listening, setListening] = useState(false);
   const [interim, setInterim] = useState("");
+  const [finalSoFar, setFinalSoFar] = useState("");
   const [error, setError] = useState(null);
   const recognitionRef = useRef(null);
   const finalTranscriptRef = useRef("");
@@ -23,6 +24,7 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
     if (!supported || listening) return;
     setError(null);
     setInterim("");
+    setFinalSoFar("");
     finalTranscriptRef.current = "";
     stoppedByUserRef.current = false;
 
@@ -70,6 +72,8 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
           .join(" ")
           .trim();
         sessionFinal = "";
+        // Keep the captured text visible across Chrome's auto-restart cycles.
+        setFinalSoFar(finalTranscriptRef.current);
       }
       // Chrome auto-ends on pause. Restart unless the user tapped stop.
       if (!stoppedByUserRef.current && continuous) {
@@ -77,6 +81,7 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
       }
       setListening(false);
       setInterim("");
+      setFinalSoFar("");
       if (onFinal) onFinal(finalTranscriptRef.current.trim());
     };
 
@@ -97,5 +102,5 @@ export function useSpeechRecognition({ onFinal, lang = "sv-SE", continuous = tru
     else start();
   }, [listening, start, stop]);
 
-  return { listening, interim, error, supported, start, stop, toggle };
+  return { listening, interim, finalSoFar, error, supported, start, stop, toggle };
 }
