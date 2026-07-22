@@ -4,12 +4,38 @@
   "properties": {
     "mission_id": {
       "type": "string",
-      "description": "SpeakingTopic id of the completed mission"
+      "description": "SpeakingTopic id of the mission"
+    },
+    "stages_completed": {
+      "type": "array",
+      "description": "Which of the 5 stages the user has finished (briefing, ord, fraser, repetera, live)",
+      "items": {
+        "type": "string",
+        "enum": [
+          "briefing",
+          "ord",
+          "fraser",
+          "repetera",
+          "live"
+        ]
+      },
+      "default": []
+    },
+    "last_stage": {
+      "type": "string",
+      "description": "The stage the user was last on \u2014 used to resume the mission",
+      "enum": [
+        "briefing",
+        "ord",
+        "fraser",
+        "repetera",
+        "live"
+      ]
     },
     "completed_at": {
       "type": "string",
       "format": "date-time",
-      "description": "When the user finished all 5 stages"
+      "description": "When the user finished all 5 stages (set on first full completion)"
     }
   },
   "required": [

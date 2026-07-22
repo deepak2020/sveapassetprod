@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Search, BookOpenCheck, Download, DatabaseZap, Loader2 } from "lucide-react";
+import { Search, BookOpenCheck, Download, DatabaseZap, Loader2, Copy, Check } from "lucide-react";
+import { buildBulkMissionTopUpPrompt } from "@/lib/missionPrompt";
 import { supabase } from "@/api/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
 import { Input } from "@/components/ui/input";
@@ -39,6 +40,7 @@ export default function AdminMissions() {
   const [q, setQ] = useState("");
   const [seedingAll, setSeedingAll] = useState(false);
   const [seedProgress, setSeedProgress] = useState(null); // "12/38" while running
+  const [copiedBulkTopUp, setCopiedBulkTopUp] = useState(false);
 
   const { data: existing = [], isLoading } = useQuery({
     queryKey: ["speaking-topics-all-admin"],
@@ -74,6 +76,13 @@ export default function AdminMissions() {
   const missingWithContent = MISSION_CATALOG.filter(
     (m) => !seededTitles.has(m.title_sv) && MISSION_CONTENT[m.title_sv]
   );
+  const seededMissions = MISSION_CATALOG.filter((m) => seededTitles.has(m.title_sv));
+
+  const copyBulkTopUp = async () => {
+    await navigator.clipboard.writeText(buildBulkMissionTopUpPrompt(seededMissions));
+    setCopiedBulkTopUp(true);
+    setTimeout(() => setCopiedBulkTopUp(false), 2000);
+  };
 
   const seedOne = async (mission) => {
     const record = buildTopicRecord(mission);
@@ -185,6 +194,26 @@ export default function AdminMissions() {
         </CardContent>
       </Card>
 
+      {/* Bulk top-up for already-seeded missions */}
+      {seededMissions.length > 0 && (
+        <Card className="border-emerald-300 bg-emerald-50/40 dark:bg-emerald-950/20 dark:border-emerald-900">
+          <CardContent className="p-4 space-y-2">
+            <div className="flex items-start justify-between gap-3 flex-wrap">
+              <div className="min-w-0">
+                <p className="text-sm font-semibold">Top up ALL {seededMissions.length} seeded missions in one prompt</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  One giant prompt covering every seeded mission. Paste it into Claude — it returns a JSON object keyed by <code className="text-[11px] bg-muted px-1 py-0.5 rounded">title_sv</code>, each with 2 extra vocab, 2 extra phrases, and 1 extra drill to append in Supabase.
+                </p>
+              </div>
+              <Button size="sm" onClick={copyBulkTopUp} className="gap-1.5">
+                {copiedBulkTopUp ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                {copiedBulkTopUp ? "Copied" : "Copy bulk top-up prompt"}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* How-to (per-mission) */}
       <Card className="border-dashed">
         <CardContent className="p-4 text-xs text-muted-foreground space-y-1.5 leading-relaxed">
@@ -197,6 +226,10 @@ export default function AdminMissions() {
           <p><span className="font-semibold text-foreground">1.</span> Click <strong>Copy Claude prompt</strong> on a card.</p>
           <p><span className="font-semibold text-foreground">2.</span> Paste it into Claude — it returns a single JSON object with the mission content.</p>
           <p><span className="font-semibold text-foreground">3.</span> Insert that JSON plus the card's metadata into the <code className="bg-muted px-1 rounded">speaking_topics</code> table in Supabase.</p>
+          <p className="font-semibold text-foreground pt-1">Top up an already-seeded mission with extra vocab &amp; phrases:</p>
+          <p><span className="font-semibold text-foreground">1.</span> On a green (In DB) card, click <strong>Copy top-up prompt</strong>.</p>
+          <p><span className="font-semibold text-foreground">2.</span> Paste to Claude — it returns 2 extra vocab items, 2 extra phrases, and 1 extra drill.</p>
+          <p><span className="font-semibold text-foreground">3.</span> In Supabase, append those items to the existing <code className="bg-muted px-1 rounded">key_vocabulary</code>, <code className="bg-muted px-1 rounded">key_phrases</code>, and <code className="bg-muted px-1 rounded">rehearsal_drills</code> arrays on the row.</p>
         </CardContent>
       </Card>
 

@@ -19,7 +19,7 @@ const SCHEMA_SNIPPET = `{
       "example_en": "English translation",
       "pronunciation_tip": "ONE short English tip, e.g. 'Long a, stress on first syllable'"
     }
-    // EXACTLY 6 items. No trivial words like 'jag', 'och', 'är'.
+    // EXACTLY 8 items. No trivial words like 'jag', 'och', 'är'.
   ],
   "key_phrases": [
     {
@@ -28,7 +28,7 @@ const SCHEMA_SNIPPET = `{
       "phrase_en": "English translation",
       "pronunciation_tip": "ONE short English tip"
     }
-    // EXACTLY 5 items. Phrases must be things the learner will actually use.
+    // EXACTLY 7 items. Phrases must be things the learner will actually use.
   ],
   "rehearsal_drills": [
     {
@@ -57,8 +57,17 @@ const SCHEMA_SNIPPET = `{
       "expected_answer_en": "…",
       "hint_en": "…",
       "options": null
+    },
+    {
+      "type": "quick_response",
+      "prompt_sv": "ANOTHER different curveball or follow-up Svea might throw",
+      "prompt_en": "…",
+      "expected_answer_sv": "…",
+      "expected_answer_en": "…",
+      "hint_en": "…",
+      "options": null
     }
-    // EXACTLY 3 drills, in this order and shape.
+    // EXACTLY 4 drills, in this order and shape (1 gap_fill + 3 quick_response).
   ]
 }`;
 
@@ -98,7 +107,136 @@ ${SCHEMA_SNIPPET}
 2. Swedish must sound natural to a native speaker in Sweden today (not textbook, not archaic).
 3. All English text must be plain, direct, learner-facing English.
 4. The rehearsal drills MUST rehearse the actual curveballs / key phrases from this scenario — they are the user's warm-up before facing Svea live.
-5. Counts are exact: 6 key_vocabulary, 5 key_phrases, 3 rehearsal_drills (in the order gap_fill → quick_response → quick_response).
+5. Counts are exact: 8 key_vocabulary, 7 key_phrases, 4 rehearsal_drills (in the order gap_fill → quick_response → quick_response → quick_response).
 6. Do NOT include the metadata fields (title_sv, title_en, level, category, emoji, order) in your JSON — only the content fields shown in the schema.
 7. Output ONLY the JSON object. No prose before or after. No markdown fences.`;
+}
+
+// Builds ONE mega top-up prompt covering many missions at once. Claude
+// returns a JSON object keyed by title_sv, each holding the extra items.
+export function buildBulkMissionTopUpPrompt(missions) {
+  const missionList = missions
+    .map(
+      (m, i) => `${i + 1}. title_sv: "${m.title_sv}"
+   title_en: "${m.title_en}"
+   level: ${m.level}
+   category: ${m.category}
+   situation: ${m.situation}
+   goal: ${m.goal_hint}`
+    )
+    .join("\n\n");
+
+  return `You are ADDING EXTRA content to ${missions.length} existing Swedish speaking missions on Sveapasset. Each mission was already generated with core vocab and phrases — do NOT redo them. Only produce the additional items below, for EVERY mission in the list.
+
+━━━ MISSIONS TO TOP UP (${missions.length}) ━━━
+${missionList}
+
+━━━ WHAT TO PRODUCE ━━━
+Return ONE JSON object, keyed by the exact title_sv of each mission. Each value must contain EXACTLY these three fields:
+
+{
+  "<title_sv of mission 1>": {
+    "extra_key_vocabulary": [
+      {
+        "swedish": "…",
+        "english": "…",
+        "example_sv": "short natural example using the word",
+        "example_en": "English translation",
+        "pronunciation_tip": "ONE short English tip"
+      }
+      // EXACTLY 2 items per mission.
+    ],
+    "extra_key_phrases": [
+      {
+        "situation_en": "when to use it",
+        "phrase_sv": "natural spoken Swedish phrase",
+        "phrase_en": "English translation",
+        "pronunciation_tip": "ONE short English tip"
+      }
+      // EXACTLY 2 items per mission.
+    ],
+    "extra_rehearsal_drill": {
+      "type": "quick_response",
+      "prompt_sv": "one more curveball Svea might throw in this scenario",
+      "prompt_en": "…",
+      "expected_answer_sv": "natural short reply",
+      "expected_answer_en": "…",
+      "hint_en": "short English hint",
+      "options": null
+    }
+  },
+  "<title_sv of mission 2>": { … same shape … },
+  …
+}
+
+━━━ HARD RULES ━━━
+1. Every mission's content must match its own CEFR level — vocab, grammar, sentence length.
+2. Swedish must sound natural to a native speaker in Sweden today.
+3. Do NOT repeat obvious core items a first-pass generation would already contain (skip "kaffe" for café, "biljett" for ticket booking, etc.). Go one layer deeper — recovery lines, clarification phrases, slightly rarer scenario-specific words.
+4. Counts are exact per mission: 2 vocab, 2 phrases, 1 drill.
+5. Include EVERY title_sv from the list above as a key in the returned object — no skips.
+6. Output ONLY the JSON object. No prose before or after. No markdown fences.`;
+}
+
+// Builds a "top-up" prompt for missions that were already generated with the
+// old counts (6 vocab, 5 phrases, 3 drills). Asks Claude for ONLY the extra
+// items so we can APPEND them to the existing record — no full regeneration.
+export function buildMissionTopUpPrompt(mission) {
+  const { title_sv, title_en, level, category, situation, goal_hint, emoji } = mission;
+
+  return `You are ADDING EXTRA content to an existing Swedish speaking mission on Sveapasset. The mission was already generated — do NOT redo it. Only produce the additional items below.
+
+━━━ MISSION METADATA (fixed) ━━━
+title_sv:  ${title_sv}
+title_en:  ${title_en}
+level:     ${level}
+category:  ${category}
+emoji:     ${emoji}
+
+━━━ SCENARIO ━━━
+${situation}
+
+━━━ LEARNER'S GOAL ━━━
+${goal_hint}
+
+━━━ WHAT TO PRODUCE ━━━
+Return ONE JSON object with EXACTLY these three arrays and nothing else:
+
+{
+  "extra_key_vocabulary": [
+    {
+      "swedish": "…",
+      "english": "…",
+      "example_sv": "short natural example using the word",
+      "example_en": "English translation",
+      "pronunciation_tip": "ONE short English tip"
+    }
+    // EXACTLY 2 items. Must be DIFFERENT words from anything obvious for this scenario — go one step deeper. No trivial words.
+  ],
+  "extra_key_phrases": [
+    {
+      "situation_en": "when to use it",
+      "phrase_sv": "natural spoken Swedish phrase",
+      "phrase_en": "English translation",
+      "pronunciation_tip": "ONE short English tip"
+    }
+    // EXACTLY 2 items. Focus on recovery / clarification / small-talk lines that the first pass usually misses (e.g. "Kan du säga det igen?", "Förlåt, jag förstod inte riktigt").
+  ],
+  "extra_rehearsal_drill": {
+    "type": "quick_response",
+    "prompt_sv": "one more curveball Svea might throw in this scenario",
+    "prompt_en": "…",
+    "expected_answer_sv": "natural short reply",
+    "expected_answer_en": "…",
+    "hint_en": "short English hint",
+    "options": null
+  }
+}
+
+━━━ HARD RULES ━━━
+1. Everything must be at CEFR level ${level}.
+2. Swedish must sound natural to a native speaker in Sweden today.
+3. Do NOT repeat items that a first-pass generation for this scenario would already contain (skip obvious core vocab like "kaffe" for a café scenario, "biljett" for a ticket scenario, etc.). Go for the SECOND layer of usefulness.
+4. Counts are exact: 2 vocab, 2 phrases, 1 drill.
+5. Output ONLY the JSON object. No prose before or after. No markdown fences.`;
 }

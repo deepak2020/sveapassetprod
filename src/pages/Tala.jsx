@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Zap, Headphones, Puzzle, MessageCircle, PenSquare, Mic, ChevronDown } from "lucide-react";
+import { Zap, Headphones, Puzzle, PenSquare, Mic, ChevronDown } from "lucide-react";
 import PageSEO from "@/components/shared/PageSEO";
 import LoginGate from "@/components/shared/LoginGate";
 import { useAuth } from "@/lib/AuthContext";
 import MissionPath from "@/components/missions/MissionPath";
-import TopicsCatalog from "@/components/missions/TopicsCatalog";
+
 import { cn } from "@/lib/utils";
 
 // Compact list of individual practice stations, shown collapsed by default.
@@ -14,7 +14,6 @@ const STATIONS = [
   { id: "shadowing", path: "/tala/shadowing", icon: Headphones,    title: "Shadowing",   subtitle: "Härma Svea",          duration: "5 min" },
   { id: "chunks",    path: "/tala/chunks",    icon: Puzzle,        title: "Chunks",      subtitle: "Bygg meningar",       duration: "3 min" },
   { id: "skriva",    path: "/speaking",       icon: PenSquare,     title: "Skriva",      subtitle: "Översätt till svenska", duration: "öppet" },
-  { id: "prata",     path: "/prata",          icon: MessageCircle, title: "Prata",       subtitle: "Fritt samtal med SveAI", duration: "5+ min" },
 ];
 
 function StationRow({ station }) {
@@ -74,18 +73,7 @@ export default function Tala() {
       {/* Uppdrag — Duolingo-style linear unlock path */}
       <MissionPath />
 
-      {/* Browsable topics catalog — grouped by level, expandable */}
-      <div className="border-t border-border pt-4">
-        <div className="mb-3">
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Alla ämnen
-          </p>
-          <p className="text-[11px] text-muted-foreground italic">
-            Browse all topics · locked ones open once you reach them
-          </p>
-        </div>
-        <TopicsCatalog />
-      </div>
+
 
       {/* Individual stations — collapsed by default */}
       <div className="border-t border-border pt-4">

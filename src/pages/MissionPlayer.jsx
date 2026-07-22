@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, X } from "lucide-react";
@@ -14,7 +14,7 @@ import OrdStage from "@/components/missions/OrdStage";
 import FraserStage from "@/components/missions/FraserStage";
 import RepeteraStage from "@/components/missions/RepeteraStage";
 import ConversationView from "@/components/speaking-chat/ConversationView";
-import { useCompleteMission } from "@/hooks/useMissionProgress";
+import { useMissionRecord, useSaveMissionProgress } from "@/hooks/useMissionProgress";
 
 const STAGE_ORDER = ["briefing", "ord", "fraser", "repetera", "live"];
 
@@ -26,7 +26,9 @@ export default function MissionPlayer() {
 
   const [stage, setStage] = useState("briefing");
   const [completedStages, setCompletedStages] = useState([]);
-  const completeMission = useCompleteMission();
+  const [restored, setRestored] = useState(false);
+  const saveProgress = useSaveMissionProgress();
+  const { data: savedRecord, isLoading: isLoadingRecord } = useMissionRecord(id);
 
   const { data: topic, isLoading, error } = useQuery({
     queryKey: ["speaking-topic", id],
@@ -34,10 +36,21 @@ export default function MissionPlayer() {
     enabled: !!id && isAuthenticated,
   });
 
-  // When the user enters the Live stage after finishing the 4 rehearsal stages,
-  // record the mission as complete so the next one unlocks on the path.
+  // Restore saved progress once, on first load, so the user resumes where they left off.
+  useEffect(() => {
+    if (restored || isLoadingRecord) return;
+    if (savedRecord) {
+      setCompletedStages(savedRecord.stages_completed || []);
+      if (savedRecord.last_stage && STAGE_ORDER.includes(savedRecord.last_stage)) {
+        setStage(savedRecord.last_stage);
+      }
+    }
+    setRestored(true);
+  }, [savedRecord, isLoadingRecord, restored]);
+
+  // When the user exits the Live stage, record the mission as fully complete.
   const handleExitLive = () => {
-    if (id) completeMission.mutate(id);
+    if (id) saveProgress.mutate({ missionId: id, stageCompleted: "live", currentStage: "live" });
     navigate("/tala");
   };
 
@@ -48,13 +61,22 @@ export default function MissionPlayer() {
   const goNext = () => {
     markComplete(stage);
     const idx = STAGE_ORDER.indexOf(stage);
-    if (idx < STAGE_ORDER.length - 1) setStage(STAGE_ORDER[idx + 1]);
+    const next = idx < STAGE_ORDER.length - 1 ? STAGE_ORDER[idx + 1] : stage;
+    if (next !== stage) setStage(next);
+    if (id) saveProgress.mutate({ missionId: id, stageCompleted: stage, currentStage: next });
   };
   const goPrev = () => {
     const idx = STAGE_ORDER.indexOf(stage);
-    if (idx > 0) setStage(STAGE_ORDER[idx - 1]);
+    if (idx > 0) {
+      const prev = STAGE_ORDER[idx - 1];
+      setStage(prev);
+      if (id) saveProgress.mutate({ missionId: id, currentStage: prev });
+    }
   };
-  const jumpTo = (s) => setStage(s);
+  const jumpTo = (s) => {
+    setStage(s);
+    if (id) saveProgress.mutate({ missionId: id, currentStage: s });
+  };
 
   const seoTitle = useMemo(
     () => (topic ? `${topic.title_sv} · Uppdrag · Sveapasset` : "Uppdrag · Sveapasset"),

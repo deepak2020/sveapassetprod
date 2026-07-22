@@ -38,10 +38,16 @@ Student just said (in Swedish, may be imperfect):
 "${user_message}"
 
 Your job — in ONE JSON response:
-1. Evaluate the student's Swedish. Only flag REAL grammatical errors (wrong verb form, wrong word order, wrong gender, wrong preposition that changes meaning, missing key word). NEVER rewrite for style. Accept natural alternatives, synonyms, and multiple valid prepositions.
-2. If there are errors, correct up to 2 of the MOST important ones. Ignore minor typos.
-3. Reply in Swedish with ONE short, natural follow-up (max 2 sentences) that keeps the conversation flowing on this topic. Match the student's CEFR level — do NOT reply in advanced Swedish to a beginner. Ask a question when it feels natural.
-4. Give brief English encouragement.
+1. Evaluate the student's Swedish. Only flag REAL grammatical errors (wrong verb form, wrong word order, wrong gender agreement between a noun and its OWN adjective/article, wrong preposition that CHANGES meaning, missing key word). NEVER rewrite for style. Accept natural alternatives, synonyms, and multiple valid prepositions.
+2. DO NOT flag as errors:
+   - Missing or added commas / punctuation (spoken Swedish rarely uses them).
+   - Capitalization.
+   - "Det är gott" vs "Den är god" when talking about food/drink — BOTH are natural in Swedish. "Det är gott" is the standard idiomatic way to say "it tastes good" regardless of the noun's gender; "Den är god" also works if the speaker is referring to the specific en-word item. Never "correct" one to the other.
+   - Discourse particles like "ju", "väl", "då", "nu".
+   - Word choice that is valid, just different from what you would have said.
+3. If there are REAL errors, correct up to 2 of the MOST important ones. Ignore minor typos. If the sentence is fine, return corrected_sv = the original text and mistakes = [].
+4. Reply in Swedish with ONE short, natural follow-up (max 2 sentences) that keeps the conversation flowing on this topic. Match the student's CEFR level — do NOT reply in advanced Swedish to a beginner. Ask a question when it feels natural.
+5. Give brief English encouragement.
 
 Return JSON with:
 - is_swedish: boolean (false if the student wrote in another language)

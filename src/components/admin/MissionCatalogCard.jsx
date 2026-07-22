@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Copy, Check, CheckCircle2, Circle, DatabaseZap, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { buildMissionPrompt } from "@/lib/missionPrompt";
+import { buildMissionPrompt, buildMissionTopUpPrompt } from "@/lib/missionPrompt";
 
 const LEVEL_COLOR = {
   A1: "bg-rose-100 text-rose-800 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900",
@@ -30,6 +30,12 @@ export default function MissionCatalogCard({ mission, seeded, hasContent, onSeed
   const copyPrompt = async () => {
     await navigator.clipboard.writeText(buildMissionPrompt(mission));
     setCopied("prompt");
+    setTimeout(() => setCopied(null), 1500);
+  };
+
+  const copyTopUpPrompt = async () => {
+    await navigator.clipboard.writeText(buildMissionTopUpPrompt(mission));
+    setCopied("topup");
     setTimeout(() => setCopied(null), 1500);
   };
 
@@ -106,6 +112,12 @@ export default function MissionCatalogCard({ mission, seeded, hasContent, onSeed
             {copied === "meta" ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
             {copied === "meta" ? "Copied" : "Copy metadata"}
           </Button>
+          {seeded && (
+            <Button size="sm" variant="outline" onClick={copyTopUpPrompt} className="gap-1.5 h-7 text-xs">
+              {copied === "topup" ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+              {copied === "topup" ? "Copied" : "Copy top-up prompt"}
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>

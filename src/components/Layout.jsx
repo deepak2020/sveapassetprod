@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { BookOpen, Landmark, Home, Menu, X, LogIn, LogOut, Headphones, Flame, Zap, LayoutDashboard, Dumbbell, PenSquare, Mic, MessageCircle } from "lucide-react";
+import { BookOpen, Landmark, Home, Menu, X, LogIn, LogOut, Headphones, Flame, Zap, LayoutDashboard, Dumbbell, PenSquare, Mic } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/AuthContext";
@@ -17,7 +17,6 @@ const navItems = [
   { path: "/gym", label: "Träning", icon: Dumbbell },
   { path: "/tala", label: "Tala", icon: Mic },
   { path: "/speaking", label: "Skriva", icon: PenSquare },
-  { path: "/prata", label: "Prata", icon: MessageCircle },
   { path: "/grammar", label: "Grammatik", icon: PenSquare },
   { path: "/listening/c", label: "Hörförståelse", icon: Headphones },
 ];
@@ -38,7 +37,6 @@ const TAB_ROOTS = {
   "/gym": "/gym",
   "/tala": "/tala",
   "/speaking": "/speaking",
-  "/prata": "/prata",
   "/grammar": "/grammar",
   "/listening": "/listening",
 };

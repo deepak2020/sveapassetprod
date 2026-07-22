@@ -6,65 +6,44 @@ import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
 
 // Bump this string with every release to re-show the dialog to all users
-const CURRENT_VERSION = "2026-06-v2";
+const CURRENT_VERSION = "2026-07-v1";
 const STORAGE_KEY = "svenska:whats_new_seen";
 
 const FEATURES = [
   {
-    emoji: "📚",
-    title: "Lektioner — Kurs A till D",
-    titleEn: "Lessons — Kurs A to D",
-    desc: "Hela SFI-resan i en app: ordförråd, fraser, läsning och skrivning per nivå.",
-    descEn: "The whole SFI journey in one app: vocabulary, phrases, reading and writing per level.",
+    emoji: "🗣️",
+    title: "Varför Tala finns",
+    titleEn: "Why we built Tala",
+    desc: "Det svåraste med svenska är inte att förstå — det är att våga prata. Tala är en trygg plats där du övar högt, om och om igen, tills orden kommer automatiskt.",
+    descEn: "The hardest part of Swedish isn't understanding — it's daring to speak. Tala is a safe place to practice out loud, over and over, until the words come automatically.",
   },
   {
-    emoji: "📝",
-    title: "Grammatik",
-    titleEn: "Grammar",
-    desc: "Tydliga regler och övningar — en-/ett-ord, verbtempus, ordföljd och mer.",
-    descEn: "Clear rules and exercises — en/ett words, verb tenses, word order and more.",
+    emoji: "🎯",
+    title: "Uppdrag med tydligt mål",
+    titleEn: "Missions with a clear goal",
+    desc: "Varje uppdrag är en verklig situation — beställa fika, boka läkartid, småprata på jobbet. Du vet exakt vad du ska klara av innan du börjar.",
+    descEn: "Every mission is a real-life situation — ordering coffee, booking a doctor, small talk at work. You know exactly what you need to pull off before you start.",
   },
   {
-    emoji: "🏋️",
-    title: "Träningssalen (Gym)",
-    titleEn: "The Gym",
-    desc: "Lucktexter och repetition med smart spaced repetition så orden fastnar.",
-    descEn: "Cloze drills with spaced repetition so words actually stick.",
+    emoji: "🪜",
+    title: "Fem steg — inga genvägar",
+    titleEn: "Five stages — no shortcuts",
+    desc: "Briefing → Ord → Fraser → Repetera → Live. Du bygger upp orden och fraserna först, så när du pratar med Svea på riktigt sitter det redan.",
+    descEn: "Briefing → Words → Phrases → Rehearsal → Live. You build the vocabulary and phrases first, so when you actually talk to Svea, it's already in your mouth.",
   },
   {
-    emoji: "✍️",
-    title: "Skriva",
-    titleEn: "Skriva — write from memory",
-    desc: "Översätt engelska meningar till hela svenska meningar. Svea rättar varje fel.",
-    descEn: "Translate English sentences into full Swedish. Svea fixes every mistake.",
+    emoji: "🎤",
+    title: "Prata på riktigt med Svea",
+    titleEn: "Actually speak with Svea",
+    desc: "Slutstationen är en riktig röstkonversation. Svea lyssnar, svarar, och rättar bara det som verkligen är fel — inga påhoppade kommatecken.",
+    descEn: "The final stage is a real voice conversation. Svea listens, replies, and only corrects what's actually wrong — no nit-picking on commas.",
   },
   {
-    emoji: "🎧",
-    title: "Hörförståelse",
-    titleEn: "Listening practice",
-    desc: "Riktiga ljudklipp — samtal, telefonsamtal, nyheter — som på nationella provet.",
-    descEn: "Real audio clips — dialogues, calls, news — like the national test.",
-  },
-  {
-    emoji: "🇸🇪",
-    title: "Samhälle & medborgarskap",
-    titleEn: "Civics & citizenship",
-    desc: "Sverige i fokus: lag, historia, rättigheter — allt du behöver för provet.",
-    descEn: "Sweden in focus: law, history, rights — everything you need for the test.",
-  },
-  {
-    emoji: "✨",
-    title: "Svea — din AI-tutor",
-    titleEn: "Svea — your AI tutor",
-    desc: "Planerar din dag, väljer övningar efter dina svagheter och förklarar varje fel.",
-    descEn: "Plans your day, picks exercises for your weak spots, and explains every mistake.",
-  },
-  {
-    emoji: "📊",
-    title: "Framsteg & provberedskap",
-    titleEn: "Progress & test readiness",
-    desc: "Streaks, XP, nivå per färdighet och hur redo du är för nationella provet.",
-    descEn: "Streaks, XP, mastery per skill, and how ready you are for the national test.",
+    emoji: "💾",
+    title: "Du kan alltid fortsätta senare",
+    titleEn: "Pick up right where you left off",
+    desc: "Ta en paus mitt i ett uppdrag — nästa gång du öppnar det landar du på exakt samma steg. Klara alla fem för 75 XP.",
+    descEn: "Pause mid-mission — next time you open it, you land on the exact same stage. Clear all five to earn 75 XP.",
   },
 ];
 
@@ -117,10 +96,10 @@ export default function WhatsNewModal() {
                   </div>
                   <div>
                     <h2 id="whats-new-title" className="font-display text-lg font-bold leading-tight">
-                      Allt-i-ett för SFI · All-in-one for SFI
+                      Nytt: Tala · Introducing Tala
                     </h2>
                     <p className="text-xs text-muted-foreground">
-                      Lär dig svenska från Kurs A till medborgarskap — i en app.
+                      Äntligen en plats att öva svenska högt — utan att skämmas.
                     </p>
                   </div>
                 </div>
