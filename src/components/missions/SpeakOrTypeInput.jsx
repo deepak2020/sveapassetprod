@@ -52,7 +52,6 @@ export default function SpeakOrTypeInput({
   const { listening, interim, finalSoFar, error, supported, start, stop, toggle } = useSpeechRecognition({
     onFinal: handleFinal,
     lang: "sv-SE",
-    continuous: true,
   });
 
   // Translate low-level SpeechRecognition errors into a friendly Swedish hint.
