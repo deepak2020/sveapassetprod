@@ -103,15 +103,21 @@ export default function VocabReviewSession({ cards, onFinish }) {
                   <p className="text-3xl font-bold mb-4">{card.swedish}</p>
                   <p className="text-sm text-muted-foreground">Tryck för att se svaret · Tap to reveal</p>
                 </>
-              ) : (
-                <>
-                  <p className="text-lg text-muted-foreground mb-3">{card.swedish}</p>
-                  <p className="text-3xl font-bold text-primary">{card.english}</p>
-                  {card.lessonTitle && (
-                    <p className="text-xs text-muted-foreground/60 mt-3 italic">{card.lessonTitle}</p>
-                  )}
-                </>
-              )}
+              ) : (() => {
+                const isSkrivaCard = !card.lessonId && card.lessonTitle?.startsWith("Skriva");
+                return (
+                  <>
+                    <p className="text-lg text-muted-foreground mb-3">{card.swedish}</p>
+                    {isSkrivaCard && (
+                      <p className="text-xs font-semibold text-muted-foreground/70 uppercase tracking-wide mb-1">From this sentence</p>
+                    )}
+                    <p className={isSkrivaCard ? "text-lg font-medium text-primary leading-relaxed" : "text-3xl font-bold text-primary"}>{card.english}</p>
+                    {card.lessonTitle && (
+                      <p className="text-xs text-muted-foreground/60 mt-3 italic">{card.lessonTitle}</p>
+                    )}
+                  </>
+                );
+              })()}
             </CardContent>
           </Card>
         </motion.div>

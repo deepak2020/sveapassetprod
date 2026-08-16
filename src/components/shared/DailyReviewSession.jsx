@@ -291,36 +291,59 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
           <Card className="border-border/50">
             <CardContent className="p-6 space-y-5">
               {/* Prompt area — varies by mode */}
-              {mode === "type" && (
-                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 text-center">
-                  <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide mb-2">English</p>
-                  <p className="text-xl font-semibold text-blue-900 dark:text-blue-100">{item.english}</p>
-                </div>
-              )}
-
-              {mode === "choice" && (
-                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 text-center">
-                  <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide mb-2">English</p>
-                  <p className="text-xl font-semibold text-blue-900 dark:text-blue-100">{item.english}</p>
-                  <p className="text-xs text-muted-foreground mt-2">Pick the correct Swedish translation</p>
-                </div>
-              )}
-
-              {mode === "listen" && (
-                <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-xl p-6 text-center">
-                  <div className="flex items-center justify-center gap-3 mb-2">
-                    <Headphones className="w-5 h-5 text-violet-600 dark:text-violet-400" />
-                    <span className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide">Listen</span>
+              {mode === "type" && (() => {
+                const isSkrivaCard = !item.lessonId && item.lessonTitle?.startsWith("Skriva");
+                return (
+                  <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 text-center">
+                    <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide mb-2">
+                      {isSkrivaCard ? "Sentence context" : "English"}
+                    </p>
+                    <p className="text-xl font-semibold text-blue-900 dark:text-blue-100">{item.english}</p>
+                    {isSkrivaCard && (
+                      <p className="text-xs text-muted-foreground mt-2">Type the Swedish word that was corrected</p>
+                    )}
                   </div>
-                  <p className="text-sm text-muted-foreground mb-3">Tap to hear the Swedish word again</p>
-                  <div className="flex justify-center">
-                    <SpeakButton text={item.swedish} className="w-12 h-12 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300" />
+                );
+              })()}
+
+              {mode === "choice" && (() => {
+                const isSkrivaCard = !item.lessonId && item.lessonTitle?.startsWith("Skriva");
+                return (
+                  <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 text-center">
+                    <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide mb-2">
+                      {isSkrivaCard ? "Sentence context" : "English"}
+                    </p>
+                    <p className="text-xl font-semibold text-blue-900 dark:text-blue-100">{item.english}</p>
+                    <p className="text-xs text-muted-foreground mt-2">
+                      {isSkrivaCard
+                        ? "Which word was corrected? Pick the right Swedish word"
+                        : "Pick the correct Swedish translation"}
+                    </p>
                   </div>
-                  {answered && (
-                    <p className="text-xs text-muted-foreground mt-3">Meaning: <span className="font-medium text-foreground">{item.english}</span></p>
-                  )}
-                </div>
-              )}
+                );
+              })()}
+
+              {mode === "listen" && (() => {
+                const isSkrivaCard = !item.lessonId && item.lessonTitle?.startsWith("Skriva");
+                return (
+                  <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-xl p-6 text-center">
+                    <div className="flex items-center justify-center gap-3 mb-2">
+                      <Headphones className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+                      <span className="text-xs font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide">Listen</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-3">Tap to hear the Swedish word again</p>
+                    <div className="flex justify-center">
+                      <SpeakButton text={item.swedish} className="w-12 h-12 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300" />
+                    </div>
+                    {answered && (
+                      <p className="text-xs text-muted-foreground mt-3">
+                        {isSkrivaCard ? "From: " : "Meaning: "}
+                        <span className="font-medium text-foreground">{item.english}</span>
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
 
               {/* Answer area */}
               {mode === "type" && (
