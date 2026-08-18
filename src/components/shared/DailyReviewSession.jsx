@@ -75,9 +75,18 @@ function buildDistractors(item, pool) {
   return picked;
 }
 
+// Skriva-sourced cards store a single corrected word as the answer but a full
+// English sentence as the "translation" — so "type" mode (which shows the
+// English and says "Type in Swedish") is misleading: users type the whole
+// sentence and get marked wrong. Skip type mode for those cards.
+function isSkrivaCard(item) {
+  return !item?.lessonId && item?.lessonTitle?.startsWith("Skriva");
+}
+
 // Decide question type for each item: rotate typing → multiple choice → listening.
-function pickMode(index) {
-  const mods = ["type", "choice", "listen"];
+// Skriva cards only use choice + listen (no type mode).
+function pickMode(index, item) {
+  const mods = isSkrivaCard(item) ? ["choice", "listen"] : ["type", "choice", "listen"];
   return mods[index % mods.length];
 }
 
@@ -102,7 +111,7 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
   const { speak } = useSpeech();
 
   const item = sessionItems[current];
-  const mode = useMemo(() => pickMode(current), [current]);
+  const mode = useMemo(() => pickMode(current, item), [current, item]);
 
   // Memo distractors per question — keyed only by the item's id so this
   // never reshuffles mid-question (parent rerenders pass new array refs).
