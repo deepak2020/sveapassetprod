@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Trophy, Clock, ArrowLeft, ArrowRight, CheckCircle2, XCircle, RotateCcw, Play } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const TOTAL_QUESTIONS = 25;
 const TEST_MINUTES = 30;
@@ -266,13 +266,12 @@ export default function CitizenshipTest() {
 
       <Card className="border-border/50">
         <CardContent className="p-6 sm:p-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentQ}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-            >
+          <motion.div
+            key={currentQ}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.15 }}
+          >
               <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
                 {q.topicTitle}
               </p>
@@ -299,8 +298,7 @@ export default function CitizenshipTest() {
                   </button>
                 ))}
               </div>
-            </motion.div>
-          </AnimatePresence>
+          </motion.div>
         </CardContent>
       </Card>
 
