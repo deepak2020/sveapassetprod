@@ -108,16 +108,35 @@ export function selectDailyLessons({ lessons = [], completedIds = [], focusSkill
   // Unknown skills (no attempts) get a medium priority so they still surface.
   const skillPriority = (skill) => (mastery[skill]?.attempts ? mastery[skill].score : 50);
 
-  return pool
-    .map((l) => ({
-      lesson: l,
-      s: skillPriority(l.skill || l.category),
-      c: COURSE_RANK[l.sfi_course] ?? 9,
-      o: l.order ?? 9999,
-    }))
-    .sort((a, b) => a.s - b.s || a.c - b.c || a.o - b.o)
-    .slice(0, perDay)
-    .map((x) => x.lesson);
+  // Group lessons by skill, each group sorted by course then lesson order.
+  const bySkill = new Map();
+  for (const l of pool) {
+    const sk = l.skill || l.category || "other";
+    if (!bySkill.has(sk)) bySkill.set(sk, []);
+    bySkill.get(sk).push(l);
+  }
+  for (const arr of bySkill.values()) {
+    arr.sort((a, b) =>
+      (COURSE_RANK[a.sfi_course] ?? 9) - (COURSE_RANK[b.sfi_course] ?? 9) ||
+      (a.order ?? 9999) - (b.order ?? 9999)
+    );
+  }
+  // Order skills weakest-first, then round-robin pick one lesson per skill so
+  // the day mixes skills instead of returning all lessons from one skill.
+  const skillOrder = [...bySkill.keys()].sort((a, b) => skillPriority(a) - skillPriority(b));
+  const picked = [];
+  const cursor = new Map(skillOrder.map((s) => [s, 0]));
+  while (picked.length < perDay) {
+    let added = false;
+    for (const s of skillOrder) {
+      if (picked.length >= perDay) break;
+      const arr = bySkill.get(s);
+      const i = cursor.get(s);
+      if (i < arr.length) { picked.push(arr[i]); cursor.set(s, i + 1); added = true; }
+    }
+    if (!added) break; // pool exhausted
+  }
+  return picked;
 }
 
 // Insert any unmet prerequisites before the lessons that depend on them, using
