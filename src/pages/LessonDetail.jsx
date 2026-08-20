@@ -177,17 +177,10 @@ export default function LessonDetail() {
     : "content";
   // Allow deep-linking to a tab via ?tab=speaking (used by the study planner).
   const [searchParams] = useSearchParams();
-  const [activeTab, setActiveTab] = useState(searchParams.get("tab") || defaultTab);
-
-  // defaultTab is "content" while lesson is still loading (undefined). Once the
-  // lesson loads, switch to the real default (e.g. "learn") so users land on
-  // the first interactive exercise — unless a ?tab= deep-link was requested.
-  useEffect(() => {
-    if (lesson && !searchParams.get("tab")) {
-      setActiveTab(defaultTab);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lesson]);
+  // Start as null so that while the lesson is loading (defaultTab === "content"),
+  // we don't lock activeTab to "content" — once the lesson loads, effectiveTab
+  // resolves to the real default (e.g. "learn") immediately, with no flash.
+  const [activeTab, setActiveTab] = useState(searchParams.get("tab") || null);
 
   if (isLoading) {
     return (
@@ -313,9 +306,9 @@ export default function LessonDetail() {
 
   const allTabs = ["content", ...availableKeys];
 
-  // If a ?tab= deep-link points to a tab this lesson doesn't have, fall back
-  // (computed, not stateful, to avoid a hook after the early returns above).
-  const effectiveTab = allTabs.includes(activeTab) ? activeTab : defaultTab;
+  // Resolve the active tab: null → use defaultTab (first exercise); a real
+  // value that exists in allTabs → use it; otherwise fall back to defaultTab.
+  const effectiveTab = !activeTab || allTabs.includes(activeTab) ? (activeTab || defaultTab) : defaultTab;
 
   const goToTab = (key) => {
     setActiveTab(key);
