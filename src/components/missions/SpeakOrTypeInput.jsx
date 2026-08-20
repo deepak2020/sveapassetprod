@@ -164,15 +164,28 @@ export default function SpeakOrTypeInput({
           <span className="italic">"{expected}"</span>
         </p>
         {canRetry && (
-          <Button
-            onClick={retry}
-            size="sm"
-            variant="outline"
-            className="mt-3 w-full gap-2 bg-white/60 dark:bg-transparent"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            Försök igen
-          </Button>
+          <div className="mt-3 flex gap-2">
+            <Button
+              onClick={retry}
+              size="sm"
+              variant="outline"
+              className="flex-1 gap-2 bg-white/60 dark:bg-transparent"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              Försök igen
+            </Button>
+            {mode === "voice" && (
+              <Button
+                onClick={() => { setSubmitted(null); setText(""); setMode("text"); }}
+                size="sm"
+                variant="outline"
+                className="flex-1 gap-2 bg-white/60 dark:bg-transparent"
+              >
+                <Keyboard className="w-3.5 h-3.5" />
+                Skriv istället
+              </Button>
+            )}
+          </div>
         )}
       </div>
     );
