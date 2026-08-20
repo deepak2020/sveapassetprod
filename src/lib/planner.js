@@ -123,18 +123,28 @@ export function selectDailyLessons({ lessons = [], completedIds = [], focusSkill
   }
   // Order skills weakest-first, then round-robin pick one lesson per skill so
   // the day mixes skills instead of returning all lessons from one skill.
+  // Cap each skill at half the day so a dominant skill (e.g. lots of vocab)
+  // can't fill the whole plan — at least two skills are always represented.
+  const skillCap = Math.ceil(perDay / 2);
   const skillOrder = [...bySkill.keys()].sort((a, b) => skillPriority(a) - skillPriority(b));
   const picked = [];
   const cursor = new Map(skillOrder.map((s) => [s, 0]));
+  const perSkillCount = new Map(skillOrder.map((s) => [s, 0]));
   while (picked.length < perDay) {
     let added = false;
     for (const s of skillOrder) {
       if (picked.length >= perDay) break;
+      if (perSkillCount.get(s) >= skillCap) continue;
       const arr = bySkill.get(s);
       const i = cursor.get(s);
-      if (i < arr.length) { picked.push(arr[i]); cursor.set(s, i + 1); added = true; }
+      if (i < arr.length) {
+        picked.push(arr[i]);
+        cursor.set(s, i + 1);
+        perSkillCount.set(s, perSkillCount.get(s) + 1);
+        added = true;
+      }
     }
-    if (!added) break; // pool exhausted
+    if (!added) break; // pool exhausted or all skills capped
   }
   return picked;
 }
