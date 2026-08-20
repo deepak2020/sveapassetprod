@@ -104,16 +104,22 @@ export function useStudyPlan(userId) {
 
   const getDayNumber = () => {
     if (!plan?.start_date) return 1;
-    const start = new Date(plan.start_date);
+    // Parse start_date as local midnight — new Date("YYYY-MM-DD") parses as UTC,
+    // which shifts the day boundary and makes dayNumber off by one in non-UTC
+    // timezones (e.g. Stockholm UTC+2 would show day 1 as day 0 in the evening).
+    const [y, m, d] = plan.start_date.split("-").map(Number);
+    const start = new Date(y, m - 1, d);
     const today = new Date();
-    const diff = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+    today.setHours(0, 0, 0, 0);
+    start.setHours(0, 0, 0, 0);
+    const diff = Math.round((today - start) / (1000 * 60 * 60 * 24));
     return Math.min(diff + 1, plan.target_days);
   };
 
   const getProgress = () => {
     if (!plan) return 0;
     const completed = (plan.completed_lesson_ids || []).length;
-    const total = (plan.daily_schedule || []).reduce((sum, d) => sum + d.lesson_ids.length, 0);
+    const total = (plan.daily_schedule || []).reduce((sum, d) => sum + (d.lesson_ids?.length || 0), 0);
     return total > 0 ? Math.round((completed / total) * 100) : 0;
   };
 
