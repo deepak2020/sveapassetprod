@@ -179,6 +179,16 @@ export default function LessonDetail() {
   const [searchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState(searchParams.get("tab") || defaultTab);
 
+  // defaultTab is "content" while lesson is still loading (undefined). Once the
+  // lesson loads, switch to the real default (e.g. "learn") so users land on
+  // the first interactive exercise — unless a ?tab= deep-link was requested.
+  useEffect(() => {
+    if (lesson && !searchParams.get("tab")) {
+      setActiveTab(defaultTab);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lesson]);
+
   if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
