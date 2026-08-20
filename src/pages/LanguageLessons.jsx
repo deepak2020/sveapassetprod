@@ -22,9 +22,9 @@ const ADMIN_EMAIL = "deepak2020rana@gmail.com";
 
 const exerciseBadge = (lesson) => {
   const parts = [];
-  if (lesson.fill_in_blanks?.length) parts.push(`${lesson.fill_in_blanks.length} fyllning`);
+  if (lesson.fill_in_blanks?.length) parts.push(`${lesson.fill_in_blanks.length} lucktext`);
   if (lesson.quiz_questions?.length) parts.push(`${lesson.quiz_questions.length} quiz`);
-  if (lesson.word_pairs?.length) parts.push(`${lesson.word_pairs.length} kort`);
+  if (lesson.word_pairs?.length) parts.push(`${lesson.word_pairs.length} ord`);
   return parts.slice(0, 2).join(" · ") || "Interaktiv Lektion";
 };
 
@@ -56,15 +56,15 @@ export default function LanguageLessons() {
   };
 
   // Lightweight counts for the course overview cards (one tiny query, not full lessons)
-  const { data: courseCounts = {} } = useQuery({
+  const { data: courseData = {} } = useQuery({
     queryKey: ["lesson-course-counts"],
     queryFn: async () => {
-      const counts = {};
+      const data = {};
       for (const course of ["A", "B", "C", "D"]) {
         const batch = await base44.entities.Lesson.filter({ sfi_course: course }, "order", 500);
-        counts[course] = batch.length;
+        data[course] = { total: batch.length, ids: batch.map((l) => l.id) };
       }
-      return counts;
+      return data;
     },
   });
 
@@ -86,7 +86,12 @@ export default function LanguageLessons() {
     },
   });
 
-  const countByCourse = (courseId) => courseCounts[courseId] || 0;
+  const countByCourse = (courseId) => courseData[courseId]?.total || 0;
+  const completedByCourse = (courseId) => {
+    const ids = courseData[courseId]?.ids || [];
+    if (!ids.length || !completedIds?.size) return 0;
+    return ids.filter((id) => completedIds.has(id)).length;
+  };
 
   const activeCourseData = SFI_COURSES.find((c) => c.id === activeCourse);
 
@@ -156,7 +161,7 @@ export default function LanguageLessons() {
                   <p className="text-sm italic text-muted-foreground font-medium mb-1">{course.name_en}</p>
                   <p className="text-muted-foreground font-medium mb-6">{course.subtitle}</p>
 
-                  <div className="flex flex-wrap gap-2 mb-8">
+                  <div className="flex flex-wrap gap-2 mb-6">
                     {course.topics.map((t) => (
                       <span key={t} className="px-3 py-1 bg-background/50 rounded-lg text-xs font-medium border border-border/20">
                         {t}
@@ -164,9 +169,27 @@ export default function LanguageLessons() {
                     ))}
                   </div>
 
+                  {/* Per-course progress */}
+                  {(() => {
+                    const total = countByCourse(course.id);
+                    const done = completedByCourse(course.id);
+                    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+                    return (
+                      <div className="mb-6">
+                        <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
+                          <span className="font-medium">{done}/{total} klara · <em className="italic">completed</em></span>
+                          <span>{pct}%</span>
+                        </div>
+                        <div className="w-full h-2 bg-background/50 rounded-full overflow-hidden">
+                          <div className={`h-full bg-gradient-to-r ${course.color} rounded-full transition-all duration-500`} style={{ width: `${pct}%` }} />
+                        </div>
+                      </div>
+                    );
+                  })()}
+
                   <div className="flex items-center justify-between mt-auto">
                     <span className="text-sm font-bold text-primary">
-                      {countByCourse(course.id)} enheter tillgängliga · <span className="font-normal italic">units available</span>
+                      {countByCourse(course.id)} enheter · <span className="font-normal italic">units</span>
                     </span>
                     <div className="flex items-center gap-2">
                       {isAdmin && (

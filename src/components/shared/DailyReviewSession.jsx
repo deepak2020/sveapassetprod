@@ -221,12 +221,12 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
         <div className="w-20 h-20 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center mx-auto mb-4">
           <Trophy className="w-10 h-10 text-amber-500" />
         </div>
-        <h2 className="font-display text-3xl font-bold mb-1">Warm-up done! 🔥</h2>
+        <h2 className="font-display text-3xl font-bold mb-1">Uppvärmning klar! 🔥</h2>
         <p className="text-5xl font-bold text-primary my-3">{pct}%</p>
-        <p className="text-muted-foreground mb-1">{score} / {sessionItems.length} correct</p>
+        <p className="text-muted-foreground mb-1">{score} / {sessionItems.length} rätt</p>
         {bestStreak >= 3 && (
           <p className="text-sm text-amber-700 dark:text-amber-400 mb-3 inline-flex items-center gap-1">
-            <Flame className="w-4 h-4" /> Best streak: {bestStreak} in a row
+            <Flame className="w-4 h-4" /> Bästa svit: {bestStreak} i rad
           </p>
         )}
         <div className="inline-flex items-center gap-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl px-4 py-2 mb-6 mt-2">
@@ -236,11 +236,11 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
         <div className="space-y-2">
           {canContinue && onContinue && (
             <Button onClick={onContinue} size="lg" className="w-full bg-amber-500 hover:bg-amber-600 text-white gap-2">
-              <Flame className="w-4 h-4" /> Keep going — more words
+              <Flame className="w-4 h-4" /> Fortsätt — fler ord
             </Button>
           )}
           <Button onClick={onComplete} size="lg" variant={canContinue ? "outline" : "default"} className="w-full">
-            {canContinue ? "I'm done for now" : "Continue learning"}
+            {canContinue ? "Klart för nu" : "Fortsätt lära"}
           </Button>
         </div>
       </motion.div>
@@ -255,10 +255,10 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
           onClick={onExit}
           className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1"
         >
-          <ArrowLeft className="w-4 h-4" /> Exit review
+          <ArrowLeft className="w-4 h-4" /> Avsluta
         </button>
         <span className="text-sm text-muted-foreground">{current + 1} / {sessionItems.length}</span>
-        <span className="text-sm font-semibold text-primary">Score: {score}</span>
+        <span className="text-sm font-semibold text-primary">Poäng: {score}</span>
       </div>
 
       {/* Progress bar + live streak */}
@@ -278,7 +278,7 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
               className="flex items-center justify-center gap-1.5 text-xs font-semibold text-amber-600 dark:text-amber-400"
             >
               <Flame className="w-3.5 h-3.5" />
-              <span>{streak} in a row!</span>
+              <span>{streak} i rad!</span>
             </motion.div>
           )}
         </AnimatePresence>
@@ -286,7 +286,7 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
 
       <div className="text-center mb-2">
         <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-3 py-1 rounded-full">
-          🔥 Daily Warm-up · {mode === "type" ? "Type it" : mode === "choice" ? "Multiple choice" : "Listen & pick"}
+          🔥 Daglig uppvärmning · {mode === "type" ? "Skriv" : mode === "choice" ? "Flervalsval" : "Lyssna & välj"}
         </span>
       </div>
 
@@ -358,7 +358,7 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
               {mode === "type" && (
                 <div className="space-y-3">
                   <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                    Type in Swedish
+                    Skriv på svenska
                   </label>
                   <input
                     type="text"
@@ -383,7 +383,7 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
                   </div>
                   {!answered && (
                     <Button onClick={handleCheckType} className="w-full min-h-[44px]" disabled={!typed.trim()}>
-                      Check
+                      Kontrollera
                     </Button>
                   )}
                 </div>
@@ -428,13 +428,13 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
                     }
                     <div>
                       <p className={`font-semibold text-sm ${correct ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"}`}>
-                        {correct ? "Correct!" : `Correct answer: ${item.swedish}`}
+                        {correct ? "Rätt!" : `Rätt svar: ${item.swedish}`}
                       </p>
                       {!correct && mode === "type" && typed.trim() && (
-                        <p className="text-xs text-muted-foreground mt-0.5">You wrote: {typed}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">Du skrev: {typed}</p>
                       )}
                       {!correct && mode !== "type" && chosen && (
-                        <p className="text-xs text-muted-foreground mt-0.5">You picked: {chosen}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">Du valde: {chosen}</p>
                       )}
                     </div>
                   </div>
@@ -444,11 +444,11 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
                     <div className="rounded-xl border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-900/20 p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Sparkles className="w-4 h-4 text-violet-600 dark:text-violet-400 shrink-0" />
-                        <span className="text-xs font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide">AI Explanation</span>
+                        <span className="text-xs font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide">Svea förklarar</span>
                       </div>
                       {aiLoading ? (
                         <div className="flex items-center gap-2 text-sm text-violet-600 dark:text-violet-400">
-                          <Loader2 className="w-4 h-4 animate-spin" /> Thinking…
+                          <Loader2 className="w-4 h-4 animate-spin" /> Tänker…
                         </div>
                       ) : aiFeedback ? (
                         <div className="space-y-2 text-sm">
@@ -464,7 +464,7 @@ export default function DailyReviewSession({ items, pool = [], onAnswer, onCompl
                   )}
 
                   <Button onClick={handleNext} className="w-full">
-                    {current + 1 >= sessionItems.length ? "See Results" : "Next →"}
+                    {current + 1 >= sessionItems.length ? "Se resultat" : "Nästa →"}
                   </Button>
                 </motion.div>
               )}

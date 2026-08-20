@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { BookOpen, Landmark, Home, Menu, X, LogIn, LogOut, Headphones, Flame, Zap, LayoutDashboard, Dumbbell, PenSquare, Mic } from "lucide-react";
+import { BookOpen, Landmark, Home, Menu, X, LogIn, LogOut, Headphones, Flame, Zap, LayoutDashboard, Dumbbell, PenSquare, Mic, SpellCheck } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/AuthContext";
@@ -17,16 +17,16 @@ const navItems = [
   { path: "/gym", label: "Träning", icon: Dumbbell },
   { path: "/tala", label: "Tala", icon: Mic },
   { path: "/speaking", label: "Skriva", icon: PenSquare },
-  { path: "/grammar", label: "Grammatik", icon: PenSquare },
+  { path: "/grammar", label: "Grammatik", icon: SpellCheck },
   { path: "/listening/c", label: "Hörförståelse", icon: Headphones },
 ];
 
 const bottomTabItems = [
-  { path: "/dashboard", label: "Hem", icon: LayoutDashboard },
+  { path: "/dashboard", label: "Översikt", icon: LayoutDashboard },
   { path: "/language", label: "Lär dig", icon: BookOpen },
   { path: "/tala", label: "Tala", icon: Mic },
   { path: "/gym", label: "Träning", icon: Dumbbell },
-  { path: "/grammar", label: "Grammatik", icon: PenSquare },
+  { path: "/civic", label: "Samhälle", icon: Landmark },
 ];
 
 // Root path for each bottom tab
