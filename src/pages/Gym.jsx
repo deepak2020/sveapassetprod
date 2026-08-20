@@ -15,9 +15,9 @@ import { shuffle } from "@/lib/shuffle";
 const SFI_LEVELS = ["A", "B", "C", "D"];
 const SENTENCE_COUNTS = [10, 25, 50];
 const SKILLS = [
-  { id: "vocabulary", label: "Vocabulaire", icon: "📚", desc: "Practique des mots et phrases" },
-  { id: "grammar", label: "Grammaire", icon: "✍️", desc: "Formes et structures" },
-  { id: "reading", label: "Lecture", icon: "👁️", desc: "Compréhension de textes" },
+  { id: "vocabulary", label: "Ordförråd", icon: "📚", desc: "Ord och fraser" },
+  { id: "grammar", label: "Grammatik", icon: "✍️", desc: "Form och struktur" },
+  { id: "reading", label: "Läsning", icon: "👁️", desc: "Textförståelse" },
 ];
 
 export default function Gym() {
@@ -99,7 +99,7 @@ export default function Gym() {
         <div className="flex items-center gap-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 text-sm">
           <span className="text-lg shrink-0">🔥</span>
           <p className="text-amber-800 dark:text-amber-300 flex-1">
-            <span className="font-semibold">{totalDue} words due for review</span> · Complete your daily warm-up on the Dashboard to earn +50 XP bonus.
+            <span className="font-semibold">{totalDue} ord väntar på repetition</span> · Gör din dagliga uppvärmning på översikten för +50 XP bonus.
           </p>
         </div>
       )}
@@ -171,7 +171,7 @@ export default function Gym() {
             <Card className="border-border/50">
               <CardContent className="p-4 text-center">
                 <p className="text-2xl font-bold text-emerald-500">{srsMasteryPct}%</p>
-                <p className="text-xs text-muted-foreground mt-1">Mastry ({srsMasteredCount})</p>
+                <p className="text-xs text-muted-foreground mt-1">Behärskning ({srsMasteredCount})</p>
               </CardContent>
             </Card>
           </>
@@ -190,17 +190,17 @@ export default function Gym() {
                 <div>
                   <h3 className="font-semibold">Ordförrådsgranskning</h3>
                   <p className="text-sm text-muted-foreground">
-                    Vocabulary SRS · {totalCount} cards, {masteredCount} mastered
+                    Ordförråds-SRS · {totalCount} kort, {masteredCount} klara
                   </p>
                 </div>
               </div>
               <div className="text-right shrink-0 ml-3">
                 {dueCards.length > 0 ? (
                   <Button size="sm" onClick={() => { setVocabSession(true); base44.analytics.track({ eventName: "vocab_review_started", properties: { due_cards: dueCards.length } }); }} className="gap-1.5 bg-violet-600 hover:bg-violet-700">
-                    <Play className="w-3.5 h-3.5" /> Review {dueCards.length}
+                    <Play className="w-3.5 h-3.5" /> Starta {dueCards.length}
                   </Button>
                 ) : (
-                  <span className="text-xs text-emerald-600 font-medium">✓ All caught up</span>
+                  <span className="text-xs text-emerald-600 font-medium">✓ Allt klart</span>
                 )}
               </div>
             </div>
@@ -211,7 +211,7 @@ export default function Gym() {
                     style={{ width: `${Math.round((masteredCount / totalCount) * 100)}%` }} />
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {Math.round((masteredCount / totalCount) * 100)}% mastered
+                  {Math.round((masteredCount / totalCount) * 100)}% behärskat
                 </p>
               </div>
             )}
@@ -361,7 +361,7 @@ function GymDashboard({ sentences, srsCards, onStartSession, sessionRef }) {
       {/* Skill Selection */}
       <div>
         <h2 className="font-semibold mb-3 text-sm text-muted-foreground uppercase tracking-wide">Kompetens</h2>
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <button
             onClick={() => setSelectedSkill(null)}
             className={`p-4 rounded-xl border-2 text-center transition-all ${
