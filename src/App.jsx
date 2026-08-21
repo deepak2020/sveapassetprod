@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
@@ -42,10 +43,23 @@ import AdminMissions from './pages/AdminMissions';
 import Showcase from './pages/Showcase';
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, authChecked } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, authChecked, navigateToLogin } = useAuth();
+
+  // Returning visitors (seen the app before) who aren't logged in are asked to
+  // register/login. First-time visitors can still browse freely.
+  useEffect(() => {
+    if (authChecked && !isAuthenticated && authError?.type !== 'user_not_registered') {
+      const isReturning = localStorage.getItem("svenska:visited") === "1";
+      if (isReturning) {
+        navigateToLogin();
+      } else {
+        localStorage.setItem("svenska:visited", "1");
+      }
+    }
+  }, [authChecked, isAuthenticated, authError, navigateToLogin]);
 
   // Show loading spinner while checking app public settings or auth
-  if (isLoadingPublicSettings || isLoadingAuth) {
+  if (isLoadingPublicSettings || isLoadingAuth || !authChecked) {
     return (
       <div className="fixed inset-0 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
@@ -53,16 +67,18 @@ const AuthenticatedApp = () => {
     );
   }
 
-  // Handle authentication errors (only for truly required pages)
-  if (authError) {
-    if (authError.type === 'user_not_registered') {
-      return <UserNotRegisteredError />;
-    }
+  // Handle authentication errors
+  if (authError?.type === 'user_not_registered') {
+    return <UserNotRegisteredError />;
   }
 
-  // Mark first-time visitors as visited so we can identify returning users later
-  if (authChecked && !isAuthenticated) {
-    localStorage.setItem("svenska:visited", "1");
+  // Returning unauthenticated visitors get a spinner while redirecting to login
+  if (!isAuthenticated && localStorage.getItem("svenska:visited") === "1") {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
+      </div>
+    );
   }
   // Render the main app
   return (
