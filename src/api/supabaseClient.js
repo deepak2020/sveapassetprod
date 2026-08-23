@@ -9,7 +9,14 @@ const BASE_HEADERS = {
 };
 
 async function sbFetch(path, options = {}) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+  // Bust browser cache on GET requests so deleted/updated rows don't reappear
+  const method = (options.method || 'GET').toUpperCase();
+  let finalPath = path;
+  if (method === 'GET') {
+    const sep = path.includes('?') ? '&' : '?';
+    finalPath = `${path}${sep}_t=${Date.now()}`;
+  }
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${finalPath}`, {
     ...options,
     headers: { ...BASE_HEADERS, ...options.headers },
   });
