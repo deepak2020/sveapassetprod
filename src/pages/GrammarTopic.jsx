@@ -21,6 +21,7 @@ const COLOR = {
 // RLS blocks DB deletion, so we filter these out on the frontend instead.
 const BAD_EXERCISE_IDS = new Set([
   "afed3311-c563-4789-a559-74925694f148", // "Find the mistake: två bilar" — two options are mistakes (ambiguous)
+  "eb541ba5-eaa0-45cc-bf90-7441f5dab028", // "Complete: ___ bil är röd" — blank placement wrong, "bilor" not a real word
 ]);
 
 const aiCache = new Map();
