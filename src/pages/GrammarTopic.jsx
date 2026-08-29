@@ -149,13 +149,22 @@ export default function GrammarTopic() {
       const dbTopic = topicsRes.data?.find(t => t.id === topicId);
       if (dbTopic) {
         setCategory(staticCat);
-        const allExercises = (exRes.data || []).map(e => ({
-          q: e.question,
-          options: e.options,
-          correct: e.correct_index,
-          explanation: e.explanation,
-          difficulty: e.difficulty,
-        }));
+        const allExercises = (exRes.data || [])
+          .filter(e => {
+            // Skip exercises with duplicate or placeholder options — bad data in the bank
+            if (!Array.isArray(e.options) || e.options.length < 2) return false;
+            const lower = e.options.map(o => (o || "").toLowerCase().trim());
+            if (new Set(lower).size !== lower.length) return false;
+            if (lower.some(o => o === "—" || o === "—" || o.trim() === "")) return false;
+            return true;
+          })
+          .map(e => ({
+            q: e.question,
+            options: e.options,
+            correct: e.correct_index,
+            explanation: e.explanation,
+            difficulty: e.difficulty,
+          }));
         const topicData = {
           id: dbTopic.id,
           title: dbTopic.title,
