@@ -17,6 +17,12 @@ const COLOR = {
   violet: { bar: "bg-violet-500", badge: "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300", ai: "bg-violet-50 border-violet-200 dark:bg-violet-950/30 dark:border-violet-800" },
 };
 
+// Known-bad exercises to exclude (ambiguous questions, incorrect answers, etc.)
+// RLS blocks DB deletion, so we filter these out on the frontend instead.
+const BAD_EXERCISE_IDS = new Set([
+  "afed3311-c563-4789-a559-74925694f148", // "Find the mistake: två bilar" — two options are mistakes (ambiguous)
+]);
+
 const aiCache = new Map();
 
 async function getAIExplanation(question, correctAnswer, userAnswer, rule) {
@@ -156,6 +162,8 @@ export default function GrammarTopic() {
             const lower = e.options.map(o => (o || "").toLowerCase().trim());
             if (new Set(lower).size !== lower.length) return false;
             if (lower.some(o => o === "—" || o === "—" || o.trim() === "")) return false;
+            // Blocklist of known-bad exercises (ambiguous questions, wrong answers, etc.)
+            if (BAD_EXERCISE_IDS.has(e.id)) return false;
             return true;
           })
           .map(e => ({
