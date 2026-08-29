@@ -20,17 +20,27 @@ Deno.serve(async (req) => {
 Topic context: ${topic}
 
 Create a varied mix of question types:
-- 15 fill-in-the-blank questions
-- 15 multiple-choice questions (4 options)
-- 10 sentence correction questions
-- 10 translation/comprehension questions
+- 20 fill-in-the-blank questions (show the sentence with ___ for the blank)
+- 20 multiple-choice questions (exactly 4 options each)
+- 10 translation/comprehension questions (exactly 4 options each)
+
+CRITICAL QUALITY RULES:
+1. Every question MUST have exactly 4 options — never 2 or 3.
+2. All 3 distractors MUST be real Swedish words or phrases. Never invent fake words (e.g. "bilor", "husor").
+3. The blank (___) must REPLACE the word being tested, not sit next to it. Example: "___ är röd" (answer: "Bilen"), NOT "___ bil är röd".
+4. Do NOT create "Find the mistake/error" questions — they are ambiguous when multiple options contain mistakes.
+5. Do NOT create True/False questions — always use 4 distinct options.
+6. Only ONE option should be correct. The other three must be plausible but clearly wrong.
+7. Options must not be duplicates (case-insensitive).
+8. Do not use em-dashes (—) as placeholders in options.
 
 Return a JSON array with this structure for each question:
 {
   "question": "the question text",
-  "type": "fill-blank" | "choice" | "correction" | "translation",
+  "type": "fill-blank" | "choice" | "translation",
   "answer": "correct answer",
-  "options": ["option1", "option2", ...],  // for choice type, 4 options
+  "options": ["option1", "option2", "option3", "option4"],
+  "correct_index": 0,
   "explanation": "brief explanation of the answer"
 }
 
@@ -52,6 +62,7 @@ Return only valid JSON, no other text.`;
                 type: { type: "string" },
                 answer: { type: "string" },
                 options: { type: "array", items: { type: "string" } },
+                correct_index: { type: "number" },
                 explanation: { type: "string" }
               }
             }

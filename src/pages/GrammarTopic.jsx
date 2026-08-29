@@ -163,7 +163,12 @@ export default function GrammarTopic() {
             const lower = e.options.map(o => (o || "").toLowerCase().trim());
             if (new Set(lower).size !== lower.length) return false;
             if (lower.some(o => o === "—" || o === "—" || o.trim() === "")) return false;
-            // Blocklist of known-bad exercises (ambiguous questions, wrong answers, etc.)
+            // correct_index out of bounds
+            if (e.correct_index == null || e.correct_index >= e.options.length || e.correct_index < 0) return false;
+            // "Find the mistake/error" questions are systematically ambiguous —
+            // multiple options are often valid mistakes, making the question unfair
+            if (/find the (mistake|error)|hitta felet/i.test(e.question || "")) return false;
+            // Blocklist of known-bad exercises (not caught by the patterns above)
             if (BAD_EXERCISE_IDS.has(e.id)) return false;
             return true;
           })
