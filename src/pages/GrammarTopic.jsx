@@ -168,6 +168,13 @@ export default function GrammarTopic() {
             // "Find the mistake/error" questions are systematically ambiguous —
             // multiple options are often valid mistakes, making the question unfair
             if (/find the (mistake|error)|hitta felet/i.test(e.question || "")) return false;
+            // True/False, Yes/No, and Correct/Error questions are ambiguous and low-value —
+            // the generator is told not to make them, but legacy ones remain in the bank.
+            if (/^(true\/false|is this correct)\b/i.test(e.question || "")) return false;
+            {
+              const only = lower.slice().sort().join("|");
+              if (["false|true", "no|yes", "error|correct", "correct|incorrect"].includes(only)) return false;
+            }
             // Blocklist of known-bad exercises (not caught by the patterns above)
             if (BAD_EXERCISE_IDS.has(e.id)) return false;
             return true;
