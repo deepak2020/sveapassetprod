@@ -168,6 +168,10 @@ export default function GrammarTopic() {
             // "Find the mistake/error" questions are systematically ambiguous —
             // multiple options are often valid mistakes, making the question unfair
             if (/find the (mistake|error)|hitta felet/i.test(e.question || "")) return false;
+            // "Choose the [type] pronoun" fill-in-the-blank questions are ambiguous —
+            // any pronoun of the requested type (object, subject, possessive, etc.)
+            // is grammatically valid, so there's no single "correct" answer.
+            if (/choose the\b.*\bpronoun\b/i.test(e.question || "") && /_{2,}/.test(e.question || "")) return false;
             // True/False, Yes/No, and Correct/Error questions are ambiguous and low-value —
             // the generator is told not to make them, but legacy ones remain in the bank.
             if (/^(true\/false|is this correct)\b/i.test(e.question || "")) return false;

@@ -30,9 +30,10 @@ CRITICAL QUALITY RULES:
 3. The blank (___) must REPLACE the word being tested, not sit next to it. Example: "___ är röd" (answer: "Bilen"), NOT "___ bil är röd".
 4. Do NOT create "Find the mistake/error" questions — they are ambiguous when multiple options contain mistakes.
 5. Do NOT create True/False questions — always use 4 distinct options.
-6. Only ONE option should be correct. The other three must be plausible but clearly wrong.
-7. Options must not be duplicates (case-insensitive).
-8. Do not use em-dashes (—) as placeholders in options.
+6. Do NOT create "Choose the [type] pronoun" fill-in-the-blank questions (e.g. "Choose the object pronoun: 'Han ger __ en bok.'") — any pronoun of the requested type is grammatically valid, making the question ambiguous. Instead, test pronouns with a sentence that constrains the answer (e.g. "Han ger boken till __ och mig" where only "oss" fits).
+7. Only ONE option should be correct. The other three must be plausible but clearly wrong.
+8. Options must not be duplicates (case-insensitive).
+9. Do not use em-dashes (—) as placeholders in options.
 
 Return a JSON array with this structure for each question:
 {
