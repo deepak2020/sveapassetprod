@@ -62,7 +62,7 @@ Write 2-3 short sentences in plain English explaining WHY "${correctAnswer}" is 
 export default function GrammarTopic() {
   const { categoryId, topicId } = useParams();
   const navigate = useNavigate();
-  const { saveProgress } = useGrammarProgress();
+  const { saveProgress, getTopicProgress } = useGrammarProgress();
   const { logMistake } = useMistakeLog();
   const { isAuthenticated } = useAuth();
 
@@ -259,16 +259,20 @@ export default function GrammarTopic() {
         explanation: ex.explanation || "",
       });
     }
-    // Save in-progress state
-    saveProgress(topicId, current, total, score + (idx === ex.correct ? 1 : 0), false);
+    // Save cumulative progress across sessions:
+    // done = total questions answered (across all sessions), total = full bank size
+    const existing = getTopicProgress(topicId) || { done: 0, score: 0 };
+    const newDone = Math.min((existing.done || 0) + 1, bankSize);
+    const newScore = (existing.score || 0) + (idx === ex.correct ? 1 : 0);
+    const isComplete = newDone >= bankSize;
+    saveProgress(topicId, newDone, bankSize, newScore, isComplete);
   };
 
   const handleNext = () => {
     const nextIdx = current + 1;
     const finalScore = score; // already updated via handleAnswer
     if (nextIdx >= total) {
-      // Session complete
-      saveProgress(topicId, total, total, finalScore, true);
+      // Session complete — cumulative progress already saved per-answer
       if (!xpAwarded.current && isAuthenticated) {
         xpAwarded.current = true;
         const bonus = Math.round((finalScore / total) * 20);
@@ -290,7 +294,7 @@ export default function GrammarTopic() {
     setCurrent(0); setSelected(null); setAnswered(false);
     setScore(0); setView("exercise"); setAiText(null);
     xpAwarded.current = false;
-    saveProgress(topicId, 0, total, 0, false);
+    // Don't reset cumulative progress — keep tracking across sessions
   };
 
   // ── LESSON VIEW ────────────────────────────────────────────────────────
