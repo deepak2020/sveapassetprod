@@ -9,16 +9,18 @@ const BASE_HEADERS = {
 };
 
 async function sbFetch(path, options = {}) {
-  // Bust browser cache on GET requests so deleted/updated rows don't reappear
+  // Prevent browser caching of GET requests so deleted/updated rows don't
+  // reappear. We use a header instead of a query param because PostgREST
+  // treats unknown query params (like _t=123) as column filters and returns
+  // a PGRST100 parse error, silently breaking every GET request.
   const method = (options.method || 'GET').toUpperCase();
-  let finalPath = path;
+  const headers = { ...BASE_HEADERS, ...options.headers };
   if (method === 'GET') {
-    const sep = path.includes('?') ? '&' : '?';
-    finalPath = `${path}${sep}_t=${Date.now()}`;
+    headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
   }
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${finalPath}`, {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
     ...options,
-    headers: { ...BASE_HEADERS, ...options.headers },
+    headers,
   });
   const text = await res.text();
   const data = text ? JSON.parse(text) : null;
