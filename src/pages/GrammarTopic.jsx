@@ -24,6 +24,12 @@ const BAD_EXERCISE_IDS = new Set([
   "eb541ba5-eaa0-45cc-bf90-7441f5dab028", // "Complete: ___ bil är röd" — blank placement wrong, "bilor" not a real word
 ]);
 
+// Exercises where the database `correct_index` is wrong. RLS blocks DB updates,
+// so we override the correct answer on the frontend instead.
+const CORRECT_INDEX_OVERRIDES = {
+  "dfb7306f-439d-4367-ae26-fbbca79678fc": 0, // "Om han ___ hjälp" → "inte behöver" (bisats: inte before verb)
+};
+
 const aiCache = new Map();
 
 async function getAIExplanation(question, correctAnswer, userAnswer, rule) {
@@ -186,7 +192,7 @@ export default function GrammarTopic() {
           .map(e => ({
             q: e.question,
             options: e.options,
-            correct: e.correct_index,
+            correct: CORRECT_INDEX_OVERRIDES[e.id] ?? e.correct_index,
             explanation: e.explanation,
             difficulty: e.difficulty,
           }));
