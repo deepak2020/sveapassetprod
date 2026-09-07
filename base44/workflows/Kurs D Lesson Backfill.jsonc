@@ -1,0 +1,44 @@
+{
+  "name": "Kurs D Lesson Backfill",
+  "description": "Generates one missing Kurs D lesson every 5 minutes until all 90 lessons (15 topics \u00d7 6 skills) exist. Auto-resumes from where it left off.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "interval",
+      "cron_expression": null,
+      "one_time_date": null,
+      "timezone": "UTC",
+      "interval_value": 5,
+      "interval_unit": "minutes",
+      "interval_anchor": "2026-05-19T18:46:39.902000",
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "kurs_d_lesson_backfill",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "kursDBackfillTick",
+            "args": {}
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "kursDBackfillTick"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "Weekly Streak Summary (Sundays 18:00)",
+  "description": "Sends a weekly recap email every Sunday at 18:00 Stockholm time \u2014 shows streak, XP, quiz count and average score for the past 7 days.",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 16 * * 0",
+      "one_time_date": null,
+      "timezone": "UTC",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "weekly_streak_summary_sundays_18_00",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_function": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "sendWeeklyStreakSummary",
+            "args": {}
+          },
+          "then": "end"
+        }
+      }
+    ]
+  },
+  "x-base44-migrated-from-automation": {
+    "legacy_payload_function": "sendWeeklyStreakSummary"
+  }
+}
