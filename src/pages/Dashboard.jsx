@@ -24,6 +24,7 @@ import DailyQuizCard from "../components/dashboard/DailyQuizCard";
 import DailyReviewCard from "../components/dashboard/DailyReviewCard";
 import MistakesReviewCard from "../components/dashboard/MistakesReviewCard";
 import PushOptInCard from "../components/dashboard/PushOptInCard";
+import GymNudgeCard from "../components/dashboard/GymNudgeCard";
 import TodaysPlanCard from "../components/planner/TodaysPlanCard";
 import CreateStudyPlanModal from "../components/planner/CreateStudyPlanModal";
 import { useStudyPlan } from "@/hooks/useStudyPlan";
@@ -236,6 +237,9 @@ export default function Dashboard() {
 
       {/* Push notification opt-in — hides if subscribed, dismissed, or unsupported */}
       <PushOptInCard />
+
+      {/* Nudge to try the Gym for users who do lessons but haven't tried SRS */}
+      <GymNudgeCard results={results} />
 
       {/* All mistakes to revise — only shows when user has any */}
       <MistakesReviewCard />
