@@ -43,6 +43,8 @@ import AdminFacebook from './pages/AdminFacebook';
 import Showcase from './pages/Showcase';
 import Medborgarskapsprov from './pages/Medborgarskapsprov';
 import Teachers from './pages/Teachers';
+import MockTest from './pages/MockTest';
+import MockTestHub from './pages/MockTestHub';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, authChecked } = useAuth();
@@ -100,6 +102,8 @@ const AuthenticatedApp = () => {
         <Route path="/citizenship-test" element={<CitizenshipTest />} />
         <Route path="/medborgarskapsprov" element={<Medborgarskapsprov />} />
         <Route path="/larare" element={<Teachers />} />
+        <Route path="/mock-test" element={<MockTestHub />} />
+        <Route path="/mock-test/:course" element={<MockTest />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
