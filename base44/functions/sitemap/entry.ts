@@ -9,6 +9,7 @@ const STATIC_ROUTES = [
   { path: '/civic', priority: '0.9', changefreq: 'weekly' },
   { path: '/grammar', priority: '0.8', changefreq: 'weekly' },
   { path: '/citizenship-test', priority: '0.8', changefreq: 'weekly' },
+  { path: '/medborgarskapsprov', priority: '0.9', changefreq: 'weekly' },
   { path: '/about', priority: '0.5', changefreq: 'monthly' },
   { path: '/contact', priority: '0.4', changefreq: 'monthly' },
   { path: '/privacy', priority: '0.3', changefreq: 'yearly' },
