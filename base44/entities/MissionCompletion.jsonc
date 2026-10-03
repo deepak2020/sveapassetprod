@@ -36,6 +36,11 @@
       "type": "string",
       "format": "date-time",
       "description": "When the user finished all 5 stages (set on first full completion)"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional free-form description"
     }
   },
   "required": [

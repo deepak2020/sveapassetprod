@@ -45,6 +45,11 @@
         "B2",
         "C1"
       ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional free-form description"
     }
   },
   "required": [

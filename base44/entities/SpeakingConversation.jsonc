@@ -78,6 +78,11 @@
     "ended": {
       "type": "boolean",
       "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional free-form description"
     }
   },
   "required": [

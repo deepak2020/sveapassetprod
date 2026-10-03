@@ -56,6 +56,11 @@
     "last_seen_date": {
       "type": "string",
       "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Optional free-form description"
     }
   },
   "required": [
