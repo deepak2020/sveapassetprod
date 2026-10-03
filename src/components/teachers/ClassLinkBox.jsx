@@ -35,7 +35,6 @@ export default function ClassLinkBox() {
     <div className="rounded-2xl border border-border/50 bg-card p-6 space-y-4">
       <h2 className="text-xl font-bold">Din klasslänk · Your class link</h2>
       <Input placeholder="Skolans namn · School name (optional)" value={school} onChange={(e) => setSchool(e.target.value)} />
-      <div className="rounded-xl bg-muted px-4 py-3 font-mono text-sm break-all">{link}</div>
       <div className="flex flex-wrap gap-2">
         <Button onClick={copy} className="gap-2">{copied ? <Check /> : <Copy />} {copied ? "Kopierad" : "Kopiera länk"}</Button>
         <Button variant="outline" onClick={() => printFlyer(link, school.trim())} className="gap-2"><Printer /> Skriv ut flyer</Button>
