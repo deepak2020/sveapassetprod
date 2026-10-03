@@ -15,6 +15,7 @@ import InferPrerequisitesButton from "../components/language/InferPrerequisitesB
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/AuthContext";
 import AdBanner from "../components/shared/AdBanner";
+import BragCardModal from "@/components/share/BragCardModal";
 
 import { SFI_COURSES } from "@/lib/course-constants";
 
@@ -94,6 +95,17 @@ export default function LanguageLessons() {
   };
 
   const activeCourseData = SFI_COURSES.find((c) => c.id === activeCourse);
+
+  // Celebrate newly completed courses once per course
+  const [bragDismissed, setBragDismissed] = useState(false);
+  const bragCourse = !bragDismissed && user && SFI_COURSES.find((c) => {
+    const total = countByCourse(c.id);
+    return total > 0 && completedByCourse(c.id) >= total && !localStorage.getItem(`svenska:course_celebrated:${c.id}`);
+  });
+  const closeBrag = () => {
+    localStorage.setItem(`svenska:course_celebrated:${bragCourse.id}`, "1");
+    setBragDismissed(true);
+  };
 
   return (
     <div
@@ -240,6 +252,10 @@ export default function LanguageLessons() {
       )}
 
       <AdBanner slot="horizontal" className="mt-8" />
+
+      {bragCourse && (
+        <BragCardModal course={bragCourse} xp={user.xp_total || 0} streak={user.streak_days || 0} onClose={closeBrag} />
+      )}
 
       {cleanupCourse && (
         <CleanupLessonsModal
