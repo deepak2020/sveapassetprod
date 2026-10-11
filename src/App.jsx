@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import LoginGate from '@/components/shared/LoginGate';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import LanguageLessons from './pages/LanguageLessons';
@@ -102,8 +104,10 @@ const AuthenticatedApp = () => {
         <Route path="/citizenship-test" element={<CitizenshipTest />} />
         <Route path="/medborgarskapsprov" element={<Medborgarskapsprov />} />
         <Route path="/larare" element={<Teachers />} />
-        <Route path="/mock-test" element={<MockTestHub />} />
-        <Route path="/mock-test/:course" element={<MockTest />} />
+        <Route element={<ProtectedRoute unauthenticatedElement={<LoginGate message="Provtestet är bara för inloggade elever. Logga in för att göra provet." />} />}>
+          <Route path="/mock-test" element={<MockTestHub />} />
+          <Route path="/mock-test/:course" element={<MockTest />} />
+        </Route>
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
