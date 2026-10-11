@@ -4,7 +4,7 @@ import { base44 } from "@/api/base44Client";
 import QuizRunner from "@/components/shared/QuizRunner";
 import { LEVEL_INFO } from "@/lib/nationalTest";
 
-export default function ReadingPart({ course, round }) {
+export default function ReadingPart({ course, round, onComplete }) {
   const info = LEVEL_INFO[course];
   const { data, isLoading } = useQuery({
     queryKey: ["np-reading", course, round],
@@ -34,7 +34,7 @@ Skapa sedan 6 flervalsfrågor på svenska om texten med 4 alternativ var, exakt 
         <h3 className="text-lg font-bold">{data.title}</h3>
         <p className="whitespace-pre-line leading-relaxed text-sm">{data.text}</p>
       </article>
-      <QuizRunner key={round} questions={data.questions} quizType="language" sourceId={`np-reading-${course}`} sourceTitle={`Nationellt prov ${course}: Läsa`} />
+      <QuizRunner key={round} questions={data.questions} quizType="language" sourceId={`np-reading-${course}`} sourceTitle={`Nationellt prov ${course}: Läsa`} onComplete={onComplete} />
     </div>
   );
 }

@@ -3,9 +3,9 @@ import { ChevronRight } from "lucide-react";
 import { SPEAKING_TASKS } from "@/lib/nationalTest";
 import SpeakingSession from "./SpeakingSession";
 
-export default function SpeakingPart({ course }) {
+export default function SpeakingPart({ course, onResult }) {
   const [task, setTask] = useState(null);
-  if (task) return <SpeakingSession course={course} task={task} onBack={() => setTask(null)} />;
+  if (task) return <SpeakingSession course={course} task={task} onBack={() => setTask(null)} onResult={onResult} />;
 
   return (
     <div className="space-y-4">

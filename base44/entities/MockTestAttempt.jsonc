@@ -1,0 +1,83 @@
+{
+  "name": "MockTestAttempt",
+  "type": "object",
+  "properties": {
+    "course": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "description": "SFI course the attempt belongs to"
+    },
+    "part": {
+      "type": "string",
+      "enum": [
+        "reading",
+        "listening",
+        "writing",
+        "speaking"
+      ],
+      "description": "Which part of the national test was done"
+    },
+    "day": {
+      "type": "string",
+      "format": "date",
+      "description": "The test day (local date, YYYY-MM-DD) this attempt belongs to"
+    },
+    "score": {
+      "type": "number",
+      "description": "Correct answers (receptive parts)"
+    },
+    "total": {
+      "type": "number",
+      "description": "Number of questions (receptive parts)"
+    },
+    "percent": {
+      "type": "number",
+      "description": "Score percentage (receptive parts)"
+    },
+    "grade": {
+      "type": "string",
+      "description": "AI grade for productive parts (F, E, D, C, B, A)"
+    },
+    "summary": {
+      "type": "string",
+      "description": "AI summary of the attempt"
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "improvements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What to work on \u2014 used to generate extra practice"
+    }
+  },
+  "required": [
+    "course",
+    "part",
+    "day"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

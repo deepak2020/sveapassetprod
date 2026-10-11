@@ -6,6 +6,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import MockTestGate from '@/components/mocktest/MockTestGate';
+import MockTestDay from '@/pages/MockTestDay';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import LanguageLessons from './pages/LanguageLessons';
@@ -105,6 +106,7 @@ const AuthenticatedApp = () => {
         <Route path="/larare" element={<Teachers />} />
         <Route path="/mock-test" element={<MockTestGate><MockTestHub /></MockTestGate>} />
         <Route path="/mock-test/:course" element={<MockTestGate><MockTest /></MockTestGate>} />
+        <Route path="/mock-test/:course/provdag" element={<MockTestGate><MockTestDay /></MockTestGate>} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

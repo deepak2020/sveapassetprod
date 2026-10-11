@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { LEVEL_INFO } from "@/lib/nationalTest";
 import WritingFeedback from "./WritingFeedback";
 
-export default function SpeakingSession({ course, task, onBack }) {
+export default function SpeakingSession({ course, task, onBack, onResult }) {
   const [recording, setRecording] = useState(false);
   const [finalText, setFinalText] = useState("");
   const [interim, setInterim] = useState("");
@@ -55,6 +55,7 @@ Bedöm innehåll, flyt och mängd, ordförråd, grammatik och hur väl uppgiften
     });
     setResult(res);
     setGrading(false);
+    if (onResult) onResult(res);
   };
 
   const words = finalText ? finalText.split(/\s+/).length : 0;

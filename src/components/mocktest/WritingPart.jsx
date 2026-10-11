@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { LEVEL_INFO } from "@/lib/nationalTest";
 import WritingFeedback from "./WritingFeedback";
 
-export default function WritingPart({ course, round }) {
+export default function WritingPart({ course, round, onResult }) {
   const info = LEVEL_INFO[course];
   const [text, setText] = useState("");
   const [result, setResult] = useState(null);
@@ -35,6 +35,7 @@ Bedöm innehåll, sammanhang, ordförråd och grammatik. Ge feedback på enkel s
     });
     setResult(res);
     setGrading(false);
+    if (onResult) onResult(res);
   };
 
   if (isLoading) return <div className="flex items-center gap-2 text-muted-foreground py-10 justify-center"><Loader2 className="animate-spin w-5 h-5" /> Skapar skrivuppgift…</div>;

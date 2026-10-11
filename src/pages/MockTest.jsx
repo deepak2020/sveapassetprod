@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, BookOpen, Headphones, PenSquare, Mic, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, CalendarDays, Headphones, PenSquare, Mic, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SFI_COURSES } from "@/lib/course-constants";
 import { LEVEL_INFO } from "@/lib/nationalTest";
@@ -36,6 +36,20 @@ export default function MockTest() {
         </div>
         {(part === "reading" || part === "writing") && <Button variant="outline" size="sm" onClick={() => setRound((r) => r + 1)} className="gap-1"><RotateCcw /> Nytt</Button>}
       </div>
+
+      {!part && (
+        <Link
+          to={`/mock-test/${course}/provdag`}
+          className="flex items-center gap-3 rounded-2xl border border-primary/30 bg-primary/5 p-4 hover:border-primary transition-colors"
+        >
+          <CalendarDays className="w-5 h-5 text-primary shrink-0" />
+          <span className="flex-1">
+            <span className="font-semibold block">Dela upp provet över en dag</span>
+            <span className="text-sm text-muted-foreground">Provdag: fyra block, rättning direkt och extra övningar där du är svag.</span>
+          </span>
+          <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0" />
+        </Link>
+      )}
 
       {!part && (
         <div className="grid sm:grid-cols-2 gap-3">
