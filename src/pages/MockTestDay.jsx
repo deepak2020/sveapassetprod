@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft, ArrowRight, CheckCircle2, Clock, ExternalLink, ListChecks } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Clock, ListChecks } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { LEVEL_INFO } from "@/lib/nationalTest";
-import { DAY_BLOCKS, PART_META, gradeFromPercent, todayKey } from "@/lib/provdag";
+import { DAY_BLOCKS, PART_META, todayKey } from "@/lib/provdag";
+import ListeningPart from "@/components/mocktest/ListeningPart";
 import ReadingPart from "@/components/mocktest/ReadingPart";
 import WritingPart from "@/components/mocktest/WritingPart";
 import SpeakingPart from "@/components/mocktest/SpeakingPart";
@@ -13,7 +14,7 @@ import ProvDaySummary from "@/components/mocktest/ProvDaySummary";
 
 // One part of the national test, opened inside the day plan. Each finished
 // part reports its result back so the day gets graded as you go.
-function PartRunner({ course, part, onDone }) {
+function PartRunner({ course, part, onDone, onExit }) {
   if (part === "reading") {
     return <ReadingPart course={course} round={0} onComplete={(score, total) => onDone({ part: "reading", score, total, percent: Math.round((score / total) * 100) })} />;
   }
@@ -22,6 +23,9 @@ function PartRunner({ course, part, onDone }) {
   }
   if (part === "speaking") {
     return <SpeakingPart course={course} onResult={(res) => onDone({ part: "speaking", grade: res.grade, summary: res.summary, strengths: res.strengths, improvements: res.improvements })} />;
+  }
+  if (part === "listening") {
+    return <ListeningPart course={course} onResult={onDone} onExit={onExit} />;
   }
   return null;
 }
@@ -40,25 +44,9 @@ export default function MockTestDay() {
     },
   });
 
-  // Listening runs on its own page, so its result is picked up from today's
-  // saved quiz result instead of being reported inline.
-  const { data: listening } = useQuery({
-    queryKey: ["np-day-listening", course, day],
-    queryFn: async () => {
-      const res = await base44.entities.QuizResult.filter({ sfi_course: course });
-      const list = Array.isArray(res) ? res : res?.items || [];
-      return list.find((r) => (r.source_id || "").startsWith("listening-") && new Date(r.created_date).toLocaleDateString("sv-SE") === day) || null;
-    },
-  });
-
   if (!LEVEL_INFO[course]) return <div className="p-10 text-center">Det finns inget nationellt prov för denna kurs.</div>;
 
   const results = DAY_BLOCKS.map(({ part }) => {
-    if (part === "listening") {
-      return listening
-        ? { part, score: listening.score, total: listening.total, percent: listening.percentage }
-        : { part };
-    }
     const rec = attempts.find((a) => a.part === part);
     return rec
       ? { part, score: rec.score, total: rec.total, percent: rec.percent, grade: rec.grade, summary: rec.summary, strengths: rec.strengths, improvements: rec.improvements }
@@ -72,7 +60,6 @@ export default function MockTestDay() {
   const backToPlan = () => {
     setActivePart(null);
     queryClient.invalidateQueries({ queryKey: ["np-day-attempts", course, day] });
-    queryClient.invalidateQueries({ queryKey: ["np-day-listening", course, day] });
   };
 
   const saveAttempt = async (data) => {
@@ -91,7 +78,7 @@ export default function MockTestDay() {
           <h1 className="text-2xl font-bold">{PART_META[activePart].sv}</h1>
           <p className="text-sm italic text-muted-foreground">{block.label} · ca {block.minutes} min · {PART_META[activePart].en}</p>
         </div>
-        <PartRunner course={course} part={activePart} onDone={saveAttempt} />
+        <PartRunner course={course} part={activePart} onDone={saveAttempt} onExit={backToPlan} />
       </div>
     );
   }
@@ -145,22 +132,11 @@ export default function MockTestDay() {
                   </p>
                 </div>
                 <div className="shrink-0">
-                  {block.part === "listening" ? (
-                    <Button asChild size="sm" variant={done ? "outline" : "default"} className="gap-1">
-                      <Link to={`/listening/${course.toLowerCase()}`}>
-                        {done ? "Gör om" : "Starta"} <ExternalLink className="w-3.5 h-3.5" />
-                      </Link>
-                    </Button>
-                  ) : (
-                    <Button size="sm" variant={done ? "outline" : "default"} onClick={() => setActivePart(block.part)}>
-                      {done ? "Gör om" : "Starta"}
-                    </Button>
-                  )}
+                  <Button size="sm" variant={done ? "outline" : "default"} onClick={() => setActivePart(block.part)}>
+                    {done ? "Gör om" : "Starta"}
+                  </Button>
                 </div>
               </div>
-              {block.part === "listening" && !done && (
-                <p className="text-xs text-muted-foreground mt-3">Resultatet hämtas automatiskt när du är klar.</p>
-              )}
             </div>
           );
         })}

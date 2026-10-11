@@ -3,13 +3,13 @@ import { useParams, Link } from "react-router-dom";
 import { usePageView } from "@/hooks/usePageView";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/api/supabaseClient";
 import { awardXP, XP_REWARDS } from "@/lib/xp";
 import { Headphones, Play, Pause, ArrowRight, RotateCcw, Trophy, ChevronLeft, Volume2, CheckCircle2, XCircle, Gauge } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
-import { getListeningBank, buildCategorySession, LISTENING_COURSES } from "@/data/listeningBankC";
+import { buildCategorySession, LISTENING_COURSES } from "@/data/listeningBankC";
+import { loadListeningCategories } from "@/lib/listening";
 import { getBestVoice } from "@/lib/speech";
 import { normalizeAnswer } from "@/lib/normalizeAnswer";
 
@@ -209,7 +209,7 @@ function AudioPlayer({ item, mode, playsLeft, onPlayStart }) {
 
 // A practice session: a sequence of items (either a mock test, one item per
 // category, or a category drill). Handles answering, scoring and results.
-function Session({ course, title, sourceId, items, mode, onExit }) {
+export function Session({ course, title, sourceId, items, mode, onExit, onComplete, exitLabel = "Fler ämnen", exitIcon = <RotateCcw className="w-4 h-4" /> }) {
   const isPractice = mode === "practice";
   const queryClient = useQueryClient();
   const [phase, setPhase] = useState("running"); // running | results
@@ -268,6 +268,7 @@ function Session({ course, title, sourceId, items, mode, onExit }) {
       });
       await awardXP(base44, score * XP_REWARDS.quiz_correct);
       queryClient.invalidateQueries({ queryKey: ["quizResults"] });
+      await onComplete?.(score, allQuestions.length);
     }
     setPhase("results");
   };
@@ -284,7 +285,7 @@ function Session({ course, title, sourceId, items, mode, onExit }) {
             <h2 className="font-display text-3xl font-bold mb-2">{msg}</h2>
             <p className="text-muted-foreground mb-6">{score} / {allQuestions.length} rätt · {percentage}%</p>
             <div className="flex gap-3 justify-center">
-              <Button onClick={onExit} className="gap-2"><RotateCcw className="w-4 h-4" /> Fler ämnen</Button>
+              <Button onClick={onExit} className="gap-2">{exitIcon} {exitLabel}</Button>
             </div>
           </motion.div>
         </div>
@@ -469,24 +470,9 @@ export default function ListeningTest() {
   const { course } = useParams();
   const [session, setSession] = useState(null); // { title, sourceId, items }
 
-  // Items live in Supabase (listening_bank table); the static data file is
-  // the fallback if the table doesn't exist yet or the fetch fails.
-  const { data: dbItems, isLoading } = useQuery({
+  const { data: categories, isLoading } = useQuery({
     queryKey: ["listeningBank", course],
-    queryFn: async () => {
-      const { data } = await supabase.listening.getItems(course?.toUpperCase());
-      return Array.isArray(data) ? data : [];
-    },
-  });
-
-  // Merge: static categories give the structure (labels, order); DB items
-  // replace a category's pool when present.
-  const staticBank = getListeningBank(course);
-  const categories = staticBank?.map((cat) => {
-    const fromDb = (dbItems || [])
-      .filter((r) => r.type === cat.type)
-      .map((r) => ({ id: r.id, intro: r.intro, audioUrl: r.audio_url, transcript: r.transcript, questions: r.questions }));
-    return { ...cat, items: fromDb.length > 0 ? fromDb : cat.items };
+    queryFn: () => loadListeningCategories(course),
   });
 
   // Warm up the voice list (Chrome loads voices asynchronously)
@@ -494,7 +480,7 @@ export default function ListeningTest() {
     window.speechSynthesis?.getVoices();
   }, []);
 
-  if (isLoading && !staticBank) {
+  if (isLoading) {
     return (
       <div className="flex justify-center py-24">
         <div className="w-8 h-8 border-4 border-muted border-t-primary rounded-full animate-spin" />
