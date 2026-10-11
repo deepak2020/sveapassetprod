@@ -7,6 +7,7 @@ import StatCard from "../components/admin/StatCard";
 import ActivityChart from "../components/admin/ActivityChart";
 import UserTable from "../components/admin/UserTable";
 import EmailStats from "../components/admin/EmailStats";
+import MockTestAccessPanel from "../components/admin/MockTestAccessPanel";
 
 function daysSince(dateStr) {
   if (!dateStr) return null;
@@ -74,6 +75,8 @@ export default function AdminUsers() {
           </Link>
         </Button>
       </div>
+
+      <MockTestAccessPanel />
 
       {isLoading ? (
         <div className="flex justify-center py-16">
