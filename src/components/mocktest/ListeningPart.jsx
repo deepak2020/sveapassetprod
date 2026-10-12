@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { buildMockTest } from "@/data/listeningBankC";
@@ -13,18 +14,26 @@ export default function ListeningPart({ course, onResult, onExit }) {
     queryFn: () => loadListeningCategories(course),
   });
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center gap-2 text-muted-foreground py-10 justify-center">
-        <Loader2 className="animate-spin w-5 h-5" /> Laddar hörförståelse…
-      </div>
-    );
-  }
+  // Draw one clip per type once per attempt and keep that list fixed for the
+  // whole session. Re-drawing it on a re-render used to swap the clips
+  // mid-session, so the questions on screen no longer matched the clip being
+  // played (or the answers already given).
+  const [items, setItems] = useState(null);
+  useEffect(() => {
+    if (categories && items === null) setItems(buildMockTest(categories));
+  }, [categories, items]);
 
-  const items = buildMockTest(categories || []);
-  if (items.length === 0) {
-    return <p className="text-sm text-muted-foreground py-6 text-center">Det finns inget hörförståelsetest för den här kursen än.</p>;
-  }
+  const loading = (
+    <div className="flex items-center gap-2 text-muted-foreground py-10 justify-center">
+      <Loader2 className="animate-spin w-5 h-5" /> Laddar hörförståelse…
+    </div>
+  );
+  const empty = <p className="text-sm text-muted-foreground py-6 text-center">Det finns inget hörförståelsetest för den här kursen än.</p>;
+
+  if (isLoading) return loading;
+  if (!categories) return empty;
+  if (items === null) return loading;
+  if (items.length === 0) return empty;
 
   return (
     <Session
