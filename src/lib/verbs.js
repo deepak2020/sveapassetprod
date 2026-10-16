@@ -165,6 +165,18 @@ export function buildSession(verbs, count) {
     .filter(Boolean);
 }
 
+// One question per verb asking for every other form at once: the infinitive is
+// shown, the learner writes presens, preteritum and supinum themselves.
+export function buildFormsSession(verbs, count) {
+  return shuffle(verbs)
+    .slice(0, count)
+    .map((verb) => {
+      const forms = askableForms(verb);
+      return forms.length ? { verb, forms } : null;
+    })
+    .filter(Boolean);
+}
+
 // Retry exactly the questions that were missed, same form each time.
 export function rebuildSession(questions) {
   return questions.map((q) => buildQuestion(q.verb, q.form)).filter(Boolean);

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { Layers, ListChecks, Loader2, Sparkles } from "lucide-react";
+import { Layers, ListChecks, Loader2, PenSquare, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/AuthContext";
 import { usePageView } from "@/hooks/usePageView";
@@ -11,11 +11,13 @@ import VerbGroupTabs from "@/components/verbs/VerbGroupTabs";
 import VerbTable from "@/components/verbs/VerbTable";
 import VerbFlashcards from "@/components/verbs/VerbFlashcards";
 import VerbQuiz from "@/components/verbs/VerbQuiz";
+import VerbFormsQuiz from "@/components/verbs/VerbFormsQuiz";
 import SveaVerbTest from "@/components/verbs/SveaVerbTest";
 
 const MODES = [
   { id: "flashcards", label: "Flashcards", en: "Flip the cards", Icon: Layers },
   { id: "quiz", label: "Quiz", en: "Type the form", Icon: ListChecks },
+  { id: "forms", label: "Alla former", en: "Write all three forms", Icon: PenSquare },
   { id: "test", label: "Svea-test", en: "15 questions", Icon: Sparkles },
 ];
 
@@ -37,13 +39,12 @@ export default function VerbPractice() {
   const pct = total ? Math.round((mastered / total) * 100) : 0;
   const groupLabel = `${selectedGroup.label}${selectedGroup.hint ? ` (${selectedGroup.hint})` : ""}`;
 
-  const modeView = mode === "flashcards" ? (
-    <VerbFlashcards key={`fc-${group}`} verbs={groupVerbs} groupLabel={groupLabel} onRecord={record} onExit={() => setMode(null)} />
-  ) : mode === "quiz" ? (
-    <VerbQuiz key={`qz-${group}`} verbs={groupVerbs} groupLabel={groupLabel} onRecord={record} onExit={() => setMode(null)} isAuthenticated={isAuthenticated} />
-  ) : (
-    <SveaVerbTest key={`st-${group}`} verbs={groupVerbs} groupLabel={groupLabel} onRecord={record} onExit={() => setMode(null)} isAuthenticated={isAuthenticated} />
-  );
+  const modeView = {
+    flashcards: <VerbFlashcards key={`fc-${group}`} verbs={groupVerbs} groupLabel={groupLabel} onRecord={record} onExit={() => setMode(null)} />,
+    quiz: <VerbQuiz key={`qz-${group}`} verbs={groupVerbs} groupLabel={groupLabel} onRecord={record} onExit={() => setMode(null)} isAuthenticated={isAuthenticated} />,
+    forms: <VerbFormsQuiz key={`fm-${group}`} verbs={groupVerbs} groupLabel={groupLabel} onRecord={record} onExit={() => setMode(null)} isAuthenticated={isAuthenticated} />,
+    test: <SveaVerbTest key={`st-${group}`} verbs={groupVerbs} groupLabel={groupLabel} onRecord={record} onExit={() => setMode(null)} isAuthenticated={isAuthenticated} />,
+  }[mode];
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-10">
@@ -89,8 +90,8 @@ export default function VerbPractice() {
             </div>
           </div>
 
-          {/* The three practice modes */}
-          <div className="grid grid-cols-3 gap-2">
+          {/* The four practice modes */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {MODES.map(({ id, label, en, Icon }) => (
               <button
                 key={id}
