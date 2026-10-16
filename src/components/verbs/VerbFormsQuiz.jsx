@@ -210,12 +210,12 @@ export default function VerbFormsQuiz({ verbs, groupLabel, onRecord, onExit, isA
                 <><XCircle className="w-4 h-4 text-destructive" /> {results.filter((r) => r.correct).length} av {forms.length} former rätt</>
               )}
             </p>
-            {!allCorrect && <p className="text-xs text-muted-foreground mt-1">{FORM_RULES[wrongForms[0]]}</p>}
+            {!allCorrect && <p className="text-xs text-muted-foreground mt-1 break-words">{FORM_RULES[wrongForms[0]]}</p>}
           </div>
         )}
       </div>
 
-      <p className="text-xs text-muted-foreground text-center mt-3">
+      <p className="text-xs text-muted-foreground text-center mt-3 break-words">
         Hela verbet rätt ger {XP_PER_VERB} XP · {XP_PER_VERB} XP for a fully correct verb ({correct} rätt)
       </p>
     </div>

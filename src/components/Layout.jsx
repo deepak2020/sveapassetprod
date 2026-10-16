@@ -220,7 +220,7 @@ export default function Layout() {
       </header>
 
       {/* Main Content */}
-      <main>
+      <main className="overflow-x-clip">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -239,7 +239,7 @@ export default function Layout() {
 
       {/* Bottom tab bar (mobile) */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-xl border-t border-border/50" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-        <div className="flex items-center justify-around px-2 py-2">
+        <div className="flex items-center justify-around gap-0.5 px-1 py-2">
           {bottomTabItems.filter(item => isAuthenticated || item.path !== "/dashboard").map((item) => {
             const Icon = item.icon;
               const isActive = location.pathname === item.path ||
@@ -257,7 +257,7 @@ export default function Layout() {
                       navigate(item.path);
                     }
                   }}
-                  className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all no-select min-h-[44px] min-w-[44px] ${isActive ? "text-primary bg-primary/10" : "text-muted-foreground"}`}
+                  className={`flex flex-1 flex-col items-center gap-0.5 px-1 py-1.5 rounded-xl transition-all no-select min-h-[44px] ${isActive ? "text-primary bg-primary/10" : "text-muted-foreground"}`}
                 >
                   <Icon className="w-5 h-5" />
                   <span className="text-[11px] font-medium">{item.label}</span>
