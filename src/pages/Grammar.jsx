@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, ChevronDown, CheckCircle2, PlayCircle, RotateCcw, Zap, Loader2 } from "lucide-react";
+import { BookOpen, ChevronDown, CheckCircle2, PlayCircle, RotateCcw, Zap, Loader2, ArrowRight } from "lucide-react";
 import { GRAMMAR_CATEGORIES as STATIC_CATEGORIES } from "@/data/grammarTopics";
 import { supabase } from "@/api/supabaseClient";
 import SveaLogo from "@/components/shared/SveaLogo";
@@ -253,6 +253,28 @@ export default function Grammar() {
           Wrong answers trigger an AI explanation of the grammar rule — personalised to your mistake
         </div>
       </div>
+
+      {/* Verb practice — the C-level verb bank with drills */}
+      <Link
+        to="/grammar/verbs"
+        className="block mb-6 rounded-2xl border-2 border-primary/30 bg-primary/5 p-5 hover:border-primary hover:shadow-md transition-all"
+      >
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+            <span className="text-xl">🦉</span>
+          </div>
+          <div className="flex-1 min-w-0">
+            <h2 className="font-bold text-lg">Verb att kunna – SFI C</h2>
+            <p className="text-xs italic text-muted-foreground">Verb practice · the four forms</p>
+            <p className="text-sm text-muted-foreground mt-2">
+              Infinitiv, presens, preteritum och supinum — med flashcards, quiz och Svea-test.
+            </p>
+            <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary mt-2">
+              Öva verb <ArrowRight className="w-3.5 h-3.5" />
+            </span>
+          </div>
+        </div>
+      </Link>
 
       {loading && (
         <div className="flex items-center justify-center gap-2 py-6 text-muted-foreground text-sm">

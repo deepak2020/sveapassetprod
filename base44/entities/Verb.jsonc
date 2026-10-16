@@ -1,0 +1,72 @@
+{
+  "name": "Verb",
+  "type": "object",
+  "properties": {
+    "infinitive": {
+      "type": "string",
+      "description": "Infinitiv (arbeta)"
+    },
+    "present": {
+      "type": "string",
+      "description": "Presens (arbetar)"
+    },
+    "past": {
+      "type": "string",
+      "description": "Preteritum (arbetade)"
+    },
+    "supine": {
+      "type": "string",
+      "description": "Supinum (arbetat). Empty for skola and m\u00e5ste"
+    },
+    "english": {
+      "type": "string",
+      "description": "English translation"
+    },
+    "group": {
+      "type": "string",
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "modal",
+        "reflexive",
+        "particle"
+      ],
+      "description": "Verb group: 1 (-ar), 2 (-er), 3 (korta verb), 4 (oregelbundna), modal, reflexive, particle"
+    },
+    "example_sentence": {
+      "type": "string",
+      "description": "Swedish example sentence"
+    },
+    "level": {
+      "type": "string",
+      "default": "C"
+    }
+  },
+  "required": [
+    "infinitive",
+    "present",
+    "past",
+    "english",
+    "group"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

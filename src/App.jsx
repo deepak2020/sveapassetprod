@@ -37,6 +37,7 @@ import WhatsNewModal from './components/shared/WhatsNewModal';
 import SignupNudge from './components/shared/SignupNudge';
 import Grammar from './pages/Grammar';
 import GrammarTopic from './pages/GrammarTopic';
+import VerbPractice from './pages/VerbPractice';
 import AdminGrammar from './pages/AdminGrammar';
 import AdminUsers from './pages/AdminUsers';
 import AdminFeedback from './pages/AdminFeedback';
@@ -94,6 +95,7 @@ const AuthenticatedApp = () => {
         <Route path="/tala/sprint" element={<TalaSprint />} />
         <Route path="/tala/chunks" element={<TalaChunks />} />
         <Route path="/grammar" element={<Grammar />} />
+        <Route path="/grammar/verbs" element={<VerbPractice />} />
         <Route path="/grammar/:categoryId/:topicId" element={<GrammarTopic />} />
         <Route path="/admin/grammar" element={<AdminGrammar />} />
         <Route path="/admin/users" element={<AdminUsers />} />

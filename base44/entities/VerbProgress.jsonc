@@ -1,0 +1,57 @@
+{
+  "name": "VerbProgress",
+  "type": "object",
+  "properties": {
+    "verb_id": {
+      "type": "string",
+      "description": "Verb id this progress belongs to"
+    },
+    "times_correct": {
+      "type": "number",
+      "default": 0
+    },
+    "times_wrong": {
+      "type": "number",
+      "default": 0
+    },
+    "correct_streak": {
+      "type": "number",
+      "default": 0,
+      "description": "Correct answers in a row \u2014 three in a row marks the verb mastered"
+    },
+    "last_seen": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_review": {
+      "type": "string",
+      "format": "date",
+      "description": "Spaced repetition: wrong answers come back the same day, mastered verbs after 7 days"
+    },
+    "mastered": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "verb_id"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

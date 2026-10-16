@@ -22,6 +22,7 @@ import MasteryCard from "../components/dashboard/MasteryCard";
 import CoachCard from "../components/dashboard/CoachCard";
 import DailyQuizCard from "../components/dashboard/DailyQuizCard";
 import DailyReviewCard from "../components/dashboard/DailyReviewCard";
+import DagensVerbCard from "../components/dashboard/DagensVerbCard";
 import MistakesReviewCard from "../components/dashboard/MistakesReviewCard";
 import PushOptInCard from "../components/dashboard/PushOptInCard";
 import GymNudgeCard from "../components/dashboard/GymNudgeCard";
@@ -246,6 +247,9 @@ export default function Dashboard() {
 
       {/* Daily warm-up review nudge */}
       <DailyReviewCard />
+
+      {/* Five verbs to know today */}
+      <DagensVerbCard />
 
       {/* Four short quiz check-ins through the day */}
       <DailyQuizCard results={results} />
