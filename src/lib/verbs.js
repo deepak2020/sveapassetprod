@@ -209,3 +209,16 @@ export function groupProgress(verbs, progressMap) {
   const mastered = verbs.filter((v) => progressMap[v.id]?.mastered).length;
   return { mastered, total: verbs.length };
 }
+
+// Verbs the learner keeps getting wrong: answered incorrectly and not mastered
+// yet. Most-missed first, then the ones with the weakest streak.
+export function weakVerbs(verbs, progressMap) {
+  return verbs
+    .map((verb) => ({ verb, progress: progressMap?.[verb.id] }))
+    .filter(({ progress }) => progress && !progress.mastered && (progress.times_wrong || 0) > 0)
+    .sort((a, b) =>
+      (b.progress.times_wrong - a.progress.times_wrong) ||
+      ((a.progress.correct_streak || 0) - (b.progress.correct_streak || 0))
+    )
+    .map(({ verb, progress }) => ({ verb, wrong: progress.times_wrong || 0 }));
+}

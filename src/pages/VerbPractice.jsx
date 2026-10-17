@@ -6,12 +6,13 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/AuthContext";
 import { usePageView } from "@/hooks/usePageView";
 import { useVerbProgress } from "@/hooks/useVerbProgress";
-import { FORM_OVERVIEW, VERB_GROUPS, groupProgress, verbsInGroup } from "@/lib/verbs";
+import { FORM_OVERVIEW, VERB_GROUPS, groupProgress, verbsInGroup, weakVerbs } from "@/lib/verbs";
 import VerbGroupTabs from "@/components/verbs/VerbGroupTabs";
 import VerbTable from "@/components/verbs/VerbTable";
 import VerbFlashcards from "@/components/verbs/VerbFlashcards";
 import VerbQuiz from "@/components/verbs/VerbQuiz";
 import VerbFormsQuiz from "@/components/verbs/VerbFormsQuiz";
+import WeakVerbCard from "@/components/verbs/WeakVerbCard";
 import SveaVerbTest from "@/components/verbs/SveaVerbTest";
 
 const MODES = [
@@ -38,12 +39,14 @@ export default function VerbPractice() {
   const { mastered, total } = groupProgress(groupVerbs, progress);
   const pct = total ? Math.round((mastered / total) * 100) : 0;
   const groupLabel = `${selectedGroup.label}${selectedGroup.hint ? ` (${selectedGroup.hint})` : ""}`;
+  const weakItems = useMemo(() => weakVerbs(verbs, progress), [verbs, progress]);
 
   const modeView = {
     flashcards: <VerbFlashcards key={`fc-${group}`} verbs={groupVerbs} groupLabel={groupLabel} onRecord={record} onExit={() => setMode(null)} />,
     quiz: <VerbQuiz key={`qz-${group}`} verbs={groupVerbs} groupLabel={groupLabel} onRecord={record} onExit={() => setMode(null)} isAuthenticated={isAuthenticated} />,
     forms: <VerbFormsQuiz key={`fm-${group}`} verbs={groupVerbs} groupLabel={groupLabel} onRecord={record} onExit={() => setMode(null)} isAuthenticated={isAuthenticated} />,
     test: <SveaVerbTest key={`st-${group}`} verbs={groupVerbs} groupLabel={groupLabel} onRecord={record} onExit={() => setMode(null)} isAuthenticated={isAuthenticated} />,
+    weak: <VerbFormsQuiz key="weak" verbs={weakItems.map((w) => w.verb)} groupLabel="Verb du behöver träna mer" onRecord={record} onExit={() => setMode(null)} isAuthenticated={isAuthenticated} />,
   }[mode];
 
   return (
@@ -89,6 +92,9 @@ export default function VerbPractice() {
               <div className="h-full bg-secondary rounded-full transition-all duration-700" style={{ width: `${pct}%` }} />
             </div>
           </div>
+
+          {/* Verbs this learner keeps getting wrong */}
+          <WeakVerbCard items={weakItems} onPractice={() => setMode("weak")} />
 
           {/* The four practice modes */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
