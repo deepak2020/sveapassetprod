@@ -84,12 +84,17 @@ export default function VerbFlashcards({ verbs, groupLabel, onRecord, onExit }) 
           ) : (
             <div className="mt-6 space-y-2">
               {FORMS.map((form) => (
-                <div key={form} className="flex items-baseline justify-between gap-3 border-b border-border/40 pb-1.5">
-                  <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{FORM_SV[form]}</span>
-                  <span className="font-semibold">{verb[form] || "—"}</span>
+                <div key={form} className="border-b border-border/40 pb-1.5">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{FORM_SV[form]}</span>
+                    <span className="font-semibold">{verb[form] || "—"}</span>
+                  </div>
+                  {verb[`${form}_sentence`] && (
+                    <p className="text-xs text-muted-foreground mt-0.5">{verb[`${form}_sentence`]}</p>
+                  )}
                 </div>
               ))}
-              {verb.example_sentence && (
+              {!FORMS.some((form) => verb[`${form}_sentence`]) && verb.example_sentence && (
                 <p className="text-sm text-muted-foreground pt-2">{verb.example_sentence}</p>
               )}
             </div>

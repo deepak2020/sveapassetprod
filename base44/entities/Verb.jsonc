@@ -39,6 +39,18 @@
       "type": "string",
       "description": "Swedish example sentence"
     },
+    "present_sentence": {
+      "type": "string",
+      "description": "Example sentence using presens, must contain the presens form (Jag arbetar hemma.)"
+    },
+    "past_sentence": {
+      "type": "string",
+      "description": "Example sentence using preteritum, must contain the preteritum form (Ig\u00e5r arbetade jag hemma.)"
+    },
+    "supine_sentence": {
+      "type": "string",
+      "description": "Example sentence using supinum, must contain the supinum form (Jag har arbetat hemma.)"
+    },
     "level": {
       "type": "string",
       "default": "C"

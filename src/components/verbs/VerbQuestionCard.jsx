@@ -87,6 +87,12 @@ export default function VerbQuestionCard({ question, index, total, onResult, onN
             )}
           </p>
           <p className="text-xs text-muted-foreground mt-1">{question.rule}</p>
+          {question.verb[`${question.form}_sentence`] && (
+            <p className="text-xs mt-1.5 break-words">
+              <span className="italic text-muted-foreground">{FORM_SV[question.form]}: </span>
+              {question.verb[`${question.form}_sentence`]}
+            </p>
+          )}
         </div>
       )}
     </div>

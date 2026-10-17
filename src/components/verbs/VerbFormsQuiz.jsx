@@ -211,6 +211,14 @@ export default function VerbFormsQuiz({ verbs, groupLabel, onRecord, onExit, isA
               )}
             </p>
             {!allCorrect && <p className="text-xs text-muted-foreground mt-1 break-words">{FORM_RULES[wrongForms[0]]}</p>}
+            <div className="mt-2 space-y-1">
+              {forms.map((form) => (question.verb[`${form}_sentence`] ? (
+                <p key={form} className="text-xs break-words">
+                  <span className="italic text-muted-foreground">{FORM_SV[form]}: </span>
+                  {question.verb[`${form}_sentence`]}
+                </p>
+              ) : null))}
+            </div>
           </div>
         )}
       </div>
