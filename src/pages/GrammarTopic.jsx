@@ -24,6 +24,16 @@ const BAD_EXERCISE_IDS = new Set([
   "eb541ba5-eaa0-45cc-bf90-7441f5dab028", // "Complete: ___ bil är röd" — blank placement wrong, "bilor" not a real word
 ]);
 
+// Hand-corrected exercises — the row can't be edited in the DB (RLS), so the
+// fix is applied while the bank is loaded.
+const EXERCISE_FIXES = {
+  // Blank sits before the verb, so the answer must be the bare "inte";
+  // the stored row also had an English option ("isn't") and a wrong key.
+  "2bf431ad-c2d1-479a-8e7e-32e181d80389": { options: ["inte", "inte är", "är inte"], correct: 0 },
+};
+
+const ENGLISH_OPTION = /\b(isn't|aren't|wasn't|weren't|don't|doesn't|didn't|haven't|hasn't|hadn't|can't|won't|couldn't|shouldn't|wouldn't|is not|are not|was not|were not|do not|does not|did not|have not|has not)\b/i;
+
 const aiCache = new Map();
 
 async function getAIExplanation(question, correctAnswer, userAnswer, rule) {
@@ -157,6 +167,12 @@ export default function GrammarTopic() {
       if (dbTopic) {
         setCategory(staticCat);
         const allExercises = (exRes.data || [])
+          // Apply hand-corrections first so a repaired row isn't dropped by the
+          // quality filters below.
+          .map(e => {
+            const fix = EXERCISE_FIXES[e.id];
+            return fix ? { ...e, options: fix.options, correct_index: fix.correct } : e;
+          })
           .filter(e => {
             // Skip exercises with duplicate or placeholder options — bad data in the bank
             if (!Array.isArray(e.options) || e.options.length < 2) return false;
@@ -181,6 +197,9 @@ export default function GrammarTopic() {
             }
             // Blocklist of known-bad exercises (not caught by the patterns above)
             if (BAD_EXERCISE_IDS.has(e.id)) return false;
+            // English answer options ("isn't", "have not"…) are generator junk in
+            // a Swedish exercise — the question can't be answered honestly.
+            if (e.options.some(o => ENGLISH_OPTION.test(o || ""))) return false;
             return true;
           })
           .map(e => ({
