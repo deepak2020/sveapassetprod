@@ -92,6 +92,8 @@ export default function GrammarTopic() {
   const [score, setScore] = useState(0);
   const [aiText, setAiText] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
+  // Topics that exist as a database row can sync progress to the account
+  const [isDbTopic, setIsDbTopic] = useState(false);
   const xpAwarded = useRef(false);
 
   const SESSION_SIZE = 8; // exercises per session
@@ -218,7 +220,12 @@ export default function GrammarTopic() {
           exercises: allExercises,
         };
         setTopic(topicData);
+        setIsDbTopic(true);
         setSessionExercises(pickSession(allExercises.length ? allExercises : staticTopic?.exercises || []));
+      } else if (staticTopic?.exercises?.length) {
+        // Hand-authored topic (not in the database yet) — still practise in
+        // sessions of SESSION_SIZE, the same as the database topics.
+        setSessionExercises(pickSession(staticTopic.exercises));
       }
     }).catch(() => {}).finally(() => setDbLoading(false));
   }, [topicId, categoryId]);
@@ -284,7 +291,7 @@ export default function GrammarTopic() {
     const newDone = Math.min((existing.done || 0) + 1, bankSize);
     const newScore = (existing.score || 0) + (idx === ex.correct ? 1 : 0);
     const isComplete = newDone >= bankSize;
-    saveProgress(topicId, newDone, bankSize, newScore, isComplete);
+    saveProgress(topicId, newDone, bankSize, newScore, isComplete, isDbTopic);
   };
 
   const handleNext = () => {

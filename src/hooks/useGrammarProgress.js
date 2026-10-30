@@ -45,15 +45,15 @@ export function useGrammarProgress() {
     }).catch(() => setSynced(true));
   }, [userId, isAuthenticated]);
 
-  const saveProgress = useCallback((topicId, done, total, score, completed) => {
+  const saveProgress = useCallback((topicId, done, total, score, completed, persistToDb = true) => {
     // Optimistic local update
     setProgress(prev => {
       const next = { ...prev, [topicId]: { done, total, score, completed } };
       writeLocalAll(next);
       return next;
     });
-    // Persist to DB if authenticated
-    if (isAuthenticated && userId) {
+    // Persist to DB if authenticated (skip topics with no database row)
+    if (persistToDb && isAuthenticated && userId) {
       supabase.grammar.upsertProgress(userId, topicId, done, total, score, completed)
         .catch(() => {}); // silently fail — local state is source of truth
     }
