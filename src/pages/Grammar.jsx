@@ -37,6 +37,15 @@ function mergeDbWithStatic(dbTopics, dbExercises) {
       exercises: exByTopic[t.id] || [],
     });
   }
+  // Keep hand-authored topics that have no row in the database yet
+  const dbIds = new Set(dbTopics.map((t) => t.id));
+  for (const cat of STATIC_CATEGORIES) {
+    for (const t of cat.topics) {
+      if (dbIds.has(t.id)) continue;
+      if (!byCategory[cat.id]) byCategory[cat.id] = [];
+      byCategory[cat.id].push(t);
+    }
+  }
   return ["beginner", "intermediate", "advanced"].map(catId => ({
     id: catId,
     ...CATEGORY_META[catId],
