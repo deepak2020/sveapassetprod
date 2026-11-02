@@ -1,10 +1,12 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Play, Repeat, Languages, ListOrdered } from "lucide-react";
+import { ArrowLeft, Shuffle, Languages, ListOrdered } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ORDLISTOR, TOTAL_WORDS } from "@/data/sprakvagenC";
-import { buildSession, filterPool } from "@/lib/ordlistor";
+import { ORDLISTOR, TOTAL_WORDS, ALL_WORDS } from "@/data/sprakvagenC";
+import { buildSequence, buildSession, topicWords } from "@/lib/ordlistor";
+import { useOrdlisteProgress } from "@/hooks/useOrdlisteProgress";
 import WordDrill from "@/components/ordlistor/WordDrill";
+import OrdlistTopicCard from "@/components/ordlistor/OrdlistTopicCard";
 
 const DIRECTIONS = [
   { id: "sv-en", label: "Svenska → Engelska", sub: "Swedish to English" },
@@ -13,25 +15,39 @@ const DIRECTIONS = [
 
 export default function Ordlistor() {
   const [direction, setDirection] = useState("sv-en");
-  const [chapter, setChapter] = useState("all");
-  const [level, setLevel] = useState("all");
-  const [questions, setQuestions] = useState(null);
+  const [session, setSession] = useState(null);
+  const { progress, markDone, resetTopic } = useOrdlisteProgress();
 
-  const pool = useMemo(() => filterPool({ chapter, level }), [chapter, level]);
-
-  const start = (dir = direction) => {
-    if (pool.length < 4) return;
-    setQuestions(buildSession(pool, dir));
+  const startTopic = (chapter, level) => {
+    const pool = topicWords(chapter, level);
+    const key = `${chapter}-${level}`;
+    const done = progress[key] || 0;
+    const startIndex = done >= pool.length ? 0 : done;
+    setSession({
+      questions: buildSequence(pool, direction, startIndex),
+      key,
+      startIndex,
+      kind: { type: "topic", chapter, level },
+    });
   };
 
-  if (questions) {
+  const startRandom = () =>
+    setSession({ questions: buildSession(ALL_WORDS, direction), key: null, startIndex: 0, kind: { type: "random" } });
+
+  if (session) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 pb-24 md:pb-10">
         <WordDrill
-          questions={questions}
+          questions={session.questions}
           direction={direction}
-          onExit={() => setQuestions(null)}
-          onRestart={() => start()}
+          onExit={() => setSession(null)}
+          onFinish={() => {
+            if (session.key) markDone(session.key, session.startIndex + session.questions.length);
+          }}
+          onRestart={() => {
+            if (session.kind.type === "topic") startTopic(session.kind.chapter, session.kind.level);
+            else startRandom();
+          }}
         />
       </div>
     );
@@ -43,15 +59,13 @@ export default function Ordlistor() {
         <ArrowLeft className="w-4 h-4" /> Träningssalen
       </Link>
 
-      <div>
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <ListOrdered className="w-5 h-5 text-primary" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">Ordlistor · <span className="italic font-normal text-muted-foreground">Språkvägen C</span></h1>
-            <p className="text-sm text-muted-foreground">{TOTAL_WORDS} ord i 20 ordlistor · 10 kapitel</p>
-          </div>
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+          <ListOrdered className="w-5 h-5 text-primary" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold">Ordlistor · <span className="italic font-normal text-muted-foreground">Språkvägen C</span></h1>
+          <p className="text-sm text-muted-foreground">{TOTAL_WORDS} ord · 20 ordlistor · öva i ordning</p>
         </div>
       </div>
 
@@ -76,64 +90,38 @@ export default function Ordlistor() {
         </div>
       </div>
 
-      {/* Chapter */}
-      <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Kapitel</p>
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => setChapter("all")}
-            className={`px-3 py-1.5 rounded-lg border text-sm font-medium transition-all ${
-              chapter === "all" ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary/50"
-            }`}
-          >
-            Alla
-          </button>
-          {ORDLISTOR.map((ch) => (
-            <button
-              key={ch.chapter}
-              onClick={() => setChapter(ch.chapter)}
-              className={`px-3 py-1.5 rounded-lg border text-sm font-medium transition-all ${
-                chapter === ch.chapter ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary/50"
-              }`}
-            >
-              {ch.chapter}. {ch.title}
-            </button>
-          ))}
-        </div>
+      {/* Topics in curriculum order */}
+      <div className="space-y-5">
+        {ORDLISTOR.map((ch) => (
+          <div key={ch.chapter} className="space-y-2">
+            <div className="flex items-baseline justify-between gap-2">
+              <h2 className="font-bold">
+                <span className="text-muted-foreground mr-1.5">{ch.chapter}.</span>
+                {ch.title}
+              </h2>
+              <span className="text-xs italic text-muted-foreground">{ch.titleEn}</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {ch.lists.map((l) => {
+                const key = `${ch.chapter}-${l.level}`;
+                return (
+                  <OrdlistTopicCard
+                    key={key}
+                    level={l.level}
+                    total={l.words.length}
+                    done={Math.min(progress[key] || 0, l.words.length)}
+                    onStart={() => startTopic(ch.chapter, l.level)}
+                    onReset={() => resetTopic(key)}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Level */}
-      <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Nivå</p>
-        <div className="flex gap-2">
-          {[
-            { id: "all", label: "Alla" },
-            { id: 1, label: "Nivå 1" },
-            { id: 2, label: "Nivå 2" },
-          ].map((l) => (
-            <button
-              key={l.id}
-              onClick={() => setLevel(l.id)}
-              className={`px-4 py-1.5 rounded-lg border text-sm font-medium transition-all ${
-                level === l.id ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary/50"
-              }`}
-            >
-              {l.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="rounded-xl border border-border/50 bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-        {pool.length} ord i ditt urval · 12 frågor per omgång
-      </div>
-
-      <Button onClick={() => start()} size="lg" className="w-full gap-2" disabled={pool.length < 4}>
-        <Play className="w-5 h-5" /> Börja öva
-      </Button>
-
-      <Button onClick={() => start(direction === "sv-en" ? "en-sv" : "sv-en")} variant="outline" className="w-full gap-2" disabled={pool.length < 4}>
-        <Repeat className="w-4 h-4" /> Öva andra riktningen
+      <Button onClick={startRandom} variant="outline" className="w-full gap-2">
+        <Shuffle className="w-4 h-4" /> Slumpa från alla {TOTAL_WORDS} ord
       </Button>
     </div>
   );

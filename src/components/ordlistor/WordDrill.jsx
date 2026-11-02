@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2, XCircle, RotateCcw, ArrowLeft, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export default function WordDrill({ questions, direction, onExit, onRestart }) {
+export default function WordDrill({ questions, direction, onExit, onRestart, onFinish }) {
   const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState(null);
   const [score, setScore] = useState(0);
 
   const q = questions[idx];
   const isDone = idx >= questions.length;
+
+  // Let the page record how far the learner got in this topic
+  useEffect(() => {
+    if (isDone && onFinish) onFinish();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDone]);
 
   const handleAnswer = (i) => {
     if (selected !== null) return;

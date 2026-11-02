@@ -1,7 +1,7 @@
 import { ALL_WORDS } from "@/data/sprakvagenC";
 import { shuffle } from "@/lib/shuffle";
 
-const SESSION_SIZE = 12;
+export const SESSION_SIZE = 10;
 
 // Which side of the pair the learner must produce
 export function directionSides(direction) {
@@ -10,36 +10,41 @@ export function directionSides(direction) {
     : { prompt: "sv", answer: "en" };
 }
 
-// Build one multiple-choice session from the selected pool.
-export function buildSession(pool, direction, size = SESSION_SIZE) {
-  const { prompt, answer } = directionSides(direction);
-  const targets = shuffle(pool).slice(0, Math.min(size, pool.length));
+function makeQuestion(word, pool, promptKey, answerKey) {
+  // Distractors come from the same topic so the choice is meaningful
+  const wrong = shuffle(pool.filter((w) => w[answerKey] !== word[answerKey]))
+    .slice(0, 3)
+    .map((w) => w[answerKey]);
 
-  return targets.map((word) => {
-    // Distractors come from the same pool so the choice is meaningful
-    const wrong = shuffle(
-      pool.filter((w) => w[answer] !== word[answer])
-    )
-      .slice(0, 3)
-      .map((w) => w[answer]);
-
-    const options = shuffle([word[answer], ...wrong]);
-    return {
-      promptText: word[prompt],
-      correctText: word[answer],
-      options,
-      correct: options.indexOf(word[answer]),
-      sv: word.sv,
-      en: word.en,
-      chapterTitle: word.chapterTitle,
-    };
-  });
+  const options = shuffle([word[answerKey], ...wrong]);
+  return {
+    promptText: word[promptKey],
+    correctText: word[answerKey],
+    options,
+    correct: options.indexOf(word[answerKey]),
+    sv: word.sv,
+    en: word.en,
+    chapterTitle: word.chapterTitle,
+  };
 }
 
-export function filterPool({ chapter, level }) {
-  return ALL_WORDS.filter(
-    (w) =>
-      (chapter === "all" || w.chapter === chapter) &&
-      (level === "all" || w.level === level)
-  );
+// The words of one topic, in the order of the original word list
+export function topicWords(chapter, level) {
+  return ALL_WORDS.filter((w) => w.chapter === chapter && w.level === level);
+}
+
+// A session that follows the list order, starting where the learner stopped
+export function buildSequence(pool, direction, startIndex = 0, size = SESSION_SIZE) {
+  const { prompt, answer } = directionSides(direction);
+  return pool
+    .slice(startIndex, startIndex + size)
+    .map((w) => makeQuestion(w, pool, prompt, answer));
+}
+
+// Random session from a pool (used by "shuffle everything")
+export function buildSession(pool, direction, size = SESSION_SIZE) {
+  const { prompt, answer } = directionSides(direction);
+  return shuffle(pool)
+    .slice(0, Math.min(size, pool.length))
+    .map((w) => makeQuestion(w, pool, prompt, answer));
 }
