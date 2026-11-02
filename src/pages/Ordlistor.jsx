@@ -26,6 +26,9 @@ export default function Ordlistor() {
   const [mode, setMode] = useState("quiz");
   const [direction, setDirection] = useState("sv-en");
   const [session, setSession] = useState(null);
+  // Bumped on every new quiz round so the drill component remounts with fresh
+  // state (answering index, score) instead of staying on its result screen.
+  const [run, setRun] = useState(0);
   const { progress, markDone, resetTopic } = useOrdlisteProgress();
 
   const startTopic = (chapter, level) => {
@@ -44,6 +47,7 @@ export default function Ordlistor() {
     const key = `${chapter}-${level}`;
     const done = progress[key] || 0;
     const startIndex = done >= pool.length ? 0 : done;
+    setRun((r) => r + 1);
     setSession({
       type: "quiz",
       questions: buildSequence(pool, direction, startIndex),
@@ -56,6 +60,7 @@ export default function Ordlistor() {
   const startAll = () => {
     if (mode === "flash") return setSession({ type: "flash", words: shuffle(ALL_WORDS), title: "Alla ord" });
     if (mode === "speak") return setSession({ type: "speak", words: shuffle(ALL_WORDS).slice(0, 25), title: "Alla ord" });
+    setRun((r) => r + 1);
     setSession({ type: "quiz", questions: buildSession(ALL_WORDS, direction), key: null, startIndex: 0, kind: { type: "random" } });
   };
 
@@ -79,6 +84,7 @@ export default function Ordlistor() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 pb-24 md:pb-10">
         <WordDrill
+          key={run}
           questions={session.questions}
           direction={direction}
           onExit={() => setSession(null)}
