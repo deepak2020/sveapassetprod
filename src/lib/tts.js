@@ -10,7 +10,7 @@
 
 import { base44 } from "@/api/base44Client";
 
-const LS_PREFIX = "tts:url:v2:";
+const LS_PREFIX = "tts:url:v3:";
 const mem = new Map(); // key -> url | Promise<url|null>
 
 function lsGet(key) {
@@ -42,11 +42,8 @@ export async function getTtsUrl(text) {
 
   const pending = (async () => {
     try {
-      const res = await base44.integrations.Core.GenerateSpeech({
-        text: key,
-        language_code: "sv",
-      });
-      const url = res?.url;
+      const res = await base44.functions.invoke("swedishTts", { text: key });
+      const url = res?.data?.url;
       if (!url) throw new Error("no url");
       mem.set(key, url);
       lsSet(key, url);
