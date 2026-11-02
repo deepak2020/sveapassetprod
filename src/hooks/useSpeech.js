@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { getBestVoice } from "@/lib/speech";
-import { getAzureTtsUrl, getCachedTtsUrl } from "@/lib/tts";
+import { getTtsUrl, getCachedTtsUrl } from "@/lib/tts";
 import { playTtsUrl, stopTts } from "@/lib/audioPlayer";
 
 const isSafari =
@@ -14,8 +14,11 @@ function doSpeak(text, lang, onStart, onEnd) {
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = lang;
 
+  // Never let a non-Swedish voice read Swedish text: if the device has no
+  // matching voice the word would be pronounced with English phonetics.
   const voice = getBestVoice(lang);
-  if (voice) utterance.voice = voice;
+  if (!voice) { if (onEnd) onEnd(); return; }
+  utterance.voice = voice;
   utterance.rate = 0.92;
   utterance.pitch = 0.97;
 
@@ -79,7 +82,7 @@ export function useSpeech() {
       if (cached) { playUrl(cached); return; }
 
       // Otherwise fetch it, then play (or fall back).
-      getAzureTtsUrl(text)
+      getTtsUrl(text)
         .then((url) => { if (url) playUrl(url); else browserSpeak(text, lang, onStart, onEnd); })
         .catch(() => browserSpeak(text, lang, onStart, onEnd));
       return;

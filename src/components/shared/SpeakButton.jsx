@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Volume2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSpeech } from "@/hooks/useSpeech";
@@ -6,10 +5,9 @@ import { prefetchTts } from "@/lib/tts";
 
 export default function SpeakButton({ text, lang = "sv-SE", className, ariaLabel = "Play pronunciation" }) {
   const { speak, speaking } = useSpeech();
+  // Only warm the clip when the user shows intent, so we never generate audio
+  // for words that are just displayed on screen.
   const warm = () => { if (lang.startsWith("sv")) prefetchTts(text); };
-
-  // Warm the cache so the first tap plays instantly and within the gesture.
-  useEffect(() => { warm(); }, [text, lang]);
 
   return (
     <button
