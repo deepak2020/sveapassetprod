@@ -48,3 +48,14 @@ export function buildSession(pool, direction, size = SESSION_SIZE) {
     .slice(0, Math.min(size, pool.length))
     .map((w) => makeQuestion(w, pool, prompt, answer));
 }
+
+// Typing session: English is shown, the learner types the Swedish word.
+// `shuffled` draws a random set from the pool instead of following its order.
+export function buildTypingQuestions(pool, startIndex = 0, size = SESSION_SIZE, shuffled = false) {
+  const source = shuffled ? shuffle(pool) : pool.slice(startIndex, startIndex + size);
+  return source.slice(0, Math.min(size, pool.length)).map((w) => ({
+    sv: w.sv,
+    en: w.en,
+    chapterTitle: w.chapterTitle,
+  }));
+}

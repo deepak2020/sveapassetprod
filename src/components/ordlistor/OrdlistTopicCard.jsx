@@ -2,7 +2,8 @@ import { Play, RotateCcw, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function OrdlistTopicCard({ level, total, done, mode = "quiz", onStart, onReset }) {
-  const showProgress = mode === "quiz";
+  // Quiz and typing both run through the word list in order, so both resume
+  const showProgress = mode === "quiz" || mode === "type";
   const complete = total > 0 && done >= total;
   const started = done > 0 && !complete;
   const pct = total > 0 ? Math.round((done / total) * 100) : 0;

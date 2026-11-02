@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Shuffle, Languages, ListOrdered, ListChecks, Layers, Mic } from "lucide-react";
+import { ArrowLeft, Shuffle, Languages, ListOrdered, ListChecks, Layers, Mic, Keyboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ORDLISTOR, TOTAL_WORDS, ALL_WORDS } from "@/data/sprakvagenC";
-import { buildSequence, buildSession, topicWords } from "@/lib/ordlistor";
+import { buildSequence, buildSession, buildTypingQuestions, topicWords } from "@/lib/ordlistor";
 import { useOrdlisteProgress } from "@/hooks/useOrdlisteProgress";
 import { shuffle } from "@/lib/shuffle";
 import WordDrill from "@/components/ordlistor/WordDrill";
 import WordFlashcards from "@/components/ordlistor/WordFlashcards";
 import WordSpeaking from "@/components/ordlistor/WordSpeaking";
+import WordTyping from "@/components/ordlistor/WordTyping";
 import OrdlistTopicCard from "@/components/ordlistor/OrdlistTopicCard";
 
 const DIRECTIONS = [
@@ -18,6 +19,7 @@ const DIRECTIONS = [
 
 const MODES = [
   { id: "quiz", icon: ListChecks, label: "Quiz", sub: "Fler val" },
+  { id: "type", icon: Keyboard, label: "Skriv", sub: "Skriv översättningen" },
   { id: "flash", icon: Layers, label: "Flashkort", sub: "Repetera orden" },
   { id: "speak", icon: Mic, label: "Uttal", sub: "Träna uttalet" },
 ];
@@ -34,6 +36,10 @@ export default function Ordlistor() {
   const startTopic = (chapter, level) => {
     const pool = topicWords(chapter, level);
     const title = `${chapter}. ${ORDLISTOR.find((c) => c.chapter === chapter)?.title} · Nivå ${level}`;
+    const key = `${chapter}-${level}`;
+    const done = progress[key] || 0;
+    const startIndex = done >= pool.length ? 0 : done;
+    setRun((r) => r + 1);
 
     if (mode === "flash") {
       setSession({ type: "flash", words: pool, title });
@@ -43,11 +49,18 @@ export default function Ordlistor() {
       setSession({ type: "speak", words: pool, title });
       return;
     }
+    if (mode === "type") {
+      setSession({
+        type: "type",
+        questions: buildTypingQuestions(pool, startIndex),
+        key,
+        startIndex,
+        title,
+        kind: { type: "topic", chapter, level },
+      });
+      return;
+    }
 
-    const key = `${chapter}-${level}`;
-    const done = progress[key] || 0;
-    const startIndex = done >= pool.length ? 0 : done;
-    setRun((r) => r + 1);
     setSession({
       type: "quiz",
       questions: buildSequence(pool, direction, startIndex),
@@ -58,9 +71,19 @@ export default function Ordlistor() {
   };
 
   const startAll = () => {
+    setRun((r) => r + 1);
     if (mode === "flash") return setSession({ type: "flash", words: shuffle(ALL_WORDS), title: "Alla ord" });
     if (mode === "speak") return setSession({ type: "speak", words: shuffle(ALL_WORDS).slice(0, 25), title: "Alla ord" });
-    setRun((r) => r + 1);
+    if (mode === "type") {
+      return setSession({
+        type: "type",
+        questions: buildTypingQuestions(ALL_WORDS, 0, 10, true),
+        key: null,
+        startIndex: 0,
+        title: "Alla ord",
+        kind: { type: "random" },
+      });
+    }
     setSession({ type: "quiz", questions: buildSession(ALL_WORDS, direction), key: null, startIndex: 0, kind: { type: "random" } });
   };
 
@@ -76,6 +99,26 @@ export default function Ordlistor() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 pb-24 md:pb-10">
         <WordSpeaking words={session.words} title={session.title} onExit={() => setSession(null)} />
+      </div>
+    );
+  }
+
+  if (session?.type === "type") {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-8 pb-24 md:pb-10">
+        <WordTyping
+          key={run}
+          questions={session.questions}
+          title={session.title}
+          onExit={() => setSession(null)}
+          onFinish={() => {
+            if (session.key) markDone(session.key, session.startIndex + session.questions.length);
+          }}
+          onRestart={() => {
+            if (session.kind.type === "topic") startTopic(session.kind.chapter, session.kind.level);
+            else startAll();
+          }}
+        />
       </div>
     );
   }
@@ -119,7 +162,7 @@ export default function Ordlistor() {
       {/* Mode */}
       <div className="space-y-2">
         <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Läge</p>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {MODES.map(({ id, icon: Icon, label, sub }) => (
             <button
               key={id}
@@ -192,7 +235,13 @@ export default function Ordlistor() {
 
       <Button onClick={startAll} variant="outline" className="w-full gap-2">
         <Shuffle className="w-4 h-4" />
-        {mode === "quiz" ? `Slumpa från alla ${TOTAL_WORDS} ord` : mode === "flash" ? "Blanda alla ord" : "Slumpa 25 ord för uttal"}
+        {mode === "quiz"
+          ? `Slumpa från alla ${TOTAL_WORDS} ord`
+          : mode === "type"
+          ? "Slumpa 10 ord att skriva"
+          : mode === "flash"
+          ? "Blanda alla ord"
+          : "Slumpa 25 ord för uttal"}
       </Button>
     </div>
   );
