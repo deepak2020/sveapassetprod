@@ -19,6 +19,7 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Onboarding from './pages/Onboarding';
 import Gym from './pages/Gym';
+import Ordlistor from './pages/Ordlistor';
 import Speaking from './pages/Speaking';
 import Tala from './pages/Tala';
 import MissionPlayer from './pages/MissionPlayer';
@@ -87,6 +88,7 @@ const AuthenticatedApp = () => {
         <Route path="/civic/:id" element={<TopicDetail />} />
         <Route path="/listening/:course" element={<ListeningTest />} />
         <Route path="/gym" element={<Gym />} />
+        <Route path="/ordlistor" element={<Ordlistor />} />
         <Route path="/speaking" element={<Speaking />} />
         <Route path="/tala" element={<Tala />} />
         <Route path="/tala/mission/:id" element={<MissionPlayer />} />

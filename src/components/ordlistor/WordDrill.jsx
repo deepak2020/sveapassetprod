@@ -1,0 +1,116 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { CheckCircle2, XCircle, RotateCcw, ArrowLeft, Trophy } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+export default function WordDrill({ questions, direction, onExit, onRestart }) {
+  const [idx, setIdx] = useState(0);
+  const [selected, setSelected] = useState(null);
+  const [score, setScore] = useState(0);
+
+  const q = questions[idx];
+  const isDone = idx >= questions.length;
+
+  const handleAnswer = (i) => {
+    if (selected !== null) return;
+    setSelected(i);
+    if (i === q.correct) setScore((s) => s + 1);
+  };
+
+  const handleNext = () => {
+    setSelected(null);
+    setIdx((i) => i + 1);
+  };
+
+  if (isDone) {
+    const pct = Math.round((score / questions.length) * 100);
+    return (
+      <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-10 space-y-4">
+        <div className="w-20 h-20 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mx-auto">
+          <Trophy className="w-10 h-10 text-amber-500" />
+        </div>
+        <h2 className="text-2xl font-bold">
+          {pct >= 80 ? "Utmärkt! 🎉" : pct >= 50 ? "Bra jobbat! 👍" : "Fortsätt öva! 💪"}
+        </h2>
+        <p className="text-5xl font-bold text-primary">{pct}%</p>
+        <p className="text-muted-foreground">{score} av {questions.length} rätt</p>
+        <div className="flex flex-col gap-2 max-w-xs mx-auto pt-2">
+          <Button onClick={onRestart} className="gap-2">
+            <RotateCcw className="w-4 h-4" /> Ny omgång
+          </Button>
+          <Button onClick={onExit} variant="outline" className="gap-2">
+            <ArrowLeft className="w-4 h-4" /> Tillbaka
+          </Button>
+        </div>
+      </motion.div>
+    );
+  }
+
+  return (
+    <div className="space-y-5">
+      <div className="flex items-center justify-between text-sm text-muted-foreground">
+        <button onClick={onExit} className="flex items-center gap-2 hover:text-foreground transition-colors">
+          <ArrowLeft className="w-4 h-4" /> Avsluta
+        </button>
+        <span>{idx + 1} / {questions.length}</span>
+        <span className="font-semibold text-emerald-600">{score} rätt</span>
+      </div>
+
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
+        <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${(idx / questions.length) * 100}%` }} />
+      </div>
+
+      <motion.div key={idx} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} className="rounded-2xl border border-border/50 bg-card p-6 space-y-5">
+        <div className="space-y-1 text-center">
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">
+            {direction === "en-sv" ? "Välj svenska" : "Choose English"}
+          </p>
+          <p className="text-2xl font-bold">{q.promptText}</p>
+          <p className="text-xs text-muted-foreground italic">{q.chapterTitle}</p>
+        </div>
+
+        <div className="space-y-3">
+          {q.options.map((opt, i) => {
+            const correct = i === q.correct;
+            const wrong = selected === i && !correct;
+            return (
+              <button
+                key={i}
+                onClick={() => handleAnswer(i)}
+                disabled={selected !== null}
+                className={`w-full px-4 py-3 rounded-xl border-2 text-left font-medium transition-all ${
+                  selected !== null
+                    ? correct
+                      ? "border-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-900 dark:text-emerald-100"
+                      : wrong
+                      ? "border-red-400 bg-red-50 dark:bg-red-950/30 text-red-900 dark:text-red-100"
+                      : "border-border opacity-50"
+                    : "border-border hover:border-primary hover:bg-muted/50"
+                }`}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span>{opt}</span>
+                  {selected !== null && correct && <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />}
+                  {wrong && <XCircle className="w-4 h-4 text-red-600 shrink-0" />}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {selected !== null && (
+          <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 p-4 text-sm text-blue-900 dark:text-blue-100 space-y-1">
+            <p className="font-semibold">{q.sv}</p>
+            <p className="text-muted-foreground">{q.en}</p>
+          </div>
+        )}
+
+        {selected !== null && (
+          <Button onClick={handleNext} className="w-full">
+            {idx + 1 >= questions.length ? "Se resultat" : "Nästa →"}
+          </Button>
+        )}
+      </motion.div>
+    </div>
+  );
+}
