@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2, XCircle, RotateCcw, ArrowLeft, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SpeakButton from "@/components/shared/SpeakButton";
 
 export default function WordDrill({ questions, direction, onExit, onRestart, onFinish }) {
   const [idx, setIdx] = useState(0);
@@ -71,7 +72,10 @@ export default function WordDrill({ questions, direction, onExit, onRestart, onF
           <p className="text-xs uppercase tracking-wide text-muted-foreground">
             {direction === "en-sv" ? "Välj svenska" : "Choose English"}
           </p>
-          <p className="text-2xl font-bold">{q.promptText}</p>
+          <div className="flex items-center justify-center gap-2">
+            <p className="text-2xl font-bold">{q.promptText}</p>
+            {direction !== "en-sv" && <SpeakButton text={q.sv} ariaLabel={`Listen to ${q.sv}`} />}
+          </div>
           <p className="text-xs text-muted-foreground italic">{q.chapterTitle}</p>
         </div>
 
@@ -106,7 +110,10 @@ export default function WordDrill({ questions, direction, onExit, onRestart, onF
 
         {selected !== null && (
           <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 p-4 text-sm text-blue-900 dark:text-blue-100 space-y-1">
-            <p className="font-semibold">{q.sv}</p>
+            <div className="flex items-center gap-2">
+              <p className="font-semibold">{q.sv}</p>
+              <SpeakButton text={q.sv} ariaLabel={`Listen to ${q.sv}`} />
+            </div>
             <p className="text-muted-foreground">{q.en}</p>
           </div>
         )}
