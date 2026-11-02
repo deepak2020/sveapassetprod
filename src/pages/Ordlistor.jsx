@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Shuffle, Languages, ListOrdered, ListChecks, Layers, Mic, Keyboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ORDLISTOR, TOTAL_WORDS, ALL_WORDS } from "@/data/sprakvagenC";
-import { buildSequence, buildSession, buildTypingQuestions, topicWords } from "@/lib/ordlistor";
+import { buildSequence, buildSession, buildTypingQuestions, topicWords, SESSION_SIZE } from "@/lib/ordlistor";
 import { useOrdlisteProgress } from "@/hooks/useOrdlisteProgress";
 import { shuffle } from "@/lib/shuffle";
 import WordDrill from "@/components/ordlistor/WordDrill";
@@ -45,7 +45,10 @@ export default function Ordlistor() {
     const title = `${chapter}. ${ORDLISTOR.find((c) => c.chapter === chapter)?.title} · Nivå ${level}`;
     const key = `${chapter}-${level}`;
     const done = progress[key] || 0;
-    const startIndex = done >= pool.length ? 0 : done;
+    // A finished list starts a fresh, shuffled round: practising it again must
+    // never replay the same words in the same order.
+    const complete = done >= pool.length;
+    const startIndex = complete ? 0 : done;
     setRun((r) => r + 1);
 
     if (mode === "flash") {
@@ -59,8 +62,10 @@ export default function Ordlistor() {
     if (mode === "type") {
       setSession({
         type: "type",
-        questions: buildTypingQuestions(pool, startIndex),
-        key,
+        questions: complete
+          ? buildTypingQuestions(pool, 0, SESSION_SIZE, true)
+          : buildTypingQuestions(pool, startIndex),
+        key: complete ? null : key,
         startIndex,
         title,
         kind: { type: "topic", chapter, level },
@@ -70,8 +75,8 @@ export default function Ordlistor() {
 
     setSession({
       type: "quiz",
-      questions: buildSequence(pool, direction, startIndex),
-      key,
+      questions: complete ? buildSession(pool, direction) : buildSequence(pool, direction, startIndex),
+      key: complete ? null : key,
       startIndex,
       kind: { type: "topic", chapter, level },
     });
