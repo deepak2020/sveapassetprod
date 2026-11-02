@@ -15,7 +15,7 @@ const sameWord = (typed, target) => {
   return a.replace(/^att\s+/, "") === b.replace(/^att\s+/, "");
 };
 
-export default function WordTyping({ questions, title, onExit, onRestart, onFinish }) {
+export default function WordTyping({ questions, title, onExit, onRestart, onFinish, onProgress }) {
   const [idx, setIdx] = useState(0);
   const [value, setValue] = useState("");
   const [result, setResult] = useState(null); // "correct" | "wrong"
@@ -34,6 +34,8 @@ export default function WordTyping({ questions, title, onExit, onRestart, onFini
     const ok = sameWord(value, q.sv);
     setResult(ok ? "correct" : "wrong");
     if (ok) setScore((s) => s + 1);
+    // Report progress per answered word so leaving early still counts
+    if (onProgress) onProgress(idx + 1);
   };
 
   const next = () => {

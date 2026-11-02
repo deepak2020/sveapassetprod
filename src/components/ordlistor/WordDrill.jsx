@@ -4,7 +4,7 @@ import { CheckCircle2, XCircle, RotateCcw, ArrowLeft, Trophy } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import SpeakButton from "@/components/shared/SpeakButton";
 
-export default function WordDrill({ questions, direction, onExit, onRestart, onFinish }) {
+export default function WordDrill({ questions, direction, onExit, onRestart, onFinish, onProgress }) {
   const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState(null);
   const [score, setScore] = useState(0);
@@ -22,6 +22,8 @@ export default function WordDrill({ questions, direction, onExit, onRestart, onF
     if (selected !== null) return;
     setSelected(i);
     if (i === q.correct) setScore((s) => s + 1);
+    // Report progress per answered word so leaving early still counts
+    if (onProgress) onProgress(idx + 1);
   };
 
   const handleNext = () => {

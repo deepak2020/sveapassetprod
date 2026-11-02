@@ -33,6 +33,13 @@ export default function Ordlistor() {
   const [run, setRun] = useState(0);
   const { progress, markDone, resetTopic } = useOrdlisteProgress();
 
+  const topicsTotal = ORDLISTOR.reduce((n, ch) => n + ch.lists.length, 0);
+  const topicsDone = ORDLISTOR.reduce(
+    (n, ch) =>
+      n + ch.lists.filter((l) => (progress[`${ch.chapter}-${l.level}`] || 0) >= l.words.length).length,
+    0
+  );
+
   const startTopic = (chapter, level) => {
     const pool = topicWords(chapter, level);
     const title = `${chapter}. ${ORDLISTOR.find((c) => c.chapter === chapter)?.title} · Nivå ${level}`;
@@ -111,8 +118,8 @@ export default function Ordlistor() {
           questions={session.questions}
           title={session.title}
           onExit={() => setSession(null)}
-          onFinish={() => {
-            if (session.key) markDone(session.key, session.startIndex + session.questions.length);
+          onProgress={(n) => {
+            if (session.key) markDone(session.key, session.startIndex + n);
           }}
           onRestart={() => {
             if (session.kind.type === "topic") startTopic(session.kind.chapter, session.kind.level);
@@ -131,8 +138,8 @@ export default function Ordlistor() {
           questions={session.questions}
           direction={direction}
           onExit={() => setSession(null)}
-          onFinish={() => {
-            if (session.key) markDone(session.key, session.startIndex + session.questions.length);
+          onProgress={(n) => {
+            if (session.key) markDone(session.key, session.startIndex + n);
           }}
           onRestart={() => {
             if (session.kind.type === "topic") startTopic(session.kind.chapter, session.kind.level);
@@ -155,7 +162,21 @@ export default function Ordlistor() {
         </div>
         <div>
           <h1 className="text-2xl font-bold">Ordlistor · <span className="italic font-normal text-muted-foreground">Språkvägen C</span></h1>
-          <p className="text-sm text-muted-foreground">{TOTAL_WORDS} ord · 20 ordlistor · öva i ordning</p>
+          <p className="text-sm text-muted-foreground">{TOTAL_WORDS} ord · {topicsTotal} ordlistor · öva i ordning</p>
+        </div>
+      </div>
+
+      {/* Journey progress: one topic counts as done when all its words are answered */}
+      <div className="rounded-xl border border-border/50 bg-card px-4 py-3 space-y-2">
+        <div className="flex items-center justify-between gap-2 text-xs">
+          <span className="font-semibold">Din resa genom ordlistorna</span>
+          <span className="text-muted-foreground">{topicsDone} av {topicsTotal} klara</span>
+        </div>
+        <div className="h-2 bg-muted rounded-full overflow-hidden">
+          <div
+            className="h-full bg-emerald-500 rounded-full transition-all duration-500"
+            style={{ width: `${topicsTotal ? Math.round((topicsDone / topicsTotal) * 100) : 0}%` }}
+          />
         </div>
       </div>
 
