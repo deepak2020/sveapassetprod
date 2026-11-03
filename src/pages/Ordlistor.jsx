@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Shuffle, Languages, ListOrdered, ListChecks, Layers, Mic, Keyboard } from "lucide-react";
+import { ArrowLeft, Shuffle, Languages, ListOrdered, ListChecks, Layers, Mic, Keyboard, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ORDLISTOR, TOTAL_WORDS, ALL_WORDS } from "@/data/sprakvagenC";
 import { buildSequence, buildSession, buildTypingQuestions, topicWords, SESSION_SIZE } from "@/lib/ordlistor";
@@ -165,10 +165,15 @@ export default function Ordlistor() {
         <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
           <ListOrdered className="w-5 h-5 text-primary" />
         </div>
-        <div>
+        <div className="flex-1 min-w-0">
           <h1 className="text-2xl font-bold">Ordlistor · <span className="italic font-normal text-muted-foreground">Språkvägen C</span></h1>
           <p className="text-sm text-muted-foreground">{TOTAL_WORDS} ord · {topicsTotal} ordlistor · öva i ordning</p>
         </div>
+        <Button asChild variant="outline" size="sm" className="gap-2 shrink-0">
+          <Link to="/ordlistor/skriv">
+            <Printer className="w-4 h-4" /> Skriv ut
+          </Link>
+        </Button>
       </div>
 
       {/* Journey progress: one topic counts as done when all its words are answered */}
