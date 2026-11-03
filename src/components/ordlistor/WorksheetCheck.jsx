@@ -28,8 +28,8 @@ export default function WorksheetCheck({ items }) {
         file_uris: uploaded.map((u) => u.file_uri),
       });
       setResult(res.data);
-    } catch {
-      setError("Kunde inte rätta just nu. Försök igen om en stund.");
+    } catch (e) {
+      setError(e?.response?.data?.message || "Kunde inte rätta just nu. Försök igen om en stund.");
     } finally {
       setBusy(false);
     }

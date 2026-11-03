@@ -71,6 +71,7 @@ Return JSON: {"readable":true,"answers":[{"n":1,"text":"..."}]}`,
       response_json_schema: {
         type: 'object',
         properties: {
+          readable: { type: 'boolean' },
           answers: {
             type: 'array',
             items: {
@@ -86,6 +87,13 @@ Return JSON: {"readable":true,"answers":[{"n":1,"text":"..."}]}`,
         required: ['answers'],
       },
     });
+
+    if (llm?.readable === false) {
+      return Response.json(
+        { error: 'unreadable', message: 'Kunde inte läsa bilden. Ta en tydligare bild rakt ovanifrån och försök igen.' },
+        { status: 422 }
+      );
+    }
 
     const answers = Array.isArray(llm?.answers) ? llm.answers : [];
     const byNumber = new Map(answers.map((a) => [Number(a.n), String(a.text || '').trim()]));
