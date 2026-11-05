@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { Camera, Keyboard, Loader2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { LEVEL_INFO } from "@/lib/nationalTest";
 import WritingFeedback from "./WritingFeedback";
+import WritingUpload from "./WritingUpload";
 
 export default function WritingPart({ course, round, onResult }) {
   const info = LEVEL_INFO[course];
   const [text, setText] = useState("");
   const [result, setResult] = useState(null);
   const [grading, setGrading] = useState(false);
+  // Type the answer here, or write it by hand and upload a photo to have it checked.
+  const [mode, setMode] = useState("type");
 
   const { data: task, isLoading } = useQuery({
     queryKey: ["np-writing", course, round],
@@ -48,12 +51,44 @@ Bedöm innehåll, sammanhang, ordförråd och grammatik. Ge feedback på enkel s
         <ul className="list-disc pl-5 text-sm text-muted-foreground">{task.points?.map((p) => <li key={p}>{p}</li>)}</ul>
         <p className="text-xs text-muted-foreground">Skriv {info.writeWords} ord.</p>
       </div>
-      <Textarea rows={10} value={text} onChange={(e) => setText(e.target.value)} placeholder="Skriv din text här…" disabled={!!result} />
-      <div className="flex items-center justify-between">
-        <span className="text-xs text-muted-foreground">{wordCount} ord</span>
-        {!result && <Button onClick={grade} disabled={grading || wordCount < 20}>{grading ? <Loader2 className="animate-spin" /> : null} Lämna in för bedömning</Button>}
+      <div className="grid grid-cols-2 gap-2">
+        {[
+          { id: "type", label: "Skriv här", icon: Keyboard },
+          { id: "photo", label: "Fota ditt svar", icon: Camera },
+        ].map(({ id, label, icon: Icon }) => (
+          <button
+            key={id}
+            onClick={() => setMode(id)}
+            className={`flex items-center justify-center gap-2 rounded-xl border-2 px-3 py-2.5 text-sm font-medium transition-colors ${
+              mode === id ? "border-primary bg-primary/5 text-primary" : "border-border hover:border-primary/50"
+            }`}
+          >
+            <Icon className="w-4 h-4" /> {label}
+          </button>
+        ))}
       </div>
-      {result && <WritingFeedback result={result} />}
+
+      {mode === "photo" ? (
+        <WritingUpload
+          course={course}
+          cefr={info.cefr}
+          task={task.task}
+          points={task.points}
+          onResult={(res) => {
+            setResult(res);
+            if (onResult) onResult(res);
+          }}
+        />
+      ) : (
+        <>
+          <Textarea rows={10} value={text} onChange={(e) => setText(e.target.value)} placeholder="Skriv din text här…" disabled={!!result} />
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-muted-foreground">{wordCount} ord</span>
+            {!result && <Button onClick={grade} disabled={grading || wordCount < 20}>{grading ? <Loader2 className="animate-spin" /> : null} Lämna in för bedömning</Button>}
+          </div>
+          {result && <WritingFeedback result={result} />}
+        </>
+      )}
     </div>
   );
 }
