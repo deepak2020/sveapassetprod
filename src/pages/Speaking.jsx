@@ -5,6 +5,7 @@ import { PenSquare, Sparkles, BookOpen, RotateCcw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import GymSessionV2 from "@/components/gym/GymSessionV2";
+import Practice3CCard from "@/components/dashboard/Practice3CCard";
 import LoginGate from "@/components/shared/LoginGate";
 import SveaLogo from "@/components/shared/SveaLogo";
 import { shuffle } from "@/lib/shuffle";
@@ -133,6 +134,9 @@ export default function Speaking() {
           <SveaLogo className="text-base" /> rättar varje fel och förklarar grammatiken.
         </p>
       </div>
+
+      {/* SFI 3C writing & speaking practice */}
+      <Practice3CCard />
 
       {/* Revision: re-quiz only the sentences the user got wrong before */}
       {allRevisions.length > 0 && (
