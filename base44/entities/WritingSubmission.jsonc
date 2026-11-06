@@ -1,0 +1,76 @@
+{
+  "name": "WritingSubmission",
+  "type": "object",
+  "properties": {
+    "prompt_id": {
+      "type": "string",
+      "description": "WritingPrompt id"
+    },
+    "prompt_title": {
+      "type": "string",
+      "description": "Snapshot av uppgiftens rubrik"
+    },
+    "prompt_type": {
+      "type": "string",
+      "enum": [
+        "informal_email",
+        "formal_email",
+        "opinion"
+      ],
+      "description": "Texttyp som eleven skrev"
+    },
+    "text": {
+      "type": "string",
+      "maxLength": 8000,
+      "description": "Elevens text"
+    },
+    "word_count": {
+      "type": "number"
+    },
+    "time_used_seconds": {
+      "type": "number"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "practice",
+        "test"
+      ],
+      "description": "\u00d6vning eller prov"
+    },
+    "estimated_grade": {
+      "type": "string",
+      "description": "Sveas uppskattade betyg (F, E, D, C, B, A)"
+    },
+    "errors_per_100": {
+      "type": "number",
+      "description": "Antal fel per 100 ord \u2014 anv\u00e4nds f\u00f6r utvecklingskurvan"
+    },
+    "feedback_json": {
+      "type": "object",
+      "description": "Hela Sveas bed\u00f6mning: grade_reason, points_covered, errors, corrected_text, strengths, practice_next"
+    },
+    "rewrite_of": {
+      "type": "string",
+      "description": "Id p\u00e5 f\u00f6reg\u00e5ende inl\u00e4mning om texten \u00e4r omskriven"
+    }
+  },
+  "required": [
+    "prompt_id",
+    "text"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "update": {
+      "created_by": "{{user.email}}"
+    },
+    "delete": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}

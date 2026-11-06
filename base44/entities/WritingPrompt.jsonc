@@ -1,0 +1,81 @@
+{
+  "name": "WritingPrompt",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Uppgiftens rubrik, t.ex. Ber\u00e4tta om din vecka"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "informal_email",
+        "formal_email",
+        "opinion"
+      ],
+      "enumColors": [
+        "blue",
+        "purple",
+        "amber"
+      ],
+      "description": "Texttyp: informellt mejl, formellt mejl eller \u00e5siktstext"
+    },
+    "topic": {
+      "type": "string",
+      "description": "\u00c4mne, t.ex. Familj och vardag"
+    },
+    "instructions": {
+      "type": "string",
+      "description": "Uppgiftsinstruktion p\u00e5 svenska"
+    },
+    "points_to_include": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Punkter eleven ska ta upp, separerade med ' | '"
+    },
+    "min_words": {
+      "type": "number",
+      "description": "Minsta antal ord"
+    },
+    "max_words": {
+      "type": "number",
+      "description": "H\u00f6gsta antal ord"
+    },
+    "time_limit_minutes": {
+      "type": "number",
+      "description": "Tid i minuter i provl\u00e4ge"
+    },
+    "level": {
+      "type": "string",
+      "default": "C",
+      "description": "SFI-kurs"
+    },
+    "order": {
+      "type": "number",
+      "description": "Visningsordning"
+    }
+  },
+  "required": [
+    "title",
+    "type",
+    "instructions"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

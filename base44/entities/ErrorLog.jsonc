@@ -1,0 +1,73 @@
+{
+  "name": "ErrorLog",
+  "type": "object",
+  "properties": {
+    "error_type": {
+      "type": "string",
+      "enum": [
+        "verb_second",
+        "en_ett",
+        "definite_form",
+        "preposition",
+        "spelling",
+        "verb_form",
+        "word_choice",
+        "connector",
+        "other"
+      ],
+      "enumColors": [
+        "red",
+        "blue",
+        "purple",
+        "amber",
+        "pink",
+        "green",
+        "gray",
+        "yellow",
+        "gray"
+      ],
+      "description": "Typ av fel"
+    },
+    "wrong_text": {
+      "type": "string",
+      "description": "Det eleven skrev"
+    },
+    "correct_text": {
+      "type": "string",
+      "description": "R\u00e4tt version"
+    },
+    "rule": {
+      "type": "string",
+      "description": "Kort regel p\u00e5 engelska"
+    },
+    "count": {
+      "type": "number",
+      "default": 1,
+      "description": "Hur m\u00e5nga g\u00e5nger felet har upprepats"
+    },
+    "last_seen": {
+      "type": "string",
+      "format": "date",
+      "description": "Senaste g\u00e5ngen felet s\u00e5gs"
+    }
+  },
+  "required": [
+    "error_type",
+    "wrong_text",
+    "correct_text"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "update": {
+      "created_by": "{{user.email}}"
+    },
+    "delete": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}
