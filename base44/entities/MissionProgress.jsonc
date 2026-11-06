@@ -1,0 +1,47 @@
+{
+  "name": "MissionProgress",
+  "type": "object",
+  "properties": {
+    "mission_id": {
+      "type": "string",
+      "description": "Mission id this progress belongs to"
+    },
+    "current_stage": {
+      "type": "number",
+      "default": 1,
+      "description": "Steget eleven \u00e4r p\u00e5 (1-7)"
+    },
+    "completed_stages": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": "Steg som eleven har klarat"
+    },
+    "word_quiz_score": {
+      "type": "number",
+      "description": "Resultat p\u00e5 ordquizen i steg 2 (0-100)"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "mission_id"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "update": {
+      "created_by": "{{user.email}}"
+    },
+    "delete": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}

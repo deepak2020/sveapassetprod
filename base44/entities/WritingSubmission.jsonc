@@ -4,7 +4,11 @@
   "properties": {
     "prompt_id": {
       "type": "string",
-      "description": "WritingPrompt id"
+      "description": "WritingPrompt id (Skrivtr\u00e4ning)"
+    },
+    "mission_id": {
+      "type": "string",
+      "description": "Mission id (Skrivuppdrag)"
     },
     "prompt_title": {
       "type": "string",
@@ -48,7 +52,7 @@
     },
     "feedback_json": {
       "type": "object",
-      "description": "Hela Sveas bed\u00f6mning: grade_reason, points_covered, errors, corrected_text, strengths, practice_next"
+      "description": "Hela Sveas bed\u00f6mning: grade_reason, points_covered, errors, corrected_text, words_used, strengths, practice_next"
     },
     "rewrite_of": {
       "type": "string",
@@ -56,7 +60,6 @@
     }
   },
   "required": [
-    "prompt_id",
     "text"
   ],
   "rls": {

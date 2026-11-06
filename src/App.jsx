@@ -55,6 +55,9 @@ import Practice3CTopic from './pages/Practice3CTopic';
 import WritingPractice from './pages/WritingPractice';
 import WritingPromptPage from './pages/WritingPrompt';
 import WritingErrors from './pages/WritingErrors';
+import WritingMissions from './pages/WritingMissions';
+import WritingMission from './pages/WritingMission';
+import WritingMissionErrors from './pages/WritingMissionErrors';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, authChecked } = useAuth();
@@ -102,6 +105,9 @@ const AuthenticatedApp = () => {
         <Route path="/writing-practice" element={<WritingPractice />} />
         <Route path="/writing-practice/errors" element={<WritingErrors />} />
         <Route path="/writing-practice/:promptId" element={<WritingPromptPage />} />
+        <Route path="/writing-missions" element={<WritingMissions />} />
+        <Route path="/writing-missions/errors" element={<WritingMissionErrors />} />
+        <Route path="/writing-missions/:missionId" element={<WritingMission />} />
         <Route path="/tala" element={<Tala />} />
         <Route path="/tala/mission/:id" element={<MissionPlayer />} />
         <Route path="/tala/daily" element={<TalaDailyWorkout />} />

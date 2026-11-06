@@ -67,12 +67,12 @@ export default function Privacy() {
           sv={{
             title: "4. Vilka delar vi data med?",
             body:
-              "Vi delar data med våra tekniska underleverantörer: Base44 (vår tjänsteplattform och databas), Anthropic (AI som driver innehållsgenerering) och Google AdSense (annonsering, se avsnitt 5). Vi säljer aldrig dina uppgifter till tredje part. När du använder Skrivträning skickas din text till en AI-tjänst för att rättas och bedömas. Dina texter visas aldrig för andra användare, och du kan radera dem när som helst.",
+              "Vi delar data med våra tekniska underleverantörer: Base44 (vår tjänsteplattform och databas), Anthropic (AI som driver innehållsgenerering) och Google AdSense (annonsering, se avsnitt 5). Vi säljer aldrig dina uppgifter till tredje part. När du använder Skrivträning eller Skrivuppdrag skickas din text till en AI-tjänst för att rättas och bedömas. Dina texter visas aldrig för andra användare, och du kan radera dem när som helst.",
           }}
           en={{
             title: "Who do we share data with?",
             body:
-              "We share data with our technical sub-processors: Base44 (our hosting platform and database), Anthropic (AI provider used for content generation), and Google AdSense (advertising, see section 5). We never sell your data to third parties. When you use Skrivträning, your text is sent to an AI service for correction and assessment. Your texts are never shown to other users, and you can delete them at any time.",
+              "We share data with our technical sub-processors: Base44 (our hosting platform and database), Anthropic (AI provider used for content generation), and Google AdSense (advertising, see section 5). We never sell your data to third parties. When you use Skrivträning or Skrivuppdrag, your text is sent to an AI service for correction and assessment. Your texts are never shown to other users, and you can delete them at any time.",
           }}
         />
 

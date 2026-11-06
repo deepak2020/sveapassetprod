@@ -1,0 +1,183 @@
+{
+  "name": "Mission",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Uppdragets rubrik, t.ex. Din nya l\u00e4genhet"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "informal_email",
+        "formal_email",
+        "opinion"
+      ],
+      "enumColors": [
+        "blue",
+        "purple",
+        "amber"
+      ],
+      "description": "Texttyp: mejl till v\u00e4n, formellt mejl eller \u00e5siktstext"
+    },
+    "topic": {
+      "type": "string",
+      "description": "\u00c4mne, t.ex. Bostad och omr\u00e5de"
+    },
+    "task_sv": {
+      "type": "string",
+      "description": "Uppgiftsinstruktion p\u00e5 svenska"
+    },
+    "points_to_include": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Punkter eleven ska ta upp"
+    },
+    "min_words": {
+      "type": "number"
+    },
+    "max_words": {
+      "type": "number"
+    },
+    "time_limit_minutes": {
+      "type": "number"
+    },
+    "level": {
+      "type": "string",
+      "default": "C"
+    },
+    "model_text": {
+      "type": "string",
+      "maxLength": 4000,
+      "description": "Exempeltext som eleven kan visa i steg 1"
+    },
+    "words": {
+      "type": "array",
+      "description": "12 ord som eleven l\u00e4r sig i steg 2",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sv": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ett",
+              ""
+            ]
+          },
+          "en": {
+            "type": "string"
+          },
+          "example": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sv",
+          "en"
+        ]
+      }
+    },
+    "frames": {
+      "type": "array",
+      "description": "Lucktexter f\u00f6r steg 3",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sentence_with_blank": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "word_bank": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "sentence_with_blank",
+          "answer"
+        ]
+      }
+    },
+    "puzzles": {
+      "type": "array",
+      "description": "Ordf\u00f6ljdspussel f\u00f6r steg 4",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tokens": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "answer": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "tokens",
+          "answer"
+        ]
+      }
+    },
+    "paragraph_frame": {
+      "type": "array",
+      "description": "Steg-f\u00f6r-steg-ram f\u00f6r stycket i steg 5",
+      "items": {
+        "type": "object",
+        "properties": {
+          "step": {
+            "type": "number"
+          },
+          "starter": {
+            "type": "string"
+          },
+          "hint": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "step",
+          "starter"
+        ]
+      }
+    },
+    "order": {
+      "type": "number",
+      "description": "Visningsordning"
+    }
+  },
+  "required": [
+    "title",
+    "type",
+    "task_sv"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

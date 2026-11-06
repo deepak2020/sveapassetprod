@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import GymSessionV2 from "@/components/gym/GymSessionV2";
 import Practice3CCard from "@/components/dashboard/Practice3CCard";
 import SkrivCard from "@/components/writing/SkrivCard";
+import WritingMissionsCard from "@/components/writing-missions/WritingMissionsCard";
 import LoginGate from "@/components/shared/LoginGate";
 import SveaLogo from "@/components/shared/SveaLogo";
 import { shuffle } from "@/lib/shuffle";
@@ -135,6 +136,9 @@ export default function Speaking() {
           <SveaLogo className="text-base" /> rättar varje fel och förklarar grammatiken.
         </p>
       </div>
+
+      {/* Writing missions: words → sentences → paragraph → full text */}
+      <WritingMissionsCard />
 
       {/* Writing practice with AI feedback */}
       <SkrivCard />
