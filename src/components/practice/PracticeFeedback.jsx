@@ -67,6 +67,15 @@ export default function PracticeFeedback({ result, onRetry, onBack, skillLabel }
         </div>
       </div>
 
+      {result.transcript && (
+        <div className="rounded-2xl border border-border/50 bg-muted/40 p-4 space-y-1">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            Så här läste vi din text
+          </p>
+          <p className="text-sm whitespace-pre-wrap">{result.transcript}</p>
+        </div>
+      )}
+
       {result.corrections?.length > 0 && (
         <div className="rounded-2xl border border-border/50 bg-card p-5 space-y-3">
           <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Rättelser</p>

@@ -1,7 +1,9 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.54';
 
 // Grades an SFI course C (B1) writing or speaking answer against the task points
-// and the topic vocabulary the learner was given.
+// and the topic vocabulary the learner was given. A handwritten answer can be
+// sent as photos (file_uris) instead of text — it is transcribed first, then
+// graded with the same feedback shape.
 export default async function (req) {
   try {
     const base44 = createClientFromRequest(req);
@@ -16,21 +18,42 @@ export default async function (req) {
     const task = String(body.task || '').slice(0, 2000);
     const points = (Array.isArray(body.points) ? body.points : []).map((p) => String(p)).slice(0, 8);
     const vocabulary = (Array.isArray(body.vocabulary) ? body.vocabulary : []).map((v) => String(v)).slice(0, 20);
-    const response = String(body.response || '').slice(0, 6000);
+    const fileUris = (Array.isArray(body.file_uris) ? body.file_uris : []).filter(Boolean).slice(0, 3);
+    const isPhoto = fileUris.length > 0;
+    const response = isPhoto ? '' : String(body.response || '').slice(0, 6000);
 
     if (!task) return Response.json({ error: 'task is required' }, { status: 400 });
+
     const wordCount = response.trim().split(/\s+/).filter(Boolean).length;
-    if (wordCount < 10) {
+    if (!isPhoto && wordCount < 10) {
       return Response.json(
         { error: 'too_short', message: 'Skriv eller säg lite mer innan du lämnar in.' },
         { status: 422 }
       );
     }
 
+    let fileUrls = [];
+    if (isPhoto) {
+      const signed = await Promise.all(
+        fileUris.map((file_uri) => base44.integrations.Core.CreateFileSignedUrl({ file_uri, expires_in: 900 }))
+      );
+      fileUrls = signed.map((s) => s?.signed_url || s?.data?.signed_url).filter(Boolean);
+      if (!fileUrls.length) return Response.json({ error: 'files could not be opened' }, { status: 400 });
+    }
+
     const skillText =
       skill === 'speaking'
         ? 'Eleven har TALAT och texten är en automatisk transkription av talet. Bedöm inte skiljetecken eller versaler. Bedöm flyt, meningsbyggnad, ordförråd och hur väl eleven utvecklar sina svar. Om ett ord ser ut som ett transkriptionsfel (t.ex. sammansmältning) ska det inte räknas som språkfel.'
         : 'Eleven har SKRIVIT texten. Bedöm textuppbyggnad, sammanhang, variation, grammatik och stavning.';
+
+    const source = isPhoto
+      ? `Bilderna visar elevens HANDSKRIVNA svar på papper.
+Steg 1: skriv av elevens text ordagrant i "text". Behåll å, ä, ö. Rätta inte stavfel, byt inte ut ord och hitta ALDRIG på text som inte syns på bilden. Om bilderna inte tydligt visar läsbar handskriven svensk text (suddigt, fel motiv, tomt eller nästan tomt papper), sätt "readable": false och lämna "text" tom — gissa inte.
+Steg 2: bedöm den avskrivna texten enligt punkterna nedan.`
+      : `Elevens svar:
+"""
+${response}
+"""`;
 
     const llm = await base44.integrations.Core.InvokeLLM({
       prompt: `Du är en erfaren SFI-lärare som bedömer en uppgift på kurs C (nivå B1, nationellt prov-liknande).
@@ -43,10 +66,7 @@ Läget: ${mode === 'exam' ? 'provläge (tidspress, inga hjälpmedel)' : 'guidad 
 
 ${skillText}
 
-Elevens svar:
-"""
-${response}
-"""
+${source}
 
 Uppgifter:
 1. Bedöm om eleven svarade på uppgiften och tog upp punkterna ("task_completion", en eller två meningar).
@@ -57,9 +77,11 @@ Uppgifter:
 6. Lista vilka av ordlistans ord eleven faktiskt använde ("vocab_used"), exakt som i listan.
 
 All feedback ska vara på enkel svenska (B1-nivå).`,
+      ...(isPhoto ? { file_urls: fileUrls } : {}),
       response_json_schema: {
         type: 'object',
         properties: {
+          ...(isPhoto ? { readable: { type: 'boolean' }, text: { type: 'string' } } : {}),
           grade: { type: 'string' },
           summary: { type: 'string' },
           task_completion: { type: 'string' },
@@ -83,6 +105,14 @@ All feedback ska vara på enkel svenska (B1-nivå).`,
       },
     });
 
+    const transcript = String(llm.text || '').trim();
+    if (isPhoto && (llm.readable === false || !transcript)) {
+      return Response.json(
+        { error: 'unreadable', message: 'Kunde inte läsa texten på bilden. Ta en tydligare bild och försök igen.' },
+        { status: 422 }
+      );
+    }
+
     return Response.json({
       grade: llm.grade || 'E',
       summary: llm.summary || '',
@@ -91,7 +121,8 @@ All feedback ska vara på enkel svenska (B1-nivå).`,
       improvements: Array.isArray(llm.improvements) ? llm.improvements : [],
       corrections: Array.isArray(llm.corrections) ? llm.corrections.slice(0, 8) : [],
       vocab_used: Array.isArray(llm.vocab_used) ? llm.vocab_used : [],
-      word_count: wordCount,
+      transcript: isPhoto ? transcript : '',
+      word_count: isPhoto ? transcript.split(/\s+/).filter(Boolean).length : wordCount,
     });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });

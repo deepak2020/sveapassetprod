@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { ArrowLeft, BookOpen, ChevronDown, Loader2, Mic, PenSquare, Sparkles } from "lucide-react";
+import { ArrowLeft, BookOpen, Camera, ChevronDown, Keyboard, Loader2, Mic, PenSquare, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { base44 } from "@/api/base44Client";
 import { getTopic } from "@/data/sfi3cTopics";
@@ -10,6 +10,7 @@ import VocabPanel from "@/components/practice/VocabPanel";
 import PracticeTimer from "@/components/practice/PracticeTimer";
 import WritingResponse from "@/components/practice/WritingResponse";
 import SpeakingResponse from "@/components/practice/SpeakingResponse";
+import PhotoResponse from "@/components/practice/PhotoResponse";
 import PracticeFeedback from "@/components/practice/PracticeFeedback";
 
 export default function Practice3CTopic() {
@@ -28,6 +29,9 @@ export default function Practice3CTopic() {
   const [error, setError] = useState("");
   const [expired, setExpired] = useState(false);
   const [showVocab, setShowVocab] = useState(false);
+  // Write the answer here, or write it by hand and upload a photo to analyse it.
+  const [inputMode, setInputMode] = useState("type");
+  const [photoFiles, setPhotoFiles] = useState([]);
   const [startedAt, setStartedAt] = useState(Date.now());
   const { save } = usePracticeAttempts();
 
@@ -92,8 +96,54 @@ export default function Practice3CTopic() {
     }
   };
 
+  const submitPhoto = async () => {
+    if (!photoFiles.length || grading) return;
+    setGrading(true);
+    setError("");
+    try {
+      const uploaded = await Promise.all(
+        photoFiles.map((file) => base44.integrations.Core.UploadPrivateFile({ file }))
+      );
+      const res = await base44.functions.invoke("gradePractice", {
+        skill,
+        mode,
+        topic_title: topic.title,
+        task: task.task,
+        points: task.points,
+        vocabulary: topic.vocab.map((word) => word.sv),
+        file_uris: uploaded.map((u) => u.file_uri),
+      });
+      const data = res.data || {};
+      setResult(data);
+      await save({
+        skill,
+        mode,
+        topic_id: topic.id,
+        topic_title: topic.title,
+        prompt: task.task,
+        response: data.transcript || "",
+        seconds: Math.round((Date.now() - startedAt) / 1000),
+        grade: data.grade,
+        summary: data.summary,
+        task_completion: data.task_completion,
+        strengths: data.strengths,
+        improvements: data.improvements,
+        corrections: data.corrections,
+        vocab_used: data.vocab_used,
+      });
+      setStep("feedback");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (e) {
+      setError(e?.response?.data?.message || "Kunde inte läsa bilden just nu. Försök igen.");
+    } finally {
+      setGrading(false);
+    }
+  };
+
   const retry = () => {
     setResponse("");
+    setPhotoFiles([]);
+    setInputMode("type");
     setResult(null);
     setError("");
     setExpired(false);
@@ -178,13 +228,40 @@ export default function Practice3CTopic() {
               grading={grading}
             />
           ) : (
-            <WritingResponse
-              value={response}
-              onChange={setResponse}
-              minWords={task.minWords}
-              onSubmit={submit}
-              grading={grading}
-            />
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { id: "type", label: "Skriv här", icon: Keyboard },
+                  { id: "photo", label: "Ladda upp bild", icon: Camera },
+                ].map(({ id, label, icon: Icon }) => (
+                  <button
+                    key={id}
+                    onClick={() => setInputMode(id)}
+                    className={`flex items-center justify-center gap-2 rounded-xl border-2 px-3 py-2.5 text-sm font-medium transition-colors ${
+                      inputMode === id ? "border-primary bg-primary/5 text-primary" : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" /> {label}
+                  </button>
+                ))}
+              </div>
+              {inputMode === "photo" ? (
+                <PhotoResponse
+                  files={photoFiles}
+                  onFilesChange={setPhotoFiles}
+                  onSubmit={submitPhoto}
+                  busy={grading}
+                />
+              ) : (
+                <WritingResponse
+                  value={response}
+                  onChange={setResponse}
+                  minWords={task.minWords}
+                  onSubmit={submit}
+                  grading={grading}
+                />
+              )}
+            </div>
           )}
 
           {grading && (
