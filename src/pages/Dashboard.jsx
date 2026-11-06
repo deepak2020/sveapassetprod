@@ -25,6 +25,7 @@ import DailyReviewCard from "../components/dashboard/DailyReviewCard";
 import DagensVerbCard from "../components/dashboard/DagensVerbCard";
 import MistakesReviewCard from "../components/dashboard/MistakesReviewCard";
 import PushOptInCard from "../components/dashboard/PushOptInCard";
+import Practice3CCard from "../components/dashboard/Practice3CCard";
 import GymNudgeCard from "../components/dashboard/GymNudgeCard";
 import TodaysPlanCard from "../components/planner/TodaysPlanCard";
 import CreateStudyPlanModal from "../components/planner/CreateStudyPlanModal";
@@ -186,6 +187,9 @@ export default function Dashboard() {
         </div>
       </div>
 
+
+      {/* SFI 3C writing & speaking practice */}
+      <Practice3CCard />
 
       {/* Daily goal */}
       {user.daily_goal_minutes && (

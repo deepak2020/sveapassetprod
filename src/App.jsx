@@ -50,6 +50,8 @@ import Medborgarskapsprov from './pages/Medborgarskapsprov';
 import Teachers from './pages/Teachers';
 import MockTest from './pages/MockTest';
 import MockTestHub from './pages/MockTestHub';
+import Practice3C from './pages/Practice3C';
+import Practice3CTopic from './pages/Practice3CTopic';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, authChecked } = useAuth();
@@ -92,6 +94,8 @@ const AuthenticatedApp = () => {
         <Route path="/ordlistor" element={<Ordlistor />} />
         <Route path="/ordlistor/skriv" element={<OrdlistorSkriv />} />
         <Route path="/speaking" element={<Speaking />} />
+        <Route path="/3c" element={<Practice3C />} />
+        <Route path="/3c/:topicId" element={<Practice3CTopic />} />
         <Route path="/tala" element={<Tala />} />
         <Route path="/tala/mission/:id" element={<MissionPlayer />} />
         <Route path="/tala/daily" element={<TalaDailyWorkout />} />

@@ -1,0 +1,111 @@
+{
+  "name": "PracticeAttempt",
+  "type": "object",
+  "properties": {
+    "skill": {
+      "type": "string",
+      "enum": [
+        "writing",
+        "speaking"
+      ],
+      "description": "Which skill was practised"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "guided",
+        "exam"
+      ],
+      "description": "Guided preparation or exam-style run"
+    },
+    "topic_id": {
+      "type": "string",
+      "description": "Id of the SFI 3C topic"
+    },
+    "topic_title": {
+      "type": "string",
+      "description": "Snapshot of the topic title"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "The task the learner answered"
+    },
+    "response": {
+      "type": "string",
+      "maxLength": 6000,
+      "description": "What the learner wrote or said (speaking is a transcript)"
+    },
+    "seconds": {
+      "type": "number",
+      "description": "Time spent on the task"
+    },
+    "grade": {
+      "type": "string",
+      "description": "AI grade (F, E, D, C, B, A)"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Short AI summary of the attempt"
+    },
+    "task_completion": {
+      "type": "string",
+      "description": "How well the task points were covered"
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "improvements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "corrections": {
+      "type": "array",
+      "description": "Concrete language corrections",
+      "items": {
+        "type": "object",
+        "properties": {
+          "wrong": {
+            "type": "string"
+          },
+          "correct": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "vocab_used": {
+      "type": "array",
+      "description": "Topic words the learner actually used",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "skill",
+    "mode",
+    "topic_id"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "update": {
+      "created_by": "{{user.email}}"
+    },
+    "delete": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}
