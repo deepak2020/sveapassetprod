@@ -115,8 +115,17 @@ export function normalizeAnswer(value) {
   return normalizeText(value).replace(/^(en|ett)\s+/, "").replace(/^att\s+/, "");
 }
 
+// Word-order puzzles are typed in tiles without punctuation, so commas and
+// sentence-final marks must never make a correct order look wrong.
 export function sameSentence(a, b) {
-  return normalizeText(a) === normalizeText(b);
+  const clean = (value) =>
+    String(value || "")
+      .normalize("NFC")
+      .toLowerCase()
+      .replace(/[.!?…,;:–—"'"'«»()]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  return clean(a) === clean(b);
 }
 
 // 10 questions from the mission's 12 words: meaning choices and typed Swedish words.
