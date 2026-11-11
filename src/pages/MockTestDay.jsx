@@ -14,12 +14,12 @@ import ProvDaySummary from "@/components/mocktest/ProvDaySummary";
 
 // One part of the national test, opened inside the day plan. Each finished
 // part reports its result back so the day gets graded as you go.
-function PartRunner({ course, part, onDone, onExit }) {
+function PartRunner({ course, part, round, onDone, onExit }) {
   if (part === "reading") {
-    return <ReadingPart course={course} round={0} onComplete={(score, total) => onDone({ part: "reading", score, total, percent: Math.round((score / total) * 100) })} />;
+    return <ReadingPart course={course} round={round} onComplete={(score, total) => onDone({ part: "reading", score, total, percent: Math.round((score / total) * 100) })} />;
   }
   if (part === "writing") {
-    return <WritingPart course={course} round={0} onResult={(res) => onDone({ part: "writing", grade: res.grade, summary: res.summary, strengths: res.strengths, improvements: res.improvements })} />;
+    return <WritingPart key={round} course={course} round={round} onResult={(res) => onDone({ part: "writing", grade: res.grade, summary: res.summary, strengths: res.strengths, improvements: res.improvements })} />;
   }
   if (part === "speaking") {
     return <SpeakingPart course={course} onResult={(res) => onDone({ part: "speaking", grade: res.grade, summary: res.summary, strengths: res.strengths, improvements: res.improvements })} />;
@@ -35,6 +35,14 @@ export default function MockTestDay() {
   const day = todayKey();
   const queryClient = useQueryClient();
   const [activePart, setActivePart] = useState(null);
+  // A new round on every open gives each attempt a fresh reading text and
+  // writing task instead of the same exam again.
+  const [round, setRound] = useState(0);
+
+  const openPart = (part) => {
+    setRound((n) => n + 1);
+    setActivePart(part);
+  };
 
   const { data: attempts = [] } = useQuery({
     queryKey: ["np-day-attempts", course, day],
@@ -78,7 +86,7 @@ export default function MockTestDay() {
           <h1 className="text-2xl font-bold">{PART_META[activePart].sv}</h1>
           <p className="text-sm italic text-muted-foreground">{block.label} · ca {block.minutes} min · {PART_META[activePart].en}</p>
         </div>
-        <PartRunner course={course} part={activePart} onDone={saveAttempt} onExit={backToPlan} />
+        <PartRunner course={course} part={activePart} round={round} onDone={saveAttempt} onExit={backToPlan} />
       </div>
     );
   }
@@ -132,7 +140,7 @@ export default function MockTestDay() {
                   </p>
                 </div>
                 <div className="shrink-0">
-                  <Button size="sm" variant={done ? "outline" : "default"} onClick={() => setActivePart(block.part)}>
+                  <Button size="sm" variant={done ? "outline" : "default"} onClick={() => openPart(block.part)}>
                     {done ? "Gör om" : "Starta"}
                   </Button>
                 </div>

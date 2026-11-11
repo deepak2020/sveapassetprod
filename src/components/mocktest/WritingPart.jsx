@@ -8,6 +8,31 @@ import { LEVEL_INFO } from "@/lib/nationalTest";
 import WritingFeedback from "./WritingFeedback";
 import WritingUpload from "./WritingUpload";
 
+// A new task type on every attempt, so "Gör om" never repeats the same prompt.
+const WRITING_TYPES = [
+  "ett personligt mejl till en vän",
+  "ett formellt mejl till en myndighet, en hyresvärd eller en arbetsgivare",
+  "en kort berättande text om något du varit med om",
+  "en argumenterande text där du ger din åsikt",
+  "en inbjudan till ett evenemang",
+  "ett brev där du klagar på något och föreslår en lösning",
+  "en ansökan till en kurs eller ett jobb",
+];
+
+const WRITING_TOPICS = [
+  "att flytta till en ny lägenhet",
+  "ett problem med kollektivtrafiken",
+  "en kurs du vill gå",
+  "en fest eller ett kalas",
+  "arbetstider och schema",
+  "en trasig vara du köpt",
+  "att börja träna eller motionera",
+];
+
+function pick(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
+
 export default function WritingPart({ course, round, onResult }) {
   const info = LEVEL_INFO[course];
   const [text, setText] = useState("");
@@ -20,7 +45,9 @@ export default function WritingPart({ course, round, onResult }) {
     queryKey: ["np-writing", course, round],
     staleTime: Infinity,
     queryFn: () => base44.integrations.Core.InvokeLLM({
-      prompt: `Skapa en skrivuppgift i stil med SFI nationellt prov kurs ${course} (CEFR ${info.cefr}). Till exempel ett mejl, ett brev eller en berättande/argumenterande text. Ge uppgiften på svenska med 3 punkter eleven ska ta upp.`,
+      prompt: `Skapa en skrivuppgift i stil med SFI nationellt prov kurs ${course} (CEFR ${info.cefr}).
+Uppgiftstypen den här gången är ${pick(WRITING_TYPES)} och ämnet är ${pick(WRITING_TOPICS)}.
+Ge uppgiften på svenska med 3 punkter eleven ska ta upp, och en tydlig mottagare.`,
       response_json_schema: { type: "object", properties: { task: { type: "string" }, points: { type: "array", items: { type: "string" } } } },
     }),
   });

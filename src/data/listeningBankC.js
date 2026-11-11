@@ -587,8 +587,14 @@ export const LISTENING_COURSES = ["A", "B", "C", "D"];
 
 // Build a mock test: one random item from each category, in exam order.
 export function buildMockTest(categories) {
-  return categories
+  // Shuffle the clip types so the exam keeps the same mix but a new order each
+  // attempt.
+  const order = categories
     .filter((c) => c.items.length > 0)
+    .map((c) => ({ c, k: Math.random() }))
+    .sort((a, b) => a.k - b.k)
+    .map(({ c }) => c);
+  return order
     .map((c) => {
       const item = c.items[Math.floor(Math.random() * c.items.length)];
       return { ...item, typeLabel: c.label, typeEmoji: c.emoji, type: c.type };
