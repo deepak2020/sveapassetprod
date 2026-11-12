@@ -99,7 +99,10 @@ export function estimateMinutes(mission) {
 
 export function wordLabel(word) {
   if (!word?.sv) return "";
-  return word.gender ? `${word.gender} ${word.sv}` : word.sv;
+  const sv = String(word.sv).trim();
+  // Many words already store the article ("en myggspray") — never add a second one.
+  if (/^(en|ett)\s/i.test(sv)) return sv;
+  return word.gender ? `${word.gender} ${sv}` : sv;
 }
 
 export function normalizeText(value) {
