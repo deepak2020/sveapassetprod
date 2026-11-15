@@ -105,6 +105,20 @@ export function wordLabel(word) {
   return word.gender ? `${word.gender} ${sv}` : sv;
 }
 
+// A verb's four forms on one line: att campa · campar · campade · campat
+export function verbLine(word) {
+  const v = word?.verb;
+  if (!v?.infinitive) return "";
+  return [
+    v.infinitive.startsWith("att ") ? v.infinitive : `att ${v.infinitive}`,
+    v.present,
+    v.preteritum,
+    v.supinum,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+}
+
 export function normalizeText(value) {
   return String(value || "")
     .toLowerCase()

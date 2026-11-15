@@ -1,6 +1,6 @@
 import { GitBranch } from "lucide-react";
 import SpeakButton from "@/components/shared/SpeakButton";
-import { wordLabel } from "@/lib/writingMissions";
+import { verbLine, wordLabel } from "@/lib/writingMissions";
 
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -70,6 +70,9 @@ export default function WordTree({ mission }) {
                     <span className="text-xs italic text-muted-foreground">— {word.en}</span>
                     <SpeakButton text={word.sv} ariaLabel="Lyssna på ordet" />
                   </div>
+                  {verbLine(word) && (
+                    <p className="text-xs font-medium text-primary">{verbLine(word)}</p>
+                  )}
                   {word.example && (
                     <p className="text-xs text-muted-foreground">{highlightSentence(word.example, word.sv)}</p>
                   )}

@@ -3,7 +3,7 @@ import { ArrowRight, RotateCcw, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import SpeakButton from "@/components/shared/SpeakButton";
-import { buildQuiz, normalizeAnswer, wordLabel } from "@/lib/writingMissions";
+import { buildQuiz, normalizeAnswer, verbLine, wordLabel } from "@/lib/writingMissions";
 
 const PASS_PERCENT = 70;
 
@@ -84,6 +84,14 @@ export default function WordsStage({ mission, onDone }) {
             <div className="space-y-3">
               <p className="text-[11px] uppercase tracking-wide text-muted-foreground">English</p>
               <p className="text-xl font-semibold">{word.en}</p>
+              {verbLine(word) && (
+                <div className="rounded-xl bg-primary/5 px-3 py-2">
+                  <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                    Infinitiv · presens · preteritum · supinum
+                  </p>
+                  <p className="text-sm font-medium">{verbLine(word)}</p>
+                </div>
+              )}
               {word.example && (
                 <div className="rounded-xl bg-muted/50 p-3">
                   <div className="flex items-start gap-2">

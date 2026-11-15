@@ -75,6 +75,28 @@
           },
           "example": {
             "type": "string"
+          },
+          "verb": {
+            "type": "object",
+            "description": "Verbformer om ordet \u00e4r ett verb. Tomma str\u00e4ngar om ordet inte \u00e4r ett verb.",
+            "properties": {
+              "infinitive": {
+                "type": "string",
+                "description": "Infinitiv utan 'att', t.ex. campa"
+              },
+              "present": {
+                "type": "string",
+                "description": "Presens, t.ex. campar"
+              },
+              "preteritum": {
+                "type": "string",
+                "description": "Preteritum, t.ex. campade"
+              },
+              "supinum": {
+                "type": "string",
+                "description": "Supinum, t.ex. campat"
+              }
+            }
           }
         },
         "required": [

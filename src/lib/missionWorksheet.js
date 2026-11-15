@@ -1,6 +1,6 @@
 // Printable A4 worksheet for one Skrivuppdrag: every stage of the mission on
 // paper, from briefing to self-check, with an answer key at the end.
-import { fillBlank, missionType, wordLabel } from "@/lib/writingMissions";
+import { fillBlank, missionType, verbLine, wordLabel } from "@/lib/writingMissions";
 
 const esc = (s) =>
   String(s ?? "")
@@ -58,9 +58,9 @@ export function printMissionWorksheet(mission) {
   const wordRows = words
     .map(
       (w, i) =>
-        `<tr><td class="n">${i + 1}</td><td class="sv">${esc(wordLabel(w))}</td><td class="en">${esc(
-          w.en
-        )}</td><td class="ex">${esc(w.example || "")}</td></tr>`
+        `<tr><td class="n">${i + 1}</td><td class="sv">${esc(wordLabel(w))}${
+          verbLine(w) ? `<br><span class="vf">${esc(verbLine(w))}</span>` : ""
+        }</td><td class="en">${esc(w.en)}</td><td class="ex">${esc(w.example || "")}</td></tr>`
     )
     .join("");
 
@@ -137,6 +137,7 @@ export function printMissionWorksheet(mission) {
   td.sv { width: 24%; font-weight: 600; }
   td.en { width: 24%; }
   td.ex { color: #444; font-style: italic; }
+  .vf { font-size: 8.5pt; font-weight: 400; color: #555; }
   .drill-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; }
   .drill { padding: 7px 0 2px; border-bottom: 1px solid #d8d8d8; font-size: 10pt; }
   .drill .blank { display: inline-block; border-bottom: 1px solid #bbb; min-width: 40%; margin-left: 6px; }
