@@ -76,6 +76,43 @@ export const SFI3C_TOPICS = [
     phrases: ["Tack för ett trevligt samtal.", "Jag är noggrann och tycker om att samarbeta.", "När kan jag räkna med besked?", "Jag ser fram emot att höra av er."],
   },
   {
+    id: "utbildning-arbete",
+    title: "Din utbildning och dina jobb",
+    titleEn: "Your education and past jobs",
+    category: "Arbete",
+    writing: {
+      task:
+        "Du vill söka en yrkesutbildning. Skriv ett mejl till skolan: berätta vad du har studerat tidigare, vad du har arbetat med och varför du vill gå utbildningen.",
+      points: ["Din utbildning och dina tidigare jobb", "Varför du vill gå utbildningen", "Hur de kan nå dig och när du kan börja"],
+      minWords: 80,
+      minutes: 20,
+    },
+    speaking: {
+      task: "Berätta om din utbildning och dina tidigare jobb. Vad har du lärt dig av dem, och vad vill du göra i framtiden?",
+      points: ["Vad du har studerat", "Vad du har arbetat med och hur länge", "Vad du vill göra i framtiden"],
+      minWords: 40,
+      minutes: 2,
+    },
+    vocab: [
+      { sv: "utbildning", en: "education" },
+      { sv: "yrkesutbildning", en: "vocational training" },
+      { sv: "examen", en: "degree, graduation" },
+      { sv: "betyg", en: "grade" },
+      { sv: "erfarenhet", en: "experience" },
+      { sv: "praktik", en: "internship" },
+      { sv: "arbetsuppgift", en: "work task" },
+      { sv: "behörig", en: "qualified, eligible" },
+    ],
+    verbs: [
+      { inf: "studera", pres: "studerar", past: "studerade", sup: "studerat", en: "study" },
+      { inf: "utbilda sig", pres: "utbildar mig", past: "utbildade mig", sup: "utbildat mig", en: "train, qualify" },
+      { inf: "arbeta", pres: "arbetar", past: "arbetade", sup: "arbetat", en: "work" },
+      { inf: "lära sig", pres: "lär mig", past: "lärde mig", sup: "lärt mig", en: "learn" },
+      { inf: "söka", pres: "söker", past: "sökte", sup: "sökt", en: "apply for" },
+    ],
+    phrases: ["Jag har studerat … i … år.", "Jag har arbetat som … sedan …", "Det lärde jag mig mycket av.", "Därför vill jag gå den här utbildningen."],
+  },
+  {
     id: "bostad",
     title: "Söka en bostad",
     titleEn: "Looking for a home",
