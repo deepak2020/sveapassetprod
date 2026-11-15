@@ -110,86 +110,91 @@ export function printMissionWorksheet(mission) {
 <meta charset="utf-8" />
 <title>${esc(title)}</title>
 <style>
-  @page { size: A4; margin: 15mm 14mm; }
+  @page { size: A4; margin: 10mm; }
   * { box-sizing: border-box; }
-  body { font-family: Georgia, "Times New Roman", serif; color: #111; margin: 0; font-size: 10.5pt; line-height: 1.5; }
-  h1 { font-size: 19pt; margin: 0 0 3px; }
-  p.sub { margin: 0 0 2px; font-size: 9.5pt; color: #555; }
-  .meta { display: flex; gap: 22px; margin: 12px 0 4px; font-size: 9.5pt; color: #555; }
-  .meta span { flex: 1; border-bottom: 1px solid #999; padding-bottom: 3px; }
-  h2 { font-size: 11.5pt; text-transform: uppercase; letter-spacing: .09em; margin: 24px 0 8px; padding-bottom: 3px; border-bottom: 1.5px solid #111; }
-  h2 .step { font-weight: 400; letter-spacing: 0; text-transform: none; color: #777; font-size: 9.5pt; }
-  .lead { margin: 0 0 10px; }
+  body { font-family: Georgia, "Times New Roman", serif; color: #111; margin: 0; font-size: 8.6pt; line-height: 1.25; }
+  .head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 10px; }
+  h1 { font-size: 14pt; margin: 0; }
+  p.sub { margin: 0; font-size: 7.6pt; color: #666; }
+  .meta { display: flex; gap: 12px; margin: 4px 0 2px; font-size: 7.6pt; color: #555; }
+  .meta span { flex: 1; border-bottom: 1px solid #999; padding-bottom: 1px; }
+  h2 { font-size: 9pt; text-transform: uppercase; letter-spacing: .07em; margin: 8px 0 3px; padding-bottom: 1.5px; border-bottom: 1.3px solid #111; break-after: avoid; page-break-after: avoid; }
+  h2 .step { font-weight: 400; letter-spacing: 0; text-transform: none; color: #888; font-size: 7pt; }
+  .lead { margin: 0 0 3px; font-size: 8pt; }
   ul { list-style: none; margin: 0; padding: 0; }
-  ul li { display: flex; gap: 8px; padding: 3px 0; font-size: 10pt; }
-  .box { display: inline-block; width: 11px; height: 11px; border: 1px solid #666; margin-top: 3px; flex: none; }
-  .line { border-bottom: 1px solid #bbb; height: 27px; }
-  .item { margin-bottom: 9px; }
-  .prompt { margin: 0 0 2px; font-size: 10.5pt; }
-  .num { color: #777; }
+  ul li { display: flex; gap: 5px; padding: 0.5px 0; font-size: 8pt; }
+  .box { display: inline-block; width: 9px; height: 9px; border: 1px solid #666; margin-top: 2px; flex: none; }
+  .line { border-bottom: 1px solid #c3c3c3; height: 21px; }
+  .item { margin-bottom: 3px; break-inside: avoid; page-break-inside: avoid; }
+  .prompt { margin: 0 0 1px; font-size: 8.2pt; }
+  .num { color: #888; }
   .starter { font-weight: 600; }
-  .hint { color: #666; font-size: 9.5pt; font-style: italic; }
-  .en-prompt { font-weight: 600; }
-  table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
-  th, td { text-align: left; padding: 4px 4px 4px 0; border-bottom: 1px solid #d8d8d8; vertical-align: top; }
-  th { font-size: 8.5pt; text-transform: uppercase; letter-spacing: .06em; color: #666; }
-  td.n { width: 18px; color: #888; }
-  td.sv { width: 24%; font-weight: 600; }
-  td.en { width: 24%; }
+  .hint { color: #666; font-size: 7.2pt; font-style: italic; }
+  table { width: 100%; border-collapse: collapse; font-size: 7.6pt; }
+  th, td { text-align: left; padding: 1px 4px 1px 0; border-bottom: 1px solid #e6e6e6; vertical-align: top; }
+  th { font-size: 6.6pt; text-transform: uppercase; letter-spacing: .05em; color: #777; }
+  td.n { width: 12px; color: #aaa; }
+  td.sv { width: 30%; font-weight: 600; }
+  td.en { width: 26%; }
   td.ex { color: #444; font-style: italic; }
-  .vf { font-size: 8.5pt; font-weight: 400; color: #555; }
-  .drill-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; }
-  .drill { padding: 7px 0 2px; border-bottom: 1px solid #d8d8d8; font-size: 10pt; }
-  .drill .blank { display: inline-block; border-bottom: 1px solid #bbb; min-width: 40%; margin-left: 6px; }
-  .target { display: flex; gap: 22px; font-size: 9.5pt; color: #555; margin: 0 0 10px; }
-  .target span { border-bottom: 1px solid #999; padding-bottom: 2px; flex: 1; }
+  .vf { font-size: 6.8pt; font-weight: 400; color: #666; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; column-gap: 6mm; align-items: start; }
+  .stepcols { columns: 2; column-gap: 6mm; }
+  .drills { font-size: 7.6pt; }
+  .drill { padding: 0.5px 0; border-bottom: 1px dotted #d5d5d5; break-inside: avoid; page-break-inside: avoid; }
+  .drill .blank { display: inline-block; border-bottom: 1px solid #bbb; min-width: 26mm; margin-left: 4px; }
+  .target { display: flex; gap: 10px; font-size: 7.6pt; color: #555; margin: 0 0 4px; }
+  .target span { border-bottom: 1px solid #999; padding-bottom: 1px; flex: 1; }
   .break { page-break-before: always; }
-  .key { font-size: 9pt; color: #333; line-height: 1.7; }
-  footer { margin-top: 20px; font-size: 8.5pt; color: #888; }
+  .key { font-size: 7.6pt; color: #333; line-height: 1.35; columns: 2; column-gap: 6mm; }
+  footer { margin-top: 6px; font-size: 6.8pt; color: #999; }
 </style>
 </head>
 <body>
-  <h1>${esc(mission.title)}</h1>
-  <p class="sub">${esc(type.label)} · ${esc(mission.topic || "Skrivuppdrag")} · ${esc(title)}</p>
-  <p class="sub">Steg 1–7 på papper: uppdrag, ord, meningar, bygg, stycke, skriv fritt och självcheck.</p>
+  <div class="head">
+    <h1>${esc(mission.title)}</h1>
+    <p class="sub">${esc(type.label)} · ${esc(mission.topic || "Skrivuppdrag")} · ${minWords}–${maxWords} ord · ca ${minutes} min</p>
+  </div>
   <div class="meta"><span>Namn</span><span>Datum</span><span>Poäng / mål</span></div>
 
   <h2>1. Uppdrag <span class="step">briefing</span></h2>
   <p class="lead">${esc(mission.task_sv)}</p>
-  <p class="prompt">Ta med de här punkterna:</p>
   <ul>${points}</ul>
-  <div class="target">
-    <span>${minWords}–${maxWords} ord</span>
-    <span>ca ${minutes} min</span>
-    <span>${esc(type.label)}</span>
-  </div>
 
   <h2>2. Ord <span class="step">words</span></h2>
-  <table>
-    <thead><tr><th></th><th>Svenska</th><th>Engelska</th><th>Exempel</th></tr></thead>
-    <tbody>${wordRows}</tbody>
-  </table>
-  <p class="prompt" style="margin-top:14px">Testa dig själv — skriv det svenska ordet:</p>
-  <div class="drill-grid">${wordDrill}</div>
-
-  <h2>3. Meningar <span class="step">translate into Swedish</span></h2>
-  <p class="lead">Översätt meningen till svenska. Skriv hela meningen.</p>
-  ${sentences}
-
-  <h2>4. Bygg <span class="step">word order</span></h2>
-  <p class="lead">Sätt orden i rätt ordning. Verbet kommer på plats 2.</p>
-  ${puzzleItems}
-  <div class="item keep">
-    <p class="prompt">Egen mening med ett bindeord (eftersom, men, medan, så att):</p>
-    ${lines(2)}
+  <div class="two">
+    <table>
+      <thead><tr><th></th><th>Svenska</th><th>Engelska</th><th>Exempel</th></tr></thead>
+      <tbody>${wordRows}</tbody>
+    </table>
+    <div>
+      <p class="prompt">Testa dig själv — skriv det svenska ordet:</p>
+      <div class="drills">${wordDrill}</div>
+    </div>
   </div>
 
-  <h2 class="break">5. Stycke <span class="step">paragraph</span></h2>
-  <p class="lead">Bygg ett stycke med startmeningarna. En eller två meningar efter varje.</p>
-  ${stepItems}
+  <div class="two">
+    <div>
+      <h2>3. Meningar <span class="step">translate</span></h2>
+      <p class="lead">Översätt meningen till svenska. Skriv hela meningen.</p>
+      ${sentences}
+    </div>
+    <div>
+      <h2>4. Bygg <span class="step">word order</span></h2>
+      <p class="lead">Sätt orden i rätt ordning. Verbet kommer på plats 2.</p>
+      ${puzzleItems}
+      <div class="item keep">
+        <p class="prompt">Egen mening med ett bindeord (eftersom, men, medan, så att):</p>
+        ${lines(2)}
+      </div>
+    </div>
+  </div>
 
-  <h2 class="break">6. Skriv fritt <span class="step">free text</span></h2>
-  <p class="lead">${esc(mission.task_sv)}</p>
+  <h2>5. Stycke <span class="step">paragraph</span></h2>
+  <p class="lead">Bygg ett stycke med startmeningarna. En eller två meningar efter varje.</p>
+  <div class="stepcols">${stepItems}</div>
+
+  <h2>6. Skriv fritt <span class="step">free text</span></h2>
   <div class="target">
     <span>Mål: ${minWords}–${maxWords} ord</span>
     <span>Tid: ${minutes} min</span>
@@ -198,15 +203,18 @@ export function printMissionWorksheet(mission) {
   ${lines(Math.max(14, Math.round(minWords / 8)))}
 
   <h2>7. Självcheck <span class="step">feedback</span></h2>
-  <p class="lead">Läs igenom din text och bocka av. Ringa in det som du behöver träna mer på.</p>
-  <ul>${checks}</ul>
-  <div class="target" style="margin-top:14px">
-    <span>Min bedömning (F E D C B A)</span>
-    <span>Fel jag upprepar: </span>
-  </div>
-  <div class="item keep">
-    <p class="prompt">Tre saker jag gör bättre nästa gång:</p>
-    ${lines(3)}
+  <div class="two">
+    <ul>${checks}</ul>
+    <div>
+      <div class="target">
+        <span>Min bedömning (F E D C B A)</span>
+        <span>Fel jag upprepar: </span>
+      </div>
+      <div class="item keep">
+        <p class="prompt">Tre saker jag gör bättre nästa gång:</p>
+        ${lines(3)}
+      </div>
+    </div>
   </div>
 
   <h2 class="break">Facit <span class="step">vik undan</span></h2>
