@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { ArrowLeft, BookOpen, Loader2, Trash2 } from "lucide-react";
+import { ArrowLeft, BookOpen, Loader2, Printer, Trash2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { useMissions, useMissionProgress, useMissionSubmissions } from "@/hooks/useWritingMissions";
@@ -15,6 +15,7 @@ import {
   nextStage,
   progressPercent,
 } from "@/lib/writingMissions";
+import { printMissionWorksheet } from "@/lib/missionWorksheet";
 import StageBar from "@/components/writing-missions/StageBar";
 import BriefingStage from "@/components/writing-missions/BriefingStage";
 import WordsStage from "@/components/writing-missions/WordsStage";
@@ -185,12 +186,21 @@ export default function WritingMission() {
           {!signedIn && <span className="text-[11px] italic text-muted-foreground">sparas på den här enheten</span>}
         </div>
         <StageBar stage={stage} completed={completed} onSelect={setStage} />
-        <Link
-          to={`/writing-missions/${mission.id}/ord`}
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
-        >
-          <BookOpen className="w-3.5 h-3.5" /> Öva ordlistan innan du skriver
-        </Link>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <Link
+            to={`/writing-missions/${mission.id}/ord`}
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+          >
+            <BookOpen className="w-3.5 h-3.5" /> Öva ordlistan innan du skriver
+          </Link>
+          <button
+            type="button"
+            onClick={() => printMissionWorksheet(mission)}
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground"
+          >
+            <Printer className="w-3.5 h-3.5" /> Skriv ut hela uppdraget
+          </button>
+        </div>
       </div>
 
       {rewriteOf && stage === 6 && (
