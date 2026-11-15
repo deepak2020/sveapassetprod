@@ -23,7 +23,7 @@ const esc = (s) =>
     .replace(/"/g, "&quot;");
 
 // Opens a clean print-only page (no app chrome) and sends it to the printer
-export function printWorksheet({ title, directionLabel, instruction, items }) {
+export function printWorksheet({ title, directionLabel, instruction, items, footer = "Sveapasset · Ordlistor Språkvägen C" }) {
   const win = window.open("", "_blank");
   if (!win) return false;
 
@@ -58,7 +58,7 @@ export function printWorksheet({ title, directionLabel, instruction, items }) {
   <p class="sub">${esc(instruction)}</p>
   <div class="meta"><span>Namn</span><span>Datum</span><span>Svar: ____ / ${items.length}</span></div>
   <table>${rows}</table>
-  <footer>Sveapasset · Ordlistor Språkvägen C</footer>
+  <footer>${esc(footer)}</footer>
 </body>
 </html>`);
   win.document.close();
