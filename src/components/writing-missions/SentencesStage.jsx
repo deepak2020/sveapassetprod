@@ -40,6 +40,15 @@ export default function SentencesStage({ mission, missed = [], onDone }) {
       </div>
 
       <div className="rounded-2xl border border-border/60 bg-card p-5 space-y-4">
+        {frame.sentence_en && (
+          <div className="space-y-1 border-b border-border/60 pb-3">
+            <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              Översätt till svenska · <span className="italic normal-case">translate into Swedish</span>
+            </p>
+            <p className="text-base font-medium">{frame.sentence_en}</p>
+          </div>
+        )}
+
         <p className="text-base leading-relaxed">
           {frame.sentence_with_blank.split("___").map((part, i, arr) => (
             <span key={i}>

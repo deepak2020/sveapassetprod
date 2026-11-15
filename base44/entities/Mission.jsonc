@@ -92,6 +92,10 @@
           "sentence_with_blank": {
             "type": "string"
           },
+          "sentence_en": {
+            "type": "string",
+            "description": "Engelsk \u00f6vers\u00e4ttning av meningen \u2014 eleven \u00f6vers\u00e4tter till svenska"
+          },
           "answer": {
             "type": "string"
           },
