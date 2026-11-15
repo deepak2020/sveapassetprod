@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, BookOpen, Clock } from "lucide-react";
 import ProgressRing from "@/components/writing-missions/ProgressRing";
 import { estimateMinutes, missionType, progressPercent, nextStage } from "@/lib/writingMissions";
 
@@ -11,10 +11,11 @@ export default function MissionCard({ mission, progress }) {
   const started = (progress?.completed_stages || []).length > 0;
 
   return (
-    <Link
-      to={`/writing-missions/${mission.id}?stage=${stage}`}
-      className="group block rounded-2xl border border-border/60 bg-card p-4 transition-all hover:border-primary/40 hover:shadow-sm"
-    >
+    <div className="rounded-2xl border border-border/60 bg-card transition-all hover:border-primary/40 hover:shadow-sm">
+      <Link
+        to={`/writing-missions/${mission.id}?stage=${stage}`}
+        className="group block p-4"
+      >
       <div className="flex items-start gap-3">
         <ProgressRing value={percent} />
         <div className="min-w-0 flex-1">
@@ -40,6 +41,15 @@ export default function MissionCard({ mission, progress }) {
           <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
         </span>
       </div>
-    </Link>
+      </Link>
+      <div className="border-t border-border/50 px-4 py-2">
+        <Link
+          to={`/writing-missions/${mission.id}/ord`}
+          className="inline-flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground hover:text-primary transition-colors"
+        >
+          <BookOpen className="w-3 h-3" /> Öva orden först · <span className="italic">practise the words</span>
+        </Link>
+      </div>
+    </div>
   );
 }

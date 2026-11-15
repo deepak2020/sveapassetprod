@@ -57,6 +57,7 @@ import WritingPromptPage from './pages/WritingPrompt';
 import WritingErrors from './pages/WritingErrors';
 import WritingMissions from './pages/WritingMissions';
 import WritingMission from './pages/WritingMission';
+import WritingMissionWords from './pages/WritingMissionWords';
 import WritingMissionErrors from './pages/WritingMissionErrors';
 
 const AuthenticatedApp = () => {
@@ -107,6 +108,7 @@ const AuthenticatedApp = () => {
         <Route path="/writing-practice/:promptId" element={<WritingPromptPage />} />
         <Route path="/writing-missions" element={<WritingMissions />} />
         <Route path="/writing-missions/errors" element={<WritingMissionErrors />} />
+        <Route path="/writing-missions/:missionId/ord" element={<WritingMissionWords />} />
         <Route path="/writing-missions/:missionId" element={<WritingMission />} />
         <Route path="/tala" element={<Tala />} />
         <Route path="/tala/mission/:id" element={<MissionPlayer />} />

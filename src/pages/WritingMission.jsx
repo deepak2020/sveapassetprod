@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { ArrowLeft, Loader2, Trash2 } from "lucide-react";
+import { ArrowLeft, BookOpen, Loader2, Trash2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { useMissions, useMissionProgress, useMissionSubmissions } from "@/hooks/useWritingMissions";
@@ -185,6 +185,12 @@ export default function WritingMission() {
           {!signedIn && <span className="text-[11px] italic text-muted-foreground">sparas på den här enheten</span>}
         </div>
         <StageBar stage={stage} completed={completed} onSelect={setStage} />
+        <Link
+          to={`/writing-missions/${mission.id}/ord`}
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+        >
+          <BookOpen className="w-3.5 h-3.5" /> Öva ordlistan innan du skriver
+        </Link>
       </div>
 
       {rewriteOf && stage === 6 && (
