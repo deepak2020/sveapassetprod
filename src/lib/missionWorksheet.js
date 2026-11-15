@@ -146,7 +146,7 @@ export function printMissionWorksheet(mission) {
   .target { display: flex; gap: 10px; font-size: 7.6pt; color: #555; margin: 0 0 4px; }
   .target span { border-bottom: 1px solid #999; padding-bottom: 1px; flex: 1; }
   .break { page-break-before: always; }
-  .key { font-size: 7.6pt; color: #333; line-height: 1.35; columns: 2; column-gap: 6mm; }
+  .key { font-size: 7.6pt; color: #333; line-height: 1.35; columns: 2; column-gap: 6mm; break-inside: avoid; page-break-inside: avoid; }
   footer { margin-top: 6px; font-size: 6.8pt; color: #999; }
 </style>
 </head>
@@ -217,7 +217,7 @@ export function printMissionWorksheet(mission) {
     </div>
   </div>
 
-  <h2 class="break">Facit <span class="step">vik undan</span></h2>
+  <h2>Facit <span class="step">vik undan</span></h2>
   <div class="key">
     <p><strong>3. Meningar</strong><br>${keySentences}</p>
     <p><strong>4. Bygg</strong><br>${keyPuzzles}</p>
