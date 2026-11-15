@@ -1,20 +1,31 @@
 import { useState } from "react";
 import { ArrowRight, Check, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import SpeakButton from "@/components/shared/SpeakButton";
-import { fillBlank } from "@/lib/writingMissions";
+import { fillBlank, sameSentence } from "@/lib/writingMissions";
 
-// Stage 3 — fill in the blank by tapping a word from the word bank.
+// Stage 3 — only the English sentence is shown. The learner writes the whole
+// Swedish sentence from memory instead of picking a word from a word bank.
 export default function SentencesStage({ mission, missed = [], onDone }) {
   const frames = mission.frames || [];
   const [index, setIndex] = useState(0);
-  const [picked, setPicked] = useState(null);
+  const [input, setInput] = useState("");
+  const [checked, setChecked] = useState(false);
 
   const frame = frames[index];
-  const answered = picked !== null;
-  const correct = picked === frame.answer;
   const fullSentence = fillBlank(frame.sentence_with_blank, frame.answer);
+  const correct = sameSentence(input, fullSentence);
   const usesMissedWord = missed.includes(frame.answer);
+
+  const check = () => {
+    if (input.trim()) setChecked(true);
+  };
+
+  const retry = () => {
+    setInput("");
+    setChecked(false);
+  };
 
   const next = () => {
     if (index + 1 >= frames.length) {
@@ -22,7 +33,8 @@ export default function SentencesStage({ mission, missed = [], onDone }) {
       return;
     }
     setIndex((i) => i + 1);
-    setPicked(null);
+    setInput("");
+    setChecked(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -40,62 +52,28 @@ export default function SentencesStage({ mission, missed = [], onDone }) {
       </div>
 
       <div className="rounded-2xl border border-border/60 bg-card p-5 space-y-4">
-        {frame.sentence_en && (
-          <div className="space-y-1 border-b border-border/60 pb-3">
-            <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
-              Översätt till svenska · <span className="italic normal-case">translate into Swedish</span>
-            </p>
-            <p className="text-base font-medium">{frame.sentence_en}</p>
-          </div>
-        )}
-
-        <p className="text-base leading-relaxed">
-          {frame.sentence_with_blank.split("___").map((part, i, arr) => (
-            <span key={i}>
-              {part}
-              {i < arr.length - 1 && (
-                <span
-                  className={`mx-1 inline-block min-w-[70px] border-b-2 text-center font-semibold ${
-                    answered
-                      ? correct
-                        ? "border-emerald-500 text-emerald-700 dark:text-emerald-400"
-                        : "border-red-400 text-red-700 dark:text-red-400"
-                      : "border-border text-muted-foreground"
-                  }`}
-                >
-                  {picked || "…"}
-                </span>
-              )}
-            </span>
-          ))}
-        </p>
-
-        <div className="flex flex-wrap gap-2">
-          {(frame.word_bank || []).map((option) => (
-            <button
-              key={option}
-              type="button"
-              onClick={() => !answered && setPicked(option)}
-              disabled={answered}
-              className={`rounded-full border-2 px-3.5 py-2 text-sm font-medium transition-colors ${
-                answered && option === frame.answer
-                  ? "border-emerald-500 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-200"
-                  : answered && option === picked
-                  ? "border-red-400 bg-red-50 text-red-800 dark:bg-red-950/40 dark:text-red-200"
-                  : "border-border hover:border-primary/50"
-              }`}
-            >
-              {option}
-            </button>
-          ))}
+        <div className="space-y-1">
+          <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
+            Översätt till svenska · <span className="italic normal-case">translate into Swedish</span>
+          </p>
+          <p className="text-lg font-medium leading-relaxed">{frame.sentence_en}</p>
         </div>
 
-        {answered && (
+        <Input
+          value={input}
+          onChange={(e) => !checked && setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") check();
+          }}
+          disabled={checked}
+          placeholder="Skriv hela meningen på svenska…"
+          className="text-base"
+        />
+
+        {checked && (
           <div
             className={`rounded-xl p-3 space-y-1 ${
-              correct
-                ? "bg-emerald-50 dark:bg-emerald-950/30"
-                : "bg-amber-50 dark:bg-amber-950/30"
+              correct ? "bg-emerald-50 dark:bg-emerald-950/30" : "bg-amber-50 dark:bg-amber-950/30"
             }`}
           >
             <p className="flex items-center gap-1.5 text-sm font-medium">
@@ -104,7 +82,7 @@ export default function SentencesStage({ mission, missed = [], onDone }) {
                   <Check className="w-4 h-4 text-emerald-600" /> Rätt!
                 </>
               ) : (
-                <>Rätt ord är: {frame.answer}</>
+                <>Rätt mening:</>
               )}
             </p>
             <div className="flex items-start gap-2">
@@ -115,10 +93,37 @@ export default function SentencesStage({ mission, missed = [], onDone }) {
         )}
       </div>
 
-      {answered && (
+      {!checked && (
+        <Button onClick={check} disabled={!input.trim()} className="w-full">
+          Kontrollera
+        </Button>
+      )}
+
+      {checked && correct && (
         <Button onClick={next} className="w-full gap-2">
           {index + 1 >= frames.length ? "Till Bygg" : "Nästa mening"} <ArrowRight className="w-4 h-4" />
         </Button>
+      )}
+
+      {checked && !correct && (
+        <div className="flex items-center gap-2">
+          <Button onClick={retry} className="flex-1">
+            Försök igen
+          </Button>
+          <Button onClick={next} variant="ghost">
+            Gå vidare <ArrowRight className="w-4 h-4" />
+          </Button>
+        </div>
+      )}
+
+      {!checked && (
+        <button
+          type="button"
+          onClick={next}
+          className="w-full text-xs text-muted-foreground hover:text-foreground"
+        >
+          Hoppa över meningen
+        </button>
       )}
     </div>
   );
