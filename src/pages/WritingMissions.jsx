@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, BookOpenCheck, Flame, PenSquare, Sparkles } from "lucide-react";
+import { ArrowLeft, BookOpenCheck, Flame, PenSquare, Printer, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { base44 } from "@/api/base44Client";
 import { useMissions, useMissionProgress, useMissionSubmissions } from "@/hooks/useWritingMissions";
@@ -7,6 +7,7 @@ import { useErrorLog, summarizeErrors } from "@/hooks/useErrorLog";
 import { MISSION_TYPES, STAGES, weeklyCounts } from "@/lib/writingMissions";
 import { errorMeta } from "@/lib/writingPractice";
 import MissionCard from "@/components/writing-missions/MissionCard";
+import { printVocabWorksheet } from "@/lib/missionVocabWorksheet";
 
 export default function WritingMissions() {
   const { missions, loading } = useMissions();
@@ -32,6 +33,15 @@ export default function WritingMissions() {
           Ord först, sedan meningar, stycke och till slut en hel text.{" "}
           <span className="italic">Words first, then sentences, a paragraph — and finally a full text.</span>
         </p>
+        <Button
+          variant="outline"
+          size="sm"
+          className="mt-2"
+          disabled={loading || !missions.length}
+          onClick={() => printVocabWorksheet(missions)}
+        >
+          <Printer className="w-4 h-4" /> Skriv ut ordbank — alla ämnen
+        </Button>
       </div>
 
       {!signedIn && (
