@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, BookOpenCheck, Flame, PenSquare, Printer, Sparkles } from "lucide-react";
+import { ArrowLeft, BookOpenCheck, FileDown, Flame, PenSquare, Printer, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { base44 } from "@/api/base44Client";
 import { useMissions, useMissionProgress, useMissionSubmissions } from "@/hooks/useWritingMissions";
@@ -8,6 +8,7 @@ import { MISSION_TYPES, STAGES, weeklyCounts } from "@/lib/writingMissions";
 import { errorMeta } from "@/lib/writingPractice";
 import MissionCard from "@/components/writing-missions/MissionCard";
 import { printVocabWorksheet } from "@/lib/missionVocabWorksheet";
+import { printMissionWordsSentences } from "@/lib/missionWordsSentencesPdf";
 
 export default function WritingMissions() {
   const { missions, loading } = useMissions();
@@ -33,15 +34,24 @@ export default function WritingMissions() {
           Ord först, sedan meningar, stycke och till slut en hel text.{" "}
           <span className="italic">Words first, then sentences, a paragraph — and finally a full text.</span>
         </p>
-        <Button
-          variant="outline"
-          size="sm"
-          className="mt-2"
-          disabled={loading || !missions.length}
-          onClick={() => printVocabWorksheet(missions)}
-        >
-          <Printer className="w-4 h-4" /> Skriv ut ordbank — alla ämnen
-        </Button>
+        <div className="flex flex-wrap gap-2 mt-2">
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={loading || !missions.length}
+            onClick={() => printMissionWordsSentences(missions)}
+          >
+            <FileDown className="w-4 h-4" /> PDF: ord och meningar
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={loading || !missions.length}
+            onClick={() => printVocabWorksheet(missions)}
+          >
+            <Printer className="w-4 h-4" /> Ordbank — alla ämnen
+          </Button>
+        </div>
       </div>
 
       {!signedIn && (
