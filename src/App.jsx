@@ -52,6 +52,7 @@ import MockTest from './pages/MockTest';
 import MockTestHub from './pages/MockTestHub';
 import Practice3C from './pages/Practice3C';
 import Practice3CTopic from './pages/Practice3CTopic';
+import Sfi3cFusklapp from './pages/Sfi3cFusklapp';
 import WritingPractice from './pages/WritingPractice';
 import WritingPromptPage from './pages/WritingPrompt';
 import WritingErrors from './pages/WritingErrors';
@@ -102,6 +103,7 @@ const AuthenticatedApp = () => {
         <Route path="/ordlistor/skriv" element={<OrdlistorSkriv />} />
         <Route path="/speaking" element={<Speaking />} />
         <Route path="/3c" element={<Practice3C />} />
+        <Route path="/3c/fusklapp" element={<Sfi3cFusklapp />} />
         <Route path="/3c/:topicId" element={<Practice3CTopic />} />
         <Route path="/writing-practice" element={<WritingPractice />} />
         <Route path="/writing-practice/errors" element={<WritingErrors />} />

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Compass, Mic, PenSquare, Timer } from "lucide-react";
+import { ArrowLeft, BookMarked, Compass, Mic, PenSquare, Timer } from "lucide-react";
 import { SFI3C_TOPICS, TOPIC_CATEGORIES } from "@/data/sfi3cTopics";
 import { usePracticeAttempts } from "@/hooks/usePracticeAttempts";
 import PracticeTopicCard from "@/components/practice/PracticeTopicCard";
@@ -62,6 +62,12 @@ export default function Practice3C() {
         <p className="text-sm text-muted-foreground">
           {SFI3C_TOPICS.length} ämnen med ord, verb och fraser — öva på riktiga uppgifter och få bedömning direkt.
         </p>
+        <Link
+          to="/3c/fusklapp"
+          className="inline-flex items-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 transition-colors"
+        >
+          <BookMarked className="w-4 h-4" /> Fusklapp: verb, ord, prepositioner och fraser
+        </Link>
       </div>
 
       {/* Skill */}
