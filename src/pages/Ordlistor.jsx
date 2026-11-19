@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Shuffle, Languages, ListOrdered, ListChecks, Layers, Mic, Keyboard, Printer } from "lucide-react";
+import { ArrowLeft, Shuffle, Languages, ListOrdered, ListChecks, Layers, Mic, Keyboard, Printer, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ORDLISTOR, TOTAL_WORDS, ALL_WORDS } from "@/data/sprakvagenC";
 import { buildSequence, buildSession, buildTypingQuestions, topicWords, SESSION_SIZE } from "@/lib/ordlistor";
 import { useOrdlisteProgress } from "@/hooks/useOrdlisteProgress";
 import { shuffle } from "@/lib/shuffle";
+import { printOrdliste } from "@/lib/ordlistePrint";
 import WordDrill from "@/components/ordlistor/WordDrill";
 import WordFlashcards from "@/components/ordlistor/WordFlashcards";
 import WordSpeaking from "@/components/ordlistor/WordSpeaking";
@@ -175,6 +176,10 @@ export default function Ordlistor() {
           </Link>
         </Button>
       </div>
+
+      <Button variant="outline" size="sm" className="gap-2" onClick={printOrdliste}>
+        <FileDown className="w-4 h-4" /> PDF: alla ord med engelsk översättning
+      </Button>
 
       {/* Journey progress: one topic counts as done when all its words are answered */}
       <div className="rounded-xl border border-border/50 bg-card px-4 py-3 space-y-2">
