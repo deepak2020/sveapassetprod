@@ -8,6 +8,7 @@ import { useOrdlisteProgress } from "@/hooks/useOrdlisteProgress";
 import { useWordExamples } from "@/hooks/useWordExamples";
 import { shuffle } from "@/lib/shuffle";
 import { printOrdliste } from "@/lib/ordlistePrint";
+import { printOrdlisteWorksheet } from "@/lib/ordlisteWorksheet";
 import WordDrill from "@/components/ordlistor/WordDrill";
 import WordFlashcards from "@/components/ordlistor/WordFlashcards";
 import WordSpeaking from "@/components/ordlistor/WordSpeaking";
@@ -179,15 +180,20 @@ export default function Ordlistor() {
         </Button>
       </div>
 
-      <Button
-        variant="outline"
-        size="sm"
-        className="gap-2"
-        onClick={() => printOrdliste(examples)}
-        disabled={examplesLoading}
-      >
-        <FileDown className="w-4 h-4" /> PDF: alla ord med exempelmeningar
-      </Button>
+      <div className="flex flex-wrap gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          className="gap-2"
+          onClick={() => printOrdliste(examples)}
+          disabled={examplesLoading}
+        >
+          <FileDown className="w-4 h-4" /> PDF: alla ord med exempelmeningar
+        </Button>
+        <Button variant="outline" size="sm" className="gap-2" onClick={printOrdlisteWorksheet}>
+          <Printer className="w-4 h-4" /> Arbetsblad: skriv det svenska ordet
+        </Button>
+      </div>
 
       {/* Journey progress: one topic counts as done when all its words are answered */}
       <div className="rounded-xl border border-border/50 bg-card px-4 py-3 space-y-2">
