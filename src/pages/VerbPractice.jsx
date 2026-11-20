@@ -1,12 +1,13 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { Layers, ListChecks, Loader2, PenSquare, Sparkles } from "lucide-react";
+import { FileDown, Layers, ListChecks, Loader2, PenSquare, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/AuthContext";
 import { usePageView } from "@/hooks/usePageView";
 import { useVerbProgress } from "@/hooks/useVerbProgress";
 import { FORM_OVERVIEW, VERB_GROUPS, groupProgress, verbsInGroup, weakVerbs } from "@/lib/verbs";
+import { printVerbList } from "@/lib/verbPdf";
 import VerbGroupTabs from "@/components/verbs/VerbGroupTabs";
 import VerbTable from "@/components/verbs/VerbTable";
 import VerbFlashcards from "@/components/verbs/VerbFlashcards";
@@ -64,6 +65,15 @@ export default function VerbPractice() {
             </p>
           </div>
         </div>
+        <Button
+          variant="outline"
+          size="sm"
+          className="gap-2 mt-3"
+          onClick={() => printVerbList(groupVerbs, groupLabel)}
+          disabled={isLoading || !groupVerbs.length}
+        >
+          <FileDown className="w-4 h-4" /> PDF: verb med tre exempelmeningar
+        </Button>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
           {FORM_OVERVIEW.map((form) => (
             <div key={form.key} className="rounded-xl border border-border/50 bg-card p-3">
