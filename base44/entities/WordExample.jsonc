@@ -1,0 +1,52 @@
+{
+  "name": "WordExample",
+  "type": "object",
+  "properties": {
+    "sv": {
+      "type": "string",
+      "description": "The Swedish word exactly as it appears in the ordlista, e.g. 'en distans'"
+    },
+    "en": {
+      "type": "string",
+      "description": "English translation of the word"
+    },
+    "sentence_sv": {
+      "type": "string",
+      "description": "One short natural Swedish example sentence (SFI C level) using the word"
+    },
+    "sentence_en": {
+      "type": "string",
+      "description": "English translation of the example sentence"
+    },
+    "chapter": {
+      "type": "number",
+      "description": "Ordlista chapter number"
+    },
+    "level": {
+      "type": "number",
+      "description": "Ordlista level (1 or 2)"
+    }
+  },
+  "required": [
+    "sv",
+    "sentence_sv"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ORDLISTOR, TOTAL_WORDS, ALL_WORDS } from "@/data/sprakvagenC";
 import { buildSequence, buildSession, buildTypingQuestions, topicWords, SESSION_SIZE } from "@/lib/ordlistor";
 import { useOrdlisteProgress } from "@/hooks/useOrdlisteProgress";
+import { useWordExamples } from "@/hooks/useWordExamples";
 import { shuffle } from "@/lib/shuffle";
 import { printOrdliste } from "@/lib/ordlistePrint";
 import WordDrill from "@/components/ordlistor/WordDrill";
@@ -33,6 +34,7 @@ export default function Ordlistor() {
   // state (answering index, score) instead of staying on its result screen.
   const [run, setRun] = useState(0);
   const { progress, markDone, resetTopic } = useOrdlisteProgress();
+  const { examples, isLoading: examplesLoading } = useWordExamples();
 
   const topicsTotal = ORDLISTOR.reduce((n, ch) => n + ch.lists.length, 0);
   const topicsDone = ORDLISTOR.reduce(
@@ -177,8 +179,14 @@ export default function Ordlistor() {
         </Button>
       </div>
 
-      <Button variant="outline" size="sm" className="gap-2" onClick={printOrdliste}>
-        <FileDown className="w-4 h-4" /> PDF: alla ord med engelsk översättning
+      <Button
+        variant="outline"
+        size="sm"
+        className="gap-2"
+        onClick={() => printOrdliste(examples)}
+        disabled={examplesLoading}
+      >
+        <FileDown className="w-4 h-4" /> PDF: alla ord med exempelmeningar
       </Button>
 
       {/* Journey progress: one topic counts as done when all its words are answered */}
