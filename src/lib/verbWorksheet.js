@@ -17,12 +17,12 @@ const CSS = `
   .meta { display: flex; gap: 24px; margin: 11px 0 6px; font-size: 9pt; color: #444; }
   .meta span { flex: 1; border-bottom: 1px solid #999; padding-bottom: 3px; }
   .cols { columns: 2; column-gap: 9mm; }
-  .card { break-inside: avoid; page-break-inside: avoid; margin: 0 0 6px; padding-bottom: 4px; border-bottom: 1px solid #dcdcdc; }
-  h3 { font-size: 9.4pt; margin: 0 0 1px; }
+  .card { break-inside: avoid; page-break-inside: avoid; margin: 0 0 8px; padding-bottom: 5px; border-bottom: 1px solid #dcdcdc; }
+  h3 { font-size: 9.4pt; margin: 0 0 3px; }
   h3 .tag { float: right; font-weight: 400; font-size: 6.6pt; letter-spacing: .04em; text-transform: uppercase; color: #999; }
-  .blanks { display: flex; gap: 3mm; margin-top: 2px; }
-  .b { flex: 1; border-bottom: 1px solid #bbb; height: 13px; position: relative; }
-  .b i { position: absolute; left: 0; top: 1px; font-size: 6.2pt; font-style: normal; letter-spacing: .04em; text-transform: uppercase; color: #aaa; }
+  .blanks { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 5mm; }
+  .f i { display: block; font-size: 6.2pt; font-style: normal; letter-spacing: .04em; text-transform: uppercase; color: #999; margin-bottom: 1px; }
+  .f .line { display: block; height: 22px; border-bottom: 1px solid #888; }
   .key { break-before: page; page-break-before: always; }
   .key .cols { columns: 2; column-gap: 9mm; }
   .key table { width: 100%; border-collapse: collapse; font-size: 8.4pt; }
@@ -43,10 +43,10 @@ export function printVerbWorksheet(verbs, groupLabel = "") {
     .map((v, i) => `<div class="card">
         <h3>${i + 1}. ${esc(v.english)}${v.group ? `<span class="tag">grupp ${esc(v.group)}</span>` : ""}</h3>
         <div class="blanks">
-          <span class="b"><i>infinitiv</i></span>
-          <span class="b"><i>presens</i></span>
-          <span class="b"><i>preteritum</i></span>
-          <span class="b"><i>supinum</i></span>
+          <div class="f"><i>infinitiv</i><span class="line"></span></div>
+          <div class="f"><i>presens</i><span class="line"></span></div>
+          <div class="f"><i>preteritum</i><span class="line"></span></div>
+          <div class="f"><i>supinum</i><span class="line"></span></div>
         </div>
       </div>`)
     .join("");
