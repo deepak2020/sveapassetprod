@@ -20,9 +20,10 @@ const CSS = `
   .card { break-inside: avoid; page-break-inside: avoid; margin: 0 0 8px; padding-bottom: 5px; border-bottom: 1px solid #dcdcdc; }
   h3 { font-size: 9.4pt; margin: 0 0 3px; }
   h3 .tag { float: right; font-weight: 400; font-size: 6.6pt; letter-spacing: .04em; text-transform: uppercase; color: #999; }
-  .blanks { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 5mm; }
-  .f i { display: block; font-size: 6.2pt; font-style: normal; letter-spacing: .04em; text-transform: uppercase; color: #999; margin-bottom: 1px; }
-  .f .line { display: block; height: 22px; border-bottom: 1px solid #888; }
+  .blanks { display: block; }
+  .f { display: flex; align-items: flex-end; gap: 3mm; margin-bottom: 2px; }
+  .f i { flex: 0 0 20mm; font-size: 6.4pt; font-style: normal; letter-spacing: .04em; text-transform: uppercase; color: #999; padding-bottom: 2px; }
+  .f .line { flex: 1; height: 21px; border-bottom: 1px solid #888; }
   .key { break-before: page; page-break-before: always; }
   .key .cols { columns: 2; column-gap: 9mm; }
   .key table { width: 100%; border-collapse: collapse; font-size: 8.4pt; }
