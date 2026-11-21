@@ -7,7 +7,7 @@ import { useErrorLog, summarizeErrors } from "@/hooks/useErrorLog";
 import { MISSION_TYPES, STAGES, weeklyCounts } from "@/lib/writingMissions";
 import { errorMeta } from "@/lib/writingPractice";
 import MissionCard from "@/components/writing-missions/MissionCard";
-import { printVocabWorksheet } from "@/lib/missionVocabWorksheet";
+import { printVocabDrill, printVocabWorksheet } from "@/lib/missionVocabWorksheet";
 import { printMissionWordsSentences } from "@/lib/missionWordsSentencesPdf";
 
 export default function WritingMissions() {
@@ -50,6 +50,14 @@ export default function WritingMissions() {
             onClick={() => printVocabWorksheet(missions)}
           >
             <Printer className="w-4 h-4" /> Ordbank — alla ämnen
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={loading || !missions.length}
+            onClick={() => printVocabDrill(missions)}
+          >
+            <Printer className="w-4 h-4" /> Arbetsblad: skriv det svenska ordet
           </Button>
         </div>
       </div>

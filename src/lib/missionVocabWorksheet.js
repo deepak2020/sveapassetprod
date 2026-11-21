@@ -66,6 +66,91 @@ function drillBlock(words) {
   return `<div class="drills">${items}</div>`;
 }
 
+// Pure fill-in worksheet: only the English word is printed, with a line to
+// write the Swedish word on. Answer key on its own page at the end.
+export function printVocabDrill(missions) {
+  const win = window.open("", "_blank");
+  if (!win) return false;
+
+  const usable = (missions || []).filter((m) => (m.words || []).length > 0);
+  const totalWords = usable.reduce((n, m) => n + m.words.length, 0);
+
+  const groups = MISSION_TYPES.map((type) => ({
+    type,
+    missions: usable.filter((m) => m.type === type.id),
+  })).filter((g) => g.missions.length);
+
+  const drillCard = (m) =>
+    `<div class="card"><h3>${esc(m.title)} <span class="tag">${esc(m.topic || "")}</span></h3>${m.words
+      .map(
+        (w, i) =>
+          `<div class="drill"><span class="num">${i + 1}.</span> <span class="en">${esc(w.en)}</span> <span class="blank"></span></div>`
+      )
+      .join("")}</div>`;
+
+  const sheets = groups
+    .map(
+      (g) => `
+      <h2>${esc(g.type.label)} <span class="note">${esc(g.type.en)}</span></h2>
+      <div class="cols">${g.missions.map(drillCard).join("")}</div>`
+    )
+    .join("");
+
+  const key = groups
+    .map(
+      (g) => `
+      <h3>${esc(g.type.label)}</h3>
+      ${g.missions
+        .map(
+          (m) =>
+            `<p><strong>${esc(m.title)}</strong><br>${m.words
+              .map((w, i) => `${i + 1}. ${esc(wordLabel(w))}`)
+              .join(" · ")}</p>`
+        )
+        .join("")}`
+    )
+    .join("");
+
+  win.document.write(`<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<title>Arbetsblad — skriv det svenska ordet</title>
+<style>${CSS}
+  .drill .en { display: inline-block; min-width: 34mm; }
+  .drill .blank { min-width: 34mm; }
+  .drill { padding: 2.5px 0; }
+</style>
+</head>
+<body>
+  <div class="head">
+    <h1>Arbetsblad: skriv det svenska ordet</h1>
+    <p class="sub">${usable.length} uppdrag · ${totalWords} ord · engelska → svenska</p>
+  </div>
+  <div class="meta"><span>Namn</span><span>Datum</span><span>Rätt: ____ / ${totalWords}</span></div>
+  <div class="howto">
+    <strong>Så gör du</strong>
+    1. Läs det engelska ordet och skriv det svenska ordet på raden. Ta med artikel (en/ett) eller att + verb.<br>
+    2. Rätta själv med facit på sista sidan och ringa in de ord du missade.<br>
+    3. Gör om de missade orden nästa dag — skriv dem tre gånger.
+  </div>
+
+  ${sheets}
+
+  <h2 class="break">Facit</h2>
+  <div class="cols key">${key}</div>
+
+  <footer>Sveapasset · Arbetsblad skrivuppdrag · engelska → svenska</footer>
+</body>
+</html>`);
+  win.document.close();
+  setTimeout(() => {
+    win.focus();
+    win.print();
+  }, 300);
+  return true;
+}
+
 export function printVocabWorksheet(missions) {
   const win = window.open("", "_blank");
   if (!win) return false;
