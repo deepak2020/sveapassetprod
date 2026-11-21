@@ -23,6 +23,10 @@ export async function loadListeningCategories(course) {
         transcript: r.transcript,
         questions: r.questions,
       }));
-    return { ...cat, items: fromDb.length > 0 ? fromDb : cat.items };
+    // Database clips come first; static clips the table does not have yet
+    // (for example newly generated audio) are added after them.
+    if (fromDb.length === 0) return { ...cat, items: cat.items };
+    const dbIds = new Set(fromDb.map((it) => it.id));
+    return { ...cat, items: [...fromDb, ...cat.items.filter((it) => !dbIds.has(it.id))] };
   });
 }

@@ -6,6 +6,7 @@
 // reading the transcript with the browser's speech synthesis.
 
 import { shuffle } from "@/lib/shuffle";
+import { LISTENING_EXTRA_C } from "@/data/listeningExtraC";
 
 export const LISTENING_CATEGORIES_C = [
   {
@@ -552,6 +553,12 @@ export const LISTENING_CATEGORIES_C = [
     ],
   },
 ];
+
+// Newer clips with pre-generated neural Swedish voices are added on top of the
+// original bank, so Kurs C keeps growing without a database write.
+LISTENING_CATEGORIES_C.forEach((cat) => {
+  cat.items = [...cat.items, ...LISTENING_EXTRA_C.filter((item) => item.type === cat.type)];
+});
 
 // Kurs A category structure (items come from Supabase listening_bank).
 // Simpler, beginner-appropriate set; no static fallback items.
