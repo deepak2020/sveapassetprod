@@ -43,6 +43,7 @@ export default function ReadingPart({ course, round, onComplete }) {
         prompt: `Skapa en läsförståelseuppgift i stil med SFI nationellt prov kurs ${course} (CEFR ${info.cefr}).
 Den här gången är texttypen ${textType} och ämnet ${topic}.
 Skriv en autentisk svensk text på ${info.words} ord om vardagsliv, arbete eller samhälle i Sverige.
+Språket måste hålla sig på SFI kurs ${course}-nivå (CEFR ${info.cefr}): vanliga vardagsord, korta meningar och enkla bisatser. Undvik ovanliga, formella eller långa sammansatta ord (till exempel dedikerad, omfattande, betonar, personalstyrka, efterlängtat) och idiom. Behöver texten ett svårare ord, förklara det direkt i texten med en enkel mening.
 Skapa sedan 6 flervalsfrågor på svenska om texten med 4 alternativ var, exakt ett rätt svar. Frågorna ska testa både detaljer och huvudbudskap, och minst två frågor ska handla om sådant som inte står rakt ut i texten. Ge engelsk översättning av varje fråga.`,
         response_json_schema: {
           type: "object",
